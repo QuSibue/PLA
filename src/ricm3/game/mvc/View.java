@@ -1,5 +1,7 @@
 package ricm3.game.mvc;
 
-public class View {
+import ricm3.game.framework.GameView;
+
+public class View extends GameView {
 
 }
