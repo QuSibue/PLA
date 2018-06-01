@@ -1,6 +1,7 @@
 package ricm3.game.entity;
 
 import ricm3.game.automaton.Behaviour;
+import ricm3.game.automaton.Etat;
 
 public abstract class Being extends Entity {
 
@@ -14,11 +15,11 @@ public abstract class Being extends Entity {
 			Behaviour aut, Etat etat) {
 
 		// appel au constructeur de entity
-		super(x, y, moveable, pickable, killable, lethal);
+		// super(x, y, moveable, pickable, killable, lethal);
 
 		this.moveSpeed = ms;
-		this.automate = aut; // alyas
-		this.etat = new Etat(etat); // copie
+		this.automate = aut; // alias
+		// this.etat = new Etat(etat); // copie
 	}
 
 	// methodes abstraites
