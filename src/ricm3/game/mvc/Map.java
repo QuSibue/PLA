@@ -1,5 +1,8 @@
 package ricm3.game.mvc;
 
+import ricm3.game.entity.Entity;
+import ricm3.game.entity.Wall;
+
 //import java.io.File;
 //import java.io.FileInputStream;
 
@@ -8,32 +11,19 @@ public class Map {
 	int height;
 	int length;
 
-	char[][] matrice;
+	Entity[][] matrice;
 
 	Map() {
 		height = 3;
 		length = 3;
-		matrice = new char[3][3];
+		matrice = new Entity[3][3];
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
-				matrice[i][j] = 'n';
-			}
-		}
-
-		matrice[1][1] = 'w';
-	}
-
-	Map(int h, int l) {
-		height = h;
-		length = l;
-		matrice = new char[length][height];
-
-		for (int i = 0; i < l; i++) {
-			for (int j = 0; j < h; j++) {
-				matrice[i][j] = 'N';
+				matrice[i][j] = null;
 			}
 		}
 	}
+
 
 	/*
 	 * Map(String nom){ File f = new File(nom);
@@ -54,9 +44,13 @@ public class Map {
 	 * 
 	 * } } }
 	 */
+	
+	public void add(Entity E, int x, int y) {
+		matrice[x][y]=E;
+	}
 
 	// renvoit ce qu'il y a sur la case [x,y]
-	public char contenu_case(int x, int y) {
+	public Entity contenu_case(int x, int y) {
 		return matrice[x][y];
 	}
 

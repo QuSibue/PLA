@@ -25,5 +25,17 @@ public abstract class Entity {
 	}
 	
 	public abstract void paint(Graphics g);
+	
+	public void pretty_print() {
+		System.out.print("Entity");
+	}
+	
+	public int getX() {
+		return coordinateX;
+	}
+	
+	public int getY() {
+		return coordinateY;
+	}
 
 }

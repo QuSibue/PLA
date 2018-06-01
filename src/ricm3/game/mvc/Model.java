@@ -10,7 +10,8 @@ public class Model extends GameModel {
 
 	public Model() {
 		carte = new Map();
-		mur = new Wall();
+		mur = new Wall(1,1);
+		carte.add(mur, mur.getX(), mur.getY());
 	}
 
 	@Override

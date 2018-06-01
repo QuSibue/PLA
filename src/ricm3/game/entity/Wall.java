@@ -6,8 +6,12 @@ import java.awt.image.BufferedImage;
 
 public class Wall extends Environment {
 
-	public Wall(int x, int y, boolean move, boolean pick, boolean kill, boolean leth, BufferedImage[] sprites) {
-		super(x, y, move, pick, kill, leth, sprites);
+	public Wall(int x, int y) {
+		super(x, y, false, false, false, false, null);
+	}
+
+	public void pretty_print() {
+		System.out.print("Wall");
 	}
 
 	public void paint(Graphics g) {
