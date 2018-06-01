@@ -1,5 +1,5 @@
 package ricm3.game.entity;
 
-public abstract class Environment {
-
+public abstract class Environment extends Entity{
+	
 }
