@@ -10,7 +10,7 @@ public abstract class Character extends Being {
 
 	public Character(BufferedImage[] sprites, int x, int y, boolean moveable, boolean pickable, boolean killable,
 			boolean lethal, int moveSpeed, Behaviour automate, Etat state, int equipe) {
-		super(x, y, moveable, pickable, killable, lethal, moveSpeed, automate, state);
+		super(x, y, moveable, pickable, killable, lethal, moveSpeed, sprites, automate, state);
 		setEquipe(equipe);
 	}
 

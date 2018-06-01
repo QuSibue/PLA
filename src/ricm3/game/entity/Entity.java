@@ -12,14 +12,14 @@ public abstract class Entity {
 	boolean lethal;
 	BufferedImage[] sprites;
 
-	public Entity(int x, int y, boolean move, boolean pick, boolean kill, boolean leth, BufferedImage[] spri) {
-		coordinateX = x;
-		coordinateY = y;
-		moveable = move;
-		pickable = pick;
-		killable = kill;
-		lethal = leth;
-		sprites = spri;
+	public Entity(int x, int y, boolean move, boolean pick, boolean kill, boolean leth, BufferedImage[] sprites) {
+		this.coordinateX = x;
+		this.coordinateY = y;
+		this.moveable = move;
+		this.pickable = pick;
+		this.killable = kill;
+		this.lethal = leth;
+		this.sprites = sprites;
 
 	}
 
