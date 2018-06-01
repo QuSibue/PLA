@@ -1,6 +1,9 @@
 package ricm3.game.entity;
 
+import java.awt.image.BufferedImage;
+
 import ricm3.game.automaton.Behaviour;
+import ricm3.game.automaton.Etat;
 
 public abstract class Being extends Entity {
 
@@ -9,15 +12,15 @@ public abstract class Being extends Entity {
 	Behaviour automate;
 	Etat etat;
 
-	// constructeur
-	public Being(int x, int y, boolean moveable, boolean pickable, boolean killable, boolean lethal, int ms,
+	// Constructor
+	public Being(int x, int y, boolean moveable, boolean pickable, boolean killable, boolean lethal, int ms, BufferedImage[] sprites,
 			Behaviour aut, Etat etat) {
 
 		// appel au constructeur de entity
-		super(x, y, moveable, pickable, killable, lethal);
+		super(x, y, moveable, pickable, killable, lethal, sprites);
 
 		this.moveSpeed = ms;
-		this.automate = aut; // alyas
+		this.automate = aut; // alias
 		this.etat = new Etat(etat); // copie
 	}
 
