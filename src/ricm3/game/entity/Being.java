@@ -13,8 +13,8 @@ public abstract class Being extends Entity {
 	Etat etat;
 
 	// Constructor
-	public Being(int x, int y, boolean moveable, boolean pickable, boolean killable, boolean lethal, int ms, BufferedImage[] sprites,
-			Behaviour aut, Etat etat) {
+	public Being(int x, int y, boolean moveable, boolean pickable, boolean killable, boolean lethal, int ms,
+			BufferedImage[] sprites, Behaviour aut, Etat etat) {
 
 		// appel au constructeur de entity
 		super(x, y, moveable, pickable, killable, lethal, sprites);
@@ -27,8 +27,6 @@ public abstract class Being extends Entity {
 	// methodes abstraites
 
 	public abstract void step();
-
-	public abstract void paint();
 
 	public abstract void move();
 

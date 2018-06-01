@@ -1,5 +1,6 @@
 package ricm3.game.entity;
 
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 public abstract class Entity {
@@ -22,5 +23,7 @@ public abstract class Entity {
 		this.sprites = sprites;
 
 	}
+	
+	public abstract void paint(Graphics g);
 
 }
