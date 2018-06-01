@@ -11,6 +11,7 @@ public abstract class Options {
 	public static int LIFESPAN_FARMER = 10;// Temps de vie du farmer en seconde
 	public static int HEALTH_PROTECT = 2;// Point de vie du farmer
 	public static int HEALTH_OTHERS_SBIRES = 1; // Point de vie autres mignons
+	public static int TIMER_LASER= 10; //Temps de vie du laser
 
 	// Aide debug
 	public static final boolean ECHO_MOUSE = true;
