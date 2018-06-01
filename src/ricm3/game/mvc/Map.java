@@ -9,8 +9,8 @@ public class Map {
 	int length;
 
 	char[][] matrice;
-	
-	Map(){
+
+	Map() {
 		height = 3;
 		length = 3;
 		matrice = new char[3][3];
@@ -19,7 +19,7 @@ public class Map {
 				matrice[i][j] = 'n';
 			}
 		}
-		
+
 		matrice[1][1] = 'w';
 	}
 
@@ -35,26 +35,29 @@ public class Map {
 		}
 	}
 
-	/*Map(String nom){
-		File f = new File(nom);
-		
-		FileInputStream fis = null;
-		
-		try {
-			fis = new FileInputStream(f);
-			
-			byte[] buf = new byte[2];
-			
-			int n = 0;
-			
-			n = fis.read(buf);
-			
-			
-			
-			while((n = fis.read(buf))>=0) {
-				
-			}
-		}
-	}*/
+	/*
+	 * Map(String nom){ File f = new File(nom);
+	 * 
+	 * FileInputStream fis = null;
+	 * 
+	 * try { fis = new FileInputStream(f);
+	 * 
+	 * byte[] buf = new byte[2];
+	 * 
+	 * int n = 0;
+	 * 
+	 * n = fis.read(buf);
+	 * 
+	 * 
+	 * 
+	 * while((n = fis.read(buf))>=0) {
+	 * 
+	 * } } }
+	 */
+
+	// renvoit ce qu'il y a sur la case [x,y]
+	public char contenu_case(int x, int y) {
+		return matrice[x][y];
+	}
 
 }
