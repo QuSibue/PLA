@@ -7,6 +7,7 @@ import ricm3.game.automaton.Etat;
 
 public abstract class Character extends Being {
 	private int m_equipe;
+	private Orientation orientation;
 
 	public Character(BufferedImage[] sprites, int x, int y, boolean moveable, boolean pickable, boolean killable,
 			boolean lethal, int moveSpeed, Behaviour automate, Etat state, int equipe) {
