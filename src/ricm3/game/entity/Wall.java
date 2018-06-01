@@ -11,6 +11,6 @@ public class Wall extends Environment {
 	}
 
 	public void paint(Graphics g) {
-		Image img = sprites[0];
+		return;
 	}
 }
