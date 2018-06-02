@@ -12,10 +12,10 @@ public class Action {
 	
 	//Contructeur par Copie
 	public Action( Action a){
-		this(a.getaction, a.getDirection);
+		this(a.getAction(), a.getDirection());
 	}
 	
-	public TypeAction getaction() {
+	public TypeAction getAction() {
 		return m_action;
 	}
 	public Direction getDirection() {
