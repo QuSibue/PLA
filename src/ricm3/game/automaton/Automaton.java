@@ -6,7 +6,11 @@ public class Automaton {
 	private Etat m_etatInitial;
 	private LinkedList<Transition> m_transitions;
 	
-	Automaton(Etat etatInitial, LinkedList<Transition> transitions){
+	
+	public Automaton() {
+		//empty, just for test
+	}
+	public Automaton(Etat etatInitial, LinkedList<Transition> transitions){
 		m_etatInitial = etatInitial;
 		m_transitions = transitions; 
 	}
