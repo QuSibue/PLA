@@ -1,5 +1,9 @@
 package ricm3.game.other;
 
+
+import ricm3.game.automaton.Direction;
+import ricm3.game.automaton.Orientation;
+
 public abstract class Options {
 
 	public static final boolean USE_DOUBLE_BUFFERING = true;// Prévention bugs affichage
@@ -18,4 +22,9 @@ public abstract class Options {
 	public static final boolean ECHO_MOUSE_MOTION = true;
 	public static final boolean ECHO_KEYBOARD = true;
 
+	public static void evalPosition(int x, int y, int x_res, int y_res, Direction d, Orientation o) {
+		throw new RuntimeException("eval Position NYI");
+	}
+
 }
+

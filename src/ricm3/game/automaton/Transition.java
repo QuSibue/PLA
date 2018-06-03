@@ -3,57 +3,68 @@ package ricm3.game.automaton;
 public class Transition {
 
 	// Attributs de transition
-	private Etat m_etatInit;
+	private Etat m_etatInitial;
 	private Condition m_condition;
 	private Action m_action;
-	private Etat m_etatSorti;
+	private Etat m_etatSortie;
 
 	// Constructeurs (normale et par recopie)
-	public Transition(Etat init, Condition condi, Action action, Etat sortit) {
-		m_etatInit = init;
+	public Transition(Etat initial, Condition condi, Action action, Etat sortie) {
+		m_etatInitial = initial;
 		m_condition = condi;
 		m_action = action;
-		m_etatSorti = sortit;
+		m_etatSortie = sortie;
 	}
-
+	/**
+	 * 
+	 * @warning attention aliasing
+	 */
+	
 	public Transition(Transition t) {
-		this(t.getInit(), t.getCondition(), t.getAction(), t.getSortit());
+		this(t.getInitial(), t.getCondition(), t.getAction(), t.getSortie());
 	}
 
-	// getter et setter
-	Etat getInit() {
-		return m_etatInit;
+	// getter
+	public Etat getInitial() {
+		return m_etatInitial;
 	}
 
-	Condition getCondition() {
+	public Condition getCondition() {
 		return m_condition;
 	}
 
-	Action getAction() {
+	public Action getAction() {
 		return m_action;
 	}
 
-	Etat getSortit() {
-		return m_etatInit;
+	public Etat getSortie() {
+		return m_etatSortie;
 	}
 
-	void setInit(Etat etat) {
-		m_etatInit = etat;
+	
+	//setter
+	public boolean setInitial(Etat etat) {
+		m_etatInitial = etat;
+		return true;
 	}
 
-	void setCondition(Condition condi) {
+	public boolean setCondition(Condition condi) {
 		m_condition = condi;
+		return true;
 	}
 
-	void setAction(Action action) {
+	public boolean setAction(Action action) {
 		m_action = action;
+		return true;
 	}
 
-	void setSortit(Etat sortit) {
-		m_etatSorti = sortit;
+	public boolean setSortie(Etat sortie) {
+		m_etatSortie = sortie;
+		return true;
 	}
 	
 	
-	//fonctions et méthodes
+	//fonctions et mÃ©thodes
+	
 }
 

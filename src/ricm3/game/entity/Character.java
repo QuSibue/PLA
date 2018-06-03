@@ -2,16 +2,15 @@ package ricm3.game.entity;
 
 import java.awt.image.BufferedImage;
 
-import ricm3.game.automaton.Behaviour;
-import ricm3.game.automaton.Etat;
+import ricm3.game.automaton.Automaton;
 
 public abstract class Character extends Being {
 	private int m_equipe;
 
 	public Character(BufferedImage[] sprites, int x, int y, boolean moveable, boolean pickable, boolean killable,
-			boolean lethal, int moveSpeed, Behaviour automate, Etat state, int equipe) {
-		super(x, y, moveable, pickable, killable, lethal, moveSpeed, sprites, automate, state);
-		setEquipe(equipe);
+			boolean lethal, int moveSpeed, Automaton automate, int equipe) {
+		super(x, y, moveable, pickable, killable, lethal, moveSpeed, sprites, automate);
+		m_equipe = equipe;
 	}
 
 	int getEquipe() {

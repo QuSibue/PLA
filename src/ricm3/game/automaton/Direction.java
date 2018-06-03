@@ -1,5 +1,5 @@
 package ricm3.game.automaton;
 
 public enum Direction {
-	up, down, left, right, front, behind;
+	UP, DOWN, LEFT, RIGHT, FRONT, BACK;
 }

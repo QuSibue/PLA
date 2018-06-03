@@ -1,8 +1,10 @@
 package ricm3.game.automaton;
 
+import ricm3.game.entity.Being;
+
 public class Action {
-	TypeAction m_action;
-	Direction m_direction;
+	private TypeAction m_action;
+	private Direction m_direction;
 
 	//Constructeur apr defaut
 	public Action(TypeAction action, Direction d){
@@ -11,14 +13,46 @@ public class Action {
 	}
 	
 	//Contructeur par Copie
+	/**
+	 * @warning faire attention a l'aliasing pour la suite
+	 */
 	public Action( Action a){
-		this(a.getAction(), a.getDirection());
+		this(a.getTypeAction(), a.getDirection());
 	}
 	
-	public TypeAction getAction() {
+	
+	/**
+	 * 
+	 * Va faire appel a la methode  d'une entité correspondant a l'action voulue
+	 */
+	public void executeAction(Being b) {
+		switch (m_action){
+		case MOVE:
+			b.move(m_direction);
+			break;
+		default:
+			throw new RuntimeException("Action NYI");
+		}
+		
+	}
+	
+	//getters
+	public TypeAction getTypeAction() {
 		return m_action;
 	}
 	public Direction getDirection() {
 		return m_direction;
+	}
+	
+	
+	//setters
+	public boolean setTypeAction(TypeAction action) {
+		m_action = action;
+		return true;
+	}
+	
+	public boolean setDirection(Direction direction) {
+		m_direction = direction;
+		return true;
 	}
 }
