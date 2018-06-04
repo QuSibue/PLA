@@ -1,11 +1,11 @@
 package ricm3.game.other;
 
-import javafx.geometry.Orientation;
 import ricm3.game.automaton.Direction;
+import ricm3.game.automaton.Orientation;
 
 public class Transversal {
 
-	public static void positionDeplacement(int x, int y, int x2, int y2, Direction d) {
+	public static void positionAbsolue(int x, int y, int x2, int y2, Direction d) {
 		x2 = x;
 		y2 = y;
 
@@ -31,7 +31,7 @@ public class Transversal {
 		}
 	}
 
-	public static void positionAttaque(int x, int y, int x2, int y2, Direction d, Orientation o) {
+	public static void positionRelative(int x, int y, int x2, int y2, Direction d, Orientation o) {
 		x2 = x;
 		y2 = y;
 
@@ -55,7 +55,7 @@ public class Transversal {
 			}
 			break;
 
-		case BEHIND:
+		case BACK:
 			switch (o) {
 			case UP:
 				y2++;

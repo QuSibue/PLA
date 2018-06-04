@@ -1,5 +1,6 @@
 package ricm3.game.entity;
 
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import ricm3.game.mvc.Map;
@@ -38,6 +39,12 @@ public abstract class Entity {
 
 	public boolean getMoveable() {
 		return m_moveable;
+	}
+	
+	public abstract void paint(Graphics g);
+	
+	public void pretty_print() {
+		System.out.print("Entity");
 	}
 
 	public boolean getPickable() {

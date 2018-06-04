@@ -1,5 +1,6 @@
 package ricm3.game.entity;
 
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.Iterator;
 
@@ -43,10 +44,6 @@ public class Player extends Being {
 	}
 
 	// action
-
-	public void paint() {
-		return;
-	}
 
 	public void move(Direction d) {
 		int x_res = 0, y_res = 0;
@@ -96,5 +93,17 @@ public class Player extends Being {
 
 	public void _throw() {
 		return;
+	}
+
+	@Override
+	public void paint(Graphics g) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void paint() {
+		// TODO Auto-generated method stub
+		
 	}
 }

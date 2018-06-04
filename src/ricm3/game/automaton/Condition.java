@@ -4,6 +4,7 @@ import ricm3.game.entity.Being;
 import ricm3.game.entity.Environment;
 import ricm3.game.mvc.Map;
 import ricm3.game.other.Options;
+import ricm3.game.other.Transversal;
 
 public class Condition {
 	private TypeCondition m_type;
@@ -14,7 +15,7 @@ public class Condition {
 	private Condition m_condition;
 
 	public boolean eval(Being b, Map m) {
-		int x, y;
+		int x=0, y=0;
 		boolean res;
 
 		/**
@@ -23,7 +24,7 @@ public class Condition {
 		 * libre.
 		 */
 		if (m_type.equals(TypeCondition.FREE)) {
-			Options.evalPosition(b.getX(), b.getY(), x, y, m_direction, b.getOrientation());
+			Transversal.positionRelative(b.getX(), b.getY(), x, y, m_direction, b.getOrientation());
 			res = m.getEntity(x, y) == null;
 			if (m_operator == 0)
 				return res;
@@ -40,7 +41,7 @@ public class Condition {
 		 * un WALL ou un OBSTACLE.
 		 */
 		else if (m_type.equals(TypeCondition.OBSTACLE)) {
-			Options.evalPosition(b.getX(), b.getY(), x, y, m_direction, b.getOrientation());
+			Transversal.positionRelative(b.getX(), b.getY(), x, y, m_direction, b.getOrientation());
 			res = m.getEntity(x, y) instanceof Environment;
 			if (m_operator == 0)
 				return res;

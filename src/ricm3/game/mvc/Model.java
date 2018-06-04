@@ -42,5 +42,4 @@ public class Model extends GameModel {
 	//private void loadSprites() {
 		
 	//}
-
 }
