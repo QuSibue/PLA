@@ -27,7 +27,7 @@ public class Player extends Being {
 	public void step(long now) {
 
 		long elapsed = now - m_lastMove;
-		if (elapsed > 60L) {
+		if (elapsed > 300L) {
 			m_lastMove = now;
 			Iterator<Transition> iter = this.getAutomaton().getTransitions().iterator();
 			Transition transi;
