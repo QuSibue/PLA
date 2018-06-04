@@ -11,11 +11,52 @@ import ricm3.game.other.Options;
 
 public class Player extends Being {
 
+	boolean m_isMovingUp;
+	boolean m_isMovingDown;
+	boolean m_isMovingLeft;
+	boolean m_isMovingRight;
+	
 	public Player(int x, int y, boolean moveable, boolean pickable, boolean killable, boolean lethal, int ms,
 			BufferedImage[] sprites, Automaton aut) {
 		super(x, y, moveable, pickable, killable, lethal, ms, sprites, aut);
+		m_isMovingUp = false;
+		m_isMovingDown = false;
+		m_isMovingLeft = false;
+		m_isMovingRight = false;
 	}
 
+	public boolean getMovingUp() {
+		return m_isMovingUp;
+	}
+	
+	public boolean getMovingDown() {
+		return m_isMovingDown;
+	}
+	
+	public boolean getMovingLeft() {
+		return m_isMovingLeft;
+	}
+	
+	public boolean getMovingRight() {
+		return m_isMovingRight;
+	}
+	
+	public void setMovingUp(boolean move) {
+		m_isMovingUp = move;
+	}
+	
+	public void setMovingDown(boolean move) {
+		m_isMovingDown = move;
+	}
+	
+	public void setMovingLeft(boolean move) {
+		m_isMovingLeft = move;
+	}
+	
+	public void setMovingRight(boolean move) {
+		m_isMovingRight = move;
+	}
+	
 	// @override
 	public void step() {
 

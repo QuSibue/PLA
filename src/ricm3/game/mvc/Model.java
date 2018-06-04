@@ -13,6 +13,8 @@ public class Model extends GameModel {
 
 	LinkedList<Being> m_printables;
 	LinkedList<Obstacle> m_obstacles;
+	Player joueur1;
+	Player joueur2;
 
 	public Model(){
 		//sprites vont etres donné a l'instantiation normalement, a voir 
