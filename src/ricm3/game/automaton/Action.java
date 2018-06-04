@@ -30,6 +30,11 @@ public class Action {
 		case MOVE:
 			b.move(m_direction);
 			break;
+		case POP:
+			b.pop();
+			break;
+		case IDLE:
+			break;
 		default:
 			throw new RuntimeException("Action NYI");
 		}

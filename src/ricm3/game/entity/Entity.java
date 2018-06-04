@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import ricm3.game.mvc.Map;
+import ricm3.game.mvc.Model;
 
 public abstract class Entity {
 
@@ -15,8 +16,9 @@ public abstract class Entity {
 	private boolean m_lethal;
 	private BufferedImage[] m_sprites;
 	public Map global_map;
+	public Model m_model;
 
-	public Entity(int x, int y, boolean move, boolean pick, boolean kill, boolean leth, BufferedImage[] sprites,Map map) {
+	public Entity(int x, int y, boolean move, boolean pick, boolean kill, boolean leth, BufferedImage[] sprites,Map map,Model model) {
 		this.m_coordinateX = x;
 		this.m_coordinateY = y;
 		this.m_moveable = move;
@@ -25,6 +27,7 @@ public abstract class Entity {
 		this.m_lethal = leth;
 		this.m_sprites = sprites;
 		this.global_map = map;
+		this.m_model = model;
 
 	}
 

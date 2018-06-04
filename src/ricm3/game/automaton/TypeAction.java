@@ -1,5 +1,5 @@
 package ricm3.game.automaton;
 
 public enum TypeAction {
-	MOVE, TURN, POP;
+	MOVE, TURN, POP, IDLE;
 }

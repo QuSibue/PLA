@@ -2,7 +2,12 @@ package ricm3.game.mvc;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.Iterator;
 
+import ricm3.game.entity.Being;
+import ricm3.game.entity.Entity;
+import ricm3.game.entity.Minion;
+import ricm3.game.entity.Obstacle;
 import ricm3.game.framework.GameView;;
 
 public class View extends GameView {
@@ -52,7 +57,21 @@ public class View extends GameView {
 		 */
 		
 		m_model.virus.paint(g);
-		m_model.obs.paint(g);
+		Iterator<Minion> iterM = m_model.m_minions.iterator();
+		Iterator<Obstacle> iterO = m_model.m_obstacles.iterator();
+		Minion m;
+		while (iterM.hasNext()) {
+			m = iterM.next();
+			m.paint(g);
+		}
+		
+		Obstacle o;
+		while (iterO.hasNext()) {
+			o = iterO.next();
+			o.paint(g);
+		}
+
+		
 
 	}
 }

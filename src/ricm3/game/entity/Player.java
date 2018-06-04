@@ -11,6 +11,7 @@ import ricm3.game.automaton.Direction;
 import ricm3.game.automaton.Orientation;
 import ricm3.game.automaton.Transition;
 import ricm3.game.mvc.Map;
+import ricm3.game.mvc.Model;
 import ricm3.game.other.Options;
 import ricm3.game.other.Transversal;
 
@@ -19,8 +20,8 @@ public class Player extends Being {
 	long m_lastMove;
 	
 	public Player(int x, int y, boolean moveable, boolean pickable, boolean killable, boolean lethal, int ms,
-			BufferedImage[] sprites, Automaton aut, Orientation orientation, Map map) {
-		super(x, y, moveable, pickable, killable, lethal, ms, sprites, aut, orientation, map);
+			BufferedImage[] sprites, Automaton aut, Orientation orientation, Map map, Model model) {
+		super(x, y, moveable, pickable, killable, lethal, ms, sprites, aut, orientation, map,model);
 	}
 
 	// @override
@@ -87,7 +88,15 @@ public class Player extends Being {
 	@Override
 	public void pop() {
 		// TODO Auto-generated method stub
-
+		Point p = new Point();
+		if(global_map.caseLibre(this.getX(), this.getY(), p)) {
+			Minion minion = new Minion(null, p.x, p.y, true, false, true, true, 1, Transversal.idleAutomaton(), Orientation.RIGHT, 1, global_map, this.m_model);
+			m_model.m_minions.add(minion);
+			global_map.setEntity(minion);
+		}
+		else {
+			System.out.print("Pas de place pour placer de nouveaux sbires");
+		}
 	}
 
 	@Override
