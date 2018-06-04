@@ -1,30 +1,33 @@
 package ricm3.game.mvc;
 
 import ricm3.game.entity.Entity;
+import ricm3.game.entity.Obstacle;
+import ricm3.game.entity.Player;
 
 //import java.io.File;
 //import java.io.FileInputStream;
 
 public class Map {
 
-	private int height;
-	private int length;
+	private int m_height;
+	private int m_length;
 
 	private Entity[][] matrice;
 
-	Map() {
-		height = 3;
-		length = 3;
-		matrice = new Entity[3][3];
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 3; j++) {
+	Map(int height, int length) {
+		m_height = height;
+		m_length = length;
+
+		matrice = new Entity[m_height][m_length];
+		for (int i = 0; i < m_height; i++) {
+			for (int j = 0; j < m_length; j++) {
 				matrice[i][j] = null;
 			}
 		}
 	}
 
 	public boolean setEntity(Entity E) {
-		matrice[E.getX()][E.getY()] = E;
+		matrice[E.getY()][E.getX()] = E;
 		return true;
 	}
 
@@ -36,11 +39,11 @@ public class Map {
 	}
 
 	public Entity getEntity(int x, int y) {
-		return matrice[x][y];
+		return matrice[y][x];
 	}
 
 	public void deleteEntity(Entity E) {
-		matrice[E.getX()][E.getY()] = null;
+		matrice[E.getY()][E.getX()] = null;
 	}
 
 	public void moveEntity(Entity E, int x, int y) {
@@ -51,10 +54,15 @@ public class Map {
 	public void printMap() {
 		int i = 0;
 		int j = 0;
-		for (i = 0; i < height; i++) {
-			for (j = 0; j < length; j++) {
+		for (i = 0; i < m_height; i++) {
+			for (j = 0; j < m_length; j++) {
 				if (matrice[i][j] != null) {
-					(matrice[i][j]).pretty_print();
+					if(matrice[i][j] instanceof Player) {
+						System.out.print("Player");
+					}
+					else if(matrice[i][j] instanceof Obstacle) {
+						System.out.print("Obs");
+					}
 				} else {
 					System.out.print(matrice[i][j]);
 				}
