@@ -52,6 +52,7 @@ public class View extends GameView {
 		 */
 		
 		m_model.virus.paint(g);
+		m_model.obs.paint(g);
 
 	}
 }

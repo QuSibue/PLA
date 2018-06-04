@@ -21,6 +21,7 @@ public class Model extends GameModel {
 
 	LinkedList<Being> m_printables;
 	LinkedList<Obstacle> m_obstacles;
+	Obstacle obs;
 	Player virus;
 	public Map map;
 
@@ -43,13 +44,17 @@ public class Model extends GameModel {
 		listTransitions.add(transition);
 		Automaton test =  new Automaton(etatInitialAut, listTransitions);
 		//FIN DE L'AUTOMATE
+		
 		//ONFAIT LE JOUEUR
 		virus  = new Player(1, 1, true, false, true, false, 10, null, test,Orientation.RIGHT,map);
+		
+		
+		
 		map.setEntity(virus);
 		//ajout du du player test
 		m_printables.add(virus);
 		//ajout d'un obstacle
-		Obstacle obs = new Obstacle(4, 1, false, true, false, false, null,map);
+		obs = new Obstacle(4, 1, false, true, false, false, null,map);
 		m_obstacles.add(obs);
 		map.setEntity(obs);
 		

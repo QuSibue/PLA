@@ -1,4 +1,4 @@
-package game.main;
+package ricm3.game.mains;
 
 import java.awt.Dimension;
 
