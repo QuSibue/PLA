@@ -8,6 +8,7 @@ import ricm3.game.automaton.Automaton;
 import ricm3.game.automaton.Direction;
 import ricm3.game.automaton.Transition;
 import ricm3.game.other.Options;
+import ricm3.game.other.Transversal;
 
 public class Player extends Being {
 
@@ -47,7 +48,7 @@ public class Player extends Being {
 
 	public void move(Direction d) {
 		int x_res = 0, y_res = 0;
-		Options.evalPosition(this.getX(), this.getY(), x_res, y_res, d, this.getOrientation());
+		Transversal.positionRelative(this.getX(), this.getY(), x_res, y_res, d, this.getOrientation());
 
 	}
 
