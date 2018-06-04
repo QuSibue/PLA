@@ -1,29 +1,31 @@
 package ricm3.game.other;
 
+import java.awt.Point;
+
 import ricm3.game.automaton.Direction;
 import ricm3.game.automaton.Orientation;
 
 public class Transversal {
 
-	public static void positionAbsolue(int x, int y, int x2, int y2, Direction d) {
-		x2 = x;
-		y2 = y;
+	public static void positionAbsolue(int x, int y, Point p, Direction d) {
+		p.x = x;
+		p.y = y;
 
 		switch (d) {
 		case UP:
-			y2++;
+			p.y++;
 			break;
 
 		case DOWN:
-			y2--;
+			p.y--;
 			break;
 
 		case LEFT:
-			x2--;
+			p.x--;
 			break;
 
 		case RIGHT:
-			x2++;
+			p.x++;
 			break;
 
 		default:
@@ -31,24 +33,24 @@ public class Transversal {
 		}
 	}
 
-	public static void positionRelative(int x, int y, int x2, int y2, Direction d, Orientation o) {
-		x2 = x;
-		y2 = y;
+	public static void positionRelative(int x, int y, Point p, Direction d, Orientation o) {
+		p.x = x;
+		p.y = y;
 
 		switch (d) {
 		case FRONT:
 			switch (o) {
 			case UP:
-				y2++;
+				p.y++;
 				break;
 			case DOWN:
-				y2--;
+				p.y--;
 				break;
 			case LEFT:
-				x2--;
+				p.x--;
 				break;
 			case RIGHT:
-				x2++;
+				p.x++;
 				break;
 			default:
 				throw new RuntimeException("Orientation invalid");
@@ -58,16 +60,16 @@ public class Transversal {
 		case BACK:
 			switch (o) {
 			case UP:
-				y2++;
+				p.y++;
 				break;
 			case DOWN:
-				y2--;
+				p.y--;
 				break;
 			case LEFT:
-				x2--;
+				p.x--;
 				break;
 			case RIGHT:
-				x2++;
+				p.x++;
 				break;
 			default:
 				throw new RuntimeException("Orientation invalid");
@@ -77,16 +79,16 @@ public class Transversal {
 		case LEFT:
 			switch (o) {
 			case UP:
-				x2--;
+				p.x--;
 				break;
 			case DOWN:
-				x2++;
+				p.x++;
 				break;
 			case LEFT:
-				y2++;
+				p.y++;
 				break;
 			case RIGHT:
-				y2--;
+				p.y--;
 				break;
 			default:
 				throw new RuntimeException("Orientation invalid");
@@ -96,16 +98,16 @@ public class Transversal {
 		case RIGHT:
 			switch (o) {
 			case UP:
-				x2++;
+				p.x++;
 				break;
 			case DOWN:
-				x2--;
+				p.x--;
 				break;
 			case LEFT:
-				y2--;
+				p.y--;
 				break;
 			case RIGHT:
-				y2++;
+				p.y++;
 				break;
 			default:
 				throw new RuntimeException("Orientation invalid");
