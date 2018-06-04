@@ -11,6 +11,7 @@ import ricm3.game.automaton.Direction;
 import ricm3.game.automaton.Orientation;
 import ricm3.game.automaton.Transition;
 import ricm3.game.mvc.Map;
+import ricm3.game.other.Options;
 import ricm3.game.other.Transversal;
 
 //TODO faire le bon heritage (character)
@@ -56,85 +57,86 @@ public class Player extends Being {
 		Point p = new Point(x_res, y_res);
 		Transversal.positionRelative(this.getX(), this.getY(), p, d, this.getOrientation());
 		Entity e = global_map.getEntity(p.x, p.y);
-		if( e == null || e instanceof Laser) {
+		if (e == null || e instanceof Laser) {
 			global_map.moveEntity(this, p.x, p.y);
 		}
 
 	}
 
-
-
 	@Override
 	public void paint(Graphics g) {
+		// affiche un carré bleu pour le joueur
+		int m_x = this.getX() * Options.TAILLE_CASE;
+		int m_y = this.getY() * Options.TAILLE_CASE;
 		g.setColor(Color.blue);
-		g.fillRect(200, 200, 50, 50);
+		g.fillRect(m_x, m_y, Options.TAILLE_CASE, Options.TAILLE_CASE);
 
 	}
 
 	@Override
 	public void attack() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void pop() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void wizz() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void hit() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void power() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void protect() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void jump() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void pick() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void get() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void store() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void _throw() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
