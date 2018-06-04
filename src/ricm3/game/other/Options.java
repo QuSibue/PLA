@@ -16,6 +16,10 @@ public abstract class Options {
 	public static int HEALTH_PROTECT = 2;// Point de vie du farmer
 	public static int HEALTH_OTHERS_SBIRES = 1; // Point de vie autres mignons
 	public static int TIMER_LASER= 10; //Temps de vie du laser
+	public static int NB_TYPE_MINION = 6; //Nombre type de sbires
+	public static int MS_MINION = 100 ; //l'entier n'a aucun sens
+	public static int MS_PLAYER = 200 ; 
+	public static int TAILLE_CASE = 100; //case de 100 pixels sur 100 pixels
 
 	// Aide debug
 	public static final boolean ECHO_MOUSE = true;

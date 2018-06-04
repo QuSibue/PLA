@@ -116,4 +116,6 @@ public class Transversal {
 			throw new RuntimeException("Direction invalid");
 		}
 	}
+
+
 }

@@ -1,5 +1,6 @@
 package ricm3.game.mvc;
 
+import ricm3.game.automaton.Orientation;
 import ricm3.game.entity.Entity;
 
 //import java.io.File;
@@ -63,6 +64,64 @@ public class Map {
 			}
 			System.out.println();
 		}
+	}
+
+	// renvoit la première case libre en absolue
+	public boolean caseLibre(int x, int y, int x2, int y2) {
+		x2 = -1;
+		y2 = -1;
+
+		// on test la case au dessus du personnage
+		if (matrice[x][y - 1] == null) {
+			x2 = x;
+			y2 = y - 1;
+			return true;
+		}
+		// on test la case a droite du personnage
+		else if (matrice[x + 1][y] == null) {
+			x2 = x + 1;
+			y2 = y;
+			return true;
+		}
+		// on test la case en bas du personnage
+		if (matrice[x][y + 1] == null) {
+			x2 = x;
+			y2 = y + 1;
+			return true;
+		}
+		// on test la case a gauche du personnage
+		else if (matrice[x - 1][y] == null) {
+			x2 = x - 1;
+			y2 = y;
+			return true;
+		}
+		// on test la case en haut à droite du personnage
+		else if (matrice[x + 1][y - 1] == null) {
+			x2 = x + 1;
+			y2 = y - 1;
+			return true;
+		}
+		// on test la case en bas à droite du personnage
+		else if (matrice[x + 1][y + 1] == null) {
+			x2 = x + 1;
+			y2 = y + 1;
+			return true;
+		}
+		// on test la case en bas à gauche du personnage
+		else if (matrice[x - 1][y + 1] == null) {
+			x2 = x - 1;
+			y2 = y + 1;
+			return true;
+		}
+		// on test la case en haut à gauche du personnage
+		else if (matrice[x - 1][y - 1] == null) {
+			x2 = x - 1;
+			y2 = y - 1;
+			return true;
+		}
+
+		return false;
+
 	}
 
 }

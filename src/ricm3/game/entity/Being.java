@@ -78,8 +78,6 @@ public abstract class Being extends Entity {
 
 	public abstract void move(Direction d);
 
-	public abstract void attack();
-
 	public abstract void pop();
 
 	public abstract void wizz();
