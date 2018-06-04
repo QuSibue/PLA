@@ -9,13 +9,12 @@ import ricm3.game.automaton.Orientation;
 import ricm3.game.mvc.Map;
 
 public abstract class Being extends Entity {
-
+	
 	// attributs
 	private int m_moveSpeed;
 	private Automaton m_automaton;
 	private Etat m_etatCourant;
 	private Orientation m_orientation;
-	public Map map;
 	
 
 
@@ -24,11 +23,10 @@ public abstract class Being extends Entity {
 			Automaton aut, Orientation orientation, Map map) {
 
 		// appel au constructeur de entity
-		super(x, y, moveable, pickable, killable, lethal, sprites);
+		super(x, y, moveable, pickable, killable, lethal, sprites,map);
 
 		m_moveSpeed = ms;
 		m_automaton = aut; // alias
-		this.map = map;
 		//TODO rajouter l'orientation
 		m_orientation = orientation;
 		// ALiasing possible puisque on ne vas jamais modifier les objets

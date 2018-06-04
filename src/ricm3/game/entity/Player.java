@@ -16,8 +16,6 @@ import ricm3.game.other.Transversal;
 //TODO faire le bon heritage (character)
 public class Player extends Being {
 
-	Map m_map;
-
 	public Player(int x, int y, boolean moveable, boolean pickable, boolean killable, boolean lethal, int ms,
 			BufferedImage[] sprites, Automaton aut, Orientation orientation, Map map) {
 		super(x, y, moveable, pickable, killable, lethal, ms, sprites, aut, orientation, map);
@@ -57,59 +55,86 @@ public class Player extends Being {
 		int x_res = 0, y_res = 0;
 		Point p = new Point(x_res, y_res);
 		Transversal.positionRelative(this.getX(), this.getY(), p, d, this.getOrientation());
-		map.moveEntity(this, p.x, p.y);
+		Entity e = global_map.getEntity(p.x, p.y);
+		if( e == null || e instanceof Laser) {
+			global_map.moveEntity(this, p.x, p.y);
+		}
 
 	}
 
-	public void attack() {
-		return;
-	}
 
-	public void pop() {
-		return;
-	}
-
-	public void wizz() {
-		return;
-	}
-
-	public void hit() {
-		return;
-	}
-
-	public void power() {
-		return;
-	}
-
-	public void protect() {
-		return;
-	}
-
-	public void jump() {
-		return;
-	}
-
-	public void pick() {
-		return;
-	}
-
-	public void get() {
-		return;
-	}
-
-	public void store() {
-		return;
-	}
-
-	public void _throw() {
-		return;
-	}
 
 	@Override
 	public void paint(Graphics g) {
 		g.setColor(Color.blue);
 		g.fillRect(200, 200, 50, 50);
 
+	}
+
+	@Override
+	public void attack() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void pop() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void wizz() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void hit() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void power() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void protect() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void jump() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void pick() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void get() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void store() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void _throw() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

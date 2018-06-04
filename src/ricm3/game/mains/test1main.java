@@ -9,5 +9,14 @@ public class test1main {
 		model.step(0);
 		model.step(0);
 		model.step(0);
+		model.step(0);
+		model.step(0);
+		model.step(0);
+		model.step(0);
+		model.step(0);
+		model.step(0);
+		model.step(0);
+		
+		
 	}
 }

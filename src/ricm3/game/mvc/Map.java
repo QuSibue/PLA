@@ -39,11 +39,11 @@ public class Map {
 	}
 
 	public Entity getEntity(int x, int y) {
-		return matrice[x][y];
+		return matrice[y][x];
 	}
 
 	public void deleteEntity(Entity E) {
-		matrice[E.getX()][E.getY()] = null;
+		matrice[E.getY()][E.getX()] = null;
 	}
 
 	public void moveEntity(Entity E, int x, int y) {

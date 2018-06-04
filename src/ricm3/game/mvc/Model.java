@@ -49,7 +49,7 @@ public class Model extends GameModel {
 		//ajout du du player test
 		m_printables.add(virus);
 		//ajout d'un obstacle
-		Obstacle obs = new Obstacle(4, 1, false, true, false, false, null);
+		Obstacle obs = new Obstacle(4, 1, false, true, false, false, null,map);
 		m_obstacles.add(obs);
 		map.setEntity(obs);
 		
