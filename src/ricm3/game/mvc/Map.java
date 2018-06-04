@@ -8,10 +8,10 @@ import ricm3.game.entity.Wall;
 
 public class Map {
 
-	int height;
-	int length;
+	private int height;
+	private int length;
 
-	Entity[][] matrice;
+	private Entity[][] matrice;
 
 	Map() {
 		height = 3;
@@ -23,35 +23,33 @@ public class Map {
 			}
 		}
 	}
-
-
-	/*
-	 * Map(String nom){ File f = new File(nom);
-	 * 
-	 * FileInputStream fis = null;
-	 * 
-	 * try { fis = new FileInputStream(f);
-	 * 
-	 * byte[] buf = new byte[2];
-	 * 
-	 * int n = 0;
-	 * 
-	 * n = fis.read(buf);
-	 * 
-	 * 
-	 * 
-	 * while((n = fis.read(buf))>=0) {
-	 * 
-	 * } } }
-	 */
 	
-	public void add(Entity E, int x, int y) {
-		matrice[x][y]=E;
+	
+	public boolean setEntity(Entity E) {
+		matrice[E.getX()][E.getY()]=E;
+		return true;
+	}
+	
+
+	public boolean setEntity(int x, int y, Entity E) {
+		E.setX(x); 
+		E.setY(y);
+		setEntity(E);
+		return true;
 	}
 
-	// renvoit ce qu'il y a sur la case [x,y]
-	public Entity contenu_case(int x, int y) {
+
+	public Entity getEntity(int x, int y) {
 		return matrice[x][y];
+	}
+	
+	public void deleteEntity(Entity E) {
+		matrice[E.getX()][E.getY()]=null;
+	}
+	
+	public void moveEntity(Entity E, int x, int y) {
+		deleteEntity(E);
+		setEntity(x,y,E);
 	}
 
 }
