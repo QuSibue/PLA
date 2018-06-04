@@ -1,6 +1,5 @@
 package ricm3.game.other;
 
-
 import ricm3.game.automaton.Direction;
 import ricm3.game.automaton.Orientation;
 
@@ -15,7 +14,9 @@ public abstract class Options {
 	public static int LIFESPAN_FARMER = 10;// Temps de vie du farmer en seconde
 	public static int HEALTH_PROTECT = 2;// Point de vie du farmer
 	public static int HEALTH_OTHERS_SBIRES = 1; // Point de vie autres mignons
-	public static int TIMER_LASER= 10; //Temps de vie du laser
+	public static int TIMER_LASER = 10; // Temps de vie du laser
+	public static int NB_TILE_WIDTH_MAP = 100; // Largeur de la MAP
+	public static int NB_TILE_HEIGHT_MAP = 100;// Longueur de la MAP
 
 	// Aide debug
 	public static final boolean ECHO_MOUSE = true;
@@ -27,4 +28,3 @@ public abstract class Options {
 	}
 
 }
-
