@@ -13,11 +13,11 @@ public class View extends GameView {
 	long m_last;
 	int m_npaints;
 	int m_fps;
-//	Model m_model;
+	Model m_model;
 //	Controller m_ctr;
 
-	public View() {
-//		m_model = m;
+	public View(Model m) {
+		m_model = m;
 //		m_ctr = c;
 	}
 
@@ -50,6 +50,8 @@ public class View extends GameView {
 		 * 
 		 * Attention Pas beaucoup de conditions ici
 		 */
+		
+		m_model.virus.paint(g);
 
 	}
 }

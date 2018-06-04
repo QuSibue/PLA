@@ -30,7 +30,7 @@ public class WindowListener implements java.awt.event.WindowListener {
 
   @Override
   public void windowClosing(WindowEvent e) {
-    m_model.shutdown();
+//    m_model.shutdown();
     System.exit(0);
   }
 

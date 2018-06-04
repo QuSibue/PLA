@@ -44,7 +44,7 @@ public class Model extends GameModel {
 		Automaton test =  new Automaton(etatInitialAut, listTransitions);
 		//FIN DE L'AUTOMATE
 		//ONFAIT LE JOUEUR
-		Player  virus  = new Player(1, 1, true, false, true, false, 10, null, test,Orientation.RIGHT,map);
+		virus  = new Player(1, 1, true, false, true, false, 10, null, test,Orientation.RIGHT,map);
 		map.setEntity(virus);
 		//ajout du du player test
 		m_printables.add(virus);
@@ -62,15 +62,15 @@ public class Model extends GameModel {
 		Being e;
 		while (iter.hasNext()) {
 			e = iter.next();
-			e.step();
+			e.step(now);
 		}
+//		virus.step(now);
 		System.out.println("\n");
 		// Affichage du modele
 	}
 
 	@Override
 	public void shutdown() {
-
 	}
 
 	// private void loadSprites() {

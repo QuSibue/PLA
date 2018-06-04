@@ -16,38 +16,43 @@ import ricm3.game.other.Transversal;
 
 //TODO faire le bon heritage (character)
 public class Player extends Being {
-
+	long m_lastMove;
+	
 	public Player(int x, int y, boolean moveable, boolean pickable, boolean killable, boolean lethal, int ms,
 			BufferedImage[] sprites, Automaton aut, Orientation orientation, Map map) {
 		super(x, y, moveable, pickable, killable, lethal, ms, sprites, aut, orientation, map);
 	}
 
 	// @override
-	public void step() {
+	public void step(long now) {
 
-		Iterator<Transition> iter = this.getAutomaton().getTransitions().iterator();
-		Transition transi;
-		boolean condition = false;
+		long elapsed = now - m_lastMove;
+		if (elapsed > 60L) {
+			m_lastMove = now;
+			Iterator<Transition> iter = this.getAutomaton().getTransitions().iterator();
+			Transition transi;
+			boolean condition = false;
 
-		// On va chercher la première transition utilisable
-		// puis on met a jour l'etat courant
-		// et on effectue l'action associée a la transition
+			// On va chercher la première transition utilisable
+			// puis on met a jour l'etat courant
+			// et on effectue l'action associée a la transition
 
-		// ce code va surement être deplacé dans being, superclass de player, minion et
-		// laser
-		while (!condition && iter.hasNext()) {
-			transi = iter.next();
-			// les etats sont par aliasing on peut donc utiliser le double égale
-			condition = this.getEtatCourant() == transi.getInitial()
-					&& transi.getCondition().eval((Being) this, global_map);
-			if (condition) {
-				this.setEtatCourant(transi.getSortie());
-				transi.getAction().executeAction(this);
+			// ce code va surement être deplacé dans being, superclass de player, minion et
+			// laser
+			while (!condition && iter.hasNext()) {
+				transi = iter.next();
+				// les etats sont par aliasing on peut donc utiliser le double égale
+				condition = this.getEtatCourant() == transi.getInitial()
+						&& transi.getCondition().eval((Being) this, global_map);
+				if (condition) {
+					this.setEtatCourant(transi.getSortie());
+					transi.getAction().executeAction(this);
+				}
+
 			}
-
+			if (!condition)
+				throw new RuntimeException("AUcune transition trouvée pour l'automate dans player");
 		}
-		if (!condition)
-			throw new RuntimeException("AUcune transition trouvée pour l'automate dans player");
 	}
 
 	// action

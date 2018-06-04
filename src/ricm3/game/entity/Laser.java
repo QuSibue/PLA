@@ -17,7 +17,7 @@ public class Laser extends Being {
 	}
 
 	@Override
-	public void step() {
+	public void step(long now) {
 		// TODO Auto-generated method stub
 		
 	}

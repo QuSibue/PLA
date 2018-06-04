@@ -74,7 +74,7 @@ public abstract class Being extends Entity {
 	
 	// methodes abstraites
 
-	public abstract void step();
+	public abstract void step(long now);
 
 	public abstract void move(Direction d);
 

@@ -11,11 +11,11 @@ public class GameMain {
 	public static void main(String[] args) {
 
 		// construct the game elements: model, controller, and view.
-//		Model model = new Model();
-		View view = new View();
+		Model model = new Model();
+		View view = new View(model);
 
 		Dimension d = new Dimension(1024, 768);
-		new GameUI(view, d);
+		new GameUI(model, view, d);
 		
 		return;
 	}
