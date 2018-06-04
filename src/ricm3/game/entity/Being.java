@@ -14,12 +14,10 @@ public abstract class Being extends Entity {
 	private Automaton m_automaton;
 	private Etat m_etatCourant;
 	private Orientation m_orientation;
-	
-
 
 	// Constructor
-	public Being(int x, int y, boolean moveable, boolean pickable, boolean killable, boolean lethal, int ms, BufferedImage[] sprites,
-			Automaton aut) {
+	public Being(int x, int y, boolean moveable, boolean pickable, boolean killable, boolean lethal, int ms,
+			BufferedImage[] sprites, Automaton aut) {
 
 		// appel au constructeur de entity
 		super(x, y, moveable, pickable, killable, lethal, sprites);
@@ -28,48 +26,48 @@ public abstract class Being extends Entity {
 		m_automaton = aut; // alias
 
 		// ALiasing possible puisque on ne vas jamais modifier les objets
-		m_etatCourant = m_automaton.getEtatInitial(); 
+		m_etatCourant = m_automaton.getEtatInitial();
 	}
 
-	//getters
-	
+	// getters
+
 	public int getMoveSpeed() {
 		return m_moveSpeed;
 	}
-	
+
 	public Automaton getAutomaton() {
 		return m_automaton;
 	}
-	
+
 	public Etat getEtatCourant() {
 		return m_etatCourant;
 	}
-	
+
 	public Orientation getOrientation() {
 		return m_orientation;
 	}
-	
-	//setters
-	
+
+	// setters
+
 	public boolean setMoveSpeed(int movespeed) {
 		m_moveSpeed = movespeed;
 		return true;
 	}
-	
+
 	public boolean setAutomaton(Automaton automaton) {
 		m_automaton = automaton;
 		return true;
 	}
-	
+
 	public boolean setEtatCourant(Etat etat) {
 		m_etatCourant = etat;
 		return true;
 	}
-	
+
 	public void reinitialisation() {
 		m_etatCourant = m_automaton.getEtatInitial();
 	}
-	
+
 	// methodes abstraites
 
 	public abstract void step();

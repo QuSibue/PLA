@@ -1,14 +1,19 @@
 package ricm3.game.mvc;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+
 import ricm3.game.entity.Entity;
+import ricm3.game.entity.Obstacle;
+import ricm3.game.entity.Wall;
 
 //import java.io.File;
 //import java.io.FileInputStream;
 
 public class Map {
 
-	private int height;
-	private int length;
+	public int height;
+	public int length;
 
 	private Entity[][] matrice;
 
@@ -62,6 +67,83 @@ public class Map {
 				System.out.print(" ");
 			}
 			System.out.println();
+		}
+	}
+
+	public Map(String s) {
+		int cmp = 0;
+		height = 0;
+		length = 0;
+
+		try (FileInputStream fis = new FileInputStream(s)) {
+			byte[] buf = new byte[8];
+			if (fis.read(buf) < 0) {
+				throw new IOException();
+			}
+			int i = 0;
+			while (buf[i] != ' ') {
+				height = height * 10 + (char) buf[i] - 48;
+				i++;
+				if (i == 8) {
+					if (fis.read(buf) < 0) {
+						throw new IOException();
+					}
+					i = 0;
+				}
+			}
+			i++;
+			if (i == 8) {
+				if (fis.read(buf) < 0) {
+					throw new IOException();
+				}
+				i = 0;
+			}
+			while (buf[i] != '\n') {
+				length = length * 10 + buf[i] - 48;
+				i++;
+				if (i == 8) {
+					if (fis.read(buf) < 0) {
+						throw new IOException();
+					}
+					i = 0;
+				}
+			}
+
+			matrice = new Entity[height][length];
+
+			i++;
+			if (i == 8) {
+				if (fis.read(buf) < 0) {
+					throw new IOException();
+				}
+				i = 0;
+			}
+
+			while (cmp < height * length) {
+				switch ((char) buf[i]) {
+				case 'w':
+					matrice[cmp % height][cmp / height] = new Wall(cmp / height, cmp % height);
+					break;
+				case 'o':
+					matrice[cmp % height][cmp / height] = new Obstacle(cmp / height, cmp % height, false, true, false,
+							false, null);
+					break;
+				case 'n':
+
+				default:
+					break;
+				}
+				cmp++;
+				i++;
+				if (i == 8) {
+					if (fis.read(buf) < 0) {
+						throw new IOException();
+					}
+					i = 0;
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 
