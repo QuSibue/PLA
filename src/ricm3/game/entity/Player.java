@@ -86,7 +86,7 @@ public class Player extends Character {
 
 	public void hit() {
 		Entity E;
-		int x_res, y_res;
+		int x_res = 0, y_res = 0;
 		
 		Transversal.positionRelative(this.getX(), this.getY(), x_res, y_res, Direction.FRONT, this.getOrientation());
 		if(energie >= 1) {

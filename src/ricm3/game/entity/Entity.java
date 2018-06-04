@@ -40,12 +40,6 @@ public abstract class Entity {
 	public boolean getMoveable() {
 		return m_moveable;
 	}
-	
-	public abstract void paint(Graphics g);
-	
-	public void pretty_print() {
-		System.out.print("Entity");
-	}
 
 	public boolean getPickable() {
 		return m_pickable;
@@ -93,9 +87,15 @@ public abstract class Entity {
 		m_lethal = lethal;
 		return true;
 	}
+
 	public boolean setSprites(BufferedImage[] sprites) {
 		m_sprites = sprites;
 		return true;
 	}
-}
 
+	public abstract void paint(Graphics g);
+
+	public void pretty_print() {
+		System.out.print("Entity");
+	}
+}
