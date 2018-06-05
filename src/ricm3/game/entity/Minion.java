@@ -1,5 +1,6 @@
 package ricm3.game.entity;
 
+import java.awt.image.BufferedImage;
 import java.util.Random;
 
 import ricm3.game.automaton.Direction;
@@ -14,10 +15,118 @@ public class Minion extends Character {
 	}
 
 	public void pop() {
-		return;
+		int x = this.getX(); // X courant du minion
+		int y = this.getY(); // Y courant du minion
+		Entity e= global_map.getEntity(x, y+1);
+		// test si on ne sort pas de la MAP
+		if (e!=null) {
+			if(e instanceof Wall) {				
+				
+			}
+			else if (e instanceof Minion) {
+				Laser.lifespan--;
+				if (laser.lifespan==0) {
+					// Supprimer le minion
+				}
+			}
+			
+			
+		}
+		e = global_map.getEntity(x+1, y+1);
+		if (e!=null) {
+			if(e instanceof Wall) {				
+				
+			}
+			else if (e instanceof Minion) {
+				Laser.lifespan--;
+				if (laser.lifespan==0) {
+					// Supprimer le minion
+				}
+			}
+			
+		
+		e = global_map.getEntity(x+1, y);
+		if (e!=null) {
+			if(e instanceof Wall) {				
+				
+			}
+			else if (e instanceof Minion) {
+				Laser.lifespan--;
+				if (laser.lifespan==0) {
+					// Supprimer le minion
+				}
+			}
+			
+		
+		e = global_map.getEntity(x+1, y-1);
+		if (e!=null) {
+			if(e instanceof Wall) {				
+				
+			}
+			else if (e instanceof Minion) {
+				Laser.lifespan--;
+				if (laser.lifespan==0) {
+					// Supprimer le minion
+				}
+			}
+			
+		
+		e = global_map.getEntity(x, y-1);
+		if (e!=null) {
+			if(e instanceof Wall) {				
+				
+			}
+			else if (e instanceof Minion) {
+				Laser.lifespan--;
+				if (laser.lifespan==0) {
+					// Supprimer le minion
+				}
+			}
+			
+		
+		e = global_map.getEntity(x-1, y-1);
+		if (e!=null) {
+			if(e instanceof Wall) {				
+				
+			}
+			else if (e instanceof Minion) {
+				Laser.lifespan--;
+				if (laser.lifespan==0) {
+					// Supprimer le minion
+				}
+			}
+			
+		
+		e = global_map.getEntity(x-1, y);	if (e!=null) {
+			if(e instanceof Wall) {				
+				
+			}
+			else if (e instanceof Minion) {
+				Laser.lifespan--;
+				if (laser.lifespan==0) {
+					// Supprimer le minion
+				}
+			}
+			
+		
+		
+		e = global_map.getEntity(x-1, y+1);
+		if (e!=null) {
+			if(e instanceof Wall) {				
+				
+			}
+			else if (e instanceof Minion) {
+				Laser.lifespan--;
+				if (laser.lifespan==0) {
+					// Supprimer le minion
+				}
+			}
+			
+		
 	}
 
 	public void wizz() {
+		BufferedImage[] buff = null;
 		int valeurMin = 2;
 		int valeurMax = 5;
 		boolean valide = false;
@@ -36,7 +145,13 @@ public class Minion extends Character {
 					valide = true;
 					// placer un portail à la position actuelle du mignon
 					// placer la sortie du portail à xmove,ymove
+					Portal p = new Portal(xMove, yMove, xMove, yMove, buff);
+					global_map.setEntity(p);
+					global_map.setEntity(x, y, p);
 					// supprimer le sbire
+
+					// to do
+
 					return;
 				}
 			}
