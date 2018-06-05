@@ -11,47 +11,46 @@ import ricm3.game.automaton.Orientation;
 import ricm3.game.automaton.Transition;
 import ricm3.game.automaton.TypeAction;
 import ricm3.game.automaton.TypeCondition;
-import ricm3.game.entity.Being;
-import ricm3.game.entity.Entity;
+import ricm3.game.entity.Laser;
 import ricm3.game.entity.Minion;
 import ricm3.game.entity.Obstacle;
 import ricm3.game.entity.Player;
 import ricm3.game.framework.GameModel;
+import ricm3.game.other.Transversal;
 
 public class Model extends GameModel {
 
 	public LinkedList<Minion> m_minions;
 	public LinkedList<Obstacle> m_obstacles;
+	public LinkedList<Laser> m_laser;
 	public Player virus;
+	public Player antivirus;
 	public Map map;
 
 	public Model(){
 		m_minions = new LinkedList<Minion>();
 		m_obstacles = new LinkedList<Obstacle>();
-		
+		m_laser = new LinkedList<Laser>();
 		//sprites vont etres donné a l'instantiation normalement, a voir 
 		//ON FAIT LA MAP
-		map = new Map(5,6);
+		map = new Map(11,12);
 		
 		//ON FAIT UN AUTOMATE
-		Etat etatInitialAut = new Etat(0);
-		Etat etatInitialTransition = etatInitialAut;
-		Condition condi = new Condition(TypeCondition.TRUE, null, ' ', null);
-		Action action = new Action(TypeAction.POP, null);
-		Transition transition = new Transition(etatInitialTransition, condi, action, etatInitialTransition); 
-				
-		LinkedList<Transition> listTransitions = new LinkedList<Transition>();
-		listTransitions.add(transition);
-		Automaton test =  new Automaton(etatInitialAut, listTransitions);
+		Automaton aut = Transversal.shootAutomaton();
 		//FIN DE L'AUTOMATE
 		
 		//ONFAIT LE JOUEUR
-		virus  = new Player(1, 1, true, false, true, false, 10, null, test,Orientation.RIGHT,map,this);
+		virus  = new Player(1, 1, true, false, true, false, 1000, null, aut,Orientation.RIGHT,1,map,this,3,0);
 		map.setEntity(virus);
 		//ajout d'un obstacle
-		Obstacle obs = new Obstacle(4, 1, false, true, false, false, null,map,this);
+		/*Obstacle obs = new Obstacle(4, 1, false, true, false, false, null,map,this);
 		m_obstacles.add(obs);
-		map.setEntity(obs);
+		map.setEntity(obs);*/
+		
+		//antivirus
+		antivirus  = new Player(8, 1, true, false, true, false, 1000, null, aut,Orientation.LEFT,2,map,this,3,0);
+		map.setEntity(antivirus);
+		
 		
 	}
 
@@ -59,6 +58,7 @@ public class Model extends GameModel {
 	public void step(long now) {
 		Iterator<Minion> iterM = m_minions.iterator();
 		Iterator<Obstacle> iterO = m_obstacles.iterator();
+		Iterator<Laser> iterL = m_laser.iterator();
 		map.printMap();
 		Minion m;
 		while (iterM.hasNext()) {
@@ -72,6 +72,11 @@ public class Model extends GameModel {
 			o.step(now);
 		}
 
+		Laser l;
+		while (iterL.hasNext()) {
+			l = iterL.next();
+			l.step(now);
+		}
 		virus.step(now);
 		System.out.println("\n");
 		// Affichage du modele

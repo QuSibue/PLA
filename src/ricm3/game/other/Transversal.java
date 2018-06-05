@@ -155,4 +155,30 @@ public class Transversal {
 		
 		return test;
 	}
+	
+	public static Automaton popAutomaton() {
+		Etat etatInitialAut = new Etat(0);
+		Etat etatInitialTransition = etatInitialAut;
+		Condition condi = new Condition(TypeCondition.TRUE, null, ' ', null);
+		Action action = new Action(TypeAction.POP, null);
+		Transition transition = new Transition(etatInitialTransition, condi, action, etatInitialTransition); 
+				
+		LinkedList<Transition> listTransitions = new LinkedList<Transition>();
+		listTransitions.add(transition);
+		Automaton test =  new Automaton(etatInitialAut, listTransitions);
+		return test;
+	}
+	
+	public static Automaton shootAutomaton() {
+		Etat etatInitialAut = new Etat(0);
+		Etat etatInitialTransition = etatInitialAut;
+		Condition condi = new Condition(TypeCondition.TRUE, null, ' ', null);
+		Action action = new Action(TypeAction.HIT, null);
+		Transition transition = new Transition(etatInitialTransition, condi, action, etatInitialTransition); 
+				
+		LinkedList<Transition> listTransitions = new LinkedList<Transition>();
+		listTransitions.add(transition);
+		Automaton test =  new Automaton(etatInitialAut, listTransitions);
+		return test;
+	}
 }

@@ -35,6 +35,9 @@ public class Action {
 			break;
 		case IDLE:
 			break;
+		case HIT:
+			b.hit();
+			break;
 		default:
 			throw new RuntimeException("Action NYI");
 		}

@@ -17,9 +17,9 @@ public class Minion extends Character {
 	public long m_lastMove;
 	public Minion(BufferedImage[] sprites, int x, int y, boolean moveable, boolean pickable, boolean killable,
 			boolean lethal, int moveSpeed, Automaton automate, Orientation orientation, int equipe, Map map,
-			Model model) {
+			Model model,int life, long lastMove) {
 		super(sprites, x, y, moveable, pickable, killable, lethal, moveSpeed, automate, orientation, equipe, map,
-				model);
+				model,life,lastMove);
 		// TODO FACTORISER LES PARAMETRE CONSTANTS ex un minion est toujours moveable
 	}
 
@@ -111,12 +111,6 @@ public class Minion extends Character {
 
 	@Override
 	public void move(Direction d) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void attack() {
 		// TODO Auto-generated method stub
 
 	}

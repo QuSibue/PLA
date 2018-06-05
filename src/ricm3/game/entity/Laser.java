@@ -1,39 +1,45 @@
 package ricm3.game.entity;
 
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.image.BufferedImage;
+import java.util.Iterator;
 
 import ricm3.game.automaton.Automaton;
 import ricm3.game.automaton.Direction;
 import ricm3.game.automaton.Orientation;
+import ricm3.game.automaton.Transition;
 import ricm3.game.mvc.Map;
 import ricm3.game.mvc.Model;
+import ricm3.game.other.Options;
+import ricm3.game.other.Transversal;
 
 public class Laser extends Being {
-
+	
+	
+	
 	public Laser(int x, int y, boolean moveable, boolean pickable, boolean killable, boolean lethal, int ms,
-			BufferedImage[] sprites, Automaton aut, Orientation orientation, Map map, Model model) {
-		super(x, y, moveable, pickable, killable, lethal, ms, sprites, aut, orientation, map, model);
-		// TODO Auto-generated constructor stub
+			BufferedImage[] sprites, Automaton aut, Orientation orientation, Map map, Model model,int life, long lastMove) {
+		super(x, y, moveable, pickable, killable, lethal, ms, sprites, aut, orientation, map, model,life,lastMove);
 	}
 
-	@Override
-	public void step(long now) {
-		// TODO Auto-generated method stub
-
-	}
 
 	@Override
 	public void move(Direction d) {
-		// TODO Auto-generated method stub
-
+		int x_res = 0, y_res = 0;
+		Point p = new Point(x_res, y_res);
+		Transversal.positionRelative(this.getX(), this.getY(), p, d, this.getOrientation());
+		Entity e = global_map.getEntity(p.x, p.y);
+		if (e == null) {
+			global_map.moveEntity(this, p.x, p.y);
+		} else if(e instanceof Being){
+			this.hit(e);
+			global_map.deleteEntity(this);
+			this.m_model.m_laser.remove(this);
+		}
 	}
 
-	@Override
-	public void attack() {
-		// TODO Auto-generated method stub
-
-	}
 
 	@Override
 	public void pop() {
@@ -47,10 +53,9 @@ public class Laser extends Being {
 
 	}
 
-	@Override
-	public void hit() {
-		// TODO Auto-generated method stub
-
+	
+	public void hit(Entity e) {
+		((Being)e).getDamage();
 	}
 
 	@Override
@@ -97,8 +102,16 @@ public class Laser extends Being {
 
 	@Override
 	public void paint(Graphics g) {
-		// TODO Auto-generated method stub
+		int m_x = this.getX() * Options.TAILLE_CASE;
+		int m_y = this.getY() * Options.TAILLE_CASE;
+		g.setColor(Color.GREEN);
+		g.fillRect(m_x, m_y, Options.TAILLE_CASE, Options.TAILLE_CASE);
+	}
 
+	@Override
+	public void hit() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -4,8 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.Iterator;
 
-import ricm3.game.entity.Being;
-import ricm3.game.entity.Entity;
+import ricm3.game.entity.Laser;
 import ricm3.game.entity.Minion;
 import ricm3.game.entity.Obstacle;
 import ricm3.game.framework.GameView;;
@@ -56,9 +55,17 @@ public class View extends GameView {
 		 * Attention Pas beaucoup de conditions ici
 		 */
 		
-		m_model.virus.paint(g);
+		if(m_model.virus.getLife() > 0) {
+			m_model.virus.paint(g);
+		}
+		if(m_model.antivirus.getLife() > 0) {
+			m_model.antivirus.paint(g);
+		}
+		
+		
 		Iterator<Minion> iterM = m_model.m_minions.iterator();
 		Iterator<Obstacle> iterO = m_model.m_obstacles.iterator();
+		Iterator<Laser> iterL = m_model.m_laser.iterator();
 		Minion m;
 		while (iterM.hasNext()) {
 			m = iterM.next();
@@ -69,6 +76,11 @@ public class View extends GameView {
 		while (iterO.hasNext()) {
 			o = iterO.next();
 			o.paint(g);
+		}
+		Laser l;
+		while (iterL.hasNext()) {
+			l = iterL.next();
+			l.paint(g);
 		}
 
 		

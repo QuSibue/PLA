@@ -16,46 +16,14 @@ import ricm3.game.other.Options;
 import ricm3.game.other.Transversal;
 
 //TODO faire le bon heritage (character)
-public class Player extends Being {
-	long m_lastMove;
-	
+public class Player extends Character {
+
 	public Player(int x, int y, boolean moveable, boolean pickable, boolean killable, boolean lethal, int ms,
-			BufferedImage[] sprites, Automaton aut, Orientation orientation, Map map, Model model) {
-		super(x, y, moveable, pickable, killable, lethal, ms, sprites, aut, orientation, map,model);
+			BufferedImage[] sprites, Automaton aut, Orientation orientation, int equipe, Map map, Model model, int life,
+			long lastMove) {
+		super(sprites, x, y, moveable, pickable, killable, lethal, ms, aut, orientation, equipe, map, model, life,
+				lastMove);
 	}
-
-	// @override
-	public void step(long now) {
-
-		long elapsed = now - m_lastMove;
-		if (elapsed > 300L) {
-			m_lastMove = now;
-			Iterator<Transition> iter = this.getAutomaton().getTransitions().iterator();
-			Transition transi;
-			boolean condition = false;
-
-			// On va chercher la première transition utilisable
-			// puis on met a jour l'etat courant
-			// et on effectue l'action associée a la transition
-
-			// ce code va surement être deplacé dans being, superclass de player, minion et
-			// laser
-			while (!condition && iter.hasNext()) {
-				transi = iter.next();
-				// les etats sont par aliasing on peut donc utiliser le double égale
-				condition = this.getEtatCourant() == transi.getInitial()
-						&& transi.getCondition().eval((Being) this, global_map);
-				if (condition) {
-					this.setEtatCourant(transi.getSortie());
-					transi.getAction().executeAction(this);
-				}
-
-			}
-			if (!condition)
-				throw new RuntimeException("AUcune transition trouvée pour l'automate dans player");
-		}
-	}
-
 	// action
 
 	public void move(Direction d) {
@@ -80,21 +48,15 @@ public class Player extends Being {
 	}
 
 	@Override
-	public void attack() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void pop() {
 		// TODO Auto-generated method stub
 		Point p = new Point();
-		if(global_map.caseLibre(this.getX(), this.getY(), p)) {
-			Minion minion = new Minion(null, p.x, p.y, true, false, true, true, 1, Transversal.idleAutomaton(), Orientation.RIGHT, 1, global_map, this.m_model);
+		if (global_map.caseLibre(this.getX(), this.getY(), p)) {
+			Minion minion = new Minion(null, p.x, p.y, true, false, true, true, 1, Transversal.idleAutomaton(),
+					Orientation.RIGHT, 1, global_map, this.m_model, 1, 0);
 			m_model.m_minions.add(minion);
 			global_map.setEntity(minion);
-		}
-		else {
+		} else {
 			System.out.print("Pas de place pour placer de nouveaux sbires");
 		}
 	}
@@ -107,7 +69,14 @@ public class Player extends Being {
 
 	@Override
 	public void hit() {
-		// TODO Auto-generated method stub
+		Point p = new Point();
+		Transversal.positionRelative(this.getX(), this.getY(), p, Direction.FRONT, this.getOrientation());
+		if (global_map.getEntity(p.x, p.y) == null) {
+			Laser laser = new Laser(p.x, p.y, true, true, false, true, 100, null, Transversal.straightAutomaton(),
+					this.getOrientation(), global_map, m_model, 1, 0);
+			this.m_model.m_laser.add(laser);
+			global_map.setEntity(laser);
+		}
 
 	}
 

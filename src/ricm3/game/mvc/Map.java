@@ -3,6 +3,7 @@ package ricm3.game.mvc;
 import java.awt.Point;
 
 import ricm3.game.entity.Entity;
+import ricm3.game.entity.Laser;
 import ricm3.game.entity.Obstacle;
 import ricm3.game.entity.Player;
 
@@ -63,6 +64,8 @@ public class Map {
 						System.out.print("Player");
 					} else if (matrice[i][j] instanceof Obstacle) {
 						System.out.print("Obs");
+					} else if (matrice[i][j] instanceof Laser) {
+						System.out.print("Las");
 					}
 				} else {
 					System.out.print(matrice[i][j]);
