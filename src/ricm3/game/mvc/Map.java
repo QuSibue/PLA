@@ -61,11 +61,12 @@ public class Map {
 		for (i = 0; i < m_height; i++) {
 			for (j = 0; j < m_length; j++) {
 				if (matrice[i][j] != null) {
-					if(matrice[i][j] instanceof Player) {
+					if (matrice[i][j] instanceof Player) {
 						System.out.print("Player");
-					}
-					else if(matrice[i][j] instanceof Obstacle) {
+					} else if (matrice[i][j] instanceof Obstacle) {
 						System.out.print("Obs");
+					} else if (matrice[i][j] instanceof Wall) {
+						System.out.print("Wall");
 					}
 				} else {
 					System.out.print(matrice[i][j]);
@@ -79,8 +80,8 @@ public class Map {
 
 	public Map(String s) {
 		int cmp = 0;
-		height = 0;
-		length = 0;
+		m_height = 0;
+		m_length = 0;
 
 		try (FileInputStream fis = new FileInputStream(s)) {
 			byte[] buf = new byte[8];
@@ -89,7 +90,7 @@ public class Map {
 			}
 			int i = 0;
 			while (buf[i] != ' ') {
-				height = height * 10 + (char) buf[i] - 48;
+				m_height = m_height * 10 + (char) buf[i] - 48;
 				i++;
 				if (i == 8) {
 					if (fis.read(buf) < 0) {
@@ -106,7 +107,7 @@ public class Map {
 				i = 0;
 			}
 			while (buf[i] != '\n') {
-				length = length * 10 + buf[i] - 48;
+				m_length = m_length * 10 + buf[i] - 48;
 				i++;
 				if (i == 8) {
 					if (fis.read(buf) < 0) {
@@ -116,7 +117,7 @@ public class Map {
 				}
 			}
 
-			matrice = new Entity[height][length];
+			matrice = new Entity[m_height][m_length];
 
 			i++;
 			if (i == 8) {
@@ -126,21 +127,25 @@ public class Map {
 				i = 0;
 			}
 
-			while (cmp < height * length) {
+			while (cmp < m_height * m_length) {
 				switch ((char) buf[i]) {
 				case 'w':
-					matrice[cmp % height][cmp / height] = new Wall(cmp / height, cmp % height);
+					matrice[cmp % m_height][cmp / m_height] = new Wall(cmp / m_height, cmp % m_height, this);
+					cmp++;
 					break;
 				case 'o':
-					matrice[cmp % height][cmp / height] = new Obstacle(cmp / height, cmp % height, false, true, false,
-							false, null);
+					matrice[cmp % m_height][cmp / m_height] = new Obstacle(cmp / m_height, cmp % m_height, false, true,
+							false, false, null, this);
+					cmp++;
 					break;
 				case 'n':
-
+					matrice[cmp % m_height][cmp / m_height] = null;
+					cmp++;
 				default:
+					matrice[cmp % m_height][cmp / m_height] = null;
 					break;
 				}
-				cmp++;
+
 				i++;
 				if (i == 8) {
 					if (fis.read(buf) < 0) {
