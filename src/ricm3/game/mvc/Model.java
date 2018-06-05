@@ -33,7 +33,7 @@ public class Model extends GameModel {
 		m_laser = new LinkedList<Laser>();
 		//sprites vont etres donné a l'instantiation normalement, a voir 
 		//ON FAIT LA MAP
-		map = new Map(11,12);
+		map = new Map(1100,1200);
 		
 		//ON FAIT UN AUTOMATE
 		Automaton aut = Transversal.shootAutomaton();
@@ -59,7 +59,7 @@ public class Model extends GameModel {
 		Iterator<Minion> iterM = m_minions.iterator();
 		Iterator<Obstacle> iterO = m_obstacles.iterator();
 		Iterator<Laser> iterL = m_laser.iterator();
-		map.printMap();
+		//map.printMap();
 		Minion m;
 		while (iterM.hasNext()) {
 			m = iterM.next();
