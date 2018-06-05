@@ -1,9 +1,10 @@
 package ricm3.game.automaton;
 
+import java.awt.Point;
+
 import ricm3.game.entity.Being;
 import ricm3.game.entity.Environment;
 import ricm3.game.mvc.Map;
-import ricm3.game.other.Options;
 import ricm3.game.other.Transversal;
 
 public class Condition {
@@ -14,8 +15,15 @@ public class Condition {
 	private char m_operator;
 	private Condition m_condition;
 
+	public Condition(TypeCondition type, Direction direction, char operator, Condition condition) {
+		m_type = type;
+		m_direction = direction;
+		m_operator = operator;
+		m_condition = condition;
+	}
+
 	public boolean eval(Being b, Map m) {
-		int x=0, y=0;
+		int x = 0, y = 0;
 		boolean res;
 
 		/**
@@ -24,8 +32,9 @@ public class Condition {
 		 * libre.
 		 */
 		if (m_type.equals(TypeCondition.FREE)) {
-			Transversal.positionRelative(b.getX(), b.getY(), x, y, m_direction, b.getOrientation());
-			res = m.getEntity(x, y) == null;
+			Point p = new Point();
+			Transversal.positionRelative(b.getX(), b.getY(), p, m_direction, b.getOrientation());
+			res = m.getEntity(p.x, p.y) == null;
 			if (m_operator == 0)
 				return res;
 			else if (m_operator == '&')
@@ -41,8 +50,9 @@ public class Condition {
 		 * un WALL ou un OBSTACLE.
 		 */
 		else if (m_type.equals(TypeCondition.OBSTACLE)) {
-			Transversal.positionRelative(b.getX(), b.getY(), x, y, m_direction, b.getOrientation());
-			res = m.getEntity(x, y) instanceof Environment;
+			Point p = new Point();
+			Transversal.positionRelative(b.getX(), b.getY(), p, m_direction, b.getOrientation());
+			res = m.getEntity(p.x, p.y) instanceof Environment;
 			if (m_operator == 0)
 				return res;
 			else if (m_operator == '&')
@@ -51,7 +61,11 @@ public class Condition {
 				return res || m_condition.eval(b, m);
 			else
 				throw new RuntimeException("Operateur condition invalide");
-		} else {
+		} 
+		else if(m_type.equals(TypeCondition.TRUE)) {
+			return true;
+		}
+		else {
 			throw new RuntimeException("Type condition invalide");
 		}
 	}

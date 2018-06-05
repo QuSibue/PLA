@@ -27,6 +27,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.Timer;
 
+import ricm3.game.mvc.Model;
+
 public class GameUI {
 
   static String license = "Copyright (C) 2017  Pr. Olivier Gruber " + "This program comes with ABSOLUTELY NO WARRANTY. "
@@ -70,10 +72,10 @@ public class GameUI {
   long m_lastTick;
   int m_nTicks;
 
-  public GameUI(GameModel m, GameView v, GameController c, Dimension d) {
+  public GameUI(Model m, GameView v, Dimension d) {
     m_model = m; m_model.m_game = this;
     m_view = v; m_view.m_game = this;
-    m_controller = c; m_controller.m_game = this;
+//    m_controller = c; m_controller.m_game = this;
 
     System.out.println(license);
 
@@ -144,7 +146,7 @@ public class GameUI {
     m_view.setFocusable(true);
     m_view.requestFocusInWindow();
 
-    m_controller.notifyVisible();
+//    m_controller.notifyVisible();
   }
 
   /* 
@@ -175,7 +177,7 @@ public class GameUI {
     m_lastTick = now;
     m_nTicks++;
     m_model.step(now);
-    m_controller.step(now);
+//    m_controller.step(now);
     
     elapsed = now - m_lastRepaint;
     if (elapsed > Options.REPAINT_DELAY) {

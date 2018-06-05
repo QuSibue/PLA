@@ -1,3 +1,5 @@
 /bin/
 /.metadata/
 /src/ricm3/game/mvc/MainMap.java
+src/ricm3/game/automaton/*.class
+src/ricm3/game/other/*.class

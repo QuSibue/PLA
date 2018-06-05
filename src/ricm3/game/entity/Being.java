@@ -6,9 +6,10 @@ import ricm3.game.automaton.Automaton;
 import ricm3.game.automaton.Direction;
 import ricm3.game.automaton.Etat;
 import ricm3.game.automaton.Orientation;
+import ricm3.game.mvc.Map;
 
 public abstract class Being extends Entity {
-
+	
 	// attributs
 	private int m_moveSpeed;
 	private Automaton m_automaton;
@@ -16,15 +17,16 @@ public abstract class Being extends Entity {
 	private Orientation m_orientation;
 
 	// Constructor
-	public Being(int x, int y, boolean moveable, boolean pickable, boolean killable, boolean lethal, int ms,
-			BufferedImage[] sprites, Automaton aut) {
+	public Being(int x, int y, boolean moveable, boolean pickable, boolean killable, boolean lethal, int ms, BufferedImage[] sprites,
+			Automaton aut, Orientation orientation, Map map) {
 
 		// appel au constructeur de entity
-		super(x, y, moveable, pickable, killable, lethal, sprites);
+		super(x, y, moveable, pickable, killable, lethal, sprites,map);
 
 		m_moveSpeed = ms;
 		m_automaton = aut; // alias
-
+		//TODO rajouter l'orientation
+		m_orientation = orientation;
 		// ALiasing possible puisque on ne vas jamais modifier les objets
 		m_etatCourant = m_automaton.getEtatInitial();
 	}
@@ -70,9 +72,7 @@ public abstract class Being extends Entity {
 
 	// methodes abstraites
 
-	public abstract void step();
-
-	public abstract void paint();
+	public abstract void step(long now);
 
 	public abstract void move(Direction d);
 

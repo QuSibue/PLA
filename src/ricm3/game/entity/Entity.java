@@ -16,7 +16,7 @@ public abstract class Entity {
 	private BufferedImage[] m_sprites;
 	public Map global_map;
 
-	public Entity(int x, int y, boolean move, boolean pick, boolean kill, boolean leth, BufferedImage[] sprites) {
+	public Entity(int x, int y, boolean move, boolean pick, boolean kill, boolean leth, BufferedImage[] sprites,Map map) {
 		this.m_coordinateX = x;
 		this.m_coordinateY = y;
 		this.m_moveable = move;
@@ -24,6 +24,7 @@ public abstract class Entity {
 		this.m_killable = kill;
 		this.m_lethal = leth;
 		this.m_sprites = sprites;
+		this.global_map = map;
 
 	}
 
