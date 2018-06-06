@@ -23,19 +23,6 @@ public class Minion extends Character {
 		// TODO FACTORISER LES PARAMETRE CONSTANTS ex un minion est toujours moveable
 	}
 
-	public void move() {
-		int x = this.getX(); // X courant du minion
-		int y = this.getY(); // Y courant du minion
-		double xRand = Math.random(); // Valeur random entre 0 et 1
-		double yRand = Math.random();
-		int xMove = (int) (x + xRand);
-		int yMove = (int) (y + yRand);
-		if (global_map.getEntity(xMove, yMove) == null) { // Si la case est libre
-			this.setX(xMove); // MAJ des coordonnées
-			this.setY(yMove);
-		}
-	}
-
 	public void pop() {
 		return;
 	}

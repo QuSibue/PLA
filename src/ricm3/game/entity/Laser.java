@@ -4,12 +4,10 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
-import java.util.Iterator;
 
 import ricm3.game.automaton.Automaton;
 import ricm3.game.automaton.Direction;
 import ricm3.game.automaton.Orientation;
-import ricm3.game.automaton.Transition;
 import ricm3.game.mvc.Map;
 import ricm3.game.mvc.Model;
 import ricm3.game.other.Options;
