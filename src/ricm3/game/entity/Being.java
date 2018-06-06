@@ -82,6 +82,11 @@ public abstract class Being extends Entity {
 		return true;
 	}
 	
+	public boolean setOrientation(Orientation o) {
+		m_orientation = o;
+		return true;
+	}
+	
 	public void reinitialisation() {
 		m_etatCourant = m_automaton.getEtatInitial();
 	}
@@ -160,5 +165,7 @@ public abstract class Being extends Entity {
 	public abstract void store();
 
 	public abstract void _throw();
+	
+	public abstract void turn(Direction d);
 
 }

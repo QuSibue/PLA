@@ -114,4 +114,11 @@ public class Laser extends Being {
 		
 	}
 
+
+	@Override
+	public void turn(Direction d) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

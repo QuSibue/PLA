@@ -125,4 +125,10 @@ public class Minion extends Character {
 
 	}
 
+	@Override
+	public void turn(Direction d) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

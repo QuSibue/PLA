@@ -20,20 +20,21 @@ import ricm3.game.other.TypeKey;
 public class Player extends Character {
 
 	private TypeKey m_key;
-	
+
 	public Player(int x, int y, boolean moveable, boolean pickable, boolean killable, boolean lethal, int ms,
 			BufferedImage[] sprites, Automaton aut, Orientation orientation, int equipe, Map map, Model model, int life,
-			long lastMove,TypeKey key) {
+			long lastMove, TypeKey key) {
 		super(sprites, x, y, moveable, pickable, killable, lethal, ms, aut, orientation, equipe, map, model, life,
 				lastMove);
 		m_key = key;
-		
+
 	}
 	// action
 
 	public void move(Direction d) {
 		int x_res = 0, y_res = 0;
 		Point p = new Point(x_res, y_res);
+		this.turn(d);
 		Transversal.evalPosition(this.getX(), this.getY(), p, d, this.getOrientation());
 		Entity e = global_map.getEntity(p.x, p.y);
 		if (e == null || e instanceof Laser) {
@@ -84,11 +85,11 @@ public class Player extends Character {
 		}
 
 	}
-	
+
 	public TypeKey getKey() {
 		return m_key;
 	}
-	
+
 	public void setKey(TypeKey key) {
 		m_key = key;
 	}
@@ -132,6 +133,32 @@ public class Player extends Character {
 	@Override
 	public void _throw() {
 		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void turn(Direction d) {
+		// TODO Auto-generated method stub
+		switch (d) {
+		case NORTH:
+			this.setOrientation(Orientation.UP);
+			break;
+
+		case SOUTH:
+			this.setOrientation(Orientation.DOWN);
+			break;
+
+		case EAST:
+			this.setOrientation(Orientation.RIGHT);
+			break;
+
+		case WEST:
+			this.setOrientation(Orientation.LEFT);
+			break;
+
+		default:
+			throw new RuntimeException("Direction invalid");
+		}
 
 	}
 

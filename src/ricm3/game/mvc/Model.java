@@ -28,31 +28,44 @@ public class Model extends GameModel {
 	public Player antivirus;
 	public Map map;
 
-	public Model(){
+	public Model() {
 		m_minions = new LinkedList<Minion>();
 		m_obstacles = new LinkedList<Obstacle>();
 		m_laser = new LinkedList<Laser>();
-		//sprites vont etres donné a l'instantiation normalement, a voir 
-		//ON FAIT LA MAP
-		map = new Map(1100,1200);
-		
-		//ON FAIT UN AUTOMATE
-		Automaton aut = Transversal.playerAutomaton();
-		//FIN DE L'AUTOMATE
-		
-		//ONFAIT LE JOUEUR
-		virus  = new Player(1, 1, true, false, true, false, 100, null, aut,Orientation.RIGHT,1,map,this,3,0,TypeKey.NONE);
+		// sprites vont etres donné a l'instantiation normalement, a voir
+		// ON FAIT LA MAP
+		map = new Map(1100, 1200);
+
+		// ON FAIT UN AUTOMATE
+		Automaton aut = Transversal.virusAutomaton();
+		// FIN DE L'AUTOMATE
+
+		// ONFAIT LE JOUEUR
+		virus = new Player(1, 1, true, false, true, false, 100, null, aut, Orientation.RIGHT, 1, map, this, 3, 0,
+				TypeKey.NONE);
 		map.setEntity(virus);
-		//ajout d'un obstacle
-		/*Obstacle obs = new Obstacle(4, 1, false, true, false, false, null,map,this);
+		// ajout d'un obstacle
+		Obstacle obs = new Obstacle(0, 0, false, true, false, false, null, map, this);
 		m_obstacles.add(obs);
-		map.setEntity(obs);*/
-		
-		//antivirus
-		antivirus  = new Player(8, 1, true, false, true, false, 100, null, aut,Orientation.LEFT,2,map,this,3,0,TypeKey.NONE);
+		map.setEntity(obs);
+
+		obs = new Obstacle(1, 0, false, true, false, false, null, map, this);
+		m_obstacles.add(obs);
+		map.setEntity(obs);
+		for (int i = 1; i < 10; i++) {
+			obs = new Obstacle(0, i, false, true, false, false, null, map, this);
+			m_obstacles.add(obs);
+			map.setEntity(obs);
+			obs = new Obstacle(i, 0, false, true, false, false, null, map, this);
+			m_obstacles.add(obs);
+			map.setEntity(obs);
+		}
+		// antivirus
+		aut = Transversal.antivirusAutomaton();
+		antivirus = new Player(8, 1, true, false, true, false, 100, null, aut, Orientation.LEFT, 2, map, this, 3, 0,
+				TypeKey.NONE);
 		map.setEntity(antivirus);
-		
-		
+
 	}
 
 	@Override
@@ -60,13 +73,13 @@ public class Model extends GameModel {
 		Iterator<Minion> iterM = m_minions.iterator();
 		Iterator<Obstacle> iterO = m_obstacles.iterator();
 		Iterator<Laser> iterL = m_laser.iterator();
-		//map.printMap();
+		// map.printMap();
 		Minion m;
 		while (iterM.hasNext()) {
 			m = iterM.next();
 			m.step(now);
 		}
-		
+
 		Obstacle o;
 		while (iterO.hasNext()) {
 			o = iterO.next();
@@ -79,6 +92,7 @@ public class Model extends GameModel {
 			l.step(now);
 		}
 		virus.step(now);
+		antivirus.step(now);
 		System.out.println("\n");
 		// Affichage du modele
 	}
