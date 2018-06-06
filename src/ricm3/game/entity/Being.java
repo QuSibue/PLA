@@ -122,7 +122,7 @@ public abstract class Being extends Entity {
 						&& transi.getCondition().eval((Being) this, global_map);
 				if (condition) {
 					this.setEtatCourant(transi.getSortie());
-					transi.getAction().executeAction(this);
+					transi.getAction().executeAction(this,now);
 				}
 
 			}
@@ -137,7 +137,7 @@ public abstract class Being extends Entity {
 
 	public abstract void wizz();
 
-	public abstract void hit();
+	public abstract void hit(long now);
 	 
 	public void getDamage() {
 		this.m_life --;

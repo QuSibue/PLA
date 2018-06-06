@@ -52,7 +52,7 @@ public class Model extends GameModel {
 		obs = new Obstacle(1, 0, false, true, false, false, null, map, this);
 		m_obstacles.add(obs);
 		map.setEntity(obs);
-		for (int i = 1; i < 10; i++) {
+		for (int i = 1; i < 100; i++) {
 			obs = new Obstacle(0, i, false, true, false, false, null, map, this);
 			m_obstacles.add(obs);
 			map.setEntity(obs);

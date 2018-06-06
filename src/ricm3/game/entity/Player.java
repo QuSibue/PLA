@@ -4,12 +4,10 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
-import java.util.Iterator;
 
 import ricm3.game.automaton.Automaton;
 import ricm3.game.automaton.Direction;
 import ricm3.game.automaton.Orientation;
-import ricm3.game.automaton.Transition;
 import ricm3.game.mvc.Map;
 import ricm3.game.mvc.Model;
 import ricm3.game.other.Options;
@@ -20,6 +18,7 @@ import ricm3.game.other.TypeKey;
 public class Player extends Character {
 
 	private TypeKey m_key;
+	private long m_lastShot=-Options.laserCD;
 
 	public Player(int x, int y, boolean moveable, boolean pickable, boolean killable, boolean lethal, int ms,
 			BufferedImage[] sprites, Automaton aut, Orientation orientation, int equipe, Map map, Model model, int life,
@@ -37,7 +36,12 @@ public class Player extends Character {
 		this.turn(d);
 		Transversal.evalPosition(this.getX(), this.getY(), p, d, this.getOrientation());
 		Entity e = global_map.getEntity(p.x, p.y);
-		if (e == null || e instanceof Laser) {
+		if (e == null || e instanceof Laser ) {
+			if(e instanceof Laser) {
+				this.getDamage();
+				global_map.deleteEntity(e);
+				m_model.m_laser.remove(e);
+			}
 			global_map.moveEntity(this, p.x, p.y);
 		}
 
@@ -74,14 +78,19 @@ public class Player extends Character {
 	}
 
 	@Override
-	public void hit() {
-		Point p = new Point();
-		Transversal.evalPosition(this.getX(), this.getY(), p, Direction.FRONT, this.getOrientation());
-		if (global_map.getEntity(p.x, p.y) == null) {
-			Laser laser = new Laser(p.x, p.y, true, true, false, true, 100, null, Transversal.straightAutomaton(),
-					this.getOrientation(), global_map, m_model, 1, 0);
-			this.m_model.m_laser.add(laser);
-			global_map.setEntity(laser);
+	public void hit(long now) {
+		long elapsed = now - m_lastShot;
+		if (elapsed > Options.laserCD) {
+			m_lastShot = now;
+			this.setLastMove(now);
+			Point p = new Point();
+			Transversal.evalPosition(this.getX(), this.getY(), p, Direction.FRONT, this.getOrientation());
+			if (global_map.getEntity(p.x, p.y) == null) {
+				Laser laser = new Laser(p.x, p.y, true, true, false, true, 100, null, Transversal.straightAutomaton(),
+						this.getOrientation(), global_map, m_model, 1, 0);
+				this.m_model.m_laser.add(laser);
+				global_map.setEntity(laser);
+			}
 		}
 
 	}
