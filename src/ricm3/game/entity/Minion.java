@@ -23,7 +23,6 @@ public class Minion extends Character {
 		// TODO FACTORISER LES PARAMETRE CONSTANTS ex un minion est toujours moveable
 	}
 
-
 	public void pop() {
 		return;
 	}
