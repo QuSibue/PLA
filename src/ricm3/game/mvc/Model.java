@@ -17,6 +17,7 @@ import ricm3.game.entity.Obstacle;
 import ricm3.game.entity.Player;
 import ricm3.game.framework.GameModel;
 import ricm3.game.other.Transversal;
+import ricm3.game.other.TypeKey;
 
 public class Model extends GameModel {
 
@@ -40,7 +41,7 @@ public class Model extends GameModel {
 		//FIN DE L'AUTOMATE
 		
 		//ONFAIT LE JOUEUR
-		virus  = new Player(1, 1, true, false, true, false, 1000, null, aut,Orientation.RIGHT,1,map,this,3,0);
+		virus  = new Player(1, 1, true, false, true, false, 1000, null, aut,Orientation.RIGHT,1,map,this,3,0,TypeKey.NONE);
 		map.setEntity(virus);
 		//ajout d'un obstacle
 		/*Obstacle obs = new Obstacle(4, 1, false, true, false, false, null,map,this);
@@ -48,7 +49,7 @@ public class Model extends GameModel {
 		map.setEntity(obs);*/
 		
 		//antivirus
-		antivirus  = new Player(8, 1, true, false, true, false, 1000, null, aut,Orientation.LEFT,2,map,this,3,0);
+		antivirus  = new Player(8, 1, true, false, true, false, 1000, null, aut,Orientation.LEFT,2,map,this,3,0,TypeKey.NONE);
 		map.setEntity(antivirus);
 		
 		

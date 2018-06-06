@@ -14,15 +14,20 @@ import ricm3.game.mvc.Map;
 import ricm3.game.mvc.Model;
 import ricm3.game.other.Options;
 import ricm3.game.other.Transversal;
+import ricm3.game.other.TypeKey;
 
 //TODO faire le bon heritage (character)
 public class Player extends Character {
 
+	private TypeKey m_key;
+	
 	public Player(int x, int y, boolean moveable, boolean pickable, boolean killable, boolean lethal, int ms,
 			BufferedImage[] sprites, Automaton aut, Orientation orientation, int equipe, Map map, Model model, int life,
-			long lastMove) {
+			long lastMove,TypeKey key) {
 		super(sprites, x, y, moveable, pickable, killable, lethal, ms, aut, orientation, equipe, map, model, life,
 				lastMove);
+		m_key = key;
+		
 	}
 	// action
 
@@ -78,6 +83,14 @@ public class Player extends Character {
 			global_map.setEntity(laser);
 		}
 
+	}
+	
+	public TypeKey getKey() {
+		return m_key;
+	}
+	
+	public void setKey(TypeKey key) {
+		m_key = key;
 	}
 
 	@Override
