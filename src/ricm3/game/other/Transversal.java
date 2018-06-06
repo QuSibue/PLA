@@ -15,37 +15,27 @@ import ricm3.game.automaton.TypeCondition;
 
 public class Transversal {
 
-	public static void positionAbsolue(int x, int y, Point p, Direction d) {
+	public static void evalPosition(int x, int y, Point p, Direction d, Orientation o) {
 		p.x = x;
 		p.y = y;
 
 		switch (d) {
-		case UP:
-			p.y++;
-			break;
-
-		case DOWN:
+		case NORTH:
 			p.y--;
 			break;
 
-		case LEFT:
+		case SOUTH:
+			p.y++;
+			break;
+
+		case EAST:
 			p.x--;
 			break;
 
-		case RIGHT:
+		case WEST:
 			p.x++;
 			break;
-
-		default:
-			throw new RuntimeException("Direction invalid");
-		}
-	}
-
-	public static void positionRelative(int x, int y, Point p, Direction d, Orientation o) {
-		p.x = x;
-		p.y = y;
-
-		switch (d) {
+			
 		case FRONT:
 			switch (o) {
 			case UP:
@@ -178,6 +168,36 @@ public class Transversal {
 				
 		LinkedList<Transition> listTransitions = new LinkedList<Transition>();
 		listTransitions.add(transition);
+		Automaton test =  new Automaton(etatInitialAut, listTransitions);
+		return test;
+	}
+	public static Automaton playerAutomaton() {
+		Etat etatInitialAut = new Etat(0);
+		Etat etatInitialTransition = etatInitialAut;
+		Condition condiUp = new Condition(TypeCondition.KEYPRESSEDUP, null, ' ', null);
+		Condition condiDown = new Condition(TypeCondition.KEYPRESSEDDOWN, null, ' ', null);
+		Condition condiLeft = new Condition(TypeCondition.KEYPRESSEDLEFT, null, ' ', null);
+		Condition condiRight = new Condition(TypeCondition.KEYPRESSEDRIGHT, null, ' ', null);
+		Condition condiIdle = new Condition(TypeCondition.KEYPRESSEDNONE, null, ' ', null);
+		
+		Action up = new Action(TypeAction.MOVE, Direction.NORTH);
+		Action down = new Action(TypeAction.MOVE, Direction.SOUTH);
+		Action left = new Action(TypeAction.MOVE, Direction.EAST);
+		Action right = new Action(TypeAction.MOVE, Direction.WEST);
+		Action idle = new Action(TypeAction.IDLE, null);
+		
+		Transition transitionUp = new Transition(etatInitialTransition, condiUp, up, etatInitialTransition);
+		Transition transitionDown = new Transition(etatInitialTransition, condiDown, down, etatInitialTransition);
+		Transition transitionLeft = new Transition(etatInitialTransition, condiLeft, left, etatInitialTransition);
+		Transition transitionRight = new Transition(etatInitialTransition, condiRight, right, etatInitialTransition);
+		Transition transitionIdle = new Transition(etatInitialTransition, condiIdle, idle, etatInitialTransition);
+				
+		LinkedList<Transition> listTransitions = new LinkedList<Transition>();
+		listTransitions.add(transitionUp);
+		listTransitions.add(transitionDown);
+		listTransitions.add(transitionLeft);
+		listTransitions.add(transitionRight);
+		listTransitions.add(transitionIdle);
 		Automaton test =  new Automaton(etatInitialAut, listTransitions);
 		return test;
 	}

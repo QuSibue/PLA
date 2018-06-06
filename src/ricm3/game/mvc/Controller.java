@@ -40,18 +40,22 @@ public class Controller extends GameController {
         case KeyEvent.VK_UP:
             // handle up
         	m_model.virus.setKey(TypeKey.UP);
+        	System.out.println("UP");
             break;
         case KeyEvent.VK_DOWN:
             // handle down
         	m_model.virus.setKey(TypeKey.DOWN);
+        	System.out.println("DOWN");
             break;
         case KeyEvent.VK_LEFT:
             // handle left
         	m_model.virus.setKey(TypeKey.LEFT);
+        	System.out.println("LEFT");
             break;
         case KeyEvent.VK_RIGHT :
             // handle right
         	m_model.virus.setKey(TypeKey.RIGHT);
+        	System.out.println("RIGHT");
             break;
         default:
         	m_model.virus.setKey(TypeKey.NONE);
@@ -62,7 +66,7 @@ public class Controller extends GameController {
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+		m_model.virus.setKey(TypeKey.NONE);
 	}
 
 	@Override

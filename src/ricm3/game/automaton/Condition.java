@@ -6,6 +6,8 @@ import ricm3.game.entity.Being;
 import ricm3.game.entity.Environment;
 import ricm3.game.mvc.Map;
 import ricm3.game.other.Transversal;
+import ricm3.game.other.TypeKey;
+import ricm3.game.entity.Player;
 
 public class Condition {
 	private TypeCondition m_type;
@@ -33,7 +35,7 @@ public class Condition {
 		 */
 		if (m_type.equals(TypeCondition.FREE)) {
 			Point p = new Point();
-			Transversal.positionRelative(b.getX(), b.getY(), p, m_direction, b.getOrientation());
+			Transversal.evalPosition(b.getX(), b.getY(), p, m_direction, b.getOrientation());
 			res = m.getEntity(p.x, p.y) == null;
 			if (m_operator == 0)
 				return res;
@@ -51,7 +53,7 @@ public class Condition {
 		 */
 		else if (m_type.equals(TypeCondition.OBSTACLE)) {
 			Point p = new Point();
-			Transversal.positionRelative(b.getX(), b.getY(), p, m_direction, b.getOrientation());
+			Transversal.evalPosition(b.getX(), b.getY(), p, m_direction, b.getOrientation());
 			res = m.getEntity(p.x, p.y) instanceof Environment;
 			if (m_operator == 0)
 				return res;
@@ -64,6 +66,86 @@ public class Condition {
 		} 
 		else if(m_type.equals(TypeCondition.TRUE)) {
 			return true;
+		}
+		/**
+		 * Si la conditon est de type KEYPRESSEDUP On va aller regarder sur la map a la case
+		 * correspondant a la direction indiquée dans la condition, si la case est
+		 * libre.
+		 */
+		if (m_type.equals(TypeCondition.KEYPRESSEDUP)) {
+			res = ((Player)b).getKey() == TypeKey.UP;
+			if (m_operator == ' ')
+				return res;
+			else if (m_operator == '&')
+				return res && m_condition.eval(b, m);
+			else if (m_operator == '|')
+				return res || m_condition.eval(b, m);
+			else
+				throw new RuntimeException("Operateur condition invalide");
+		}
+		/**
+		 * Si la conditon est de type KEYPRESSEDDOWN On va aller regarder sur la map a la case
+		 * correspondant a la direction indiquée dans la condition, si la case est
+		 * libre.
+		 */
+		if (m_type.equals(TypeCondition.KEYPRESSEDDOWN)) {
+			res = ((Player)b).getKey() == TypeKey.DOWN;
+			if (m_operator == ' ')
+				return res;
+			else if (m_operator == '&')
+				return res && m_condition.eval(b, m);
+			else if (m_operator == '|')
+				return res || m_condition.eval(b, m);
+			else
+				throw new RuntimeException("Operateur condition invalide");
+		}
+		/**
+		 * Si la conditon est de type KEYPRESSEDLEFT On va aller regarder sur la map a la case
+		 * correspondant a la direction indiquée dans la condition, si la case est
+		 * libre.
+		 */
+		if (m_type.equals(TypeCondition.KEYPRESSEDLEFT)) {
+			res = ((Player)b).getKey() == TypeKey.LEFT;
+			if (m_operator == ' ')
+				return res;
+			else if (m_operator == '&')
+				return res && m_condition.eval(b, m);
+			else if (m_operator == '|')
+				return res || m_condition.eval(b, m);
+			else
+				throw new RuntimeException("Operateur condition invalide");
+		}
+		/**
+		 * Si la conditon est de type KEYPRESSEDRIGHT On va aller regarder sur la map a la case
+		 * correspondant a la direction indiquée dans la condition, si la case est
+		 * libre.
+		 */
+		if (m_type.equals(TypeCondition.KEYPRESSEDRIGHT)) {
+			res = ((Player)b).getKey() == TypeKey.RIGHT;
+			if (m_operator == ' ')
+				return res;
+			else if (m_operator == '&')
+				return res && m_condition.eval(b, m);
+			else if (m_operator == '|')
+				return res || m_condition.eval(b, m);
+			else
+				throw new RuntimeException("Operateur condition invalide");
+		}
+		/**
+		 * Si la conditon est de type KEYPRESSEDRIGHT On va aller regarder sur la map a la case
+		 * correspondant a la direction indiquée dans la condition, si la case est
+		 * libre.
+		 */
+		if (m_type.equals(TypeCondition.KEYPRESSEDNONE)) {
+			res = ((Player)b).getKey() == TypeKey.NONE;
+			if (m_operator == ' ')
+				return res;
+			else if (m_operator == '&')
+				return res && m_condition.eval(b, m);
+			else if (m_operator == '|')
+				return res || m_condition.eval(b, m);
+			else
+				throw new RuntimeException("Operateur condition invalide");
 		}
 		else {
 			throw new RuntimeException("Type condition invalide");

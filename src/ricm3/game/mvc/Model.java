@@ -37,11 +37,11 @@ public class Model extends GameModel {
 		map = new Map(1100,1200);
 		
 		//ON FAIT UN AUTOMATE
-		Automaton aut = Transversal.shootAutomaton();
+		Automaton aut = Transversal.playerAutomaton();
 		//FIN DE L'AUTOMATE
 		
 		//ONFAIT LE JOUEUR
-		virus  = new Player(1, 1, true, false, true, false, 1000, null, aut,Orientation.RIGHT,1,map,this,3,0,TypeKey.NONE);
+		virus  = new Player(1, 1, true, false, true, false, 100, null, aut,Orientation.RIGHT,1,map,this,3,0,TypeKey.NONE);
 		map.setEntity(virus);
 		//ajout d'un obstacle
 		/*Obstacle obs = new Obstacle(4, 1, false, true, false, false, null,map,this);
@@ -49,7 +49,7 @@ public class Model extends GameModel {
 		map.setEntity(obs);*/
 		
 		//antivirus
-		antivirus  = new Player(8, 1, true, false, true, false, 1000, null, aut,Orientation.LEFT,2,map,this,3,0,TypeKey.NONE);
+		antivirus  = new Player(8, 1, true, false, true, false, 100, null, aut,Orientation.LEFT,2,map,this,3,0,TypeKey.NONE);
 		map.setEntity(antivirus);
 		
 		

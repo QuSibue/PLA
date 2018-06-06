@@ -29,7 +29,7 @@ public class Laser extends Being {
 	public void move(Direction d) {
 		int x_res = 0, y_res = 0;
 		Point p = new Point(x_res, y_res);
-		Transversal.positionRelative(this.getX(), this.getY(), p, d, this.getOrientation());
+		Transversal.evalPosition(this.getX(), this.getY(), p, d, this.getOrientation());
 		Entity e = global_map.getEntity(p.x, p.y);
 		if (e == null) {
 			global_map.moveEntity(this, p.x, p.y);

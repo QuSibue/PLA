@@ -27,6 +27,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.Timer;
 
+import ricm3.game.mvc.Controller;
 import ricm3.game.mvc.Model;
 
 public class GameUI {
@@ -72,10 +73,10 @@ public class GameUI {
   long m_lastTick;
   int m_nTicks;
 
-  public GameUI(Model m, GameView v, Dimension d) {
+  public GameUI(Model m, GameView v, Dimension d,Controller c) {
     m_model = m; m_model.m_game = this;
     m_view = v; m_view.m_game = this;
-//    m_controller = c; m_controller.m_game = this;
+    m_controller = c; m_controller.m_game = this;
 
     System.out.println(license);
 
