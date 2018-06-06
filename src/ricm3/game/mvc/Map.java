@@ -58,18 +58,18 @@ public class Map {
 			for (j = 0; j < m_length; j++) {
 				if (matrice[i][j] != null) {
 					if(matrice[i][j] instanceof Player) {
-						System.out.print("Player");
+						//System.out.print("Player");
 					}
 					else if(matrice[i][j] instanceof Obstacle) {
-						System.out.print("Obs");
+						//System.out.print("Obs");
 					}
 				} else {
-					System.out.print(matrice[i][j]);
+					//System.out.print(matrice[i][j]);
 				}
 
-				System.out.print(" ");
+				//System.out.print(" ");
 			}
-			System.out.println();
+			//System.out.println();
 		}
 	}
 

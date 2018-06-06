@@ -20,9 +20,15 @@ package ricm3.game.framework;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.ImageConsumer;
+import java.awt.image.ImageProducer;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.Timer;
@@ -111,8 +117,9 @@ public class GameUI {
   }
 
   private void createWindow(Dimension d) {
-    m_frame = new JFrame();
+    m_frame = new JFrame(); //cree un fenetre
     m_frame.setTitle("Warzone");
+    
     m_frame.setLayout(new BorderLayout());
 
     m_frame.add(m_view, BorderLayout.CENTER);
