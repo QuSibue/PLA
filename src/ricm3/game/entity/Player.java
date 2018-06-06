@@ -29,18 +29,23 @@ public class Player extends Character {
 
 	}
 	// action
-
+	@Override
 	public void move(Direction d) {
 		int x_res = 0, y_res = 0;
 		Point p = new Point(x_res, y_res);
 		this.turn(d);
 		Transversal.evalPosition(this.getX(), this.getY(), p, d, this.getOrientation());
 		Entity e = global_map.getEntity(p.x, p.y);
-		if (e == null || e instanceof Laser ) {
+		if (e == null || e instanceof Laser || e instanceof PowerUp ) {
 			if(e instanceof Laser) {
 				this.getDamage();
 				global_map.deleteEntity(e);
 				m_model.m_laser.remove(e);
+			}
+			else if(e instanceof PowerUp) {
+				this.pick();
+				global_map.deleteEntity(e);
+				m_model.m_powerup.remove(e);
 			}
 			global_map.moveEntity(this, p.x, p.y);
 		}

@@ -15,6 +15,7 @@ import ricm3.game.entity.Laser;
 import ricm3.game.entity.Minion;
 import ricm3.game.entity.Obstacle;
 import ricm3.game.entity.Player;
+import ricm3.game.entity.PowerUp;
 import ricm3.game.framework.GameModel;
 import ricm3.game.other.Transversal;
 import ricm3.game.other.TypeKey;
@@ -24,6 +25,7 @@ public class Model extends GameModel {
 	public LinkedList<Minion> m_minions;
 	public LinkedList<Obstacle> m_obstacles;
 	public LinkedList<Laser> m_laser;
+	public LinkedList<PowerUp> m_powerup;
 	public Player virus;
 	public Player antivirus;
 	public Map map;
@@ -32,6 +34,7 @@ public class Model extends GameModel {
 		m_minions = new LinkedList<Minion>();
 		m_obstacles = new LinkedList<Obstacle>();
 		m_laser = new LinkedList<Laser>();
+		m_powerup = new LinkedList<PowerUp>();
 		// sprites vont etres donné a l'instantiation normalement, a voir
 		// ON FAIT LA MAP
 		map = new Map(1100, 1200);
@@ -65,6 +68,10 @@ public class Model extends GameModel {
 		antivirus = new Player(8, 1, true, false, true, false, 100, null, aut, Orientation.LEFT, 2, map, this, 3, 0,
 				TypeKey.NONE);
 		map.setEntity(antivirus);
+		
+		PowerUp PU = new PowerUp(4, 3, this);
+		m_powerup.add(PU);
+		map.setEntity(PU);
 
 	}
 
@@ -91,8 +98,12 @@ public class Model extends GameModel {
 			l = iterL.next();
 			l.step(now);
 		}
-		virus.step(now);
-		antivirus.step(now);
+		if(virus.getLife() > 0) {
+			virus.step(now);
+		}
+		if(antivirus.getLife() > 0) {
+			antivirus.step(now);
+		}
 		System.out.println("\n");
 		// Affichage du modele
 	}
