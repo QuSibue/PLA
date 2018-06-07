@@ -2,49 +2,59 @@ package ricm3.game.entity;
 
 public class Sac {
 
-	Entity[] sac;
-	int index;
-	int max;
+	private Entity[] m_sac;
+	private int m_index;
+	private int m_max;
 
 	public Sac(int x) {
-		max = x;
-		sac = new Entity[max];
-		index = 0;
+		m_max = x;
+		m_sac = new Entity[m_max];
+		m_index = 0;
 	}
 
-	public boolean setItem(Entity e, int i) {
-		if (i >= 0 && i < max) {
-			sac[i] = e;
+	public boolean setSac(Entity[] a) {
+		m_sac = a;
+		m_max = a.length;
+		m_index = 0;
+		return true;
+	}
+
+	public boolean addItem(Entity e, int i) {
+		if (i >= 0 && i < m_max) {
+			m_sac[i] = e;
 			return true;
 		}
 		return false;
 	}
 
-	public boolean setIdem(Entity e) {
-		if (index >= max) {
+	public boolean addIdem(Entity e) {
+		if (m_index >= m_max) {
 			return false;
 		} else {
-			setItem(e, index);
-			index = (index + 1) % max;
+			addItem(e, m_index);
+			m_index = (m_index + 1) % m_max;
 			return true;
 		}
 
 	}
 
-	public Entity getItem(int i) {
-		if (i >= 0 && i < max) {
-			Entity e = sac[i];
-			sac[i] = null;
+	public Entity removeItem(int i) {
+		if (i >= 0 && i < m_max) {
+			Entity e = m_sac[i];
+			m_sac[i] = null;
 			return e;
 		}
 
 		return null;
 	}
 
-	public Entity getItem() {
-		Entity e = getItem(index);
-		index = (index - 1) % max;
-		return e;
+	public Entity removeItem() {
+		while (m_sac[m_index - 1] == null && m_index - 1 > 0) {
+			m_index--;
+		}
+		m_index = (m_index - 1) % m_max;
+		return removeItem(m_index);
+
 	}
 
 }
