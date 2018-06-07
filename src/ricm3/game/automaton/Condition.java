@@ -286,7 +286,7 @@ public class Condition {
 				// renvoit faux si il existe un pickable plus proche dans une autre direction
 				return this.isClosest(b, closest);
 			}
-
+			/*
 			else if (m_entity == TypeEntity.GATE) {
 				Portal p;
 				Portal closest;
@@ -300,7 +300,7 @@ public class Condition {
 				// renvoit faux si il existe un portail plus proche dans une autre direction
 				return this.isClosest(b, closest);
 
-			}
+			}*/
 		}
 
 		// recursivité

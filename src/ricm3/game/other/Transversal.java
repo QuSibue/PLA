@@ -121,7 +121,7 @@ public class Transversal {
 	public static Automaton straightAutomaton() {
 		Etat etatInitialAut = new Etat(0);
 		Etat etatInitialTransition = etatInitialAut;
-		Condition condi = new Condition(TypeCondition.TRUE, null, ' ', null);
+		Condition condi = new Condition(TypeCondition.TRUE, null, null,' ', null);
 		Action action = new Action(TypeAction.MOVE, Direction.FRONT);
 		Transition transition = new Transition(etatInitialTransition, condi, action, etatInitialTransition); 
 				
@@ -135,7 +135,7 @@ public class Transversal {
 	public static Automaton idleAutomaton() {
 		Etat etatInitialAut = new Etat(0);
 		Etat etatInitialTransition = etatInitialAut;
-		Condition condi = new Condition(TypeCondition.TRUE, null, ' ', null);
+		Condition condi = new Condition(TypeCondition.TRUE, null,null, ' ', null);
 		Action action = new Action(TypeAction.IDLE, null);
 		Transition transition = new Transition(etatInitialTransition, condi, action, etatInitialTransition); 
 				
@@ -149,7 +149,7 @@ public class Transversal {
 	public static Automaton popAutomaton() {
 		Etat etatInitialAut = new Etat(0);
 		Etat etatInitialTransition = etatInitialAut;
-		Condition condi = new Condition(TypeCondition.TRUE, null, ' ', null);
+		Condition condi = new Condition(TypeCondition.TRUE, null,null, ' ', null);
 		Action action = new Action(TypeAction.POP, null);
 		Transition transition = new Transition(etatInitialTransition, condi, action, etatInitialTransition); 
 				
@@ -162,7 +162,7 @@ public class Transversal {
 	public static Automaton shootAutomaton() {
 		Etat etatInitialAut = new Etat(0);
 		Etat etatInitialTransition = etatInitialAut;
-		Condition condi = new Condition(TypeCondition.TRUE, null, ' ', null);
+		Condition condi = new Condition(TypeCondition.TRUE, null,null, ' ', null);
 		Action action = new Action(TypeAction.HIT, null);
 		Transition transition = new Transition(etatInitialTransition, condi, action, etatInitialTransition); 
 				
@@ -174,13 +174,13 @@ public class Transversal {
 	public static Automaton virusAutomaton() {
 		Etat etatInitialAut = new Etat(0);
 		Etat etatInitialTransition = etatInitialAut;
-		Condition condiUp = new Condition(TypeCondition.KEYPRESSEDUP, null, ' ', null);
-		Condition condiDown = new Condition(TypeCondition.KEYPRESSEDDOWN, null, ' ', null);
-		Condition condiLeft = new Condition(TypeCondition.KEYPRESSEDLEFT, null, ' ', null);
-		Condition condiRight = new Condition(TypeCondition.KEYPRESSEDRIGHT, null, ' ', null);
-		Condition condiIdle = new Condition(TypeCondition.KEYPRESSEDNONE, null, ' ', null);
-		Condition condiHit = new Condition(TypeCondition.KEYPRESSEDHIT, null, ' ', null);
-		Condition condiPop = new Condition(TypeCondition.KEYPRESSEDPOP, null, ' ', null);
+		Condition condiUp = new Condition(TypeCondition.KEYPRESSEDUP, null, null,' ', null);
+		Condition condiDown = new Condition(TypeCondition.KEYPRESSEDDOWN, null, null,' ', null);
+		Condition condiLeft = new Condition(TypeCondition.KEYPRESSEDLEFT, null, null,' ', null);
+		Condition condiRight = new Condition(TypeCondition.KEYPRESSEDRIGHT, null, null,' ', null);
+		Condition condiIdle = new Condition(TypeCondition.KEYPRESSEDNONE, null, null,' ', null);
+		Condition condiHit = new Condition(TypeCondition.KEYPRESSEDHIT, null, null,' ', null);
+		Condition condiPop = new Condition(TypeCondition.KEYPRESSEDPOP, null, null,' ', null);
 		
 		
 		Action up = new Action(TypeAction.MOVE, Direction.NORTH);
@@ -214,13 +214,13 @@ public class Transversal {
 	public static Automaton antivirusAutomaton() {
 		Etat etatInitialAut = new Etat(0);
 		Etat etatInitialTransition = etatInitialAut;
-		Condition condiUp = new Condition(TypeCondition.KEYPRESSEDZ, null, ' ', null);
-		Condition condiDown = new Condition(TypeCondition.KEYPRESSEDS, null, ' ', null);
-		Condition condiLeft = new Condition(TypeCondition.KEYPRESSEDQ, null, ' ', null);
-		Condition condiRight = new Condition(TypeCondition.KEYPRESSEDD, null, ' ', null);
-		Condition condiIdle = new Condition(TypeCondition.KEYPRESSEDNONE, null, ' ', null);
-		Condition condiHit = new Condition(TypeCondition.KEYPRESSEDF, null, ' ', null);
-		Condition condiPop = new Condition(TypeCondition.KEYPRESSEDG, null, ' ', null);
+		Condition condiUp = new Condition(TypeCondition.KEYPRESSEDZ, null, null,' ', null);
+		Condition condiDown = new Condition(TypeCondition.KEYPRESSEDS, null, null,' ', null);
+		Condition condiLeft = new Condition(TypeCondition.KEYPRESSEDQ, null, null,' ', null);
+		Condition condiRight = new Condition(TypeCondition.KEYPRESSEDD, null, null,' ', null);
+		Condition condiIdle = new Condition(TypeCondition.KEYPRESSEDNONE, null, null,' ', null);
+		Condition condiHit = new Condition(TypeCondition.KEYPRESSEDF, null, null,' ', null);
+		Condition condiPop = new Condition(TypeCondition.KEYPRESSEDG, null, null,' ', null);
 		
 		
 		Action up = new Action(TypeAction.MOVE, Direction.NORTH);
