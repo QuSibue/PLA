@@ -1,5 +1,6 @@
 package ricm3.game.mvc;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -27,11 +28,13 @@ public class Model extends GameModel {
 	public Player virus;
 	public Player antivirus;
 	public Map map;
+	public ArrayList<Automaton>m_automates;
 
 	public Model(){
 		m_minions = new LinkedList<Minion>();
 		m_obstacles = new LinkedList<Obstacle>();
 		m_laser = new LinkedList<Laser>();
+		m_automates = new ArrayList<Automaton>();
 		//sprites vont etres donné a l'instantiation normalement, a voir 
 		//ON FAIT LA MAP
 		map = new Map(1100,1200);
@@ -85,6 +88,12 @@ public class Model extends GameModel {
 
 	@Override
 	public void shutdown() {
+	}
+	
+	public void loadAutomaton() {
+		m_automates.add(Transversal.straightAutomaton());
+		m_automates.add(Transversal.shootAutomaton());
+		m_automates.add(Transversal.idleAutomaton());
 	}
 
 	// private void loadSprites() {

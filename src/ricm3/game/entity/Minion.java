@@ -48,8 +48,8 @@ public class Minion extends Character {
 	public void wizz() {
 		int xCourant = this.getX();
 		int yCourant = this.getY();
-		Portal p = new Portal(xOrigin, yOrigin, xCourant, yCourant, null);
-		global_map.setEntity(p); //enlever les commentaires quand la liste de portail sera dans model
+		//Portal p = new Portal(xOrigin, yOrigin, xCourant, yCourant, null);
+		//global_map.setEntity(p); //enlever les commentaires quand la liste de portail sera dans model
 		//m_model.m_portail.add(p); 
 		this.global_map.deleteEntity(this);
 		m_model.m_minions.remove(this);
@@ -146,24 +146,6 @@ public class Minion extends Character {
 
 	@Override
 	public void kamikaze() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void step() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void paint() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void attack() {
 		// TODO Auto-generated method stub
 
 	}

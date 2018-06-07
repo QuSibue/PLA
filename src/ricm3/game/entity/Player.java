@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import ricm3.game.automaton.Automaton;
 import ricm3.game.automaton.Direction;
@@ -18,6 +19,8 @@ import ricm3.game.other.TypeKey;
 public class Player extends Character {
 
 	private TypeKey m_key;
+	private ArrayList<Automaton> m_autoMinions;
+	private int m_indiceAutoMinions;
 	
 	public Player(int x, int y, boolean moveable, boolean pickable, boolean killable, boolean lethal, int ms,
 			BufferedImage[] sprites, Automaton aut, Orientation orientation, int equipe, Map map, Model model, int life,
@@ -25,6 +28,8 @@ public class Player extends Character {
 		super(sprites, x, y, moveable, pickable, killable, lethal, ms, aut, orientation, equipe, map, model, life,
 				lastMove);
 		m_key = key;
+		m_autoMinions = new ArrayList<Automaton>();
+		m_indiceAutoMinions = 0;
 		
 	}
 	// action
@@ -55,7 +60,7 @@ public class Player extends Character {
 		// TODO Auto-generated method stub
 		Point p = new Point();
 		if (global_map.caseLibre(this.getX(), this.getY(), p)) {
-			Minion minion = new Minion(null, p.x, p.y, true, false, true, true, 1, Transversal.idleAutomaton(),
+			Minion minion = new Minion(null, p.x, p.y, true, false, true, true, 1, this.m_autoMinions.get(m_indiceAutoMinions),
 					Orientation.RIGHT, 1, global_map, this.m_model, 1, 0);
 			m_model.m_minions.add(minion);
 			global_map.setEntity(minion);
@@ -67,6 +72,12 @@ public class Player extends Character {
 	@Override
 	public void wizz() {
 		// TODO Auto-generated method stub
+		if(m_indiceAutoMinions == Options.NB_MINIONS_TYPE-1) {
+			m_indiceAutoMinions = 0;
+		}
+		else {
+			m_indiceAutoMinions ++;
+		}
 
 	}
 
