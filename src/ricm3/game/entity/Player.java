@@ -18,16 +18,16 @@ import ricm3.game.other.TypeKey;
 public class Player extends Character {
 
 	private TypeKey m_key;
-	private long m_lastShot=-Options.laserCD;
+	private long m_lastShot = -Options.laserCD;
 
-	public Player(int x, int y, boolean moveable, boolean pickable, boolean killable, boolean lethal, int ms,
-			BufferedImage[] sprites, Automaton aut, Orientation orientation, int equipe, Map map, Model model, int life,
-			long lastMove, TypeKey key) {
-		super(sprites, x, y, moveable, pickable, killable, lethal, ms, aut, orientation, equipe, map, model, life,
+	public Player(int x, int y, BufferedImage[] sprites, Automaton aut, Orientation orientation, int equipe, Map map,
+			Model model, int life, long lastMove, TypeKey key) {
+		super(sprites, x, y, true, false, true, false, Options.PLAYER_MS, aut, orientation, equipe, map, model, life,
 				lastMove);
 		m_key = key;
 
 	}
+
 	// action
 	@Override
 	public void move(Direction d) {
@@ -36,13 +36,12 @@ public class Player extends Character {
 		this.turn(d);
 		Transversal.evalPosition(this.getX(), this.getY(), p, d, this.getOrientation());
 		Entity e = global_map.getEntity(p.x, p.y);
-		if (e == null || e instanceof Laser || e instanceof PowerUp ) {
-			if(e instanceof Laser) {
+		if (e == null || e instanceof Laser || e instanceof PowerUp) {
+			if (e instanceof Laser) {
 				this.getDamage();
 				global_map.deleteEntity(e);
 				m_model.m_laser.remove(e);
-			}
-			else if(e instanceof PowerUp) {
+			} else if (e instanceof PowerUp) {
 				this.pick();
 				global_map.deleteEntity(e);
 				m_model.m_powerup.remove(e);
@@ -67,8 +66,8 @@ public class Player extends Character {
 		// TODO Auto-generated method stub
 		Point p = new Point();
 		if (global_map.caseLibre(this.getX(), this.getY(), p)) {
-			Minion minion = new Minion(null, p.x, p.y, true, false, true, true, 1, Transversal.idleAutomaton(),
-					Orientation.RIGHT, 1, global_map, this.m_model, 1, 0);
+			Minion minion = new Minion(null, p.x, p.y, Transversal.idleAutomaton(), Orientation.RIGHT, 1, global_map,
+					this.m_model, 1, 0);
 			m_model.m_minions.add(minion);
 			global_map.setEntity(minion);
 		} else {
@@ -92,13 +91,12 @@ public class Player extends Character {
 			Transversal.evalPosition(this.getX(), this.getY(), p, Direction.FRONT, this.getOrientation());
 			Entity e = global_map.getEntity(p.x, p.y);
 			if (e == null) {
-				Laser laser = new Laser(p.x, p.y, true, true, false, true, 100, null, Transversal.straightAutomaton(),
-						this.getOrientation(), global_map, m_model, 1, 0);
+				Laser laser = new Laser(p.x, p.y, null, Transversal.straightAutomaton(), this.getOrientation(),
+						global_map, m_model, 1, 0);
 				this.m_model.m_laser.add(laser);
 				global_map.setEntity(laser);
-			}
-			else if(e instanceof Being) {
-				((Being)e).getDamage();
+			} else if (e instanceof Being) {
+				((Being) e).getDamage();
 			}
 		}
 

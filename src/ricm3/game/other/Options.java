@@ -24,6 +24,10 @@ public abstract class Options {
 	public static final boolean ECHO_MOUSE = true;
 	public static final boolean ECHO_MOUSE_MOTION = true;
 	public static final boolean ECHO_KEYBOARD = true;
+	
+	public static final int LASER_MS = 200;
+	public static final int PLAYER_MS = 100;
+	public static final int MINION_MS = 200;
 
 	//Cooldown
 	public static final long laserCD = 300L;

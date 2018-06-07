@@ -44,8 +44,7 @@ public class Model extends GameModel {
 		// FIN DE L'AUTOMATE
 
 		// ONFAIT LE JOUEUR
-		virus = new Player(1, 1, true, false, true, false, 100, null, aut, Orientation.RIGHT, 1, map, this, 3, 0,
-				TypeKey.NONE);
+		virus = new Player(1, 1, null, aut, Orientation.RIGHT, 1, map, this, 3, 0, TypeKey.NONE);
 		map.setEntity(virus);
 		// ajout d'un obstacle
 		Obstacle obs = new Obstacle(0, 0, false, true, false, false, null, map, this);
@@ -65,10 +64,9 @@ public class Model extends GameModel {
 		}
 		// antivirus
 		aut = Transversal.antivirusAutomaton();
-		antivirus = new Player(8, 1, true, false, true, false, 100, null, aut, Orientation.LEFT, 2, map, this, 3, 0,
-				TypeKey.NONE);
+		antivirus = new Player(8, 1, null, aut, Orientation.LEFT, 2, map, this, 3, 0, TypeKey.NONE);
 		map.setEntity(antivirus);
-		
+
 		PowerUp PU = new PowerUp(4, 3, this);
 		m_powerup.add(PU);
 		map.setEntity(PU);
@@ -98,10 +96,10 @@ public class Model extends GameModel {
 			l = iterL.next();
 			l.step(now);
 		}
-		if(virus.getLife() > 0) {
+		if (virus.getLife() > 0) {
 			virus.step(now);
 		}
-		if(antivirus.getLife() > 0) {
+		if (antivirus.getLife() > 0) {
 			antivirus.step(now);
 		}
 		System.out.println("\n");

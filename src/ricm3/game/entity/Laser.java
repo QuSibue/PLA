@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
+import java.security.cert.PKIXRevocationChecker.Option;
 
 import ricm3.game.automaton.Automaton;
 import ricm3.game.automaton.Direction;
@@ -14,14 +15,13 @@ import ricm3.game.other.Options;
 import ricm3.game.other.Transversal;
 
 public class Laser extends Being {
-	
-	
-	
-	public Laser(int x, int y, boolean moveable, boolean pickable, boolean killable, boolean lethal, int ms,
-			BufferedImage[] sprites, Automaton aut, Orientation orientation, Map map, Model model,int life, long lastMove) {
-		super(x, y, moveable, pickable, killable, lethal, ms, sprites, aut, orientation, map, model,life,lastMove);
-	}
 
+	private boolean m_isFirstPaint = true;
+
+	public Laser(int x, int y, BufferedImage[] sprites, Automaton aut, Orientation orientation, Map map, Model model,
+			int life, long lastMove) {
+		super(x, y, true, true, true, true, Options.LASER_MS, sprites, aut, orientation, map, model, life, lastMove);
+	}
 
 	@Override
 	public void move(Direction d) {
@@ -31,13 +31,19 @@ public class Laser extends Being {
 		Entity e = global_map.getEntity(p.x, p.y);
 		if (e == null) {
 			global_map.moveEntity(this, p.x, p.y);
-		} else if(e instanceof Being){
+		} else if (e instanceof Being) {
 			this.hit(e);
 			global_map.deleteEntity(this);
 			this.m_model.m_laser.remove(this);
 		}
 	}
 
+	@Override
+	public void step(long now) {
+		if (!m_isFirstPaint) {
+			super.step(now);
+		}
+	}
 
 	@Override
 	public void pop() {
@@ -51,9 +57,8 @@ public class Laser extends Being {
 
 	}
 
-	
 	public void hit(Entity e) {
-		((Being)e).getDamage();
+		((Being) e).getDamage();
 	}
 
 	@Override
@@ -104,19 +109,21 @@ public class Laser extends Being {
 		int m_y = this.getY() * Options.TAILLE_CASE;
 		g.setColor(Color.GREEN);
 		g.fillRect(m_x, m_y, Options.TAILLE_CASE, Options.TAILLE_CASE);
+
+		if (m_isFirstPaint)
+			m_isFirstPaint = false;
 	}
 
 	@Override
 	public void hit(long now) {
 		// TODO Auto-generated method stub
-		
-	}
 
+	}
 
 	@Override
 	public void turn(Direction d) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

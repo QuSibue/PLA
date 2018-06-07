@@ -15,12 +15,11 @@ import ricm3.game.other.Options;
 
 public class Minion extends Character {
 	public long m_lastMove;
-	public Minion(BufferedImage[] sprites, int x, int y, boolean moveable, boolean pickable, boolean killable,
-			boolean lethal, int moveSpeed, Automaton automate, Orientation orientation, int equipe, Map map,
-			Model model,int life, long lastMove) {
-		super(sprites, x, y, moveable, pickable, killable, lethal, moveSpeed, automate, orientation, equipe, map,
-				model,life,lastMove);
-		// TODO FACTORISER LES PARAMETRE CONSTANTS ex un minion est toujours moveable
+
+	public Minion(BufferedImage[] sprites, int x, int y, Automaton automate, Orientation orientation, int equipe,
+			Map map, Model model, int life, long lastMove) {
+		super(sprites, x, y, true, true, true, false, Options.MINION_MS, automate, orientation, equipe, map, model,
+				life, lastMove);
 	}
 
 	public void pop() {
@@ -86,7 +85,7 @@ public class Minion extends Character {
 						&& transi.getCondition().eval((Being) this, global_map);
 				if (condition) {
 					this.setEtatCourant(transi.getSortie());
-					transi.getAction().executeAction(this,now);
+					transi.getAction().executeAction(this, now);
 				}
 
 			}
@@ -115,7 +114,7 @@ public class Minion extends Character {
 	@Override
 	public void turn(Direction d) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
