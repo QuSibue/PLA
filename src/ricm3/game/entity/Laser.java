@@ -70,7 +70,7 @@ public class Laser extends Being {
 
 	@Override
 	public void jump() {
-		// TODO Auto-generated method stub
+		return;
 
 	}
 
@@ -108,6 +108,20 @@ public class Laser extends Being {
 
 	@Override
 	public void hit() {
+		return;
+		
+	}
+
+
+	@Override
+	public void turn() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void kamikaze() {
 		// TODO Auto-generated method stub
 		
 	}

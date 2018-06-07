@@ -112,4 +112,16 @@ public class Minion extends Character {
 
 	}
 
+	@Override
+	public void turn() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void kamikaze() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
