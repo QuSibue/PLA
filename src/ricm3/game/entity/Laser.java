@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
-import java.security.cert.PKIXRevocationChecker.Option;
 
 import ricm3.game.automaton.Automaton;
 import ricm3.game.automaton.Direction;
@@ -31,7 +30,7 @@ public class Laser extends Being {
 		Entity e = global_map.getEntity(p.x, p.y);
 		if (e == null) {
 			global_map.moveEntity(this, p.x, p.y);
-		} else if (e instanceof Being) {
+		} else if (e.getKillable()) {
 			this.hit(e);
 			global_map.deleteEntity(this);
 			this.m_model.m_laser.remove(this);

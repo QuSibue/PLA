@@ -151,6 +151,9 @@ public abstract class Being extends Entity {
 			}	
 		}
 	}
+	public void applyPowerUp(PowerUp p) {
+		
+	}
 
 	public abstract void power();
 
