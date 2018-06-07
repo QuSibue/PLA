@@ -15,7 +15,6 @@ import ricm3.game.other.Options;
 import ricm3.game.other.Transversal;
 import ricm3.game.other.TypeKey;
 
-//TODO faire le bon heritage (character)
 public class Player extends Character {
 
 	private TypeKey m_key;
@@ -43,14 +42,16 @@ public class Player extends Character {
 		Transversal.evalPosition(this.getX(), this.getY(), p, d, this.getOrientation());
 		Entity e = global_map.getEntity(p.x, p.y);
 		if (e == null || e instanceof Laser || e instanceof PowerUp) {
-			if (e instanceof Laser) {
-				this.getDamage();
-				global_map.deleteEntity(e);
-				m_model.m_laser.remove(e);
-			} else if (e instanceof PowerUp) {
-				this.pick();
-				global_map.deleteEntity(e);
-				m_model.m_powerup.remove(e);
+			if (e != null) {
+				if (e.getLethal()) {
+					this.getDamage();
+					global_map.deleteEntity(e);
+					m_model.m_laser.remove(e);
+				} else if (e instanceof PowerUp) {
+					this.applyPowerUp((PowerUp)e);;
+					global_map.deleteEntity(e);
+					m_model.m_powerup.remove(e);
+				}
 			}
 			global_map.moveEntity(this, p.x, p.y);
 		}
@@ -69,7 +70,6 @@ public class Player extends Character {
 
 	@Override
 	public void pop() {
-		// TODO Auto-generated method stub
 		Point p = new Point();
 		if (global_map.caseLibre(this.getX(), this.getY(), p)) {
 			Minion minion = new Minion(null, p.x, p.y, true, false, true, true, 1,
@@ -106,7 +106,7 @@ public class Player extends Character {
 						global_map, m_model, 1, 0);
 				this.m_model.m_laser.add(laser);
 				global_map.setEntity(laser);
-			} else if (e instanceof Being) {
+			} else if (e.getKillable()) {
 				((Being) e).getDamage();
 			}
 		}
