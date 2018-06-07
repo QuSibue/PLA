@@ -90,11 +90,15 @@ public class Player extends Character {
 			this.setLastMove(now);
 			Point p = new Point();
 			Transversal.evalPosition(this.getX(), this.getY(), p, Direction.FRONT, this.getOrientation());
-			if (global_map.getEntity(p.x, p.y) == null) {
+			Entity e = global_map.getEntity(p.x, p.y);
+			if (e == null) {
 				Laser laser = new Laser(p.x, p.y, true, true, false, true, 100, null, Transversal.straightAutomaton(),
 						this.getOrientation(), global_map, m_model, 1, 0);
 				this.m_model.m_laser.add(laser);
 				global_map.setEntity(laser);
+			}
+			else if(e instanceof Being) {
+				((Being)e).getDamage();
 			}
 		}
 
