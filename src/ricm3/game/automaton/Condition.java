@@ -79,7 +79,7 @@ public class Condition {
 		 * case correspondant a la direction indiquée dans la condition, si la case est
 		 * libre.
 		 */
-		else if (m_type.equals(TypeCondition.KEYPRESSEDUP)) {
+		else if (m_type.equals(TypeCondition.KEYPRESSEDUP) || m_type.equals(TypeCondition.KEYPRESSEDZ)) {
 			res = ((Player) b).getKey() == TypeKey.UP;
 			if (m_operator == ' ')
 				return res;
@@ -95,7 +95,7 @@ public class Condition {
 		 * la case correspondant a la direction indiquée dans la condition, si la case
 		 * est libre.
 		 */
-		else if (m_type.equals(TypeCondition.KEYPRESSEDDOWN)) {
+		else if (m_type.equals(TypeCondition.KEYPRESSEDDOWN) || m_type.equals(TypeCondition.KEYPRESSEDS)) {
 			res = ((Player) b).getKey() == TypeKey.DOWN;
 			if (m_operator == ' ')
 				return res;
@@ -111,7 +111,7 @@ public class Condition {
 		 * la case correspondant a la direction indiquée dans la condition, si la case
 		 * est libre.
 		 */
-		else if (m_type.equals(TypeCondition.KEYPRESSEDLEFT)) {
+		else if (m_type.equals(TypeCondition.KEYPRESSEDLEFT) || m_type.equals(TypeCondition.KEYPRESSEDQ)) {
 			res = ((Player) b).getKey() == TypeKey.LEFT;
 			if (m_operator == ' ')
 				return res;
@@ -127,7 +127,7 @@ public class Condition {
 		 * la case correspondant a la direction indiquée dans la condition, si la case
 		 * est libre.
 		 */
-		else if (m_type.equals(TypeCondition.KEYPRESSEDRIGHT)) {
+		else if (m_type.equals(TypeCondition.KEYPRESSEDRIGHT) || m_type.equals(TypeCondition.KEYPRESSEDD)) {
 			res = ((Player) b).getKey() == TypeKey.RIGHT;
 			if (m_operator == ' ')
 				return res;
@@ -145,6 +145,22 @@ public class Condition {
 		 */
 		else if (m_type.equals(TypeCondition.KEYPRESSEDNONE)) {
 			res = ((Player) b).getKey() == TypeKey.NONE;
+			if (m_operator == ' ')
+				return res;
+			else if (m_operator == '&')
+				return res && m_condition.eval(b, m);
+			else if (m_operator == '|')
+				return res || m_condition.eval(b, m);
+			else
+				throw new RuntimeException("Operateur condition invalide");
+		}
+		/**
+		 * Si la conditon est de type KEYPRESSEDRIGHT On va aller regarder sur la map a
+		 * la case correspondant a la direction indiquée dans la condition, si la case
+		 * est libre.
+		 */
+		else if (m_type.equals(TypeCondition.KEYPRESSEDHIT) || m_type.equals(TypeCondition.KEYPRESSEDF)) {
+			res = ((Player) b).getKey() == TypeKey.HIT;
 			if (m_operator == ' ')
 				return res;
 			else if (m_operator == '&')
@@ -231,7 +247,7 @@ public class Condition {
 					l = iter.next();
 					closest = (Laser) b.closestEntity(l, closest);
 				}
-				
+
 				return this.isClosest(b, closest);
 			}
 			// si il n'est pas dans la bonne direction on renvoit faux
@@ -251,7 +267,7 @@ public class Condition {
 				Iterator<Laser> iterL = b.m_model.m_laser.iterator();
 				Iterator<Minion> iterM = b.m_model.m_minions.iterator();
 				Iterator<PowerUp> iterP = b.m_model.m_powerup.iterator();
-				
+
 				while (iterL.hasNext()) {
 					l = iterL.next();
 					closest = (Character) b.closestEntity(l, closest);
@@ -261,12 +277,12 @@ public class Condition {
 					c = iterM.next();
 					closest = (Character) b.closestEntity(c, closest);
 				}
-				
+
 				while (iterP.hasNext()) {
 					p = iterP.next();
 					closest = (Character) b.closestEntity(p, closest);
 				}
-				
+
 				// renvoit faux si il existe un pickable plus proche dans une autre direction
 				return this.isClosest(b, closest);
 			}
@@ -276,7 +292,6 @@ public class Condition {
 				Portal closest;
 				// on cherche le caractère/sbires le plus proche
 				Iterator<Portal> iterP = b.m_model.m_gate.iterator();
-				
 
 				while (iterP.hasNext()) {
 					p = iterP.next();
@@ -286,8 +301,16 @@ public class Condition {
 				return this.isClosest(b, closest);
 
 			}
+		}
 
-			// recursivité
+		// recursivité
+		/**
+		 * Si la conditon est de type KEYPRESSEDRIGHT On va aller regarder sur la map a
+		 * la case correspondant a la direction indiquée dans la condition, si la case
+		 * est libre.
+		 */
+		if (m_type.equals(TypeCondition.KEYPRESSEDPOP) || m_type.equals(TypeCondition.KEYPRESSEDG)) {
+			res = ((Player) b).getKey() == TypeKey.POP;
 			if (m_operator == ' ')
 				return res;
 			else if (m_operator == '&')
@@ -296,10 +319,7 @@ public class Condition {
 				return res || m_condition.eval(b, m);
 			else
 				throw new RuntimeException("Operateur condition invalide");
-
-		} else
-
-		{
+		} else {
 			throw new RuntimeException("Type condition invalide");
 		}
 

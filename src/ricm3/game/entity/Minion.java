@@ -31,7 +31,7 @@ public class Minion extends Character {
 		return;
 	}
 
-	public void hit() {
+	public void hit(long now) {
 		return;
 	}
 
@@ -86,7 +86,7 @@ public class Minion extends Character {
 						&& transi.getCondition().eval((Being) this, global_map);
 				if (condition) {
 					this.setEtatCourant(transi.getSortie());
-					transi.getAction().executeAction(this);
+					transi.getAction().executeAction(this,now);
 				}
 
 			}
@@ -110,6 +110,12 @@ public class Minion extends Character {
 		g.setColor(Color.RED);
 		g.fillRect(m_x, m_y, Options.TAILLE_CASE, Options.TAILLE_CASE);
 
+	}
+
+	@Override
+	public void turn(Direction d) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

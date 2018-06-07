@@ -18,23 +18,35 @@ import ricm3.game.other.TypeKey;
 public class Player extends Character {
 
 	private TypeKey m_key;
-	
+	private long m_lastShot=-Options.laserCD;
+
 	public Player(int x, int y, boolean moveable, boolean pickable, boolean killable, boolean lethal, int ms,
 			BufferedImage[] sprites, Automaton aut, Orientation orientation, int equipe, Map map, Model model, int life,
-			long lastMove,TypeKey key) {
+			long lastMove, TypeKey key) {
 		super(sprites, x, y, moveable, pickable, killable, lethal, ms, aut, orientation, equipe, map, model, life,
 				lastMove);
 		m_key = key;
-		
+
 	}
 	// action
-
+	@Override
 	public void move(Direction d) {
 		int x_res = 0, y_res = 0;
 		Point p = new Point(x_res, y_res);
+		this.turn(d);
 		Transversal.evalPosition(this.getX(), this.getY(), p, d, this.getOrientation());
 		Entity e = global_map.getEntity(p.x, p.y);
-		if (e == null || e instanceof Laser) {
+		if (e == null || e instanceof Laser || e instanceof PowerUp ) {
+			if(e instanceof Laser) {
+				this.getDamage();
+				global_map.deleteEntity(e);
+				m_model.m_laser.remove(e);
+			}
+			else if(e instanceof PowerUp) {
+				this.pick();
+				global_map.deleteEntity(e);
+				m_model.m_powerup.remove(e);
+			}
 			global_map.moveEntity(this, p.x, p.y);
 		}
 
@@ -71,22 +83,27 @@ public class Player extends Character {
 	}
 
 	@Override
-	public void hit() {
-		Point p = new Point();
-		Transversal.evalPosition(this.getX(), this.getY(), p, Direction.FRONT, this.getOrientation());
-		if (global_map.getEntity(p.x, p.y) == null) {
-			Laser laser = new Laser(p.x, p.y, true, true, false, true, 100, null, Transversal.straightAutomaton(),
-					this.getOrientation(), global_map, m_model, 1, 0);
-			this.m_model.m_laser.add(laser);
-			global_map.setEntity(laser);
+	public void hit(long now) {
+		long elapsed = now - m_lastShot;
+		if (elapsed > Options.laserCD) {
+			m_lastShot = now;
+			this.setLastMove(now);
+			Point p = new Point();
+			Transversal.evalPosition(this.getX(), this.getY(), p, Direction.FRONT, this.getOrientation());
+			if (global_map.getEntity(p.x, p.y) == null) {
+				Laser laser = new Laser(p.x, p.y, true, true, false, true, 100, null, Transversal.straightAutomaton(),
+						this.getOrientation(), global_map, m_model, 1, 0);
+				this.m_model.m_laser.add(laser);
+				global_map.setEntity(laser);
+			}
 		}
 
 	}
-	
+
 	public TypeKey getKey() {
 		return m_key;
 	}
-	
+
 	public void setKey(TypeKey key) {
 		m_key = key;
 	}
@@ -130,6 +147,32 @@ public class Player extends Character {
 	@Override
 	public void _throw() {
 		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void turn(Direction d) {
+		// TODO Auto-generated method stub
+		switch (d) {
+		case NORTH:
+			this.setOrientation(Orientation.UP);
+			break;
+
+		case SOUTH:
+			this.setOrientation(Orientation.DOWN);
+			break;
+
+		case EAST:
+			this.setOrientation(Orientation.RIGHT);
+			break;
+
+		case WEST:
+			this.setOrientation(Orientation.LEFT);
+			break;
+
+		default:
+			throw new RuntimeException("Direction invalid");
+		}
 
 	}
 

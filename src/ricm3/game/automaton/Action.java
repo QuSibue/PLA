@@ -25,7 +25,7 @@ public class Action {
 	 * 
 	 * Va faire appel a la methode  d'une entité correspondant a l'action voulue
 	 */
-	public void executeAction(Being b) {
+	public void executeAction(Being b,long now) {
 		switch (m_action){
 		case MOVE:
 			b.move(m_direction);
@@ -36,7 +36,7 @@ public class Action {
 		case IDLE:
 			break;
 		case HIT:
-			b.hit();
+			b.hit(now);
 			break;
 		default:
 			throw new RuntimeException("Action NYI");

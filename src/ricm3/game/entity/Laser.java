@@ -107,7 +107,14 @@ public class Laser extends Being {
 	}
 
 	@Override
-	public void hit() {
+	public void hit(long now) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void turn(Direction d) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -29,20 +29,20 @@ public class Transversal {
 			break;
 
 		case EAST:
-			p.x--;
+			p.x++;
 			break;
 
 		case WEST:
-			p.x++;
+			p.x--;
 			break;
 			
 		case FRONT:
 			switch (o) {
 			case UP:
-				p.y++;
+				p.y--;
 				break;
 			case DOWN:
-				p.y--;
+				p.y++;
 				break;
 			case LEFT:
 				p.x--;
@@ -171,7 +171,7 @@ public class Transversal {
 		Automaton test =  new Automaton(etatInitialAut, listTransitions);
 		return test;
 	}
-	public static Automaton playerAutomaton() {
+	public static Automaton virusAutomaton() {
 		Etat etatInitialAut = new Etat(0);
 		Etat etatInitialTransition = etatInitialAut;
 		Condition condiUp = new Condition(TypeCondition.KEYPRESSEDUP, null, ' ', null);
@@ -179,17 +179,24 @@ public class Transversal {
 		Condition condiLeft = new Condition(TypeCondition.KEYPRESSEDLEFT, null, ' ', null);
 		Condition condiRight = new Condition(TypeCondition.KEYPRESSEDRIGHT, null, ' ', null);
 		Condition condiIdle = new Condition(TypeCondition.KEYPRESSEDNONE, null, ' ', null);
+		Condition condiHit = new Condition(TypeCondition.KEYPRESSEDHIT, null, ' ', null);
+		Condition condiPop = new Condition(TypeCondition.KEYPRESSEDPOP, null, ' ', null);
+		
 		
 		Action up = new Action(TypeAction.MOVE, Direction.NORTH);
 		Action down = new Action(TypeAction.MOVE, Direction.SOUTH);
-		Action left = new Action(TypeAction.MOVE, Direction.EAST);
-		Action right = new Action(TypeAction.MOVE, Direction.WEST);
+		Action left = new Action(TypeAction.MOVE, Direction.WEST);
+		Action right = new Action(TypeAction.MOVE, Direction.EAST);
+		Action hit = new Action(TypeAction.HIT, null);
+		Action pop = new Action(TypeAction.POP, null);
 		Action idle = new Action(TypeAction.IDLE, null);
 		
 		Transition transitionUp = new Transition(etatInitialTransition, condiUp, up, etatInitialTransition);
 		Transition transitionDown = new Transition(etatInitialTransition, condiDown, down, etatInitialTransition);
 		Transition transitionLeft = new Transition(etatInitialTransition, condiLeft, left, etatInitialTransition);
 		Transition transitionRight = new Transition(etatInitialTransition, condiRight, right, etatInitialTransition);
+		Transition transitionHit = new Transition(etatInitialTransition, condiHit, hit, etatInitialTransition);
+		Transition transitionPop = new Transition(etatInitialTransition, condiPop, pop, etatInitialTransition);
 		Transition transitionIdle = new Transition(etatInitialTransition, condiIdle, idle, etatInitialTransition);
 				
 		LinkedList<Transition> listTransitions = new LinkedList<Transition>();
@@ -197,6 +204,48 @@ public class Transversal {
 		listTransitions.add(transitionDown);
 		listTransitions.add(transitionLeft);
 		listTransitions.add(transitionRight);
+		listTransitions.add(transitionHit);
+		listTransitions.add(transitionPop);
+		listTransitions.add(transitionIdle);
+		Automaton test =  new Automaton(etatInitialAut, listTransitions);
+		return test;
+	}
+	
+	public static Automaton antivirusAutomaton() {
+		Etat etatInitialAut = new Etat(0);
+		Etat etatInitialTransition = etatInitialAut;
+		Condition condiUp = new Condition(TypeCondition.KEYPRESSEDZ, null, ' ', null);
+		Condition condiDown = new Condition(TypeCondition.KEYPRESSEDS, null, ' ', null);
+		Condition condiLeft = new Condition(TypeCondition.KEYPRESSEDQ, null, ' ', null);
+		Condition condiRight = new Condition(TypeCondition.KEYPRESSEDD, null, ' ', null);
+		Condition condiIdle = new Condition(TypeCondition.KEYPRESSEDNONE, null, ' ', null);
+		Condition condiHit = new Condition(TypeCondition.KEYPRESSEDF, null, ' ', null);
+		Condition condiPop = new Condition(TypeCondition.KEYPRESSEDG, null, ' ', null);
+		
+		
+		Action up = new Action(TypeAction.MOVE, Direction.NORTH);
+		Action down = new Action(TypeAction.MOVE, Direction.SOUTH);
+		Action left = new Action(TypeAction.MOVE, Direction.WEST);
+		Action right = new Action(TypeAction.MOVE, Direction.EAST);
+		Action hit = new Action(TypeAction.HIT, null);
+		Action pop = new Action(TypeAction.POP, null);
+		Action idle = new Action(TypeAction.IDLE, null);
+		
+		Transition transitionUp = new Transition(etatInitialTransition, condiUp, up, etatInitialTransition);
+		Transition transitionDown = new Transition(etatInitialTransition, condiDown, down, etatInitialTransition);
+		Transition transitionLeft = new Transition(etatInitialTransition, condiLeft, left, etatInitialTransition);
+		Transition transitionRight = new Transition(etatInitialTransition, condiRight, right, etatInitialTransition);
+		Transition transitionHit = new Transition(etatInitialTransition, condiHit, hit, etatInitialTransition);
+		Transition transitionPop = new Transition(etatInitialTransition, condiPop, pop, etatInitialTransition);
+		Transition transitionIdle = new Transition(etatInitialTransition, condiIdle, idle, etatInitialTransition);
+				
+		LinkedList<Transition> listTransitions = new LinkedList<Transition>();
+		listTransitions.add(transitionUp);
+		listTransitions.add(transitionDown);
+		listTransitions.add(transitionLeft);
+		listTransitions.add(transitionRight);
+		listTransitions.add(transitionHit);
+		listTransitions.add(transitionPop);
 		listTransitions.add(transitionIdle);
 		Automaton test =  new Automaton(etatInitialAut, listTransitions);
 		return test;
