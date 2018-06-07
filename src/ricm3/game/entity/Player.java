@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import ricm3.game.automaton.Automaton;
 import ricm3.game.automaton.Direction;
@@ -19,12 +20,17 @@ public class Player extends Character {
 
 	private TypeKey m_key;
 	private long m_lastShot = -Options.laserCD;
+	private ArrayList<Automaton> m_autoMinions;
+	private int m_indiceAutoMinions;
 
 	public Player(int x, int y, BufferedImage[] sprites, Automaton aut, Orientation orientation, int equipe, Map map,
 			Model model, int life, long lastMove, TypeKey key) {
 		super(sprites, x, y, true, false, true, false, Options.PLAYER_MS, aut, orientation, equipe, map, model, life,
 				lastMove);
 		m_key = key;
+		m_autoMinions = new ArrayList<Automaton>();
+		m_indiceAutoMinions = 0;
+		this.loadAutomaton();
 
 	}
 
@@ -66,8 +72,8 @@ public class Player extends Character {
 		// TODO Auto-generated method stub
 		Point p = new Point();
 		if (global_map.caseLibre(this.getX(), this.getY(), p)) {
-			Minion minion = new Minion(null, p.x, p.y, Transversal.idleAutomaton(), Orientation.RIGHT, 1, global_map,
-					this.m_model, 1, 0);
+			Minion minion = new Minion(null, p.x, p.y, true, false, true, true, 1,
+					Transversal.straightAutomaton(), Orientation.RIGHT, 1, global_map, this.m_model, Options.MINION_MS, 0);
 			m_model.m_minions.add(minion);
 			global_map.setEntity(minion);
 		} else {
@@ -78,6 +84,11 @@ public class Player extends Character {
 	@Override
 	public void wizz() {
 		// TODO Auto-generated method stub
+		if (m_indiceAutoMinions == Options.NB_MINIONS_TYPE - 1) {
+			m_indiceAutoMinions = 0;
+		} else {
+			m_indiceAutoMinions++;
+		}
 
 	}
 
@@ -177,5 +188,17 @@ public class Player extends Character {
 		}
 
 	}
+	
+	public void loadAutomaton() {
+		m_autoMinions.add(m_model.m_automates.get(0));
+		m_autoMinions.add(m_model.m_automates.get(1));
+		m_autoMinions.add(m_model.m_automates.get(2));
+		m_autoMinions.add(m_model.m_automates.get(0));
+		m_autoMinions.add(m_model.m_automates.get(1));
+		m_autoMinions.add(m_model.m_automates.get(2));
+		m_autoMinions.add(m_model.m_automates.get(0));
+		m_autoMinions.add(m_model.m_automates.get(1));
+		m_autoMinions.add(m_model.m_automates.get(2));
+}
 
 }

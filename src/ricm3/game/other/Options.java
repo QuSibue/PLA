@@ -19,6 +19,7 @@ public abstract class Options {
 	public static int TAILLE_CASE = 100; //case de 100 pixels sur 100 pixels
 	public static int NB_TILE_WIDTH_MAP = 100; // Largeur de la MAP
 	public static int NB_TILE_HEIGHT_MAP = 100;// Longueur de la MAP
+	public static int NB_MINIONS_TYPE = 6;
 	
 	// Aide debug
 	public static final boolean ECHO_MOUSE = true;
@@ -30,7 +31,7 @@ public abstract class Options {
 	public static final int MINION_MS = 200;
 
 	//Cooldown
-	public static final long laserCD = 300L;
+	public static final long laserCD = 450L;
 	public static void evalPosition(int x, int y, int x_res, int y_res, Direction d, Orientation o) {
 		throw new RuntimeException("eval Position NYI");
 	}

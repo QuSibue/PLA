@@ -30,7 +30,7 @@ public class Controller extends GameController {
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
@@ -58,14 +58,6 @@ public class Controller extends GameController {
 			m_model.virus.setKey(TypeKey.RIGHT);
 			System.out.println("RIGHT");
 			break;
-		case KeyEvent.VK_H:
-			m_model.virus.setKey(TypeKey.HIT);
-			System.out.println("Hit");
-			break;
-		case KeyEvent.VK_P:
-			m_model.virus.setKey(TypeKey.POP);
-			System.out.println("Pop");
-			break;
 		case KeyEvent.VK_Z:
 			m_model.antivirus.setKey(TypeKey.UP);
 			System.out.println("UP");
@@ -82,6 +74,14 @@ public class Controller extends GameController {
 			m_model.antivirus.setKey(TypeKey.RIGHT);
 			System.out.println("RIGHT");
 			break;
+		case KeyEvent.VK_H:
+			m_model.virus.setKey(TypeKey.HIT);
+			System.out.println("Hit");
+			break;
+		case KeyEvent.VK_P:
+			m_model.virus.setKey(TypeKey.POP);
+			System.out.println("Pop");
+			break;
 		case KeyEvent.VK_F:
 			m_model.antivirus.setKey(TypeKey.HIT);
 			System.out.println("Hit");
@@ -90,7 +90,10 @@ public class Controller extends GameController {
 			m_model.antivirus.setKey(TypeKey.POP);
 			System.out.println("Pop");
 			break;
-
+		case KeyEvent.VK_W:
+			m_model.virus.setKey(TypeKey.WIZZ);;
+			System.out.println("Wizz");
+			break;
 		default:
 			m_model.antivirus.setKey(TypeKey.NONE);
 			m_model.virus.setKey(TypeKey.NONE);

@@ -38,6 +38,9 @@ public class Action {
 		case HIT:
 			b.hit(now);
 			break;
+		case WIZZ:
+			b.wizz();
+			break;
 		default:
 			throw new RuntimeException("Action NYI");
 		}
