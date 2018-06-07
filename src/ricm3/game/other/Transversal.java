@@ -201,4 +201,11 @@ public class Transversal {
 		Automaton test =  new Automaton(etatInitialAut, listTransitions);
 		return test;
 	}
+	
+	public static int abs(int x) {
+		if(x>=0) {
+			return x;
+		}
+		else return -x;
+	}
 }

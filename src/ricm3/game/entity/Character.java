@@ -18,11 +18,11 @@ public abstract class Character extends Being {
 		m_equipe = equipe;
 	}
 
-	int getEquipe() {
+	public int getEquipe() {
 		return m_equipe;
 	}
 
-	void setEquipe(int equipe) {
+	public void setEquipe(int equipe) {
 		m_equipe = equipe;
 	}
 
