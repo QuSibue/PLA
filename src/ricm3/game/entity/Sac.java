@@ -31,6 +31,18 @@ public class Sac {
 		if (m_index >= m_max) {
 			return false;
 		} else {
+			while (m_sac[m_index] != null && m_index >= m_max) {
+				m_index++;
+			}
+			if(m_index == m_max) {
+				m_index = 0;
+				while (m_sac[m_index] != null && m_index >= m_max) {
+					m_index++;
+				}
+				if(m_index == m_max) {
+					return false;
+				}
+			}
 			addItem(e, m_index);
 			m_index = (m_index + 1) % m_max;
 			return true;
