@@ -15,20 +15,46 @@ import ricm3.game.other.Options;
 
 public class Minion extends Character {
 	public long m_lastMove;
+	public int xOrigin;
+	public int yOrigin;
+
 	public Minion(BufferedImage[] sprites, int x, int y, boolean moveable, boolean pickable, boolean killable,
 			boolean lethal, int moveSpeed, Automaton automate, Orientation orientation, int equipe, Map map,
-			Model model,int life, long lastMove) {
-		super(sprites, x, y, moveable, pickable, killable, lethal, moveSpeed, automate, orientation, equipe, map,
-				model,life,lastMove);
+			Model model, int life, long lastMove) {
+		super(sprites, x, y, moveable, pickable, killable, lethal, moveSpeed, automate, orientation, equipe, map, model,
+				life, lastMove);
+		xOrigin = this.getX();
+		yOrigin = this.getY();
 		// TODO FACTORISER LES PARAMETRE CONSTANTS ex un minion est toujours moveable
 	}
 
 	public void pop() {
-		return;
+		int x = this.getX();
+		int y = this.getY();
+		for (int i = x - 1; i <= x + 1; i++) {
+			for (int j = y - 1; j <= y + 1; j++) {
+				if (i != x && j != y) {
+					Entity e = global_map.getEntity(i, j);
+					if (e != null) {
+						if (e instanceof Being) {
+							((Being) e).getDamage();
+						}
+					}
+				}
+			}
+		}
 	}
 
 	public void wizz() {
-		return;
+		int xCourant = this.getX();
+		int yCourant = this.getY();
+		Portal p = new Portal(xOrigin, yOrigin, xCourant, yCourant, null);
+		global_map.setEntity(p); //enlever les commentaires quand la liste de portail sera dans model
+		//m_model.m_portail.add(p); 
+		this.global_map.deleteEntity(this);
+		m_model.m_minions.remove(this);
+		
+		
 	}
 
 	public void hit() {
@@ -115,13 +141,31 @@ public class Minion extends Character {
 	@Override
 	public void turn() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void kamikaze() {
 		// TODO Auto-generated method stub
-		
+
+	}
+
+	@Override
+	public void step() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void paint() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void attack() {
+		// TODO Auto-generated method stub
+
 	}
 
 }
