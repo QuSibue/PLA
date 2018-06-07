@@ -72,8 +72,8 @@ public class Player extends Character {
 	public void pop() {
 		Point p = new Point();
 		if (global_map.caseLibre(this.getX(), this.getY(), p)) {
-			Minion minion = new Minion(null, p.x, p.y, true, false, true, true, 1,
-					Transversal.straightAutomaton(), Orientation.RIGHT, 1, global_map, this.m_model, Options.MINION_MS, 0);
+			Minion minion = new Minion(null, p.x, p.y, true, false, true, true, Options.MINION_MS,
+					m_autoMinions.get(m_indiceAutoMinions), Orientation.RIGHT, 1, global_map, this.m_model, 1, 0);
 			m_model.m_minions.add(minion);
 			global_map.setEntity(minion);
 		} else {
