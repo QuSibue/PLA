@@ -2,6 +2,7 @@ package ricm3.game.entity;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.util.Iterator;
 
@@ -12,6 +13,7 @@ import ricm3.game.automaton.Transition;
 import ricm3.game.mvc.Map;
 import ricm3.game.mvc.Model;
 import ricm3.game.other.Options;
+import ricm3.game.other.Transversal;
 
 public class Minion extends Character {
 	public long m_lastMove;
@@ -60,8 +62,7 @@ public class Minion extends Character {
 		Iterator<Minion> iterM = m_model.m_minions.iterator();
 		int x = this.getX();
 		int y = this.getY();
-		int xZone;
-		int yZone;
+		Direction d;
 		Entity closest = null;
 		if (this.getEquipe() == m_model.virus.getEquipe()) {
 			closest = m_model.antivirus;
@@ -76,8 +77,33 @@ public class Minion extends Character {
 
 			}
 		}
-		
-
+		if (closest.getY() < y) {
+			// envoyer un missile au dessus de moi
+			d = Direction.NORTH;
+		} else if (closest.getX() > x) {
+			// envoyer un missile à droite
+			d = Direction.EAST;
+		} else if (closest.getX() > y) {
+			// envoyer un missile en bas
+			d = Direction.SOUTH;
+		} else if (closest.getX() < x) {
+			// envoyer un missile à gauche
+			d = Direction.WEST;
+		}
+		Point p = new Point();
+		Transversal.evalPosition(this.getX(), this.getY(), p, d, this.getOrientation());
+		Entity e = global_map.getEntity(p.x, p.y);
+		if (e == null) {
+			Laser laser = new Laser(p.x, p.y, true, true, false, true, 100, null, Transversal.straightAutomaton(),
+					this.getOrientation(), global_map, m_model, 1, 0);
+			this.m_model.m_laser.add(laser);
+			global_map.setEntity(laser);
+		} else if (e instanceof Minion || e instanceof Player) {
+			((Being) e).getDamage();
+		} else if (e instanceof Laser) {
+			global_map.deleteEntity(e);
+			m_model.m_laser.remove(e);
+		}
 		/*
 		 * for (int i = x - 3; i <= x + 3; i++) { for (int j = y - 3; j <= y + 3; j++) {
 		 * Entity e = global_map.getEntity(i, j); if (e != null) { if (e instanceof
