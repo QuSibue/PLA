@@ -25,6 +25,8 @@ public abstract class Options {
 	public static final boolean ECHO_MOUSE_MOTION = true;
 	public static final boolean ECHO_KEYBOARD = true;
 
+	//Cooldown
+	public static final long laserCD = 300L;
 	public static void evalPosition(int x, int y, int x_res, int y_res, Direction d, Orientation o) {
 		throw new RuntimeException("eval Position NYI");
 	}

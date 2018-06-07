@@ -7,6 +7,7 @@ import java.util.Iterator;
 import ricm3.game.entity.Laser;
 import ricm3.game.entity.Minion;
 import ricm3.game.entity.Obstacle;
+import ricm3.game.entity.PowerUp;
 import ricm3.game.framework.GameView;;
 
 public class View extends GameView {
@@ -66,6 +67,7 @@ public class View extends GameView {
 		Iterator<Minion> iterM = m_model.m_minions.iterator();
 		Iterator<Obstacle> iterO = m_model.m_obstacles.iterator();
 		Iterator<Laser> iterL = m_model.m_laser.iterator();
+		Iterator<PowerUp> iterP = m_model.m_powerup.iterator();
 		Minion m;
 		while (iterM.hasNext()) {
 			m = iterM.next();
@@ -81,6 +83,12 @@ public class View extends GameView {
 		while (iterL.hasNext()) {
 			l = iterL.next();
 			l.paint(g);
+		}
+		
+		PowerUp p;
+		while (iterP.hasNext()) {
+			p = iterP.next();
+			p.paint(g);
 		}
 
 		

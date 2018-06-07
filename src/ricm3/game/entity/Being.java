@@ -82,6 +82,11 @@ public abstract class Being extends Entity {
 		return true;
 	}
 	
+	public boolean setOrientation(Orientation o) {
+		m_orientation = o;
+		return true;
+	}
+	
 	public void reinitialisation() {
 		m_etatCourant = m_automaton.getEtatInitial();
 	}
@@ -117,7 +122,7 @@ public abstract class Being extends Entity {
 						&& transi.getCondition().eval((Being) this, global_map);
 				if (condition) {
 					this.setEtatCourant(transi.getSortie());
-					transi.getAction().executeAction(this);
+					transi.getAction().executeAction(this,now);
 				}
 
 			}
@@ -132,7 +137,7 @@ public abstract class Being extends Entity {
 
 	public abstract void wizz();
 
-	public abstract void hit();
+	public abstract void hit(long now);
 	 
 	public void getDamage() {
 		this.m_life --;
@@ -160,5 +165,7 @@ public abstract class Being extends Entity {
 	public abstract void store();
 
 	public abstract void _throw();
+	
+	public abstract void turn(Direction d);
 
 }

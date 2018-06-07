@@ -63,17 +63,16 @@ public class Condition {
 				return res || m_condition.eval(b, m);
 			else
 				throw new RuntimeException("Operateur condition invalide");
-		} 
-		else if(m_type.equals(TypeCondition.TRUE)) {
+		} else if (m_type.equals(TypeCondition.TRUE)) {
 			return true;
 		}
 		/**
-		 * Si la conditon est de type KEYPRESSEDUP On va aller regarder sur la map a la case
-		 * correspondant a la direction indiquée dans la condition, si la case est
+		 * Si la conditon est de type KEYPRESSEDUP On va aller regarder sur la map a la
+		 * case correspondant a la direction indiquée dans la condition, si la case est
 		 * libre.
 		 */
-		if (m_type.equals(TypeCondition.KEYPRESSEDUP)) {
-			res = ((Player)b).getKey() == TypeKey.UP;
+		if (m_type.equals(TypeCondition.KEYPRESSEDUP) || m_type.equals(TypeCondition.KEYPRESSEDZ)) {
+			res = ((Player) b).getKey() == TypeKey.UP;
 			if (m_operator == ' ')
 				return res;
 			else if (m_operator == '&')
@@ -84,12 +83,12 @@ public class Condition {
 				throw new RuntimeException("Operateur condition invalide");
 		}
 		/**
-		 * Si la conditon est de type KEYPRESSEDDOWN On va aller regarder sur la map a la case
-		 * correspondant a la direction indiquée dans la condition, si la case est
-		 * libre.
+		 * Si la conditon est de type KEYPRESSEDDOWN On va aller regarder sur la map a
+		 * la case correspondant a la direction indiquée dans la condition, si la case
+		 * est libre.
 		 */
-		if (m_type.equals(TypeCondition.KEYPRESSEDDOWN)) {
-			res = ((Player)b).getKey() == TypeKey.DOWN;
+		if (m_type.equals(TypeCondition.KEYPRESSEDDOWN) || m_type.equals(TypeCondition.KEYPRESSEDS)) {
+			res = ((Player) b).getKey() == TypeKey.DOWN;
 			if (m_operator == ' ')
 				return res;
 			else if (m_operator == '&')
@@ -100,12 +99,12 @@ public class Condition {
 				throw new RuntimeException("Operateur condition invalide");
 		}
 		/**
-		 * Si la conditon est de type KEYPRESSEDLEFT On va aller regarder sur la map a la case
-		 * correspondant a la direction indiquée dans la condition, si la case est
-		 * libre.
+		 * Si la conditon est de type KEYPRESSEDLEFT On va aller regarder sur la map a
+		 * la case correspondant a la direction indiquée dans la condition, si la case
+		 * est libre.
 		 */
-		if (m_type.equals(TypeCondition.KEYPRESSEDLEFT)) {
-			res = ((Player)b).getKey() == TypeKey.LEFT;
+		if (m_type.equals(TypeCondition.KEYPRESSEDLEFT) || m_type.equals(TypeCondition.KEYPRESSEDQ)) {
+			res = ((Player) b).getKey() == TypeKey.LEFT;
 			if (m_operator == ' ')
 				return res;
 			else if (m_operator == '&')
@@ -116,12 +115,12 @@ public class Condition {
 				throw new RuntimeException("Operateur condition invalide");
 		}
 		/**
-		 * Si la conditon est de type KEYPRESSEDRIGHT On va aller regarder sur la map a la case
-		 * correspondant a la direction indiquée dans la condition, si la case est
-		 * libre.
+		 * Si la conditon est de type KEYPRESSEDRIGHT On va aller regarder sur la map a
+		 * la case correspondant a la direction indiquée dans la condition, si la case
+		 * est libre.
 		 */
-		if (m_type.equals(TypeCondition.KEYPRESSEDRIGHT)) {
-			res = ((Player)b).getKey() == TypeKey.RIGHT;
+		if (m_type.equals(TypeCondition.KEYPRESSEDRIGHT) || m_type.equals(TypeCondition.KEYPRESSEDD)) {
+			res = ((Player) b).getKey() == TypeKey.RIGHT;
 			if (m_operator == ' ')
 				return res;
 			else if (m_operator == '&')
@@ -132,12 +131,12 @@ public class Condition {
 				throw new RuntimeException("Operateur condition invalide");
 		}
 		/**
-		 * Si la conditon est de type KEYPRESSEDRIGHT On va aller regarder sur la map a la case
-		 * correspondant a la direction indiquée dans la condition, si la case est
-		 * libre.
+		 * Si la conditon est de type KEYPRESSEDRIGHT On va aller regarder sur la map a
+		 * la case correspondant a la direction indiquée dans la condition, si la case
+		 * est libre.
 		 */
 		if (m_type.equals(TypeCondition.KEYPRESSEDNONE)) {
-			res = ((Player)b).getKey() == TypeKey.NONE;
+			res = ((Player) b).getKey() == TypeKey.NONE;
 			if (m_operator == ' ')
 				return res;
 			else if (m_operator == '&')
@@ -147,7 +146,38 @@ public class Condition {
 			else
 				throw new RuntimeException("Operateur condition invalide");
 		}
-		else {
+		/**
+		 * Si la conditon est de type KEYPRESSEDRIGHT On va aller regarder sur la map a
+		 * la case correspondant a la direction indiquée dans la condition, si la case
+		 * est libre.
+		 */
+		if (m_type.equals(TypeCondition.KEYPRESSEDHIT) || m_type.equals(TypeCondition.KEYPRESSEDF)) {
+			res = ((Player) b).getKey() == TypeKey.HIT;
+			if (m_operator == ' ')
+				return res;
+			else if (m_operator == '&')
+				return res && m_condition.eval(b, m);
+			else if (m_operator == '|')
+				return res || m_condition.eval(b, m);
+			else
+				throw new RuntimeException("Operateur condition invalide");
+		}
+		/**
+		 * Si la conditon est de type KEYPRESSEDRIGHT On va aller regarder sur la map a
+		 * la case correspondant a la direction indiquée dans la condition, si la case
+		 * est libre.
+		 */
+		if (m_type.equals(TypeCondition.KEYPRESSEDPOP) || m_type.equals(TypeCondition.KEYPRESSEDG)) {
+			res = ((Player) b).getKey() == TypeKey.POP;
+			if (m_operator == ' ')
+				return res;
+			else if (m_operator == '&')
+				return res && m_condition.eval(b, m);
+			else if (m_operator == '|')
+				return res || m_condition.eval(b, m);
+			else
+				throw new RuntimeException("Operateur condition invalide");
+		} else {
 			throw new RuntimeException("Type condition invalide");
 		}
 	}
