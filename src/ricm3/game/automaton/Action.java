@@ -31,7 +31,7 @@ public class Action {
 			b.move(m_direction);
 			break;
 		case POP:
-			b.pop();
+			b.pop(now);
 			break;
 		case IDLE:
 			break;

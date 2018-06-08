@@ -57,7 +57,7 @@ public class Player extends Character {
 	}
 
 	@Override
-	public void pop() {
+	public void pop(long now) {
 		if (m_energie >= 3) {
 			Point p = new Point();
 			if (global_map.caseLibre(this.getX(), this.getY(), p)) {
@@ -70,6 +70,9 @@ public class Player extends Character {
 				System.out.print("Pas de place pour placer de nouveaux sbires");
 			}
 
+		}
+		else {
+			this.power(now);
 		}
 
 	}
@@ -94,10 +97,17 @@ public class Player extends Character {
 						global_map, m_model, 1, 0);
 				this.m_model.m_laser.add(laser);
 				global_map.setEntity(laser);
+			} else if (e instanceof PowerUp) {
+				Laser laser = new Laser(p.x, p.y, null, Transversal.straightAutomaton(), this.getOrientation(),
+						global_map, m_model, 1, 0);
+				laser.erased_powerup = (PowerUp) e;
+				this.m_model.m_laser.add(laser);
+				global_map.setEntity(laser);
 			} else if (e.getKillable()) {
 				((Being) e).getDamage();
 			}
 		}
+
 	}
 
 	public TypeKey getKey() {

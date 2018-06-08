@@ -16,7 +16,7 @@ import ricm3.game.other.Transversal;
 public class Laser extends Being {
 
 	private boolean m_isFirstPaint = true;
-	private PowerUp erased_powerup;
+	public PowerUp erased_powerup;
 	private int lifespan;
 
 	public Laser(int x, int y, BufferedImage[] sprites, Automaton aut, Orientation orientation, Map map, Model model,
@@ -73,7 +73,7 @@ public class Laser extends Being {
 	}
 
 	@Override
-	public void pop() {
+	public void pop(long now) {
 		int life = this.getLife();
 		if (life == 1) {
 			return;

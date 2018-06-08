@@ -29,7 +29,7 @@ public class Minion extends Character {
 
 	}
 
-	public void pop() {
+	public void pop(long now) {
 		int x = this.getX();
 		int y = this.getY();
 		for (int i = x - 1; i <= x + 1; i++) {

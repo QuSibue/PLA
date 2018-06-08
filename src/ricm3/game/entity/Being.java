@@ -132,7 +132,7 @@ public abstract class Being extends Entity {
 
 	public abstract void move(Direction d);
 
-	public abstract void pop();
+	public abstract void pop(long now);
 
 	public abstract void wizz();
 
