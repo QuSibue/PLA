@@ -4,13 +4,21 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 
 import ricm3.game.framework.GameUI;
 import ricm3.game.mvc.Controller;
@@ -56,7 +64,7 @@ public class GameMain {
         
     }
 	
-	public static void afficherOptions() {
+	public static void afficherOptions() throws IOException {
         
 		
 		window3 = new JFrame("Short Circuit");
@@ -81,12 +89,135 @@ public class GameMain {
         JPanel panelCenter = new JPanel(new FlowLayout(FlowLayout.CENTER));        
         window3.add(panelCenter,BorderLayout.CENTER);
         
+        JPanel boutonsCentre = new JPanel(new GridLayout(3,1));
+        panelCenter.add(boutonsCentre);
+        
         JPanel panelSouth = new JPanel(new FlowLayout(FlowLayout.CENTER));        
         window3.add(panelSouth,BorderLayout.SOUTH);
+        
+        BufferedImage title = ImageIO.read(new File("images/options.png"));
+        JLabel picLabel = new JLabel(new ImageIcon(title));
+        panelNorth.add(picLabel);
+        
+        JButton autoPlayer = new JButton("Automates Joueurs");
+        autoPlayer.setFocusPainted(false);
+        boutonsCentre.add(autoPlayer);
+        
+        JButton autoMinions = new JButton("Automates Sbires");
+        autoMinions.setFocusPainted(false);
+        boutonsCentre.add(autoMinions);
+       
+        JButton autoLaser = new JButton("Automates Lasers");
+        autoLaser.setFocusPainted(false);
+        boutonsCentre.add(autoLaser);
         
         JButton retour = new JButton("Retour");
         retour.setFocusPainted(false);
         panelSouth.add(retour);
+       
+        autoPlayer.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				UIManager.put("FileChooser.readOnly", Boolean.TRUE);
+		        JFileChooser choix = new JFileChooser();
+		        int returnVal = choix.showOpenDialog(window3);
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+        autoMinions.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				UIManager.put("FileChooser.readOnly", Boolean.TRUE);
+		        JFileChooser choix = new JFileChooser();
+		        int returnVal = choix.showOpenDialog(window3);
+			}
+		});
+        autoLaser.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				UIManager.put("FileChooser.readOnly", Boolean.TRUE);
+		        JFileChooser choix = new JFileChooser();
+		        int returnVal = choix.showOpenDialog(window3);
+			}
+		});
+        
         
         retour.addMouseListener(new MouseListener() {
 			

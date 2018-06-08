@@ -32,7 +32,7 @@ import ricm3.game.mains.GameMain;
 
 public class Menu extends javax.swing.JPanel {
   
-    private JButton jouer,regles,quitter;
+    private JButton jouer,regles,options,quitter;
 
     public Menu() throws IOException { 
         super();
@@ -67,9 +67,9 @@ public class Menu extends javax.swing.JPanel {
         jouer.setFocusPainted(false);
         boutonsCentre.add(jouer);
         
-        regles = new JButton("Règles");
-        regles.setFocusPainted(false);
-        boutonsCentre.add(regles);
+        options = new JButton("Options");
+        options.setFocusPainted(false);
+        boutonsCentre.add(options);
        
         quitter = new JButton("Quitter");
         quitter.setFocusPainted(false);
@@ -107,7 +107,7 @@ public class Menu extends javax.swing.JPanel {
             }
         });
 
-        regles.addMouseListener(new MouseListener() {
+        options.addMouseListener(new MouseListener() {
             @Override
             public void mouseEntered(MouseEvent e) {
                 // Met en bleu le texte du bouton sur lequel l'événément s'est
@@ -124,7 +124,12 @@ public class Menu extends javax.swing.JPanel {
             
             @Override
             public void mouseClicked(MouseEvent e) {
-                GameMain.afficherOptions();
+                try {
+					GameMain.afficherOptions();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
                   
             }
 
