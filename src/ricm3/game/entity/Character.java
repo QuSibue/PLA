@@ -38,10 +38,12 @@ public abstract class Character extends Being {
 		Point p = new Point(x_res, y_res);
 		Transversal.evalPosition(this.getX(), this.getY(), p, Direction.FRONT, this.getOrientation());
 		Entity e = global_map.getEntity(p.x, p.y);
-		if (e.getPickable()) {
+		if (e != null && e.getPickable()) {
 			if (m_sac.addItem(e)) {
 				global_map.deleteEntity(e);
+				this.m_model.m_powerup.remove(e);
 				this.m_model.m_laser.remove(e);
+				this.m_model.m_minions.remove(e);
 			}
 		}
 	}
@@ -54,7 +56,7 @@ public abstract class Character extends Being {
 		if (global_map.getEntity(p.x, p.y) == null) {
 			Entity e = m_sac.removeItem();
 			if (e != null) {
-				global_map.setEntity(e);
+				global_map.setEntity(p.x,p.y,e);
 				if (e instanceof Laser) {
 					this.m_model.m_laser.add((Laser) e);
 				} else if (e instanceof Minion) {

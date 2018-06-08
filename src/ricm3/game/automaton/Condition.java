@@ -314,7 +314,29 @@ public class Condition {
 				return res || m_condition.eval(b, m);
 			else
 				throw new RuntimeException("Operateur condition invalide");
-		} else {
+		} else if (m_type.equals(TypeCondition.KEYPRESSEDO)) {
+			res = ((Player) b).getKey() == TypeKey.PICK;
+			if (m_operator == ' ')
+				return res;
+			else if (m_operator == '&')
+				return res && m_condition.eval(b, m);
+			else if (m_operator == '|')
+				return res || m_condition.eval(b, m);
+			else
+				throw new RuntimeException("Operateur condition invalide");
+		} else if (m_type.equals(TypeCondition.KEYPRESSEDI)) {
+			res = ((Player) b).getKey() == TypeKey.GET;
+			if (m_operator == ' ')
+				return res;
+			else if (m_operator == '&')
+				return res && m_condition.eval(b, m);
+			else if (m_operator == '|')
+				return res || m_condition.eval(b, m);
+			else
+				throw new RuntimeException("Operateur condition invalide");
+		}
+
+		else {
 			throw new RuntimeException("Type condition invalide");
 		}
 
