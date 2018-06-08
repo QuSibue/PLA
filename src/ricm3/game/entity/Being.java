@@ -154,7 +154,7 @@ public abstract class Being extends Entity {
 
 	}
 
-	public abstract void power();
+	public abstract void power(long now);
 
 	public abstract void protect();
 

@@ -34,6 +34,7 @@ public abstract class Options {
 
 	//Cooldown
 	public static final long laserCD = 300L;
+	public static final long powerCD = 300L;
 	public static void evalPosition(int x, int y, int x_res, int y_res, Direction d, Orientation o) {
 		throw new RuntimeException("eval Position NYI");
 	}

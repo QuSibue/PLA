@@ -63,7 +63,7 @@ public class Action {
 			b.get();
 			break;
 		case POWER:
-			b.power();
+			b.power(now);
 			break;
 		case KAMIKAZE:
 			b.kamikaze();

@@ -74,7 +74,8 @@ public class Minion extends Character {
 
 	}
 
-	public void power() { // Non implémenté
+
+	public void power(long now) {
 		return;
 	}
 
