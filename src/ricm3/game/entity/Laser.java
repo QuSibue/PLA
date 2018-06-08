@@ -92,8 +92,6 @@ public class Laser extends Being {
 		Point p1 = new Point(dx1, dy1);
 		Point p2 = new Point(dx2, dy2);
 
-		Entity e = global_map.getEntity(p.x, p.y);
-
 		Laser laser1, laser2;
 
 		// we get coordinates of the tile in front of the laser
@@ -240,5 +238,4 @@ public class Laser extends Being {
 		// TODO Auto-generated method stub
 
 	}
-
 }

@@ -1,7 +1,10 @@
 package ricm3.game.entity;
 
+<<<<<<<HEAD
+
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.util.Iterator;
 
@@ -11,7 +14,13 @@ import ricm3.game.automaton.Orientation;
 import ricm3.game.automaton.Transition;
 import ricm3.game.mvc.Map;
 import ricm3.game.mvc.Model;
+import ricm3.game.other.Options;=======
+import java.awt.image.BufferedImage;
+import java.util.Random;
+
+import ricm3.game.automaton.Direction;
 import ricm3.game.other.Options;
+import ricm3.game.other.Transversal;>>>>>>>origin/minion
 
 public class Minion extends Character {
 	public long m_lastMove;
@@ -21,6 +30,7 @@ public class Minion extends Character {
 		super(sprites, x, y, true, true, true, false, Options.MINION_MS, automate, orientation, equipe, map, model,
 				life, lastMove);
 
+<<<<<<< HEAD
 	}
 
 	public void pop() {
@@ -48,7 +58,13 @@ public class Minion extends Character {
 		// m_model.m_portail.add(p);
 		this.global_map.deleteEntity(this);
 		m_model.m_minions.remove(this);
+	}
 
+	@Override
+	public void move(Direction d) {
+		int x_res = 0, y_res = 0;
+		Point p = new Point(x_res,y_res);
+		Transversal.evalPosition(this.getX(), this.getY(), p, d, this.getOrientation());
 	}
 
 	public void hit(long now) {
@@ -73,7 +89,6 @@ public class Minion extends Character {
 		}
 
 	}
-
 
 	public void power(long now) {
 		return;
@@ -133,12 +148,6 @@ public class Minion extends Character {
 			if (!condition)
 				throw new RuntimeException("AUcune transition trouvée pour l'automate dans player");
 		}
-
-	}
-
-	@Override
-	public void move(Direction d) {
-		// TODO Auto-generated method stub
 
 	}
 
