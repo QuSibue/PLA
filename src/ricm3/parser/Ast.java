@@ -1,8 +1,11 @@
 package ricm3.parser;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
+
+import ricm3.game.automaton.Etat;
 
 /* Michael PÉRIN, Verimag / Univ. Grenoble Alpes, june 2018
  *
@@ -275,7 +278,17 @@ public class Ast {
 		
 		@Override
 		public Object make() {
+			ricm3.game.automaton.Automaton finalAutomata = new ricm3.game.automaton.Automaton();
+			finalAutomata.setEtatInitial(new Etat(this.entry.name.value));
 			
+			LinkedList<ricm3.game.automaton.Transition> transitionListAutomata = new LinkedList<ricm3.game.automaton.Transition>();
+			Iterator<Behaviour> iter = behaviours.iterator();
+			while( iter.hasNext()) {
+				Behaviour b = iter.next();
+				ArrayList<ricm3.game.automaton.Transition> transitions = b.makeBis(Entry) ;
+				transitionListAutomata.addAll(transitions);
+			}
+			finalAutomata.setListTransition(transitionListAutomata);
 			return null;
 		}
 	}
@@ -300,6 +313,10 @@ public class Ast {
 				output += transition.as_tree_son_of(this);
 			}
 			return output;
+		}
+		
+		public LinkedList<ricm3.game.automaton.Transition> make2(State s){
+			
 		}
 	}
 
