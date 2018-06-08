@@ -15,9 +15,7 @@ import javax.swing.JProgressBar;
 import javax.swing.border.BevelBorder;
 
 
-public class ATHP1 extends ATH {
-
-	private static final long serialVersionUID = 1L;
+public class ATHP1{
 
 	public ATHP1() {
 	}

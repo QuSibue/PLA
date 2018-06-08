@@ -6,26 +6,22 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 
 import javax.swing.JPanel;
-import javax.swing.JSeparator;
-import javax.swing.JSplitPane;
-import javax.swing.SwingConstants;
 
 import ricm3.game.framework.GameATH;
 
-public abstract class ATH extends GameATH {
+public class ATH extends GameATH {
 
 	private static final long serialVersionUID = 1L;
 
 	ATHP1 m_p1;
 	ATHP2 m_p2;
 
-	@Override
-	public abstract Container init();
-
-	public void ATHVisible() {
+	public ATH(){
 		m_p1 = new ATHP1();
 		m_p2 = new ATHP2();
+	}
 
+	public void ATHVisible() {
 		Container c1 = m_p1.init();
 		Container c2 = m_p2.init();
 

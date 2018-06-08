@@ -14,11 +14,8 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.border.BevelBorder;
 
-import ricm3.game.framework.GameATH;
-
-public class ATHP2 extends ATH {
-	private static final long serialVersionUID = 1L;
-
+public class ATHP2{
+	
 	public ATHP2() {
 	}
 
