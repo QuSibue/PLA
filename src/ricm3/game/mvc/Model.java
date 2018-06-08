@@ -78,6 +78,7 @@ public class Model extends GameModel {
 		Iterator<Minion> iterM = m_minions.iterator();
 		Iterator<Obstacle> iterO = m_obstacles.iterator();
 		Iterator<Laser> iterL = m_laser.iterator();
+		
 		// map.printMap();
 		Minion m;
 		while (iterM.hasNext()) {
