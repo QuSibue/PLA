@@ -2,6 +2,7 @@ package ricm3.game.mvc;
 
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Vector;
 
 import ricm3.game.automaton.Action;
 import ricm3.game.automaton.Automaton;
@@ -77,9 +78,17 @@ public class Model extends GameModel {
 
 	@Override
 	public void step(long now) {
-		Iterator<Minion> iterM = m_minions.iterator();
-		Iterator<Obstacle> iterO = m_obstacles.iterator();
-		Iterator<Laser> iterL = m_laser.iterator();
+		
+		LinkedList<Minion>minionsClone = (LinkedList<Minion>) m_minions.clone();
+		Iterator<Minion> iterM = minionsClone.iterator();
+		
+		LinkedList<Obstacle>obstaclesClone = (LinkedList<Obstacle>) m_obstacles.clone();
+		Iterator<Obstacle> iterO = obstaclesClone.iterator();
+		
+		LinkedList<Laser>laserClone = (LinkedList<Laser>) m_laser.clone();
+		Iterator<Laser> iterL = laserClone.iterator();
+		
+		
 		// map.printMap();
 		Minion m;
 		while (iterM.hasNext()) {

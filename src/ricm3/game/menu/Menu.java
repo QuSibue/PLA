@@ -127,7 +127,7 @@ public class Menu extends javax.swing.JPanel {
             
             @Override
             public void mouseClicked(MouseEvent e) {
-                //liste.isSelectionEmpty()
+                GameMain.afficherOptions();
                   
             }
 
@@ -160,7 +160,7 @@ public class Menu extends javax.swing.JPanel {
             
             @Override
             public void mouseClicked(MouseEvent e) {
-                
+                System.exit(0);
             }
 
             @Override
