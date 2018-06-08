@@ -132,18 +132,6 @@ public class Player extends Character {
 	}
 
 	@Override
-	public void pick() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void get() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void store() {
 		// TODO Auto-generated method stub
 

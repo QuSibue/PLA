@@ -17,6 +17,7 @@ public class Laser extends Being {
 
 	private boolean m_isFirstPaint = true;
 	private PowerUp erased_powerup;
+	private int lifespan;
 
 	public Laser(int x, int y, BufferedImage[] sprites, Automaton aut, Orientation orientation, Map map, Model model,
 			int life, long lastMove) {
@@ -24,30 +25,37 @@ public class Laser extends Being {
 		erased_powerup = null;
 	}
 
+	public int getLife() {
+		return lifespan;
+	}
+
+	public boolean setLife(int lifespan) {
+		this.lifespan = lifespan;
+		return true;
+	}
+
 	@Override
 	public void move(Direction d) {
-		
-		
+
 		int x_res = 0, y_res = 0;
 		Point p = new Point(x_res, y_res);
 		Transversal.evalPosition(this.getX(), this.getY(), p, d, this.getOrientation());
 		Entity e = global_map.getEntity(p.x, p.y);
 		if (e == null) {
 			global_map.moveEntity(this, p.x, p.y);
-			if(erased_powerup != null) {
+			if (erased_powerup != null) {
 				global_map.setEntity(erased_powerup);
 				erased_powerup = null;
 			}
-		}else if(e instanceof PowerUp) {
-			if(erased_powerup != null) {
+		} else if (e instanceof PowerUp) {
+			if (erased_powerup != null) {
 				global_map.setEntity(erased_powerup);
 				erased_powerup = null;
 			}
 			global_map.moveEntity(this, p.x, p.y);
-			erased_powerup = (PowerUp)e;
-		}
-		else if (e.getKillable()) {
-			if(erased_powerup != null) {
+			erased_powerup = (PowerUp) e;
+		} else if (e.getKillable()) {
+			if (erased_powerup != null) {
 				global_map.setEntity(erased_powerup);
 				erased_powerup = null;
 			}
@@ -66,18 +74,101 @@ public class Laser extends Being {
 
 	@Override
 	public void pop() {
-		// TODO Auto-generated method stub
+		int life = this.getLife();
+		if (life == 1) {
+			return;
+		} else {
+			life = life / 2;
+			this.setLife(life);
+			this.splitter();
+		}
+	}
+
+	public void splitter() {
+
+		int dx = 0, dy = 0;
+		Point p = new Point(dx, dy);
+		int dx1 = 0, dy1 = 0, dx2 = 0, dy2 = 0;
+		Point p1 = new Point(dx1, dy1);
+		Point p2 = new Point(dx2, dy2);
+
+		Entity e = global_map.getEntity(p.x, p.y);
+
+		Laser laser1, laser2;
+
+		// we get coordinates of the tile in front of the laser
+
+		Transversal.evalPosition(this.getX(), this.getY(), p, Direction.FRONT, this.getOrientation());
+
+		if (global_map.getEntity(p.x, p.y) == null) { // tile in front is free
+
+			// we get the coordinate of the tiles up left and up right relatively to the
+			// laser's position
+			Transversal.evalPosition(p.x, p.y, p1, Direction.RIGHT, this.getOrientation());
+			Transversal.evalPosition(p.x, p.y, p2, Direction.LEFT, this.getOrientation());
+
+			laser1 = new Laser(p1.x, p1.y, this.getSprites(), this.getAutomaton(), this.getOrientation(), global_map,
+					m_model, this.getLife(), this.getLastMove());
+			laser2 = new Laser(p2.x, p2.y, this.getSprites(), this.getAutomaton(), this.getOrientation(), global_map,
+					m_model, this.getLife(), this.getLastMove());
+
+		}
+
+		else { // getEntity(dx,dy) != null
+
+			// we get the coordinates of the tiles left and right of the laser
+			Transversal.evalPosition(this.getX(), this.getY(), p1, Direction.RIGHT, this.getOrientation());
+			Transversal.evalPosition(this.getX(), this.getY(), p2, Direction.LEFT, this.getOrientation());
+
+			laser1 = new Laser(p1.x, p1.y, this.getSprites(), this.getAutomaton(), this.getOrientation(), global_map,
+					m_model, this.getLife(), this.getLastMove());
+			laser2 = new Laser(p2.x, p2.y, this.getSprites(), this.getAutomaton(), this.getOrientation(), global_map,
+					m_model, this.getLife(), this.getLastMove());
+
+		}
+
+		if (global_map.getEntity(p1.x, p1.y) == null) { // one half "moved" diagonally
+
+			global_map.setEntity(laser1);
+			m_model.m_laser.add(laser1);
+		} else { // laser causes explosion in front of itself
+			laser1.wizz();
+		}
+		if (global_map.getEntity(p2.x, p2.y) == null) { // one half "moved" diagonally
+			global_map.setEntity(laser2);
+			m_model.m_laser.add(laser2);
+		} else { // laser causes explosion in front of itself
+			laser2.wizz();
+		}
+
+		global_map.deleteEntity(this);
+		m_model.m_laser.remove(this);
 
 	}
 
 	@Override
 	public void wizz() {
-		// TODO Auto-generated method stub
+		int cx = this.getX();
+		int cy = this.getY();
 
+		// hit all entities on the 8 adjacent tiles
+		hit(global_map.getEntity(cx + 1, cy));
+		hit(global_map.getEntity(cx, cy + 1));
+		hit(global_map.getEntity(cx + 1, cy + 1));
+		hit(global_map.getEntity(cx, cy - 1));
+		hit(global_map.getEntity(cx - 1, cy - 1));
+		hit(global_map.getEntity(cx + 1, cy - 1));
+		hit(global_map.getEntity(cx - 1, cy));
+		hit(global_map.getEntity(cx - 1, cy + 1));
+
+		global_map.deleteEntity(this);
+		m_model.m_laser.remove(this);
 	}
 
 	public void hit(Entity e) {
-		((Being) e).getDamage();
+		if (e instanceof Being) {
+			((Being) e).getDamage();
+		}
 	}
 
 	@Override
