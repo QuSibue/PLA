@@ -3,14 +3,8 @@ package ricm3.game.mvc;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-import ricm3.game.automaton.Action;
 import ricm3.game.automaton.Automaton;
-import ricm3.game.automaton.Condition;
-import ricm3.game.automaton.Etat;
 import ricm3.game.automaton.Orientation;
-import ricm3.game.automaton.Transition;
-import ricm3.game.automaton.TypeAction;
-import ricm3.game.automaton.TypeCondition;
 import ricm3.game.entity.Laser;
 import ricm3.game.entity.Minion;
 import ricm3.game.entity.Obstacle;
@@ -19,6 +13,8 @@ import ricm3.game.entity.PowerUp;
 import ricm3.game.framework.GameModel;
 import ricm3.game.other.Transversal;
 import ricm3.game.other.TypeKey;
+import ricm3.parser.Ast;
+import ricm3.parser.AutomataParser;
 
 public class Model extends GameModel {
 
@@ -30,7 +26,7 @@ public class Model extends GameModel {
 	public Player antivirus;
 	public Map map;
 
-	public Model() {
+	public Model(String[] args) {
 		m_minions = new LinkedList<Minion>();
 		m_obstacles = new LinkedList<Obstacle>();
 		m_laser = new LinkedList<Laser>();
@@ -39,7 +35,12 @@ public class Model extends GameModel {
 		// ON FAIT LA MAP
 		map = new Map(1100, 1200);
 
-		// ON FAIT UN AUTOMATE
+		try {
+			Ast tree = AutomataParser.parserAutomates(args);
+		}catch( Exception e) {
+			throw new RuntimeException("parser renvoie une exeception");
+		}
+			// ON FAIT UN AUTOMATE
 		Automaton aut = Transversal.virusAutomaton();
 		// FIN DE L'AUTOMATE
 

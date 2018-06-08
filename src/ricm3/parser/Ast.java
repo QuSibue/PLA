@@ -1,4 +1,6 @@
 package ricm3.parser;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -34,7 +36,7 @@ public class Ast {
 	}
 	
 	public Object  make() {
-		  return null; // TODO à définir dans la plupart des classes internes ci-dessous.
+		return null;
 	}
 	
 	public static abstract class Expression extends Ast {}
@@ -233,6 +235,17 @@ public class Ast {
 		public String as_dot_automata() {
 			return Dot.graph("Automata", this.as_tree_node());
 		}
+		@Override
+		public Object make() {
+			ArrayList<ricm3.game.automaton.Automaton> automatonList = new ArrayList<ricm3.game.automaton.Automaton>();
+			Iterator<Automaton> iter  = automata.iterator();
+			while(iter.hasNext()) {
+				Automaton a = iter.next();
+				ricm3.game.automaton.Automaton automate = (ricm3.game.automaton.Automaton)a.make();
+				automatonList.add(automate);
+			}
+			return automatonList;
+		}
 	}
 
 	public static class Automaton extends Ast {
@@ -258,6 +271,12 @@ public class Ast {
 				output += behaviour.as_tree_son_of(this);
 			}
 			return output;
+		}
+		
+		@Override
+		public Object make() {
+			
+			return null;
 		}
 	}
 

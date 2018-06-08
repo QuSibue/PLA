@@ -11,7 +11,7 @@ public class GameMain {
 	public static void main(String[] args) {
 
 		// construct the game elements: model, controller, and view.
-		Model model = new Model();
+		Model model = new Model(args);
 		View view = new View(model);
 		Controller controller = new Controller(model);
 
