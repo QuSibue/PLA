@@ -3,14 +3,8 @@ package ricm3.game.mvc;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-import ricm3.game.automaton.Action;
 import ricm3.game.automaton.Automaton;
-import ricm3.game.automaton.Condition;
-import ricm3.game.automaton.Etat;
 import ricm3.game.automaton.Orientation;
-import ricm3.game.automaton.Transition;
-import ricm3.game.automaton.TypeAction;
-import ricm3.game.automaton.TypeCondition;
 import ricm3.game.entity.Laser;
 import ricm3.game.entity.Minion;
 import ricm3.game.entity.Obstacle;
@@ -78,7 +72,7 @@ public class Model extends GameModel {
 		Iterator<Minion> iterM = m_minions.iterator();
 		Iterator<Obstacle> iterO = m_obstacles.iterator();
 		Iterator<Laser> iterL = m_laser.iterator();
-		
+
 		// map.printMap();
 		Minion m;
 		while (iterM.hasNext()) {

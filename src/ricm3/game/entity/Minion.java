@@ -1,7 +1,5 @@
 package ricm3.game.entity;
 
-<<<<<<<HEAD
-
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
@@ -14,23 +12,21 @@ import ricm3.game.automaton.Orientation;
 import ricm3.game.automaton.Transition;
 import ricm3.game.mvc.Map;
 import ricm3.game.mvc.Model;
-import ricm3.game.other.Options;=======
-import java.awt.image.BufferedImage;
-import java.util.Random;
-
-import ricm3.game.automaton.Direction;
 import ricm3.game.other.Options;
-import ricm3.game.other.Transversal;>>>>>>>origin/minion
+import ricm3.game.other.Transversal;
 
 public class Minion extends Character {
 	public long m_lastMove;
+	public int xOrigin;
+	public int yOrigin;
 
 	public Minion(BufferedImage[] sprites, int x, int y, Automaton automate, Orientation orientation, int equipe,
 			Map map, Model model, int life, long lastMove) {
 		super(sprites, x, y, true, true, true, false, Options.MINION_MS, automate, orientation, equipe, map, model,
 				life, lastMove);
+		xOrigin = this.getX();
+		yOrigin = this.getY();
 
-<<<<<<< HEAD
 	}
 
 	public void pop() {
@@ -53,7 +49,7 @@ public class Minion extends Character {
 	public void wizz() {
 		int xCourant = this.getX();
 		int yCourant = this.getY();
-		Portal p = new Portal(xOrigin, yOrigin, xCourant, yCourant, null);
+		Portal p = new Portal(xOrigin, yOrigin, xCourant, yCourant, null, global_map, m_model);
 		global_map.setEntity(p); // enlever les commentaires quand la liste de portail sera dans model
 		// m_model.m_portail.add(p);
 		this.global_map.deleteEntity(this);
@@ -63,16 +59,12 @@ public class Minion extends Character {
 	@Override
 	public void move(Direction d) {
 		int x_res = 0, y_res = 0;
-		Point p = new Point(x_res,y_res);
+		Point p = new Point(x_res, y_res);
 		Transversal.evalPosition(this.getX(), this.getY(), p, d, this.getOrientation());
 	}
 
 	public void hit(long now) {
 		Iterator<Minion> iterM = m_model.m_minions.iterator();
-		int x = this.getX();
-		int y = this.getY();
-		int xZone;
-		int yZone;
 		Entity closest = null;
 		if (this.getEquipe() == m_model.virus.getEquipe()) {
 			closest = m_model.antivirus;
@@ -83,7 +75,7 @@ public class Minion extends Character {
 		while (iterM.hasNext()) {
 			Minion m = iterM.next();
 			if (m.getEquipe() != this.getEquipe()) {
-				closest = this.closest(closest, m);
+				closest = this.closestEntity(closest, m);
 
 			}
 		}

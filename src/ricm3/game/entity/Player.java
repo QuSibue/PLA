@@ -110,8 +110,8 @@ public class Player extends Character {
 
 	@Override
 	public void power(long now) {
-		long elapsed = now - m_lastShot;
-		if (elapsed > Options.laserCD) {
+		long elapsed = now - m_lastPower;
+		if (elapsed > Options.powerCD) {
 			if (m_energie < 10) {
 				m_energie++;
 			}
