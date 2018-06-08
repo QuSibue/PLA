@@ -5,8 +5,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 
-import ricm3.game.automaton.Etat;
-
 /* Michael PÉRIN, Verimag / Univ. Grenoble Alpes, june 2018
  *
  * Constructors of the Abstract Syntax Tree of Game Automata
@@ -182,6 +180,11 @@ public class Ast {
 		public String tree_edges() {
 			return expression.as_tree_son_of(this);
 		}
+	
+		@Override
+		public ricm3.game.automaton.Condition make(){
+			return null;
+		}
 	}
 
 	public static class Action extends Ast {
@@ -279,13 +282,13 @@ public class Ast {
 		@Override
 		public Object make() {
 			ricm3.game.automaton.Automaton finalAutomata = new ricm3.game.automaton.Automaton();
-			finalAutomata.setEtatInitial(new Etat(this.entry.name.value));
+			finalAutomata.setEtatInitial(new ricm3.game.automaton.Etat(this.entry.name.value));
 			
 			LinkedList<ricm3.game.automaton.Transition> transitionListAutomata = new LinkedList<ricm3.game.automaton.Transition>();
 			Iterator<Behaviour> iter = behaviours.iterator();
 			while( iter.hasNext()) {
 				Behaviour b = iter.next();
-				ArrayList<ricm3.game.automaton.Transition> transitions = b.makeBis(Entry) ;
+				LinkedList<ricm3.game.automaton.Transition> transitions = b.makeBis(entry) ;
 				transitionListAutomata.addAll(transitions);
 			}
 			finalAutomata.setListTransition(transitionListAutomata);
@@ -315,8 +318,23 @@ public class Ast {
 			return output;
 		}
 		
-		public LinkedList<ricm3.game.automaton.Transition> make2(State s){
-			
+		public LinkedList<ricm3.game.automaton.Transition> makeBis(State s){
+			LinkedList<ricm3.game.automaton.Transition> listeTransitionAut = new LinkedList<ricm3.game.automaton.Transition>();
+			Iterator<Transition> iter = transitions.iterator();
+			ricm3.game.automaton.Condition cond;
+			ricm3.game.automaton.Action action;
+			ricm3.game.automaton.Etat etatSource = new ricm3.game.automaton.Etat(s.name.value);
+			ricm3.game.automaton.Etat etatFinal;
+			ricm3.game.automaton.Transition transitionAutomate;
+			while(iter.hasNext()) {
+				Transition transitionParser = iter.next();
+				cond = (ricm3.game.automaton.Condition) transitionParser.condition.make();
+				action = (ricm3.game.automaton.Action) transitionParser.action.make();
+				etatFinal = new ricm3.game.automaton.Etat(transitionParser.target.name.value);
+				transitionAutomate = new ricm3.game.automaton.Transition(etatSource, cond,action, etatFinal);
+				listeTransitionAut.add(transitionAutomate);
+			}
+			return listeTransitionAut;
 		}
 	}
 
