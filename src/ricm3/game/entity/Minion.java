@@ -14,6 +14,7 @@ import ricm3.game.mvc.Map;
 import ricm3.game.mvc.Model;
 import ricm3.game.other.Options;
 import ricm3.game.other.Transversal;
+import sun.font.TrueTypeFont;
 
 public class Minion extends Character {
 	public long m_lastMove;
@@ -119,22 +120,22 @@ public class Minion extends Character {
 	}
 
 	public void protect() {
-		return;
+	
 	}
 
 	public void jump() { // Non implémenté
 		return;
 	}
 
-	public void pick() {
+	public void pick() { // Implémenté dans Character
 		return;
 	}
 
-	public void get() {
+	public void get() {  //Implémenté dans Character
 		return;
 	}
 
-	public void store() {
+	public void store() {	//Implémenté dans Character
 		return;
 	}
 

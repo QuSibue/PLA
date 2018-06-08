@@ -9,6 +9,7 @@ import ricm3.game.mvc.Model;
 
 public abstract class Character extends Being {
 	private int m_equipe;
+	
 
 	public Character(BufferedImage[] sprites, int x, int y, boolean moveable, boolean pickable, boolean killable,
 			boolean lethal, int moveSpeed, Automaton automate, Orientation orientation, int equipe, Map map,
@@ -25,5 +26,8 @@ public abstract class Character extends Being {
 	void setEquipe(int equipe) {
 		m_equipe = equipe;
 	}
-
+	
+	public void protect() {
+		setProtection(true);
+	}
 }
