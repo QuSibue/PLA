@@ -31,13 +31,42 @@ public class Action {
 			b.move(m_direction);
 			break;
 		case POP:
-			b.pop();
+			b.pop(now);
 			break;
 		case IDLE:
 			break;
 		case HIT:
 			b.hit(now);
 			break;
+		case JUMP:
+			b.jump();
+			break;
+		case WIZZ:
+			b.wizz();
+			break;
+		case TURN:
+			b.turn(m_direction);
+			break;
+		case PROTECT:
+			b.protect();
+			break;
+		case PICK:
+			b.pick();
+			break;
+		case THROW:
+			b._throw();
+			break;
+		case STORE:
+			b.store();
+			break;
+		case GET:
+			b.get();
+			break;
+		case POWER:
+			b.power(now);
+			break;
+		case KAMIKAZE:
+			b.kamikaze();
 		default:
 			throw new RuntimeException("Action NYI");
 		}
