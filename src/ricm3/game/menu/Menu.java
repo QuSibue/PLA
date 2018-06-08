@@ -56,10 +56,7 @@ public class Menu extends javax.swing.JPanel {
         
         JPanel panelNord = new JPanel(new FlowLayout(FlowLayout.CENTER));
         this.add(panelNord,BorderLayout.NORTH);
-   
-        
-        
-        
+    
         //Label du Joueur
         BufferedImage title = ImageIO.read(new File("images/title3.png"));
         JLabel picLabel = new JLabel(new ImageIcon(title));
@@ -77,7 +74,7 @@ public class Menu extends javax.swing.JPanel {
         quitter = new JButton("Quitter");
         quitter.setFocusPainted(false);
         boutonsCentre.add(quitter);
-        
+                
         jouer.addMouseListener(new MouseListener() {
             @Override
             public void mouseEntered(MouseEvent e) {

@@ -84,7 +84,7 @@ public class GameMain {
         JPanel panelSouth = new JPanel(new FlowLayout(FlowLayout.CENTER));        
         window3.add(panelSouth,BorderLayout.SOUTH);
         
-        JButton retour = new JButton("retour");
+        JButton retour = new JButton("Retour");
         retour.setFocusPainted(false);
         panelSouth.add(retour);
         
