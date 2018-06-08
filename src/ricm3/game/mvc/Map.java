@@ -83,25 +83,25 @@ public class Map {
 		p.y = -1;
 
 		// on test la case au dessus du personnage
-		if (matrice[y-1][x] == null) {
+		if (matrice[y - 1][x] == null) {
 			p.x = x;
 			p.y = y - 1;
 			return true;
 		}
 		// on test la case a droite du personnage
-		else if (matrice[y][x+1] == null) {
+		else if (matrice[y][x + 1] == null) {
 			p.x = x + 1;
 			p.y = y;
 			return true;
 		}
 		// on test la case en bas du personnage
-		if (matrice[y+1][x] == null) {
+		if (matrice[y + 1][x] == null) {
 			p.x = x;
 			p.y = y + 1;
 			return true;
 		}
 		// on test la case a gauche du personnage
-		else if (matrice[y][x-1] == null) {
+		else if (matrice[y][x - 1] == null) {
 			p.x = x - 1;
 			p.y = y;
 			return true;
@@ -128,6 +128,7 @@ public class Map {
 		else if (matrice[y - 1][x - 1] == null) {
 			p.x = x - 1;
 			p.y = y - 1;
+
 			return true;
 		}
 

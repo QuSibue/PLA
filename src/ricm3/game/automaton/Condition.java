@@ -287,20 +287,16 @@ public class Condition {
 				return this.isClosest(b, closest);
 			}
 			/*
-			else if (m_entity == TypeEntity.GATE) {
-				Portal p;
-				Portal closest;
-				// on cherche le caractère/sbires le plus proche
-				Iterator<Portal> iterP = b.m_model.m_gate.iterator();
-
-				while (iterP.hasNext()) {
-					p = iterP.next();
-					closest = (Character) b.closestEntity(p, closest);
-				}
-				// renvoit faux si il existe un portail plus proche dans une autre direction
-				return this.isClosest(b, closest);
-
-			}*/
+			 * else if (m_entity == TypeEntity.GATE) { Portal p; Portal closest; // on
+			 * cherche le caractère/sbires le plus proche Iterator<Portal> iterP =
+			 * b.m_model.m_gate.iterator();
+			 * 
+			 * while (iterP.hasNext()) { p = iterP.next(); closest = (Character)
+			 * b.closestEntity(p, closest); } // renvoit faux si il existe un portail plus
+			 * proche dans une autre direction return this.isClosest(b, closest);
+			 * 
+			 * }
+			 */
 		}
 
 		// recursivité

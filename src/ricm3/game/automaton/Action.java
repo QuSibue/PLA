@@ -45,7 +45,7 @@ public class Action {
 			b.wizz();
 			break;
 		case TURN:
-			b.turn();
+			b.turn(m_direction);
 			break;
 		case PROTECT:
 			b.protect();

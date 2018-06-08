@@ -24,7 +24,6 @@ public class Player extends Character {
 		super(sprites, x, y, true, false, true, false, Options.PLAYER_MS, aut, orientation, equipe, map, model, life,
 				lastMove);
 		m_key = key;
-
 	}
 
 	// action
@@ -50,16 +49,6 @@ public class Player extends Character {
 			}
 			global_map.moveEntity(this, p.x, p.y);
 		}
-
-	}
-
-	@Override
-	public void paint(Graphics g) {
-		// affiche un carré bleu pour le joueur
-		int m_x = this.getX() * Options.TAILLE_CASE;
-		int m_y = this.getY() * Options.TAILLE_CASE;
-		g.setColor(Color.blue);
-		g.fillRect(m_x, m_y, Options.TAILLE_CASE, Options.TAILLE_CASE);
 
 	}
 
@@ -100,7 +89,6 @@ public class Player extends Character {
 				((Being) e).getDamage();
 			}
 		}
-
 	}
 
 	public TypeKey getKey() {
@@ -176,6 +164,15 @@ public class Player extends Character {
 		default:
 			throw new RuntimeException("Direction invalid");
 		}
+	}
+
+	public void paint(Graphics g) {
+		// affiche un carré bleu pour le joueur
+		int m_x = this.getX() * Options.TAILLE_CASE;
+		int m_y = this.getY() * Options.TAILLE_CASE;
+		g.setColor(Color.blue);
+		g.fillRect(m_x, m_y, Options.TAILLE_CASE, Options.TAILLE_CASE);
+
 	}
 
 	@Override
