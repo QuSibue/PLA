@@ -25,6 +25,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.Timer;
 
 import ricm3.game.mvc.Controller;
@@ -64,6 +65,7 @@ public class GameUI {
   Timer m_timer;
   GameModel m_model;
   GameController m_controller;
+  GameATH m_ath;
   JLabel m_text;
   int m_fps;
   String m_msg;
@@ -73,10 +75,11 @@ public class GameUI {
   long m_lastTick;
   int m_nTicks;
 
-  public GameUI(Model m, GameView v, Dimension d,Controller c) {
+  public GameUI(Model m, GameView v, Dimension d,Controller c, GameATH a) {
     m_model = m; m_model.m_game = this;
     m_view = v; m_view.m_game = this;
     m_controller = c; m_controller.m_game = this;
+    m_ath = a; m_ath.m_game = this;
 
     System.out.println(license);
 
@@ -146,6 +149,8 @@ public class GameUI {
     // which part of the overall GUI receives the keyboard events.
     m_view.setFocusable(true);
     m_view.requestFocusInWindow();
+    
+    m_ath.ATHVisible();
 
 //    m_controller.notifyVisible();
   }
