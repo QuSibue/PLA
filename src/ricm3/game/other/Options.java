@@ -16,7 +16,7 @@ public abstract class Options {
 	public static int HEALTH_PROTECT = 2;// Point de vie du farmer
 	public static int HEALTH_OTHERS_SBIRES = 1; // Point de vie autres mignons
 	public static int TIMER_LASER= 10; //Temps de vie du laser
-	public static int TAILLE_CASE = 100; //case de 100 pixels sur 100 pixels
+	public static int TAILLE_CASE = 35; //case de 100 pixels sur 100 pixels
 	public static int NB_TILE_WIDTH_MAP = 100; // Largeur de la MAP
 	public static int NB_TILE_HEIGHT_MAP = 100;// Longueur de la MAP
 	

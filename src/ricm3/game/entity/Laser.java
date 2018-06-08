@@ -34,6 +34,8 @@ public class Laser extends Being {
 			this.hit(e);
 			global_map.deleteEntity(this);
 			this.m_model.m_laser.remove(this);
+			global_map.moveEntity(this, p.x, p.y);
+
 		}
 	}
 
