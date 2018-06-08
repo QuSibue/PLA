@@ -14,25 +14,35 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.border.BevelBorder;
 
+import org.w3c.dom.ranges.RangeException;
+
+import ricm3.game.entity.Player;
+
 public class ATHP2{
 	
-	public ATHP2() {
+	Player m_antivirus;
+	JLabel m_heart;
+	JLabel m_heart1;
+	JLabel m_heart2;
+	
+	public ATHP2(Player antivirus) {
+		m_antivirus = antivirus;
+		
+		m_heart = new JLabel();
+		m_heart.setIcon(new ImageIcon("src/ricm3/sprites/heart.png"));
+		m_heart1 = new JLabel();
+		m_heart1.setIcon(new ImageIcon("src/ricm3/sprites/heart.png"));
+		m_heart2 = new JLabel();
+		m_heart2.setIcon(new ImageIcon("src/ricm3/sprites/heart.png"));
 	}
 
 	public Container init() {
 		Container vie = new Container();
 		vie.setLayout(new FlowLayout());
 
-		JLabel heart = new JLabel();
-		heart.setIcon(new ImageIcon("src/ricm3/sprites/heart.png"));
-		JLabel heart1 = new JLabel();
-		heart1.setIcon(new ImageIcon("src/ricm3/sprites/heart.png"));
-		JLabel heart2 = new JLabel();
-		heart2.setIcon(new ImageIcon("src/ricm3/sprites/heart.png"));
-
-		vie.add(heart);
-		vie.add(heart1);
-		vie.add(heart2);
+		vie.add(m_heart);
+		vie.add(m_heart1);
+		vie.add(m_heart2);
 
 		JProgressBar energie = new JProgressBar(0, 10);
 		energie.setValue(8);
@@ -88,7 +98,23 @@ public class ATHP2{
 		cont.add(VieEnergie);
 		
 		return cont;
-
-//		m_game.addSouth(cont);
+	}
+	
+	public void step(long now) {
+		switch (m_antivirus.getLife()) {
+		case 3:
+			break;
+		case 2:
+			m_heart2.setVisible(false);
+			break;
+		case 1:
+			m_heart1.setVisible(false);
+			break;
+		case 0:
+			m_heart.setVisible(false);
+			break;
+		default:
+			throw new RangeException(RangeException.BAD_BOUNDARYPOINTS_ERR, "Error vie");	
+		}
 	}
 }

@@ -3,14 +3,9 @@ package ricm3.game.mvc;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-import ricm3.game.automaton.Action;
+import ricm3.game.ath.ATH;
 import ricm3.game.automaton.Automaton;
-import ricm3.game.automaton.Condition;
-import ricm3.game.automaton.Etat;
 import ricm3.game.automaton.Orientation;
-import ricm3.game.automaton.Transition;
-import ricm3.game.automaton.TypeAction;
-import ricm3.game.automaton.TypeCondition;
 import ricm3.game.entity.Laser;
 import ricm3.game.entity.Minion;
 import ricm3.game.entity.Obstacle;
@@ -29,6 +24,7 @@ public class Model extends GameModel {
 	public Player virus;
 	public Player antivirus;
 	public Map map;
+	public ATH m_ath;
 
 	public Model() {
 		m_minions = new LinkedList<Minion>();
@@ -38,6 +34,7 @@ public class Model extends GameModel {
 		// sprites vont etres donné a l'instantiation normalement, a voir
 		// ON FAIT LA MAP
 		map = new Map(1100, 1200);
+		
 
 		// ON FAIT UN AUTOMATE
 		Automaton aut = Transversal.virusAutomaton();
@@ -73,6 +70,7 @@ public class Model extends GameModel {
 		m_powerup.add(PU);
 		map.setEntity(PU);
 
+		m_ath = new ATH(this);
 	}
 
 	@Override
@@ -104,7 +102,7 @@ public class Model extends GameModel {
 		if(antivirus.getLife() > 0) {
 			antivirus.step(now);
 		}
-		System.out.println("\n");
+		m_ath.step(now);
 		// Affichage du modele
 	}
 

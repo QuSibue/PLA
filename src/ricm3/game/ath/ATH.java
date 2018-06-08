@@ -8,17 +8,20 @@ import java.awt.FlowLayout;
 import javax.swing.JPanel;
 
 import ricm3.game.framework.GameATH;
+import ricm3.game.mvc.Model;
 
 public class ATH extends GameATH {
 
 	private static final long serialVersionUID = 1L;
 
+	Model m_model; 
 	ATHP1 m_p1;
 	ATHP2 m_p2;
 
-	public ATH(){
-		m_p1 = new ATHP1();
-		m_p2 = new ATHP2();
+	public ATH(Model model){
+		m_model = model;
+		m_p1 = new ATHP1(m_model.virus);
+		m_p2 = new ATHP2(m_model.antivirus);
 	}
 
 	public void ATHVisible() {
@@ -38,5 +41,10 @@ public class ATH extends GameATH {
 		c.add(c2);
 
 		m_game.addSouth(c);
+	}
+	
+	public void step(long now) {
+		m_p1.step(now);
+		m_p2.step(now);
 	}
 }
