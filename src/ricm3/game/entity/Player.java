@@ -18,12 +18,15 @@ public class Player extends Character {
 
 	private TypeKey m_key;
 	private long m_lastShot = -Options.laserCD;
+	private int m_energie;
+	private long m_lastPower = -Options.powerCD;
 
 	public Player(int x, int y, BufferedImage[] sprites, Automaton aut, Orientation orientation, int equipe, Map map,
 			Model model, int life, long lastMove, TypeKey key) {
 		super(sprites, x, y, true, false, true, false, Options.PLAYER_MS, aut, orientation, equipe, map, model, life,
 				lastMove);
 		m_key = key;
+		m_energie = 10;
 
 	}
 
@@ -42,7 +45,8 @@ public class Player extends Character {
 					global_map.deleteEntity(e);
 					m_model.m_laser.remove(e);
 				} else if (e instanceof PowerUp) {
-					this.applyPowerUp((PowerUp)e);;
+					this.applyPowerUp((PowerUp) e);
+					;
 					global_map.deleteEntity(e);
 					m_model.m_powerup.remove(e);
 				}
@@ -64,15 +68,20 @@ public class Player extends Character {
 
 	@Override
 	public void pop() {
-		Point p = new Point();
-		if (global_map.caseLibre(this.getX(), this.getY(), p)) {
-			Minion minion = new Minion(null, p.x, p.y, Transversal.idleAutomaton(), Orientation.RIGHT, 1, global_map,
-					this.m_model, 1, 0);
-			m_model.m_minions.add(minion);
-			global_map.setEntity(minion);
-		} else {
-			System.out.print("Pas de place pour placer de nouveaux sbires");
+		if (m_energie >= 3) {
+			Point p = new Point();
+			if (global_map.caseLibre(this.getX(), this.getY(), p)) {
+				Minion minion = new Minion(null, p.x, p.y, Transversal.idleAutomaton(), Orientation.RIGHT, 1,
+						global_map, this.m_model, 1, 0);
+				m_model.m_minions.add(minion);
+				global_map.setEntity(minion);
+				m_energie -= 3;
+			} else {
+				System.out.print("Pas de place pour placer de nouveaux sbires");
+			}
+
 		}
+
 	}
 
 	@Override
@@ -111,8 +120,13 @@ public class Player extends Character {
 	}
 
 	@Override
-	public void power() {
-		// TODO Auto-generated method stub
+	public void power(long now) {
+		long elapsed = now - m_lastShot;
+		if (elapsed > Options.laserCD) {
+			if (m_energie < 10) {
+				m_energie++;
+			}
+		}
 
 	}
 

@@ -34,7 +34,7 @@ public class Minion extends Character {
 		return;
 	}
 
-	public void power() {
+	public void power(long now) {
 		return;
 	}
 
