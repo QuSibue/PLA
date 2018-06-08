@@ -21,7 +21,7 @@ public class Map {
 
 	private Entity[][] matrice;
 
-	Map(int height, int length) {
+	public Map(int height, int length) {
 		m_height = height;
 		m_length = length;
 
@@ -144,7 +144,7 @@ public class Map {
 
 	}
 
-	public Map(String s) {
+	public Map(String s, Model m) {
 		int cmp = 0;
 		m_height = 0;
 		m_length = 0;
@@ -182,9 +182,7 @@ public class Map {
 					i = 0;
 				}
 			}
-
 			matrice = new Entity[m_height][m_length];
-
 			i++;
 			if (i == 8) {
 				if (fis.read(buf) < 0) {
@@ -192,16 +190,15 @@ public class Map {
 				}
 				i = 0;
 			}
-
 			while (cmp < m_height * m_length) {
 				switch ((char) buf[i]) {
 				case 'w':
-					matrice[cmp % m_height][cmp / m_height] = new Wall(cmp / m_height, cmp % m_height, this, null);
+					matrice[cmp % m_height][cmp / m_height] = new Wall(cmp / m_height, cmp % m_height, this, m);
 					cmp++;
 					break;
 				case 'o':
 					matrice[cmp % m_height][cmp / m_height] = new Obstacle(cmp / m_height, cmp % m_height, false, true,
-							false, false, null, this, null);
+							false, false, null, this, m);
 					cmp++;
 					break;
 				case 'n':
@@ -211,7 +208,6 @@ public class Map {
 					matrice[cmp % m_height][cmp / m_height] = null;
 					break;
 				}
-
 				i++;
 				if (i == 8) {
 					if (fis.read(buf) < 0) {
@@ -223,6 +219,36 @@ public class Map {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public Map(Model m) {
+		m_height = 1000;
+		m_length = 800;
+
+		int pourcentage = 70;
+
+		matrice = new Entity[m_height][m_length];
+
+		for (int i = 0; i < m_height; i++) {
+			matrice[i][0] = new Wall(i, 0, this, m);
+			matrice[i][m_length - 1] = new Wall(i, m_length - 1, this, m);
+		}
+		for (int i = 0; i < m_length; i++) {
+			matrice[0][i] = new Wall(0, i, this, null);
+			matrice[m_height - 1][i] = new Wall(m_height - 1, i, this, m);
+		}
+
+		for (int i = 1; i < m_length - 1; i++) {
+			for (int j = 1; j < m_height - 1; j++) {
+				int rand = (int) (Math.random() * 100);
+				if (rand < pourcentage) {
+					matrice[j][i] = new Obstacle(j, i, false, true, false, false, null, this, m);
+				} else {
+					matrice[j][i] = null;
+				}
+			}
+		}
+
 	}
 
 }

@@ -13,7 +13,6 @@ import ricm3.game.other.Transversal;
 public abstract class Character extends Being {
 	private int m_equipe;
 	private Sac m_sac;
-	private int m_vie;
 
 	public Character(BufferedImage[] sprites, int x, int y, boolean moveable, boolean pickable, boolean killable,
 			boolean lethal, int moveSpeed, Automaton automate, Orientation orientation, int equipe, Map map,

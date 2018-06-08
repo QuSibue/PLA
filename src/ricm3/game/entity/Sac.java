@@ -47,7 +47,6 @@ public class Sac {
 			m_index = (m_index + 1) % m_max;
 			return true;
 		}
-
 	}
 
 	public Entity removeItem(int i) {
