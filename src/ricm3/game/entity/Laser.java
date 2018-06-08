@@ -16,21 +16,41 @@ import ricm3.game.other.Transversal;
 public class Laser extends Being {
 
 	private boolean m_isFirstPaint = true;
+	private PowerUp erased_powerup;
 
 	public Laser(int x, int y, BufferedImage[] sprites, Automaton aut, Orientation orientation, Map map, Model model,
 			int life, long lastMove) {
 		super(x, y, true, true, true, true, Options.LASER_MS, sprites, aut, orientation, map, model, life, lastMove);
+		erased_powerup = null;
 	}
 
 	@Override
 	public void move(Direction d) {
+		
+		
 		int x_res = 0, y_res = 0;
 		Point p = new Point(x_res, y_res);
 		Transversal.evalPosition(this.getX(), this.getY(), p, d, this.getOrientation());
 		Entity e = global_map.getEntity(p.x, p.y);
 		if (e == null) {
 			global_map.moveEntity(this, p.x, p.y);
-		} else if (e.getKillable()) {
+			if(erased_powerup != null) {
+				global_map.setEntity(erased_powerup);
+				erased_powerup = null;
+			}
+		}else if(e instanceof PowerUp) {
+			if(erased_powerup != null) {
+				global_map.setEntity(erased_powerup);
+				erased_powerup = null;
+			}
+			global_map.moveEntity(this, p.x, p.y);
+			erased_powerup = (PowerUp)e;
+		}
+		else if (e.getKillable()) {
+			if(erased_powerup != null) {
+				global_map.setEntity(erased_powerup);
+				erased_powerup = null;
+			}
 			this.hit(e);
 			global_map.deleteEntity(this);
 			this.m_model.m_laser.remove(this);
