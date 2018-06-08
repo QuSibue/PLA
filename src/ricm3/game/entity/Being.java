@@ -168,7 +168,9 @@ public abstract class Being extends Entity {
 	public abstract void store();
 
 	public abstract void _throw();
-	
+
 	public abstract void turn(Direction d);
+
+	public abstract void kamikaze();
 
 }

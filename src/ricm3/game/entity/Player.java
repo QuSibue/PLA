@@ -42,7 +42,8 @@ public class Player extends Character {
 					global_map.deleteEntity(e);
 					m_model.m_laser.remove(e);
 				} else if (e instanceof PowerUp) {
-					this.applyPowerUp((PowerUp)e);;
+					this.applyPowerUp((PowerUp) e);
+					;
 					global_map.deleteEntity(e);
 					m_model.m_powerup.remove(e);
 				}
@@ -175,6 +176,11 @@ public class Player extends Character {
 		default:
 			throw new RuntimeException("Direction invalid");
 		}
+	}
+
+	@Override
+	public void kamikaze() {
+		// TODO Auto-generated method stub
 
 	}
 

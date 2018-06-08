@@ -38,6 +38,35 @@ public class Action {
 		case HIT:
 			b.hit(now);
 			break;
+		case JUMP:
+			b.jump();
+			break;
+		case WIZZ:
+			b.wizz();
+			break;
+		case TURN:
+			b.turn();
+			break;
+		case PROTECT:
+			b.protect();
+			break;
+		case PICK:
+			b.pick();
+			break;
+		case THROW:
+			b._throw();
+			break;
+		case STORE:
+			b.store();
+			break;
+		case GET:
+			b.get();
+			break;
+		case POWER:
+			b.power();
+			break;
+		case KAMIKAZE:
+			b.kamikaze();
 		default:
 			throw new RuntimeException("Action NYI");
 		}

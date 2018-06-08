@@ -20,21 +20,61 @@ public class Minion extends Character {
 			Map map, Model model, int life, long lastMove) {
 		super(sprites, x, y, true, true, true, false, Options.MINION_MS, automate, orientation, equipe, map, model,
 				life, lastMove);
+
 	}
 
 	public void pop() {
-		return;
+		int x = this.getX();
+		int y = this.getY();
+		for (int i = x - 1; i <= x + 1; i++) {
+			for (int j = y - 1; j <= y + 1; j++) {
+				if (i != x && j != y) {
+					Entity e = global_map.getEntity(i, j);
+					if (e != null) {
+						if (e instanceof Being) {
+							((Being) e).getDamage();
+						}
+					}
+				}
+			}
+		}
 	}
 
 	public void wizz() {
-		return;
+		int xCourant = this.getX();
+		int yCourant = this.getY();
+		Portal p = new Portal(xOrigin, yOrigin, xCourant, yCourant, null);
+		global_map.setEntity(p); // enlever les commentaires quand la liste de portail sera dans model
+		// m_model.m_portail.add(p);
+		this.global_map.deleteEntity(this);
+		m_model.m_minions.remove(this);
+
 	}
 
 	public void hit(long now) {
-		return;
+		Iterator<Minion> iterM = m_model.m_minions.iterator();
+		int x = this.getX();
+		int y = this.getY();
+		int xZone;
+		int yZone;
+		Entity closest = null;
+		if (this.getEquipe() == m_model.virus.getEquipe()) {
+			closest = m_model.antivirus;
+		} else {
+			closest = m_model.virus;
+
+		}
+		while (iterM.hasNext()) {
+			Minion m = iterM.next();
+			if (m.getEquipe() != this.getEquipe()) {
+				closest = this.closest(closest, m);
+
+			}
+		}
+
 	}
 
-	public void power() {
+	public void power() { // Non implémenté
 		return;
 	}
 
@@ -42,7 +82,7 @@ public class Minion extends Character {
 		return;
 	}
 
-	public void jump() {
+	public void jump() { // Non implémenté
 		return;
 	}
 
@@ -113,6 +153,10 @@ public class Minion extends Character {
 
 	@Override
 	public void turn(Direction d) {
+	}
+
+	@Override
+	public void kamikaze() {
 		// TODO Auto-generated method stub
 
 	}
