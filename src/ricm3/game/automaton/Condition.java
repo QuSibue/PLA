@@ -33,7 +33,6 @@ public class Condition {
 	}
 
 	public boolean eval(Being b, Map m) {
-		int x = 0, y = 0;
 		boolean res;
 
 		/**

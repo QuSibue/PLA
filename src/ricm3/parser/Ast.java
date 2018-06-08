@@ -1,4 +1,5 @@
 package ricm3.parser;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -35,12 +36,13 @@ public class Ast {
 	public String as_dot_automata() {
 		return "undefined";
 	}
-	
-	public Object  make() {
+
+	public Object make() {
 		return null;
 	}
-	
-	public static abstract class Expression extends Ast {}
+
+	public static abstract class Expression extends Ast {
+	}
 
 	public static class Terminal extends Ast {
 		String value;
@@ -52,6 +54,7 @@ public class Ast {
 		public String as_tree_son_of(Ast father) {
 			return Dot.terminal_edge(father.id, value);
 		}
+	
 	}
 
 	public static class Constant extends Expression {
@@ -180,9 +183,9 @@ public class Ast {
 		public String tree_edges() {
 			return expression.as_tree_son_of(this);
 		}
-	
+
 		@Override
-		public ricm3.game.automaton.Condition make(){
+		public ricm3.game.automaton.Condition make() {
 			return null;
 		}
 	}
@@ -199,6 +202,11 @@ public class Ast {
 		public String tree_edges() {
 			return expression.as_tree_son_of(this);
 		}
+
+		@Override
+		public Object make() {
+			return null;
+		}
 	}
 
 	public static class State extends Ast {
@@ -212,6 +220,10 @@ public class Ast {
 
 		public String tree_edges() {
 			return name.as_tree_son_of(this);
+		}
+	
+		public Object make() {
+			return new ricm3.game.automaton.Etat(name.value);
 		}
 	}
 
@@ -241,13 +253,14 @@ public class Ast {
 		public String as_dot_automata() {
 			return Dot.graph("Automata", this.as_tree_node());
 		}
+
 		@Override
 		public Object make() {
 			ArrayList<ricm3.game.automaton.Automaton> automatonList = new ArrayList<ricm3.game.automaton.Automaton>();
-			Iterator<Automaton> iter  = automata.iterator();
-			while(iter.hasNext()) {
+			Iterator<Automaton> iter = automata.iterator();
+			while (iter.hasNext()) {
 				Automaton a = iter.next();
-				ricm3.game.automaton.Automaton automate = (ricm3.game.automaton.Automaton)a.make();
+				ricm3.game.automaton.Automaton automate = (ricm3.game.automaton.Automaton) a.make();
 				automatonList.add(automate);
 			}
 			return automatonList;
@@ -278,17 +291,18 @@ public class Ast {
 			}
 			return output;
 		}
-		
+
 		@Override
 		public Object make() {
 			ricm3.game.automaton.Automaton finalAutomata = new ricm3.game.automaton.Automaton();
 			finalAutomata.setEtatInitial(new ricm3.game.automaton.Etat(this.entry.name.value));
-			
+
 			LinkedList<ricm3.game.automaton.Transition> transitionListAutomata = new LinkedList<ricm3.game.automaton.Transition>();
 			Iterator<Behaviour> iter = behaviours.iterator();
-			while( iter.hasNext()) {
+			while (iter.hasNext()) {
 				Behaviour b = iter.next();
-				LinkedList<ricm3.game.automaton.Transition> transitions = b.makeBis(entry) ;
+				LinkedList<ricm3.game.automaton.Transition> transitions = (LinkedList<ricm3.game.automaton.Transition>) b
+						.make();
 				transitionListAutomata.addAll(transitions);
 			}
 			finalAutomata.setListTransition(transitionListAutomata);
@@ -317,21 +331,14 @@ public class Ast {
 			}
 			return output;
 		}
-		
-		public LinkedList<ricm3.game.automaton.Transition> makeBis(State s){
+
+		public LinkedList<ricm3.game.automaton.Transition> make() {
 			LinkedList<ricm3.game.automaton.Transition> listeTransitionAut = new LinkedList<ricm3.game.automaton.Transition>();
 			Iterator<Transition> iter = transitions.iterator();
-			ricm3.game.automaton.Condition cond;
-			ricm3.game.automaton.Action action;
-			ricm3.game.automaton.Etat etatSource = new ricm3.game.automaton.Etat(s.name.value);
-			ricm3.game.automaton.Etat etatFinal;
 			ricm3.game.automaton.Transition transitionAutomate;
-			while(iter.hasNext()) {
+			while (iter.hasNext()) {
 				Transition transitionParser = iter.next();
-				cond = (ricm3.game.automaton.Condition) transitionParser.condition.make();
-				action = (ricm3.game.automaton.Action) transitionParser.action.make();
-				etatFinal = new ricm3.game.automaton.Etat(transitionParser.target.name.value);
-				transitionAutomate = new ricm3.game.automaton.Transition(etatSource, cond,action, etatFinal);
+				transitionAutomate = transitionParser.makeBis(source);
 				listeTransitionAut.add(transitionAutomate);
 			}
 			return listeTransitionAut;
@@ -353,6 +360,20 @@ public class Ast {
 
 		public String tree_edges() {
 			return condition.as_tree_son_of(this) + action.as_tree_son_of(this) + target.as_tree_son_of(this);
+		}
+
+		public ricm3.game.automaton.Transition makeBis(State entry) {
+			ricm3.game.automaton.Condition cond;
+			ricm3.game.automaton.Action act;
+			ricm3.game.automaton.Etat etatSource = new ricm3.game.automaton.Etat(target.name.value);
+			ricm3.game.automaton.Etat etatFinal;
+			ricm3.game.automaton.Transition transitionAutomate;
+
+			cond = (ricm3.game.automaton.Condition) condition.make();
+			act = (ricm3.game.automaton.Action) action.make();
+			etatFinal = new ricm3.game.automaton.Etat(target.name.value);
+			transitionAutomate = new ricm3.game.automaton.Transition(etatSource, cond, act, etatFinal);
+			return transitionAutomate;
 		}
 	}
 }
