@@ -70,6 +70,8 @@ public class Model extends GameModel {
 		PowerUp PU = new PowerUp(4, 3, this);
 		m_powerup.add(PU);
 		map.setEntity(PU);
+		
+		
 
 	}
 
