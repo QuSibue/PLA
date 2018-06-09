@@ -24,6 +24,9 @@ public class ATHP2{
 	JLabel m_heart;
 	JLabel m_heart1;
 	JLabel m_heart2;
+	JLabel m_labelx;
+	JLabel m_labelz;
+	JLabel m_labelw;
 	
 	public ATHP2(Player antivirus) {
 		m_antivirus = antivirus;
@@ -69,24 +72,24 @@ public class ATHP2{
 		JPanel panelx = new JPanel();
 		panelx.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.BLACK, Color.BLACK));
 
-		JLabel labelx = new JLabel("X");
-		panelx.add(labelx);
+		m_labelx = new JLabel("X");
+		panelx.add(m_labelx);
 
 		sacCont.add(panelx);
 
 		JPanel panelz = new JPanel();
 		panelz.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.BLACK, Color.BLACK));
 
-		JLabel labelz = new JLabel("Z");
-		panelz.add(labelz);
+		m_labelz = new JLabel("Z");
+		panelz.add(m_labelz);
 
 		sacCont.add(panelz);
 
 		JPanel panelw = new JPanel();
 		panelw.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.BLACK, Color.BLACK));
 
-		JLabel labelw = new JLabel("W");
-		panelw.add(labelw);
+		m_labelw = new JLabel("W");
+		panelw.add(m_labelw);
 
 		sacCont.add(panelw);
 
@@ -116,5 +119,18 @@ public class ATHP2{
 		default:
 			throw new RangeException(RangeException.BAD_BOUNDARYPOINTS_ERR, "Error vie");	
 		}
+		
+		if (m_antivirus.getSac().getItem(0) == null)
+			m_labelx.setVisible(false);
+		else
+			m_labelx.setVisible(true);
+		if (m_antivirus.getSac().getItem(1) == null)
+			m_labelz.setVisible(false);
+		else
+			m_labelz.setVisible(true);
+		if (m_antivirus.getSac().getItem(2) == null)
+			m_labelw.setVisible(false);
+		else
+			m_labelw.setVisible(true);
 	}
 }
