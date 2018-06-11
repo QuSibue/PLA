@@ -1,5 +1,5 @@
 package ricm3.game.other;
 
 public enum TypeKey {
-	NONE, UP, DOWN, LEFT, RIGHT, HIT, POP, WIZZ;
+	NONE, UP, DOWN, LEFT, RIGHT, HIT, WIZZ, POP, PICK, GET;
 }

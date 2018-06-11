@@ -10,8 +10,6 @@ public class PowerUp extends Entity {
 	public PowerUp(int x, int y, Model model) {
 		super(x, y, false, true, true, false, null, model.map, model);
 	}
-	
-	
 
 	@Override
 	public void paint(Graphics g) {

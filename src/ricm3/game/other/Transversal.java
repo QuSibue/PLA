@@ -182,6 +182,8 @@ public class Transversal {
 		Condition condiHit = new Condition(TypeCondition.KEYPRESSEDHIT, null, null,' ', null);
 		Condition condiPop = new Condition(TypeCondition.KEYPRESSEDPOP, null, null,' ', null);
 		Condition condiWizz = new Condition(TypeCondition.KEYPRESSEDW, null, null,' ', null);
+		Condition condiPick = new Condition(TypeCondition.KEYPRESSEDO,null,null,' ',null);
+		Condition condiGet = new Condition(TypeCondition.KEYPRESSEDI,null,null,' ',null);
 		
 		
 		Action up = new Action(TypeAction.MOVE, Direction.NORTH);
@@ -189,9 +191,11 @@ public class Transversal {
 		Action left = new Action(TypeAction.MOVE, Direction.WEST);
 		Action right = new Action(TypeAction.MOVE, Direction.EAST);
 		Action hit = new Action(TypeAction.HIT, null);
-		Action pop = new Action(TypeAction.POP, null);
+		Action pop = new Action(TypeAction.POP, null);		
 		Action idle = new Action(TypeAction.IDLE, null);
 		Action wizz = new Action(TypeAction.WIZZ, null);
+		Action pick = new Action(TypeAction.PICK,null);
+		Action get = new Action(TypeAction.GET,null);
 		
 		Transition transitionUp = new Transition(etatInitialTransition, condiUp, up, etatInitialTransition);
 		Transition transitionDown = new Transition(etatInitialTransition, condiDown, down, etatInitialTransition);
@@ -201,6 +205,8 @@ public class Transversal {
 		Transition transitionPop = new Transition(etatInitialTransition, condiPop, pop, etatInitialTransition);
 		Transition transitionIdle = new Transition(etatInitialTransition, condiIdle, idle, etatInitialTransition);
 		Transition transitionWizz = new Transition(etatInitialTransition, condiWizz, wizz, etatInitialTransition);
+		Transition transitionPick = new Transition(etatInitialTransition,condiPick,pick,etatInitialTransition);
+		Transition transitionGet = new Transition(etatInitialTransition,condiGet,get,etatInitialTransition);
 				
 		LinkedList<Transition> listTransitions = new LinkedList<Transition>();
 		listTransitions.add(transitionUp);
@@ -209,6 +215,8 @@ public class Transversal {
 		listTransitions.add(transitionRight);
 		listTransitions.add(transitionHit);
 		listTransitions.add(transitionPop);
+		listTransitions.add(transitionPick);
+		listTransitions.add(transitionGet);
 		listTransitions.add(transitionIdle);
 		listTransitions.add(transitionWizz);
 		Automaton test =  new Automaton(etatInitialAut, listTransitions);

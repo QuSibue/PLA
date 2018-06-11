@@ -22,6 +22,9 @@ public class Player extends Character {
 	private ArrayList<Automaton> m_autoMinions;
 	private int m_indiceAutoMinions;
 
+	private int m_energie;
+	private long m_lastPower = -Options.powerCD;
+
 	public Player(int x, int y, BufferedImage[] sprites, Automaton aut, Orientation orientation, int equipe, Map map,
 			Model model, int life, long lastMove, TypeKey key) {
 		super(sprites, x, y, true, false, true, false, Options.PLAYER_MS, aut, orientation, equipe, map, model, life,
@@ -30,6 +33,7 @@ public class Player extends Character {
 		m_autoMinions = new ArrayList<Automaton>();
 		m_indiceAutoMinions = 0;
 		this.loadAutomaton();
+		m_energie = 10;
 
 	}
 
@@ -48,7 +52,8 @@ public class Player extends Character {
 					global_map.deleteEntity(e);
 					m_model.m_laser.remove(e);
 				} else if (e instanceof PowerUp) {
-					this.applyPowerUp((PowerUp)e);;
+					this.applyPowerUp((PowerUp) e);
+					;
 					global_map.deleteEntity(e);
 					m_model.m_powerup.remove(e);
 				}
@@ -59,32 +64,28 @@ public class Player extends Character {
 	}
 
 	@Override
-	public void paint(Graphics g) {
-		// affiche un carré bleu pour le joueur
-		int m_x = this.getX() * Options.TAILLE_CASE;
-		int m_y = this.getY() * Options.TAILLE_CASE;
-		g.setColor(Color.blue);
-		g.fillRect(m_x, m_y, Options.TAILLE_CASE, Options.TAILLE_CASE);
-
-	}
-
-	@Override
-	public void pop() {
-		Point p = new Point();
-		if (global_map.caseLibre(this.getX(), this.getY(), p)) {
-			Minion minion = new Minion(null, p.x, p.y, true, false, true, true, Options.MINION_MS,
-					m_autoMinions.get(m_indiceAutoMinions), Orientation.RIGHT, 1, global_map, this.m_model, 1, 0);
-			m_model.m_minions.add(minion);
-			global_map.setEntity(minion);
+	public void pop(long now) {
+		if (m_energie >= 3) {
+			Point p = new Point();
+			if (global_map.caseLibre(this.getX(), this.getY(), p)) {
+				Minion minion = new Minion(null, p.x, p.y, true, false, true, false, Options.MINION_MS, Transversal.idleAutomaton(), Orientation.RIGHT, 1,
+						global_map, this.m_model, 1, 0);
+				m_model.m_minions.add(minion);
+				global_map.setEntity(minion);
+				m_energie -= 3;
+			} else {
+				System.out.print("Pas de place pour placer de nouveaux sbires");
+			}
 		} else {
-			System.out.print("Pas de place pour placer de nouveaux sbires");
+			this.power(now);
 		}
+
 	}
 
 	@Override
 	public void wizz() {
 		// TODO Auto-generated method stub
-		if (m_indiceAutoMinions == Options.NB_MINIONS_TYPE - 1) {
+		if (m_indiceAutoMinions == Options.NB_TYPE_MINION- 1) {
 			m_indiceAutoMinions = 0;
 		} else {
 			m_indiceAutoMinions++;
@@ -107,6 +108,12 @@ public class Player extends Character {
 						global_map, m_model, 1, 0);
 				this.m_model.m_laser.add(laser);
 				global_map.setEntity(laser);
+			} else if (e instanceof PowerUp) {
+				Laser laser = new Laser(p.x, p.y, null, Transversal.straightAutomaton(), this.getOrientation(),
+						global_map, m_model, 1, 0);
+				laser.erased_powerup = (PowerUp) e;
+				this.m_model.m_laser.add(laser);
+				global_map.setEntity(laser);
 			} else if (e.getKillable()) {
 				((Being) e).getDamage();
 			}
@@ -123,8 +130,13 @@ public class Player extends Character {
 	}
 
 	@Override
-	public void power() {
-		// TODO Auto-generated method stub
+	public void power(long now) {
+		long elapsed = now - m_lastPower;
+		if (elapsed > Options.powerCD) {
+			if (m_energie < 10) {
+				m_energie++;
+			}
+		}
 
 	}
 
@@ -136,18 +148,6 @@ public class Player extends Character {
 
 	@Override
 	public void jump() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void pick() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void get() {
 		// TODO Auto-generated method stub
 
 	}
@@ -187,9 +187,23 @@ public class Player extends Character {
 		default:
 			throw new RuntimeException("Direction invalid");
 		}
+	}
+
+	public void paint(Graphics g) {
+		// affiche un carré bleu pour le joueur
+		int m_x = this.getX() * Options.TAILLE_CASE;
+		int m_y = this.getY() * Options.TAILLE_CASE;
+		g.setColor(Color.blue);
+		g.fillRect(m_x, m_y, Options.TAILLE_CASE, Options.TAILLE_CASE);
 
 	}
-	
+
+	@Override
+	public void kamikaze() {
+		// TODO Auto-generated method stub
+
+	}
+
 	public void loadAutomaton() {
 		m_autoMinions.add(m_model.m_automates.get(0));
 		m_autoMinions.add(m_model.m_automates.get(1));
@@ -200,6 +214,6 @@ public class Player extends Character {
 		m_autoMinions.add(m_model.m_automates.get(0));
 		m_autoMinions.add(m_model.m_automates.get(1));
 		m_autoMinions.add(m_model.m_automates.get(2));
-}
+	}
 
 }
