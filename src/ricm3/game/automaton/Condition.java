@@ -33,7 +33,6 @@ public class Condition {
 	}
 
 	public boolean eval(Being b, Map m) {
-		int x = 0, y = 0;
 		boolean res;
 
 		/**
@@ -287,20 +286,16 @@ public class Condition {
 				return this.isClosest(b, closest);
 			}
 			/*
-			else if (m_entity == TypeEntity.GATE) {
-				Portal p;
-				Portal closest;
-				// on cherche le caractère/sbires le plus proche
-				Iterator<Portal> iterP = b.m_model.m_gate.iterator();
-
-				while (iterP.hasNext()) {
-					p = iterP.next();
-					closest = (Character) b.closestEntity(p, closest);
-				}
-				// renvoit faux si il existe un portail plus proche dans une autre direction
-				return this.isClosest(b, closest);
-
-			}*/
+			 * else if (m_entity == TypeEntity.GATE) { Portal p; Portal closest; // on
+			 * cherche le caractère/sbires le plus proche Iterator<Portal> iterP =
+			 * b.m_model.m_gate.iterator();
+			 * 
+			 * while (iterP.hasNext()) { p = iterP.next(); closest = (Character)
+			 * b.closestEntity(p, closest); } // renvoit faux si il existe un portail plus
+			 * proche dans une autre direction return this.isClosest(b, closest);
+			 * 
+			 * }
+			 */
 		}
 
 		// recursivité
@@ -319,7 +314,29 @@ public class Condition {
 				return res || m_condition.eval(b, m);
 			else
 				throw new RuntimeException("Operateur condition invalide");
-		} else {
+		} else if (m_type.equals(TypeCondition.KEYPRESSEDO)) {
+			res = ((Player) b).getKey() == TypeKey.PICK;
+			if (m_operator == ' ')
+				return res;
+			else if (m_operator == '&')
+				return res && m_condition.eval(b, m);
+			else if (m_operator == '|')
+				return res || m_condition.eval(b, m);
+			else
+				throw new RuntimeException("Operateur condition invalide");
+		} else if (m_type.equals(TypeCondition.KEYPRESSEDI)) {
+			res = ((Player) b).getKey() == TypeKey.GET;
+			if (m_operator == ' ')
+				return res;
+			else if (m_operator == '&')
+				return res && m_condition.eval(b, m);
+			else if (m_operator == '|')
+				return res || m_condition.eval(b, m);
+			else
+				throw new RuntimeException("Operateur condition invalide");
+		}
+
+		else {
 			throw new RuntimeException("Type condition invalide");
 		}
 

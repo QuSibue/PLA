@@ -2,16 +2,9 @@ package ricm3.game.mvc;
 
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.Vector;
 
-import ricm3.game.automaton.Action;
 import ricm3.game.automaton.Automaton;
-import ricm3.game.automaton.Condition;
-import ricm3.game.automaton.Etat;
 import ricm3.game.automaton.Orientation;
-import ricm3.game.automaton.Transition;
-import ricm3.game.automaton.TypeAction;
-import ricm3.game.automaton.TypeCondition;
 import ricm3.game.entity.Laser;
 import ricm3.game.entity.Minion;
 import ricm3.game.entity.Obstacle;
@@ -87,8 +80,7 @@ public class Model extends GameModel {
 		
 		LinkedList<Laser>laserClone = (LinkedList<Laser>) m_laser.clone();
 		Iterator<Laser> iterL = laserClone.iterator();
-		
-		
+
 		// map.printMap();
 		Minion m;
 		while (iterM.hasNext()) {

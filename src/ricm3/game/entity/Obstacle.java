@@ -3,9 +3,7 @@ package ricm3.game.entity;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.util.Iterator;
 
-import ricm3.game.automaton.Transition;
 import ricm3.game.mvc.Map;
 import ricm3.game.mvc.Model;
 import ricm3.game.other.Options;
@@ -14,7 +12,7 @@ public class Obstacle extends Environment {
 
 	public Obstacle(int x, int y, boolean moveable, boolean pickable, boolean killable, boolean lethal,
 			BufferedImage[] sprites, Map map, Model modele) {
-		super(x, y, moveable, pickable, killable, lethal, sprites, map,modele);
+		super(x, y, moveable, pickable, killable, lethal, sprites, map, modele);
 
 	}
 
