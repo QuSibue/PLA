@@ -53,6 +53,9 @@ public class Player extends Character {
 			}
 			global_map.moveEntity(this, p.x, p.y);
 		}
+		else if (e instanceof Drapeau && this.m_model.virus.equals(e)) {
+			//Fin de partie
+		}
 
 	}
 
