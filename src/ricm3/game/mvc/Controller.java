@@ -91,7 +91,7 @@ public class Controller extends GameController {
 			System.out.println("Pop");
 			break;
 		case KeyEvent.VK_W:
-			m_model.virus.setKey(TypeKey.WIZZ);;
+			m_model.virus.setKey(TypeKey.WIZZ);
 			System.out.println("Wizz");
 			break;
 		default:
@@ -106,7 +106,7 @@ public class Controller extends GameController {
 		// TODO Auto-generated method stub
 		int Code = e.getKeyCode();
 		if (Code == KeyEvent.VK_UP || Code == KeyEvent.VK_DOWN || Code == KeyEvent.VK_LEFT || Code == KeyEvent.VK_RIGHT
-				|| Code == KeyEvent.VK_H || Code == KeyEvent.VK_P) {
+				|| Code == KeyEvent.VK_H || Code == KeyEvent.VK_P || Code == KeyEvent.VK_W) {
 			m_model.virus.setKey(TypeKey.NONE);
 		}
 		if (Code == KeyEvent.VK_Z || Code == KeyEvent.VK_Q || Code == KeyEvent.VK_S || Code == KeyEvent.VK_D

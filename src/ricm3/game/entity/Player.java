@@ -88,6 +88,7 @@ public class Player extends Character {
 			m_indiceAutoMinions = 0;
 		} else {
 			m_indiceAutoMinions++;
+			System.out.println(m_indiceAutoMinions);
 		}
 
 	}
