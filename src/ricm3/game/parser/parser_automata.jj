@@ -10,7 +10,7 @@
 
 PARSER_BEGIN(AutomataParser)
 
-package ricm3.parser;
+package ricm3.game.parser;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -19,7 +19,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 
-import ricm3.parser.Ast.*;
+import ricm3.game.parser.Ast.*;
 
 public class AutomataParser {
 
@@ -33,10 +33,10 @@ public class AutomataParser {
   		return ast ;
    }
 
-   public static Ast parserAutomates(String[] args) throws Exception {
+   public static Ast parserAutomates(String arg) throws Exception {
         Ast ast ;
         // ast = from_string(args[0]) ;
-        ast = from_file(args[0]) ;
+        ast = from_file(arg) ;
         //System.out.println("// THE AST of the PARSED AUTOMATA in DOT FORMAT \n" + ast.as_dot_tree()) ;
 		return ast;
     }

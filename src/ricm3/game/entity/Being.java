@@ -117,7 +117,7 @@ public abstract class Being extends Entity {
 			while (!condition && iter.hasNext()) {
 				transi = iter.next();
 				// les etats sont par aliasing on peut donc utiliser le double égale
-				condition = this.getEtatCourant() == transi.getInitial()
+				condition = this.getEtatCourant().equals(transi.getInitial())
 						&& transi.getCondition().eval((Being) this, global_map);
 				if (condition) {
 					this.setEtatCourant(transi.getSortie());

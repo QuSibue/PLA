@@ -172,6 +172,14 @@ public class Player extends Character {
 		case WEST:
 			this.setOrientation(Orientation.LEFT);
 			break;
+		case FRONT:
+			break;
+		case BACK:
+			break;
+		case RIGHT:
+			break;
+		case LEFT:
+			break;
 
 		default:
 			throw new RuntimeException("Direction invalid");

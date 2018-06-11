@@ -1,5 +1,6 @@
 package ricm3.game.mvc;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -11,8 +12,11 @@ import ricm3.game.entity.Obstacle;
 import ricm3.game.entity.Player;
 import ricm3.game.entity.PowerUp;
 import ricm3.game.framework.GameModel;
+import ricm3.game.mains.GameMain;
 import ricm3.game.other.Transversal;
 import ricm3.game.other.TypeKey;
+import ricm3.game.parser.Ast;
+import ricm3.game.parser.AutomataParser;
 
 public class Model extends GameModel {
 
@@ -34,11 +38,22 @@ public class Model extends GameModel {
 		map = new Map(1100, 1200);
 
 		// ON FAIT UN AUTOMATE
+		
+		Ast tree=null;
+		try {
+			tree = AutomataParser.parserAutomates(GameMain.pathPlayer);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		@SuppressWarnings("unchecked")
+		Automaton aut2 = ((ArrayList<Automaton>)tree.make()).get(0);
+		
+		
 		Automaton aut = Transversal.virusAutomaton();
 		// FIN DE L'AUTOMATE
 
 		// ONFAIT LE JOUEUR
-		virus = new Player(1, 1, null, aut, Orientation.RIGHT, 1, map, this, 3, 0, TypeKey.NONE);
+		virus = new Player(1, 1, null, aut2, Orientation.RIGHT, 1, map, this, 3, 0, TypeKey.NONE);
 		map.setEntity(virus);
 		// ajout d'un obstacle
 		Obstacle obs = new Obstacle(0, 0, false, true, false, false, null, map, this);
