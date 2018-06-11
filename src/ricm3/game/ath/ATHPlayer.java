@@ -18,19 +18,22 @@ import org.w3c.dom.ranges.RangeException;
 
 import ricm3.game.entity.Player;
 
+/**
+ * Classe qui construit l'ATH d'un player (virus ou antivirus).
+ */
 public class ATHPlayer {
 
-	Player m_virus;
+	Player m_player; // virus ou antivirus
 	JLabel m_heart;
 	JLabel m_heart1;
-	JLabel m_heart2;
+	JLabel m_heart2; // il a 3 vies
 	JLabel m_labelx;
 	JLabel m_labelz;
-	JLabel m_labelw;
+	JLabel m_labelw; // il peut avoir jusqu'a 3 choses dans son sac
 
-	public ATHPlayer(Player virus) {
-		m_virus = virus;
-		
+	public ATHPlayer(Player player) {
+		m_player = player;
+
 		ImageIcon heartIcon = new ImageIcon("src/ricm3/sprites/heart.png");
 		m_heart = new JLabel();
 		m_heart.setIcon(heartIcon);
@@ -54,7 +57,7 @@ public class ATHPlayer {
 		Container VieEnergie = new Container();
 		VieEnergie.setLayout(new BoxLayout(VieEnergie, BoxLayout.Y_AXIS));
 		VieEnergie.add(vie);
-		VieEnergie.add(Box.createRigidArea(new Dimension(10, 10)));
+		VieEnergie.add(Box.createRigidArea(new Dimension(1, 10)));
 		VieEnergie.add(energie);
 
 		JLabel sbire = new JLabel();
@@ -98,16 +101,16 @@ public class ATHPlayer {
 		sacCont.add(panelw);
 
 		cont.add(VieEnergie);
-		cont.add(Box.createRigidArea(new Dimension(20, 20)));
+		cont.add(Box.createRigidArea(new Dimension(20, 1)));
 		cont.add(panelDuSbire);
-		cont.add(Box.createRigidArea(new Dimension(20, 20)));
+		cont.add(Box.createRigidArea(new Dimension(20, 1)));
 		cont.add(sacCont);
 
 		return cont;
 	}
-	
+
 	public void step(long now) {
-		switch (m_virus.getLife()) {
+		switch (m_player.getLife()) {
 		case 3:
 			break;
 		case 2:
@@ -120,20 +123,20 @@ public class ATHPlayer {
 			m_heart.setVisible(false);
 			break;
 		default:
-			throw new RangeException(RangeException.BAD_BOUNDARYPOINTS_ERR, "Error vie");	
+			throw new RangeException(RangeException.BAD_BOUNDARYPOINTS_ERR, "Error vie");
 		}
-		
-		if (m_virus.getSac().getItem(0) == null)
+
+		if (m_player.getSac().getItem(0) == null)
 			m_labelx.setVisible(false);
 		else
 			m_labelx.setVisible(true);
-		if (m_virus.getSac().getItem(1) == null)
+		if (m_player.getSac().getItem(1) == null)
 			m_labelz.setVisible(false);
 		else
 			m_labelz.setVisible(true);
-		if (m_virus.getSac().getItem(2) == null)
+		if (m_player.getSac().getItem(2) == null)
 			m_labelw.setVisible(false);
 		else
 			m_labelw.setVisible(true);
-	}       
+	}
 }

@@ -25,11 +25,12 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
 import javax.swing.Timer;
 
+import ricm3.game.ath.TimerATH;
 import ricm3.game.mvc.Controller;
 import ricm3.game.mvc.Model;
+import ricm3.game.framework.Options;
 
 public class GameUI {
 
@@ -123,6 +124,12 @@ public class GameUI {
 
     m_text = new JLabel();
     m_text.setText("Starting up...");
+    m_text.setVisible(Options.SHOW_TICK_FPS);
+    
+    
+    
+    
+    
     m_frame.add(m_text, BorderLayout.NORTH);
 
     m_frame.setSize(d);
@@ -183,7 +190,6 @@ public class GameUI {
     m_lastTick = now;
     m_nTicks++;
     m_model.step(now);
-//    m_controller.step(now);
     
     elapsed = now - m_lastRepaint;
     if (elapsed > Options.REPAINT_DELAY) {
@@ -200,7 +206,7 @@ public class GameUI {
         txt += " ";
       if (m_msg != null)
         txt += m_msg;
-      //      System.out.println(txt);
+
       m_text.setText(txt);
       m_text.repaint();
       m_view.paint();

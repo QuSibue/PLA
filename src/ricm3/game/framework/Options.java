@@ -32,5 +32,7 @@ public class Options {
    */
   static final double FPS = 45.0;
   static final int REPAINT_DELAY = (int) (1000.0 / FPS);
+  
+  public static boolean SHOW_TICK_FPS = false;
 
 }

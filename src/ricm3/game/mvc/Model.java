@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 import ricm3.game.ath.ATH;
+import ricm3.game.ath.TimerATH;
 import ricm3.game.automaton.Automaton;
 import ricm3.game.automaton.Orientation;
 import ricm3.game.entity.Laser;
@@ -101,7 +102,9 @@ public class Model extends GameModel {
 		if (antivirus.getLife() > 0) {
 			antivirus.step(now);
 		}
+		
 		m_ath.step(now);
+		
 		// Affichage du modele
 	}
 

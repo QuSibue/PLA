@@ -12,11 +12,10 @@ public class GameMain {
 
 		// construct the game elements: model, controller, and view.
 		Model model = new Model();
-//		ATH a = new ATH(model);
 		View view = new View(model);
 		Controller controller = new Controller(model);
 
-		Dimension d = new Dimension(1024, 768);
+		Dimension d = new Dimension(1280, 768);
 		new GameUI(model, view, d, controller, model.m_ath);
 		
 		return;
