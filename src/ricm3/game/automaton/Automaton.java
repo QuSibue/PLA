@@ -20,6 +20,10 @@ public class Automaton {
 		return m_transitions.add(t);
 	}
 	
+	public boolean setListTransitions(LinkedList<Transition> t) {
+		m_transitions = t;
+		return true;
+	}
 	public boolean setEtatInitial(Etat e){
 		m_etatInitial = e;
 		return true;
