@@ -19,7 +19,6 @@ public abstract class Being extends Entity {
 	private Etat m_etatCourant;
 	private Orientation m_orientation;
 	private int m_life;
-	private long m_lastMove;
 
 	// Constructor
 	public Being(int x, int y, boolean moveable, boolean pickable, boolean killable, boolean lethal, int ms,
@@ -34,7 +33,10 @@ public abstract class Being extends Entity {
 		// TODO rajouter l'orientation
 		m_orientation = orientation;
 		// ALiasing possible puisque on ne vas jamais modifier les objets
-		m_etatCourant = m_automaton.getEtatInitial();
+		if (m_automaton != null) {
+			m_etatCourant = m_automaton.getEtatInitial();
+		}
+
 		m_life = life;
 		m_lastMove = lastMove;
 	}

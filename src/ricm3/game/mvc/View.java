@@ -91,7 +91,7 @@ public class View extends GameView {
 			p.paint(g);
 		}
 
-		
+		m_model.m_drapeau.paint(g);
 
 	}
 }

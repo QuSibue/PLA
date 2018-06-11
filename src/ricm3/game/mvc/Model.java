@@ -1,10 +1,16 @@
 package ricm3.game.mvc;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import javax.imageio.ImageIO;
+
 import ricm3.game.automaton.Automaton;
 import ricm3.game.automaton.Orientation;
+import ricm3.game.entity.Drapeau;
 import ricm3.game.entity.Laser;
 import ricm3.game.entity.Minion;
 import ricm3.game.entity.Obstacle;
@@ -16,15 +22,20 @@ import ricm3.game.other.TypeKey;
 
 public class Model extends GameModel {
 
+	public BufferedImage m_drapeausprite;
+	public BufferedImage m_kamikaze;
+
 	public LinkedList<Minion> m_minions;
 	public LinkedList<Obstacle> m_obstacles;
 	public LinkedList<Laser> m_laser;
 	public LinkedList<PowerUp> m_powerup;
+	public Drapeau m_drapeau;
 	public Player virus;
 	public Player antivirus;
 	public Map map;
 
 	public Model() {
+		loadSprites();
 		m_minions = new LinkedList<Minion>();
 		m_obstacles = new LinkedList<Obstacle>();
 		m_laser = new LinkedList<Laser>();
@@ -36,6 +47,11 @@ public class Model extends GameModel {
 		// ON FAIT UN AUTOMATE
 		Automaton aut = Transversal.virusAutomaton();
 		// FIN DE L'AUTOMATE
+
+		Automaton a = Transversal.straightAutomaton();
+
+		Minion m = new Minion(m_kamikaze, 2, 4, a, Orientation.RIGHT, 1, map, this, 1, 0L);
+		m_minions.add(m);
 
 		// ONFAIT LE JOUEUR
 		virus = new Player(1, 1, null, aut, Orientation.RIGHT, 1, map, this, 3, 0, TypeKey.NONE);
@@ -64,6 +80,9 @@ public class Model extends GameModel {
 		PowerUp PU = new PowerUp(4, 3, this);
 		m_powerup.add(PU);
 		map.setEntity(PU);
+
+		m_drapeau = new Drapeau(4, 4, m_drapeausprite, map, this);
+		map.setEntity(m_drapeau);
 
 	}
 
@@ -99,13 +118,27 @@ public class Model extends GameModel {
 		}
 		System.out.println("\n");
 		// Affichage du modele
+
+		m_drapeau.step(now);
 	}
 
 	@Override
 	public void shutdown() {
 	}
 
-	// private void loadSprites() {
+	private void loadSprites() {
+		File imageFile = new File("sprites/Drapeau SuDo.png");
+		try {
+			m_drapeausprite = ImageIO.read(imageFile);
+		} catch (IOException ex) {
+			System.out.println("erreur sprite");
+		}
 
-	// }
+		imageFile = new File("sprites/Kamikaze droite.png");
+		try {
+			m_kamikaze = ImageIO.read(imageFile);
+		} catch (IOException ex) {
+			System.out.println("erreur sprite");
+		}
+	}
 }

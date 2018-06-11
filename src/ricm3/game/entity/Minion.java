@@ -20,12 +20,30 @@ public class Minion extends Character {
 	public int xOrigin;
 	public int yOrigin;
 
-	public Minion(BufferedImage[] sprites, int x, int y, Automaton automate, Orientation orientation, int equipe,
-			Map map, Model model, int life, long lastMove) {
-		super(sprites, x, y, true, true, true, false, Options.MINION_MS, automate, orientation, equipe, map, model,
-				life, lastMove);
+	public Minion(BufferedImage sprite, int x, int y, Automaton automate, Orientation orientation, int equipe, Map map,
+			Model model, int life, long lastMove) {
+		super(null, x, y, true, true, true, false, Options.MINION_MS, automate, orientation, equipe, map, model, life,
+				lastMove);
 		xOrigin = this.getX();
 		yOrigin = this.getY();
+
+		m_step = 16;
+		int width = sprite.getWidth(null);
+		int height = sprite.getHeight(null);
+		int w = width / 3;
+		int h = height / 6;
+
+		BufferedImage[] sprites = new BufferedImage[3 * 6];
+
+		for (int i = 0; i < 6; i++) {
+			for (int j = 0; j < 3; j++) {
+				int z = j * w;
+				int t = i * h;
+				sprites[(i * 3) + j] = sprite.getSubimage(z, t, w, h);
+			}
+		}
+
+		this.setSprites(sprites);
 
 	}
 
@@ -61,6 +79,10 @@ public class Minion extends Character {
 		int x_res = 0, y_res = 0;
 		Point p = new Point(x_res, y_res);
 		Transversal.evalPosition(this.getX(), this.getY(), p, d, this.getOrientation());
+		Entity e = global_map.getEntity(p.x, p.y);
+		if (e == null) {
+			global_map.moveEntity(this, p.x, p.y);
+		}
 	}
 
 	public void hit(long now) {
@@ -146,10 +168,19 @@ public class Minion extends Character {
 	@Override
 	public void paint(Graphics g) {
 		// affiche un carré bleu pour le joueur
-		int m_x = this.getX() * Options.TAILLE_CASE;
-		int m_y = this.getY() * Options.TAILLE_CASE;
-		g.setColor(Color.RED);
-		g.fillRect(m_x, m_y, Options.TAILLE_CASE, Options.TAILLE_CASE);
+		/*
+		 * int m_x = this.getX() * Options.TAILLE_CASE; int m_y = this.getY() *
+		 * Options.TAILLE_CASE; g.setColor(Color.RED); g.fillRect(m_x, m_y,
+		 * Options.TAILLE_CASE, Options.TAILLE_CASE);
+		 */
+
+		if ((m_nstep % 3) == 0) {
+			m_index = (m_index + 1) % 16;
+		}
+		g.drawImage((this.getSprites())[m_index], this.getX() * Options.TAILLE_CASE, this.getY() * Options.TAILLE_CASE,
+				Options.TAILLE_CASE, Options.TAILLE_CASE, null);
+
+		m_nstep = m_nstep++ % 48;
 
 	}
 

@@ -8,6 +8,8 @@ import ricm3.game.mvc.Model;
 
 public abstract class Entity {
 
+	int m_index;
+	int m_nstep;
 	private int m_coordinateX;
 	private int m_coordinateY;
 	private boolean m_moveable;
@@ -15,8 +17,10 @@ public abstract class Entity {
 	private boolean m_killable;
 	private boolean m_lethal;
 	private BufferedImage[] m_sprites;
+	public int m_step;
 	public Map global_map;
 	public Model m_model;
+	public long m_lastMove;
 
 	public Entity(int x, int y, boolean move, boolean pick, boolean kill, boolean leth, BufferedImage[] sprites,
 			Map map, Model model) {

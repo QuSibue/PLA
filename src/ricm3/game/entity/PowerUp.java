@@ -18,7 +18,6 @@ public class PowerUp extends Entity {
 		int m_y = this.getY() * Options.TAILLE_CASE;
 		g.setColor(Color.PINK);
 		g.fillRect(m_x, m_y, Options.TAILLE_CASE, Options.TAILLE_CASE);
-
 	}
 
 }
