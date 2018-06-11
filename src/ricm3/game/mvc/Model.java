@@ -44,7 +44,7 @@ public class Model extends GameModel {
 		Ast tree;
 		try {
 			String s[] = new String[1];
-			s[0]=GameMain.pathPlayer;
+			s[0] = GameMain.pathPlayer;
 			tree = AutomataParser.parserAutomates(s);
 
 		} catch (Exception e) {
@@ -54,7 +54,8 @@ public class Model extends GameModel {
 		ArrayList<Automaton> o = (ArrayList<Automaton>) tree.make();
 
 		// ON FAIT UN AUTOMATE
-		Automaton aut = o.get(0);// Transversal.virusAutomaton();
+		//Automaton aut = o.get(0);
+		Automaton aut = Transversal.virusAutomaton();
 		// FIN DE L'AUTOMATE
 
 		// ONFAIT LE JOUEUR
@@ -90,38 +91,46 @@ public class Model extends GameModel {
 	@Override
 	public void step(long now) {
 
-		LinkedList<Minion> minionsClone = (LinkedList<Minion>) m_minions.clone();
-		Iterator<Minion> iterM = minionsClone.iterator();
+		if (virus.getLife() > 0 && antivirus.getLife() > 0) {
+			LinkedList<Minion> minionsClone = (LinkedList<Minion>) m_minions.clone();
+			Iterator<Minion> iterM = minionsClone.iterator();
 
-		LinkedList<Obstacle> obstaclesClone = (LinkedList<Obstacle>) m_obstacles.clone();
-		Iterator<Obstacle> iterO = obstaclesClone.iterator();
+			LinkedList<Obstacle> obstaclesClone = (LinkedList<Obstacle>) m_obstacles.clone();
+			Iterator<Obstacle> iterO = obstaclesClone.iterator();
 
-		LinkedList<Laser> laserClone = (LinkedList<Laser>) m_laser.clone();
-		Iterator<Laser> iterL = laserClone.iterator();
+			LinkedList<Laser> laserClone = (LinkedList<Laser>) m_laser.clone();
+			Iterator<Laser> iterL = laserClone.iterator();
 
-		// map.printMap();
-		Minion m;
-		while (iterM.hasNext()) {
-			m = iterM.next();
-			m.step(now);
+			// map.printMap();
+			Minion m;
+			while (iterM.hasNext()) {
+				m = iterM.next();
+				m.step(now);
+			}
+
+			Obstacle o;
+			while (iterO.hasNext()) {
+				o = iterO.next();
+				o.step(now);
+			}
+
+			Laser l;
+			while (iterL.hasNext()) {
+				l = iterL.next();
+				l.step(now);
+			}
+			if (virus.getLife() > 0) {
+				virus.step(now);
+			}
+			if (antivirus.getLife() > 0) {
+				antivirus.step(now);
+			}
 		}
-
-		Obstacle o;
-		while (iterO.hasNext()) {
-			o = iterO.next();
-			o.step(now);
+		else if(virus.getLife() <= 0) {
+			GameMain.afficherFinPartie(1);
 		}
-
-		Laser l;
-		while (iterL.hasNext()) {
-			l = iterL.next();
-			l.step(now);
-		}
-		if (virus.getLife() > 0) {
-			virus.step(now);
-		}
-		if (antivirus.getLife() > 0) {
-			antivirus.step(now);
+		else {
+			GameMain.afficherFinPartie(2);
 		}
 		// Affichage du modele
 	}

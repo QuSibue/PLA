@@ -31,7 +31,7 @@ public class GameMain {
 	
 	public static boolean gameOn;
 	public static Menu m_menu;
-	public static JFrame window1,window2,window3;
+	public static JFrame window1,window2,window3,window5;
 	public static String pathPlayer,pathMinions,pathLaser;
 	
 	public static void main(String[] args) throws IOException {
@@ -300,4 +300,60 @@ public class GameMain {
 		window1.dispose();
         
     }
+	
+	public static void afficherFinPartie(int fin) {
+		String message;
+		switch (fin) {
+		case 1:
+			message =  "Le Virus à éliminé l'Antivurus et remporte la victoire !";
+			break;
+		case 2:
+			message =  "L'Antivirus à éliminé le virus et remporte la victoire !";
+			break;
+		default:
+			break;
+		}
+		
+		window5 = new JFrame("Short Circuit");
+		window5.setLayout(new BorderLayout());
+		
+        // Indique de sortir du programme lorsque la fenêtre est fermée par l'utilisateur
+        window5.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
+        
+        // Définit la taille de la fenêtre en pixels
+        window5.setSize(450, 250);
+      
+        window5.setResizable(false);
+        window5.setLocationRelativeTo(null);
+        window5.setVisible(true);
+                
+        //Composant de la frame    
+        
+        JPanel panelNorth = new JPanel(new FlowLayout(FlowLayout.CENTER));        
+        window5.add(panelNorth,BorderLayout.NORTH);
+        
+        
+        JPanel panelCenter = new JPanel(new FlowLayout(FlowLayout.CENTER));        
+        window5.add(panelCenter,BorderLayout.CENTER);
+        
+       
+        JPanel panelSouth = new JPanel(new FlowLayout(FlowLayout.CENTER));        
+        window5.add(panelSouth,BorderLayout.SOUTH);
+        
+        BufferedImage title;
+		try {
+			title = ImageIO.read(new File("images/gover.png"));
+			JLabel picLabel = new JLabel(new ImageIcon(title));
+	        panelNorth.add(picLabel);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+      
+        JButton retour = new JButton("Retour");
+        retour.setFocusPainted(false);
+        panelSouth.add(retour);
+		
+	}
 }
