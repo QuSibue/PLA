@@ -1,5 +1,6 @@
 package ricm3.game.mvc;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -34,14 +35,19 @@ public class Model extends GameModel {
 		// sprites vont etres donné a l'instantiation normalement, a voir
 		// ON FAIT LA MAP
 		map = new Map(1100, 1200);
-
+		Ast tree;
 		try {
-			Ast tree = AutomataParser.parserAutomates(args);
+			tree = AutomataParser.parserAutomates(args);
+			
 		}catch( Exception e) {
 			throw new RuntimeException("parser renvoie une exeception");
 		}
+		@SuppressWarnings("unchecked")
+		ArrayList<Automaton>o= (ArrayList<Automaton>) tree.make();
+		
+		
 			// ON FAIT UN AUTOMATE
-		Automaton aut = Transversal.virusAutomaton();
+		Automaton aut = o.get(0);//Transversal.virusAutomaton();
 		// FIN DE L'AUTOMATE
 
 		// ONFAIT LE JOUEUR

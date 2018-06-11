@@ -6,6 +6,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 
+import ricm3.game.automaton.TypeAction;
+import ricm3.game.automaton.TypeCondition;
+
 /* Michael PÉRIN, Verimag / Univ. Grenoble Alpes, june 2018
  *
  * Constructors of the Abstract Syntax Tree of Game Automata
@@ -13,51 +16,71 @@ import java.util.ListIterator;
 
 public class Ast {
 
-	/* All this is only for the graphical .dot output of the Abstract Syntax Tree */
-	public String kind; /* the name of the non-terminal node */
-	public int id = Id.fresh(); /* its unique id as a graph node */
+	// All this is only for the graphical .dot output of the Abstract Syntax Tree
 
-	public String tree_edges() {
-		return "undefined";
+	public String kind; // the name of the non-terminal node
+
+	public int id = Id.fresh(); // a unique id used as a graph node
+
+	// AST as tree
+
+	public String dot_id() {
+		return Dot.node_id(this.id);
 	}
 
 	public String as_tree_son_of(Ast father) {
-		return Dot.edge(father.id, this.id) + as_dot_tree();
-	}
-
-	public String as_tree_node() {
-		return Dot.non_terminal_node(this.id, this.kind);
+		return Dot.edge(father.dot_id(), this.dot_id()) + this.as_dot_tree();
 	}
 
 	public String as_dot_tree() {
 		return this.as_tree_node() + this.tree_edges();
 	}
 
-	public String as_dot_automata() {
-		return "undefined";
+	public String as_tree_node() {
+		return Dot.declare_node(this.dot_id(), this.kind, "");
 	}
+
+	public String tree_edges() {
+		return "undefined: tree_edges";
+	}
+
+	// AST as automata in .dot format
+
+	public String as_dot_automata() {
+		return "undefined: as_dot_automata";
+	}
+
+	// AST as active automata (interpreter of transitions)
 
 	public Object make() {
-		return null;
-	}
-
-	public static abstract class Expression extends Ast {
+		throw new RuntimeException("NYI");
 	}
 
 	public static class Terminal extends Ast {
 		String value;
 
 		Terminal(String string) {
+			this.kind = "Terminal";
 			this.value = string;
 		}
 
-		public String as_tree_son_of(Ast father) {
-			return Dot.terminal_edge(father.id, value);
+		public String toString() {
+			return value;
 		}
-	
+
+		public String tree_edges() {
+			String value_id = Dot.node_id(-this.id);
+			return Dot.declare_node(value_id, value, "shape=none, fontsize=10, fontcolor=blue")
+					+ Dot.edge(this.dot_id(), value_id);
+		}
 	}
 
-	public static class Constant extends Expression {
+	// Value = Constant U Variable
+
+	public static abstract class Value extends Ast {
+	}
+
+	public static class Constant extends Value {
 
 		Terminal value;
 
@@ -71,7 +94,7 @@ public class Ast {
 		}
 	}
 
-	public static class Variable extends Expression {
+	public static class Variable extends Value {
 
 		Terminal name;
 
@@ -85,13 +108,31 @@ public class Ast {
 		}
 	}
 
-	public static class Direction extends Expression {
+	// Parameter = Underscore U Key U Direction U Entity
+	// Parameter are not Expression (no recursion)
 
-		Expression value;
+	public static abstract class Parameter extends Ast {
+	}
 
-		Direction(Expression expression) {
-			this.kind = "Direction";
-			this.value = expression;
+	// TODO dsd
+	public static class Underscore extends Parameter {
+		Underscore() {
+			this.kind = "Any";
+		}
+
+		public String tree_edges() {
+			return "";
+		}
+	}
+
+	// TODO dsd
+	public static class Key extends Parameter {
+
+		Constant value;
+
+		Key(String string) {
+			this.kind = "Key";
+			this.value = new Constant(string);
 		}
 
 		public String tree_edges() {
@@ -99,11 +140,42 @@ public class Ast {
 		}
 	}
 
-	public static class Entity extends Expression {
+	// TODO dsd
+	public static class Direction extends Parameter {
 
-		Expression value;
+		Value value;
 
-		Entity(Expression expression) {
+		Direction(Value value) {
+			this.kind = "Direction";
+			this.value = value;
+		}
+
+		public String tree_edges() {
+			return value.as_tree_son_of(this);
+		}
+	
+		public Object make() {
+			switch(((Constant)value).value.value) {
+			case "F":
+				return ricm3.game.automaton.Direction.FRONT;
+			case "B":
+				return ricm3.game.automaton.Direction.BACK;
+			case "L":
+				return ricm3.game.automaton.Direction.LEFT;
+			case "R":
+				return ricm3.game.automaton.Direction.RIGHT;
+			default:
+				throw new RuntimeException("Direction not yet implemented");
+			}
+		}
+	}
+
+	// TODO dsd
+	public static class Entity extends Parameter {
+
+		Value value;
+
+		Entity(Value expression) {
 			this.kind = "Entity";
 			this.value = expression;
 		}
@@ -113,6 +185,13 @@ public class Ast {
 		}
 	}
 
+	// Expression = UnaryOp Expression U Expression BinaryOp Expression U
+	// FunCall(Parameters)
+
+	public static abstract class Expression extends Ast {
+	}
+
+	// TODO dsd
 	public static class UnaryOp extends Expression {
 
 		Terminal operator;
@@ -129,6 +208,7 @@ public class Ast {
 		}
 	}
 
+	// TODO dsd
 	public static class BinaryOp extends Expression {
 
 		Terminal operator;
@@ -151,9 +231,9 @@ public class Ast {
 	public static class FunCall extends Expression {
 
 		Terminal name;
-		List<Expression> parameters;
+		List<Parameter> parameters;
 
-		FunCall(String name, List<Expression> parameters) {
+		FunCall(String name, List<Parameter> parameters) {
 			this.kind = "FunCall";
 			this.name = new Terminal(name);
 			this.parameters = parameters;
@@ -162,12 +242,45 @@ public class Ast {
 		public String tree_edges() {
 			String output = new String();
 			output += name.as_tree_son_of(this);
-			ListIterator<Expression> Iter = this.parameters.listIterator();
+			ListIterator<Parameter> Iter = this.parameters.listIterator();
 			while (Iter.hasNext()) {
-				Expression expression = Iter.next();
-				output += expression.as_tree_son_of(this);
+				Parameter parameter = Iter.next();
+				output += parameter.as_tree_son_of(this);
 			}
 			return output;
+		}
+
+		public Object makeBis(char c) {
+			// ONvient d'une condtion
+			if(c=='c') {
+				switch(name.value) {
+				case "True":
+					return new ricm3.game.automaton.Condition(TypeCondition.TRUE, null, null, ' ', null);
+				default:
+					throw new RuntimeException("Condition inconnue");
+				}
+			}
+			// On vient d'une action
+			else if(c == 'a') {
+				switch(name.value) {
+				case "Move":
+					Iterator<Parameter> iter = parameters.iterator();
+					if(iter.hasNext()) {
+						Parameter p = iter.next();
+						if(p instanceof Direction) {
+							return new ricm3.game.automaton.Action(TypeAction.MOVE, (ricm3.game.automaton.Direction)p.make());
+						}
+						else {
+							return new ricm3.game.automaton.Action(TypeAction.MOVE, ricm3.game.automaton.Direction.FRONT);
+						}
+					}
+					return new ricm3.game.automaton.Action(TypeAction.MOVE, ricm3.game.automaton.Direction.FRONT);
+				default:
+					throw new RuntimeException("Action inconnue");
+				}
+			}
+			else 
+				throw new RuntimeException("Come from something else than action or condition");
 		}
 	}
 
@@ -185,9 +298,16 @@ public class Ast {
 		}
 
 		@Override
-		public ricm3.game.automaton.Condition make() {
-			return null;
+		public Object make() {
+			if (expression instanceof BinaryOp) {
+				return expression.make();
+			} else if (expression instanceof UnaryOp) {
+				return expression.make();
+			} else {
+				return (((FunCall) expression).makeBis('c'));
+			}
 		}
+
 	}
 
 	public static class Action extends Ast {
@@ -205,7 +325,13 @@ public class Ast {
 
 		@Override
 		public Object make() {
-			return null;
+			if (expression instanceof BinaryOp) {
+				throw new RuntimeException("BinaryOp not allowed on action");
+			} else if (expression instanceof UnaryOp) {
+				throw new RuntimeException("UnaryOp not allowed on action");
+			} else {
+				return (((FunCall)expression).makeBis('a'));
+			}
 		}
 	}
 
@@ -221,7 +347,15 @@ public class Ast {
 		public String tree_edges() {
 			return name.as_tree_son_of(this);
 		}
-	
+
+		public String dot_id(Automaton automaton) {
+			return Dot.name(automaton.id + "." + name.toString());
+		}
+
+		public String as_node_of(Automaton automaton) {
+			return this.dot_id(automaton) + Dot.node_label(name.toString(), "shape=circle, fontsize=4");
+		}
+
 		public Object make() {
 			return new ricm3.game.automaton.Etat(name.value);
 		}
@@ -306,8 +440,18 @@ public class Ast {
 				transitionListAutomata.addAll(transitions);
 			}
 			finalAutomata.setListTransition(transitionListAutomata);
-			return null;
+			return finalAutomata;
 		}
+
+		/*
+		 * HERE String state_to_instruction(int aut, State state, Behaviour behaviour){
+		 * String output = new String(); output += Dot.dot_edge( state.dot_id(aut) ,
+		 * behaviour.dot_id() ) ; return output ; } instruction_to_state()
+		 * 
+		 * public String as_dot_automata() { String content = new String(); output +=
+		 * Terminal.as_dot_node() ; ouput += entry.as_state_of(this) ; return
+		 * Dot.subgraph(this.id, content) ; }
+		 */
 	}
 
 	public static class Behaviour extends Ast {
