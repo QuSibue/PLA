@@ -66,6 +66,14 @@ public class Controller extends GameController {
 			m_model.virus.setKey(TypeKey.POP);
 			System.out.println("Pop");
 			break;
+		case KeyEvent.VK_O:
+			m_model.virus.setKey(TypeKey.PICK);
+			System.out.println("Pick");
+			break;
+		case KeyEvent.VK_I:
+			m_model.virus.setKey(TypeKey.GET);
+			System.out.println("Get");
+			break;
 		case KeyEvent.VK_Z:
 			m_model.antivirus.setKey(TypeKey.UP);
 			System.out.println("UP");
