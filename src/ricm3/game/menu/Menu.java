@@ -51,7 +51,7 @@ public class Menu extends javax.swing.JPanel {
         JPanel panelCenter = new JPanel(new FlowLayout(FlowLayout.CENTER));        
         this.add(panelCenter,BorderLayout.CENTER);
         
-        JPanel boutonsCentre = new JPanel(new GridLayout(3,1));
+        JPanel boutonsCentre = new JPanel(new GridLayout(4,1));
         panelCenter.add(boutonsCentre);
         
         JPanel panelNord = new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -66,6 +66,10 @@ public class Menu extends javax.swing.JPanel {
         jouer = new JButton("Jouer");
         jouer.setFocusPainted(false);
         boutonsCentre.add(jouer);
+        
+        regles = new JButton("Règles");
+        regles.setFocusPainted(false);
+        boutonsCentre.add(regles);
         
         options = new JButton("Options");
         options.setFocusPainted(false);
@@ -107,6 +111,43 @@ public class Menu extends javax.swing.JPanel {
             }
         });
 
+        
+        regles.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                // Met en bleu le texte du bouton sur lequel l'événément s'est
+                // déclenché
+                ((JButton) e.getSource()).setForeground(Color.BLUE);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                // Met en noir le texte du bouton sur lequel l'événément s'est
+                // déclenché
+                ((JButton) e.getSource()).setForeground(Color.BLACK);
+            }
+            
+            @Override
+            public void mouseClicked(MouseEvent e) {
+            	try {
+					GameMain.afficherRegles();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                // Inutilisé : rien à faire
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                //ajouterJoueur();
+                // Inutilisé : rien à faire
+            }
+        });
         options.addMouseListener(new MouseListener() {
             @Override
             public void mouseEntered(MouseEvent e) {
