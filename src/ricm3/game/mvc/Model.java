@@ -15,6 +15,8 @@ import ricm3.game.entity.PowerUp;
 import ricm3.game.framework.GameModel;
 import ricm3.game.other.Transversal;
 import ricm3.game.other.TypeKey;
+import ricm3.parser.Ast;
+import ricm3.parser.AutomataParser;
 
 public class Model extends GameModel {
 
@@ -27,7 +29,7 @@ public class Model extends GameModel {
 	public ArrayList<Automaton>m_automates;
 	public Map map;
 
-	public Model() {
+	public Model(String[] args) {
 		m_minions = new LinkedList<Minion>();
 		m_obstacles = new LinkedList<Obstacle>();
 		m_laser = new LinkedList<Laser>();
@@ -38,9 +40,19 @@ public class Model extends GameModel {
 		// sprites vont etres donné a l'instantiation normalement, a voir
 		// ON FAIT LA MAP
 		map = new Map(1100, 1200);
-
-		// ON FAIT UN AUTOMATE
-		Automaton aut = Transversal.virusAutomaton();
+		Ast tree;
+		try {
+			tree = AutomataParser.parserAutomates(args);
+			
+		}catch( Exception e) {
+			throw new RuntimeException("parser renvoie une exeception");
+		}
+		@SuppressWarnings("unchecked")
+		ArrayList<Automaton>o= (ArrayList<Automaton>) tree.make();
+		
+		
+			// ON FAIT UN AUTOMATE
+		Automaton aut = o.get(0);//Transversal.virusAutomaton();
 		// FIN DE L'AUTOMATE
 
 		// ONFAIT LE JOUEUR

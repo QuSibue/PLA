@@ -36,6 +36,7 @@ public class GameMain {
 	public static void main(String[] args) throws IOException {
 
 		// construct the game elements: model, controller, and view.
+<<<<<<< HEAD
 		//TODO définir les path par défaut
 		m_menu = new Menu();
 		afficherMenu();

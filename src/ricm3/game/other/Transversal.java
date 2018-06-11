@@ -119,7 +119,7 @@ public class Transversal {
 	
 	
 	public static Automaton straightAutomaton() {
-		Etat etatInitialAut = new Etat(0);
+		Etat etatInitialAut = new Etat("0");
 		Etat etatInitialTransition = etatInitialAut;
 		Condition condi = new Condition(TypeCondition.TRUE, null, null,' ', null);
 		Action action = new Action(TypeAction.MOVE, Direction.FRONT);
@@ -133,7 +133,7 @@ public class Transversal {
 	}
 	
 	public static Automaton idleAutomaton() {
-		Etat etatInitialAut = new Etat(0);
+		Etat etatInitialAut = new Etat("0");
 		Etat etatInitialTransition = etatInitialAut;
 		Condition condi = new Condition(TypeCondition.TRUE, null,null, ' ', null);
 		Action action = new Action(TypeAction.IDLE, null);
@@ -147,7 +147,7 @@ public class Transversal {
 	}
 	
 	public static Automaton popAutomaton() {
-		Etat etatInitialAut = new Etat(0);
+		Etat etatInitialAut = new Etat("0");
 		Etat etatInitialTransition = etatInitialAut;
 		Condition condi = new Condition(TypeCondition.TRUE, null,null, ' ', null);
 		Action action = new Action(TypeAction.POP, null);
@@ -160,7 +160,7 @@ public class Transversal {
 	}
 	
 	public static Automaton shootAutomaton() {
-		Etat etatInitialAut = new Etat(0);
+		Etat etatInitialAut = new Etat("0");
 		Etat etatInitialTransition = etatInitialAut;
 		Condition condi = new Condition(TypeCondition.TRUE, null,null, ' ', null);
 		Action action = new Action(TypeAction.HIT, null);
@@ -172,7 +172,7 @@ public class Transversal {
 		return test;
 	}
 	public static Automaton virusAutomaton() {
-		Etat etatInitialAut = new Etat(0);
+		Etat etatInitialAut = new Etat("0");
 		Etat etatInitialTransition = etatInitialAut;
 		Condition condiUp = new Condition(TypeCondition.KEYPRESSEDUP, null, null,' ', null);
 		Condition condiDown = new Condition(TypeCondition.KEYPRESSEDDOWN, null, null,' ', null);
@@ -224,7 +224,7 @@ public class Transversal {
 	}
 	
 	public static Automaton antivirusAutomaton() {
-		Etat etatInitialAut = new Etat(0);
+		Etat etatInitialAut = new Etat("0");
 		Etat etatInitialTransition = etatInitialAut;
 		Condition condiUp = new Condition(TypeCondition.KEYPRESSEDZ, null, null,' ', null);
 		Condition condiDown = new Condition(TypeCondition.KEYPRESSEDS, null, null,' ', null);
