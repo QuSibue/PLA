@@ -24,8 +24,8 @@ public class Etat {
 		return true;
 	}
 	
-	public boolean equals(String s) {
-		return m_etat.equals(s);
+	public boolean equals(Etat s) {
+		return m_etat.equals(s.getEtat());
 	}
 	
 	

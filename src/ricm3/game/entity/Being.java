@@ -31,7 +31,6 @@ public abstract class Being extends Entity {
 
 		m_moveSpeed = ms;
 		m_automaton = aut; // alias
-		// TODO rajouter l'orientation
 		m_orientation = orientation;
 		// ALiasing possible puisque on ne vas jamais modifier les objets
 		m_etatCourant = m_automaton.getEtatInitial();
