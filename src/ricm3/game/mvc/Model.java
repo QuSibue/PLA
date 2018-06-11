@@ -29,7 +29,7 @@ public class Model extends GameModel {
 	public ArrayList<Automaton>m_automates;
 	public Map map;
 
-	public Model(String[] args) {
+	public Model() {
 		m_minions = new LinkedList<Minion>();
 		m_obstacles = new LinkedList<Obstacle>();
 		m_laser = new LinkedList<Laser>();
@@ -42,7 +42,7 @@ public class Model extends GameModel {
 		map = new Map(1100, 1200);
 		Ast tree;
 		try {
-			tree = AutomataParser.parserAutomates(args);
+			tree = AutomataParser.parserAutomates(null);
 			
 		}catch( Exception e) {
 			throw new RuntimeException("parser renvoie une exeception");
