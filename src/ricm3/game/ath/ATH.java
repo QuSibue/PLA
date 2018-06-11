@@ -15,13 +15,13 @@ public class ATH extends GameATH {
 	private static final long serialVersionUID = 1L;
 
 	Model m_model; 
-	ATHP1 m_p1;
-	ATHP2 m_p2;
+	ATHPlayer m_p1;
+	ATHPlayer m_p2;
 
 	public ATH(Model model){
 		m_model = model;
-		m_p1 = new ATHP1(m_model.virus);
-		m_p2 = new ATHP2(m_model.antivirus);
+		m_p1 = new ATHPlayer(m_model.virus);
+		m_p2 = new ATHPlayer(m_model.antivirus);
 	}
 
 	public void ATHVisible() {
