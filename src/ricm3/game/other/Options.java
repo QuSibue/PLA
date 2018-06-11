@@ -30,5 +30,8 @@ public abstract class Options {
 	// Cooldown
 	public static final long laserCD = 300L;
 	public static final long powerCD = 300L;
+	
+	public static final String playerPath= "examples/test";
+
 
 }

@@ -21,10 +21,11 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 
 import ricm3.game.framework.GameUI;
+import ricm3.game.menu.Menu;
 import ricm3.game.mvc.Controller;
 import ricm3.game.mvc.Model;
 import ricm3.game.mvc.View;
-import ricm3.game.menu.Menu;;
+import ricm3.game.other.Options;;
 
 public class GameMain {
 	
@@ -35,6 +36,7 @@ public class GameMain {
 	
 	public static void main(String[] args) throws IOException {
 
+		pathPlayer=Options.playerPath;
 		// construct the game elements: model, controller, and view.
 		//TODO définir les path par défaut
 		m_menu = new Menu();

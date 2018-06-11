@@ -3,7 +3,6 @@ package ricm3.game.mvc;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.Vector;
 
 import ricm3.game.automaton.Automaton;
 import ricm3.game.automaton.Orientation;
@@ -13,6 +12,8 @@ import ricm3.game.entity.Obstacle;
 import ricm3.game.entity.Player;
 import ricm3.game.entity.PowerUp;
 import ricm3.game.framework.GameModel;
+import ricm3.game.mains.GameMain;
+import ricm3.game.other.Options;
 import ricm3.game.other.Transversal;
 import ricm3.game.other.TypeKey;
 import ricm3.parser.Ast;
@@ -26,7 +27,7 @@ public class Model extends GameModel {
 	public LinkedList<PowerUp> m_powerup;
 	public Player virus;
 	public Player antivirus;
-	public ArrayList<Automaton>m_automates;
+	public ArrayList<Automaton> m_automates;
 	public Map map;
 
 	public Model() {
@@ -36,23 +37,24 @@ public class Model extends GameModel {
 		m_powerup = new LinkedList<PowerUp>();
 		m_automates = new ArrayList<Automaton>();
 		loadAutomaton();
-		
+
 		// sprites vont etres donné a l'instantiation normalement, a voir
 		// ON FAIT LA MAP
 		map = new Map(1100, 1200);
 		Ast tree;
 		try {
-			tree = AutomataParser.parserAutomates(null);
-			
-		}catch( Exception e) {
+			String s[] = new String[1];
+			s[0]=GameMain.pathPlayer;
+			tree = AutomataParser.parserAutomates(s);
+
+		} catch (Exception e) {
 			throw new RuntimeException("parser renvoie une exeception");
 		}
 		@SuppressWarnings("unchecked")
-		ArrayList<Automaton>o= (ArrayList<Automaton>) tree.make();
-		
-		
-			// ON FAIT UN AUTOMATE
-		Automaton aut = o.get(0);//Transversal.virusAutomaton();
+		ArrayList<Automaton> o = (ArrayList<Automaton>) tree.make();
+
+		// ON FAIT UN AUTOMATE
+		Automaton aut = o.get(0);// Transversal.virusAutomaton();
 		// FIN DE L'AUTOMATE
 
 		// ONFAIT LE JOUEUR
@@ -82,23 +84,21 @@ public class Model extends GameModel {
 		PowerUp PU = new PowerUp(4, 3, this);
 		m_powerup.add(PU);
 		map.setEntity(PU);
-		
-		
 
 	}
 
 	@Override
 	public void step(long now) {
-		
-		LinkedList<Minion>minionsClone = (LinkedList<Minion>) m_minions.clone();
+
+		LinkedList<Minion> minionsClone = (LinkedList<Minion>) m_minions.clone();
 		Iterator<Minion> iterM = minionsClone.iterator();
-		
-		LinkedList<Obstacle>obstaclesClone = (LinkedList<Obstacle>) m_obstacles.clone();
+
+		LinkedList<Obstacle> obstaclesClone = (LinkedList<Obstacle>) m_obstacles.clone();
 		Iterator<Obstacle> iterO = obstaclesClone.iterator();
-		
-		LinkedList<Laser>laserClone = (LinkedList<Laser>) m_laser.clone();
+
+		LinkedList<Laser> laserClone = (LinkedList<Laser>) m_laser.clone();
 		Iterator<Laser> iterL = laserClone.iterator();
-		
+
 		// map.printMap();
 		Minion m;
 		while (iterM.hasNext()) {
@@ -130,14 +130,13 @@ public class Model extends GameModel {
 	public void shutdown() {
 	}
 
-	
 	public void loadAutomaton() {
-				m_automates.add(Transversal.straightAutomaton());
-				m_automates.add(Transversal.shootAutomaton());
-				m_automates.add(Transversal.idleAutomaton());
-				
+		m_automates.add(Transversal.straightAutomaton());
+		m_automates.add(Transversal.shootAutomaton());
+		m_automates.add(Transversal.idleAutomaton());
+
 	}
-	
+
 	// private void loadSprites() {
 
 	// }
