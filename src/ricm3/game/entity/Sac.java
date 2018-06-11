@@ -31,7 +31,7 @@ public class Sac {
 		if (m_index >= m_max) {
 			return false;
 		} else {
-			while (m_sac[m_index] != null && m_index >= m_max) {
+			while (m_index >= m_max && m_sac[m_index] != null) {
 				m_index++;
 			}
 			if (m_index == m_max) {

@@ -27,6 +27,8 @@ public class Minion extends Character {
 		xOrigin = this.getX();
 		yOrigin = this.getY();
 
+		mouvement = 0;
+
 		m_step = 16;
 		int width = sprite.getWidth(null);
 		int height = sprite.getHeight(null);
@@ -76,11 +78,14 @@ public class Minion extends Character {
 
 	@Override
 	public void move(Direction d) {
+		former_x = this.getX();
+		former_y = this.getY();
 		int x_res = 0, y_res = 0;
 		Point p = new Point(x_res, y_res);
 		Transversal.evalPosition(this.getX(), this.getY(), p, d, this.getOrientation());
 		Entity e = global_map.getEntity(p.x, p.y);
 		if (e == null) {
+			mouvement = 1;
 			global_map.moveEntity(this, p.x, p.y);
 		}
 	}
@@ -173,14 +178,29 @@ public class Minion extends Character {
 		 * Options.TAILLE_CASE; g.setColor(Color.RED); g.fillRect(m_x, m_y,
 		 * Options.TAILLE_CASE, Options.TAILLE_CASE);
 		 */
+		switch (mouvement) {
+		case 0:
+			g.drawImage((this.getSprites())[m_index], this.getX() * Options.TAILLE_CASE + (Options.TAILLE_CASE) / 2,
+					this.getY() * Options.TAILLE_CASE, Options.TAILLE_CASE, Options.TAILLE_CASE, null);
+			break;
+		case 1:
+			m_index = (m_index +3) % 16;
+			g.drawImage((this.getSprites())[m_index], former_x * Options.TAILLE_CASE + (Options.TAILLE_CASE) / 2,
+					former_y * Options.TAILLE_CASE, Options.TAILLE_CASE, Options.TAILLE_CASE, null);
 
-		if ((m_nstep % 3) == 0) {
-			m_index = (m_index + 1) % 16;
+			m_nstep++;
+			if (m_nstep == 5) {
+				m_index = 0;
+				mouvement = 0;
+				m_nstep = 0;
+			}
+			break;
+		default:
+			int m_x = this.getX() * Options.TAILLE_CASE;
+			int m_y = this.getY() * Options.TAILLE_CASE;
+			g.setColor(Color.RED);
+			g.fillRect(m_x, m_y, Options.TAILLE_CASE, Options.TAILLE_CASE);
 		}
-		g.drawImage((this.getSprites())[m_index], this.getX() * Options.TAILLE_CASE, this.getY() * Options.TAILLE_CASE,
-				Options.TAILLE_CASE, Options.TAILLE_CASE, null);
-
-		m_nstep = m_nstep++ % 48;
 
 	}
 

@@ -23,7 +23,7 @@ import ricm3.game.other.TypeKey;
 public class Model extends GameModel {
 
 	public BufferedImage m_drapeausprite;
-	public BufferedImage m_kamikaze;
+	public BufferedImage m_kamikazedroite;
 
 	public LinkedList<Minion> m_minions;
 	public LinkedList<Obstacle> m_obstacles;
@@ -50,11 +50,11 @@ public class Model extends GameModel {
 
 		Automaton a = Transversal.straightAutomaton();
 
-		Minion m = new Minion(m_kamikaze, 2, 4, a, Orientation.RIGHT, 1, map, this, 1, 0L);
+		Minion m = new Minion(m_kamikazedroite, 1, 1, a, Orientation.RIGHT, 1, map, this, 1, 0L);
 		m_minions.add(m);
 
 		// ONFAIT LE JOUEUR
-		virus = new Player(1, 1, null, aut, Orientation.RIGHT, 1, map, this, 3, 0, TypeKey.NONE);
+		virus = new Player(1, 2, null, aut, Orientation.RIGHT, 1, map, this, 3, 0, TypeKey.NONE);
 		map.setEntity(virus);
 		// ajout d'un obstacle
 		Obstacle obs = new Obstacle(0, 0, false, true, false, false, null, map, this);
@@ -136,7 +136,7 @@ public class Model extends GameModel {
 
 		imageFile = new File("sprites/Kamikaze droite.png");
 		try {
-			m_kamikaze = ImageIO.read(imageFile);
+			m_kamikazedroite = ImageIO.read(imageFile);
 		} catch (IOException ex) {
 			System.out.println("erreur sprite");
 		}

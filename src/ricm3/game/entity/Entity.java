@@ -10,6 +10,9 @@ public abstract class Entity {
 
 	int m_index;
 	int m_nstep;
+	int mouvement;
+	int former_x;
+	int former_y;
 	private int m_coordinateX;
 	private int m_coordinateY;
 	private boolean m_moveable;
