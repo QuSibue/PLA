@@ -111,7 +111,6 @@ public class Model extends GameModel {
 		if (antivirus.getLife() > 0) {
 			antivirus.step(now);
 		}
-		System.out.println("\n");
 		// Affichage du modele
 	}
 
