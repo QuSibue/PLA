@@ -19,6 +19,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import ricm3.game.framework.GameUI;
 import ricm3.game.mvc.Controller;
@@ -144,8 +145,14 @@ public class GameMain {
     			public void mousePressed(MouseEvent e) {
     				// TODO Auto-generated method stub
     				UIManager.put("FileChooser.readOnly", Boolean.TRUE);
-    		        JFileChooser choix = new JFileChooser();
-    		        int returnVal = choix.showOpenDialog(window3);
+    				
+    		        JFileChooser choix = new JFileChooser(System.getProperty("user.dir"));
+    		        choix.setAcceptAllFileFilterUsed(false);
+    		        FileNameExtensionFilter filter = new FileNameExtensionFilter("Fichiers txt","txt");
+    		        choix.setFileFilter(filter);
+    		        choix.addChoosableFileFilter(filter);
+    		        
+    		        int returnVal = choix.showOpenDialog(window3);    		        
     		        if (choix.getSelectedFile() != null) {
     		        	pathPlayer = choix.getSelectedFile().getPath();
     		        	autoPlayerText.setText(choix.getSelectedFile().getName());
@@ -201,7 +208,13 @@ public class GameMain {
     			public void mouseClicked(MouseEvent e) {
     				// TODO Auto-generated method stub
     				UIManager.put("FileChooser.readOnly", Boolean.TRUE);
-    		        JFileChooser choix = new JFileChooser();
+    				
+    				JFileChooser choix = new JFileChooser(System.getProperty("user.dir"));
+    		        choix.setAcceptAllFileFilterUsed(false);
+    		        FileNameExtensionFilter filter = new FileNameExtensionFilter("Fichiers txt","txt");
+    		        choix.setFileFilter(filter);
+    		        choix.addChoosableFileFilter(filter);
+    		      
     		        int returnVal = choix.showOpenDialog(window3);
     		        if (choix.getSelectedFile() != null) {
     		        	pathMinions = choix.getSelectedFile().getPath();
@@ -239,7 +252,13 @@ public class GameMain {
     			public void mouseClicked(MouseEvent e) {
     				// TODO Auto-generated method stub
     				UIManager.put("FileChooser.readOnly", Boolean.TRUE);
-    		        JFileChooser choix = new JFileChooser();
+    				
+    				JFileChooser choix = new JFileChooser(System.getProperty("user.dir"));
+    		        choix.setAcceptAllFileFilterUsed(false);
+    		        FileNameExtensionFilter filter = new FileNameExtensionFilter("Fichiers txt","txt");
+    		        choix.setFileFilter(filter);
+    		        choix.addChoosableFileFilter(filter);
+    		        
     		        int returnVal = choix.showOpenDialog(window3);
     		        if (choix.getSelectedFile() != null) {
     		        	pathLaser = choix.getSelectedFile().getPath();
