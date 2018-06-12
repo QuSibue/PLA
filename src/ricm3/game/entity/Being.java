@@ -139,7 +139,29 @@ public abstract class Being extends Entity {
 		Transversal.evalPosition(this.getX(), this.getY(), p, d, this.getOrientation());
 		Entity e = global_map.getEntity(p.x, p.y);
 		if (e == null || e instanceof Laser || e instanceof PowerUp) {
-			mouvement = 1;
+			switch(d) {
+			case EAST:
+				mouvement = 1;
+			break;
+			case SOUTH:
+				mouvement = 2;
+			break;
+			case WEST:
+				mouvement = 3;
+			break;
+			case NORTH:
+				mouvement = 4;
+			break;
+			case FRONT:
+				switch(this.getOrientation()) {
+				case RIGHT:
+					mouvement = 1;
+				break;
+				default:
+				}
+			break;
+			default:
+			}
 			m_index = 0;
 			m_nbsteps = 0;
 			if (e != null) {

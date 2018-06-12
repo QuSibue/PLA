@@ -1,6 +1,5 @@
 package ricm3.game.mvc;
 
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -28,6 +27,7 @@ import ricm3.game.parser.AutomataParser;
 
 public class Model extends GameModel {
 	public BufferedImage[] kamikaze_droite;
+	public BufferedImage[] kamikaze_derriere;
 	public BufferedImage[] kamikaze_idle;
 
 	public LinkedList<Minion> m_minions;
@@ -188,6 +188,7 @@ public class Model extends GameModel {
 				kamikaze_droite[5+(i * 2) + j] = sprite.getSubimage(x, y, m_w, m_h);
 			}
 		}
+		/////////////////////////////////////////////////////////////////
 		imageFile = new File("src/ricm3/sprites/Kamikaze idle.png");
 		try {
 			sprite = ImageIO.read(imageFile);
@@ -207,5 +208,44 @@ public class Model extends GameModel {
 				kamikaze_idle[(i * 2) + j] = sprite.getSubimage(x, y, m_w, m_h);
 			}
 		}
+		//////////////////////////////////////////////////////////////////
+		imageFile = new File("src/ricm3/sprites/Kamikaze derriere debut.png");
+		try {
+			sprite = ImageIO.read(imageFile);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
+		width = sprite.getWidth(null);
+		height = sprite.getHeight(null);
+		kamikaze_derriere = new BufferedImage[8];
+		m_w = width / 2;
+		m_h = height / 2;
+		for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < 2; j++) {
+				int x = j * m_w;
+				int y = i * m_h;
+				kamikaze_derriere[(i * 2) + j] = sprite.getSubimage(x, y, m_w, m_h);
+			}
+		}
+		imageFile = new File("src/ricm3/sprites/Kamikaze derriere fin.png");
+		try {
+			sprite = ImageIO.read(imageFile);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
+		width = sprite.getWidth(null);
+		height = sprite.getHeight(null);
+		m_w = width / 2;
+		m_h = height / 2;
+		for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < 2; j++) {
+				int x = j * m_w;
+				int y = i * m_h;
+				kamikaze_derriere[4+(i * 2) + j] = sprite.getSubimage(x, y, m_w, m_h);
+			}
+		}
+		/////////////////////////////////////////////////////////////////
 	}
 }
