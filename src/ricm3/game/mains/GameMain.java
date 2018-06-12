@@ -25,7 +25,8 @@ import ricm3.game.menu.Menu;
 import ricm3.game.mvc.Controller;
 import ricm3.game.mvc.Model;
 import ricm3.game.mvc.View;
-import ricm3.game.other.Options;;
+import ricm3.game.other.Options;
+import ricm3.parser.AutomataParser;;
 
 public class GameMain {
 	
@@ -301,14 +302,14 @@ public class GameMain {
         
     }
 	
-	public static void afficherFinPartie(int fin) {
-		String message;
+	public static void afficherFinPartie(int fin, Model model) {
+		String message="";
 		switch (fin) {
 		case 1:
-			message =  "Le Virus à éliminé l'Antivurus et remporte la victoire !";
+			message =  "L'Antivirus à éliminé le virus et remporte la victoire !";
 			break;
 		case 2:
-			message =  "L'Antivirus à éliminé le virus et remporte la victoire !";
+			message =  "Le Virus à éliminé l'Antivurus et remporte la victoire !";
 			break;
 		default:
 			break;
@@ -321,7 +322,7 @@ public class GameMain {
         window5.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
         
         // Définit la taille de la fenêtre en pixels
-        window5.setSize(450, 250);
+        window5.setSize(450, 175);
       
         window5.setResizable(false);
         window5.setLocationRelativeTo(null);
@@ -336,6 +337,11 @@ public class GameMain {
         JPanel panelCenter = new JPanel(new FlowLayout(FlowLayout.CENTER));        
         window5.add(panelCenter,BorderLayout.CENTER);
         
+        JLabel finale = new JLabel(message);
+        panelCenter.add(finale);
+        
+        JLabel question = new JLabel("Voulez-vous rejouer une partie ?");
+        panelCenter.add(question);
        
         JPanel panelSouth = new JPanel(new FlowLayout(FlowLayout.CENTER));        
         window5.add(panelSouth,BorderLayout.SOUTH);
@@ -351,9 +357,81 @@ public class GameMain {
 		}
         
       
-        JButton retour = new JButton("Retour");
-        retour.setFocusPainted(false);
-        panelSouth.add(retour);
+        JButton rejouer = new JButton("Rejouer");
+        rejouer.setFocusPainted(false);
+        panelSouth.add(rejouer);
+        
+        JButton quitter = new JButton("Quitter");
+        quitter.setFocusPainted(false);
+        panelSouth.add(quitter);
+        
+        
+        rejouer.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				model.init();
+				window5.dispose();
+			}
+		});
+        quitter.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				System.exit(0);
+			}
+		});
+        
 		
 	}
 }

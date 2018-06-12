@@ -29,29 +29,45 @@ public class Model extends GameModel {
 	public Player antivirus;
 	public ArrayList<Automaton> m_automates;
 	public Map map;
-
+	public boolean finPartie = false;
+	public boolean afficherFin = false;
+	public Ast m_tree;
+	
 	public Model() {
+		init();
+		initTree();
+	}
+	
+	
+	public void initTree() {
+		
+		try {
+			String s[] = new String[1];
+			s[0] = GameMain.pathPlayer;
+			m_tree = AutomataParser.parserAutomates(s);
+
+		} catch (Exception e) {
+			throw new RuntimeException("parser renvoie une exception");
+		}
+		@SuppressWarnings("unchecked")
+		ArrayList<Automaton> o = (ArrayList<Automaton>) m_tree.make();
+	}
+	
+	public void init() {
 		m_minions = new LinkedList<Minion>();
 		m_obstacles = new LinkedList<Obstacle>();
 		m_laser = new LinkedList<Laser>();
 		m_powerup = new LinkedList<PowerUp>();
 		m_automates = new ArrayList<Automaton>();
 		loadAutomaton();
+		
+		finPartie = false;
+		afficherFin= false;
 
 		// sprites vont etres donné a l'instantiation normalement, a voir
 		// ON FAIT LA MAP
 		map = new Map(1100, 1200);
-		Ast tree;
-		try {
-			String s[] = new String[1];
-			s[0] = GameMain.pathPlayer;
-			tree = AutomataParser.parserAutomates(s);
-
-		} catch (Exception e) {
-			throw new RuntimeException("parser renvoie une exeception");
-		}
-		@SuppressWarnings("unchecked")
-		ArrayList<Automaton> o = (ArrayList<Automaton>) tree.make();
+		
 
 		// ON FAIT UN AUTOMATE
 		//Automaton aut = o.get(0);
@@ -91,7 +107,7 @@ public class Model extends GameModel {
 	@Override
 	public void step(long now) {
 
-		if (virus.getLife() > 0 && antivirus.getLife() > 0) {
+		if (!finPartie) {
 			LinkedList<Minion> minionsClone = (LinkedList<Minion>) m_minions.clone();
 			Iterator<Minion> iterM = minionsClone.iterator();
 
@@ -125,18 +141,27 @@ public class Model extends GameModel {
 			if (antivirus.getLife() > 0) {
 				antivirus.step(now);
 			}
+			
+			finPartie = virus.getLife() <= 0 || antivirus.getLife() <= 0 ;
+			afficherFin = finPartie;
 		}
-		else if(virus.getLife() <= 0) {
-			GameMain.afficherFinPartie(1);
+		else if(virus.getLife() <= 0 && afficherFin) {
+			GameMain.afficherFinPartie(1,this);
+			afficherFin = false;
+			
 		}
-		else {
-			GameMain.afficherFinPartie(2);
+		else if(antivirus.getLife() <= 0 && afficherFin){
+			GameMain.afficherFinPartie(2,this);
+			afficherFin = false;
 		}
+		
 		// Affichage du modele
 	}
 
 	@Override
 	public void shutdown() {
+	
+		
 	}
 
 	public void loadAutomaton() {
