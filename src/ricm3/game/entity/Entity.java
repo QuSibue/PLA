@@ -2,9 +2,6 @@ package ricm3.game.entity;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-
-import com.sun.org.apache.bcel.internal.generic.INSTANCEOF;
-
 import ricm3.game.automaton.TypeEntity;
 import ricm3.game.mvc.Map;
 import ricm3.game.mvc.Model;
@@ -73,11 +70,11 @@ public abstract class Entity {
 		} else if (t.equals(TypeEntity.DANGER)) {
 			return e instanceof Laser;
 		} else if (t.equals(TypeEntity.TEAM)) {
-			return ((Character)e).getEquipe()==((Character)this).getEquipe();
+			return ((Character) e).getEquipe() == ((Character) this).getEquipe();
 		} else if (t.equals(TypeEntity.ENEMY)) {
-			return ((Character)e).getEquipe()!=((Character)this).getEquipe();
+			return ((Character) e).getEquipe() != ((Character) this).getEquipe();
 		} else if (t.equals(TypeEntity.PICKABLE)) {
-			return e instanceof Obstacle||e instanceof Laser || e instanceof Minion ||e instanceof Portal;
+			return e instanceof Obstacle || e instanceof Laser || e instanceof Minion || e instanceof Portal;
 		} else if (t.equals(TypeEntity.PROJECTILE)) {
 			return e instanceof Laser;
 		} else if (t.equals(TypeEntity.GATE)) {
