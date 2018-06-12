@@ -41,7 +41,7 @@ public class Player extends Character {
 		if (m_energie >= 3) {
 			Point p = new Point();
 			if (global_map.caseLibre(this.getX(), this.getY(), p)) {
-				Minion minion = new Minion(null, p.x, p.y,true,true,true,false, Options.LASER_MS, Transversal.idleAutomaton(), Orientation.RIGHT, 1,
+				Minion minion = new Minion(null, p.x, p.y,true,true,true,false, Options.LASER_MS, this.m_model.m_automates.get(m_indiceAutoMinions), Orientation.RIGHT, 1,
 						global_map, this.m_model, 1, 0);
 				m_model.m_minions.add(minion);
 				global_map.setEntity(minion);
@@ -153,9 +153,6 @@ public class Player extends Character {
 	}
 
 	public void loadAutomaton() {
-		m_autoMinions.add(m_model.m_automates.get(0));
-		m_autoMinions.add(m_model.m_automates.get(1));
-		m_autoMinions.add(m_model.m_automates.get(2));
 		m_autoMinions.add(m_model.m_automates.get(0));
 		m_autoMinions.add(m_model.m_automates.get(1));
 		m_autoMinions.add(m_model.m_automates.get(2));
