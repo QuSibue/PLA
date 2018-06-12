@@ -80,7 +80,7 @@ public class GameUI {
     m_controller = c; m_controller.m_game = this;
     m_ath = a; m_ath.m_game = this;
 
-    System.out.println(license);
+    //System.out.println(license);
 
     // create the main window and the periodic timer
     // to drive the overall clock of the simulation.
@@ -119,7 +119,7 @@ public class GameUI {
 
   private void createWindow(Dimension d) {
     m_frame = new JFrame();
-    m_frame.setTitle("Warzone");
+    m_frame.setTitle("Short Circuit");
     m_frame.setLayout(new BorderLayout());
 
     m_frame.add(m_view, BorderLayout.CENTER);
