@@ -41,8 +41,10 @@ public class Player extends Character {
 		if (m_energie >= 3) {
 			Point p = new Point();
 			if (global_map.caseLibre(this.getX(), this.getY(), p)) {
-				Minion minion = new Minion(m_model.kamikaze_idle,m_model.kamikaze_droite,m_model.kamikaze_derriere, p.x, p.y,true,true,true,false, Options.MINION_MS, this.m_model.m_automates.get(m_indiceAutoMinions), Orientation.RIGHT, 1,
-						global_map, this.m_model, 1, 0);
+				Minion minion = new Minion(m_model.kamikaze_idle, m_model.kamikaze_droite, m_model.kamikaze_derriere,
+						p.x, p.y, true, true, true, false, Options.MINION_MS,
+						this.m_model.m_automates.get(m_indiceAutoMinions), Orientation.RIGHT, 1, global_map,
+						this.m_model, 1, 0);
 				m_model.m_minions.add(minion);
 				global_map.setEntity(minion);
 				m_energie -= 3;
@@ -135,14 +137,40 @@ public class Player extends Character {
 	}
 
 	@Override
-	
 
 	public void paint(Graphics g) {
 		// affiche un carré bleu pour le joueur
-		int m_x = this.getX() * Options.TAILLE_CASE;
-		int m_y = this.getY() * Options.TAILLE_CASE;
-		g.setColor(Color.blue);
-		g.fillRect(m_x, m_y, Options.TAILLE_CASE, Options.TAILLE_CASE);
+		/*
+		 * int m_x = this.getX() * Options.TAILLE_CASE; int m_y = this.getY() *
+		 * Options.TAILLE_CASE; g.setColor(Color.blue); g.fillRect(m_x, m_y,
+		 * Options.TAILLE_CASE, Options.TAILLE_CASE);
+		 */
+		switch (this.getOrientation()) {
+		case UP:
+			m_index = 9;
+			break;
+		case DOWN:
+			m_index = 3;
+			break;
+		case RIGHT:
+			m_index = 0;
+			break;
+		case LEFT:
+			m_index = 6;
+			break;
+		}
+
+		if (m_nbsteps >= 30) {
+			m_nbsteps = 0;
+		} else if (m_nbsteps >= 20) {
+			m_index = m_index + 2;
+		} else if (m_nbsteps >= 10) {
+			m_index = m_index + 1;
+		}
+		g.drawImage(this.getSprites()[m_index], this.getX() * Options.TAILLE_CASE, this.getY() * Options.TAILLE_CASE,
+				Options.TAILLE_CASE, Options.TAILLE_CASE, null);
+
+		m_nbsteps++;
 
 	}
 

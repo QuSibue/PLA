@@ -29,6 +29,8 @@ public class Model extends GameModel {
 	public BufferedImage[] kamikaze_droite;
 	public BufferedImage[] kamikaze_derriere;
 	public BufferedImage[] kamikaze_idle;
+	public BufferedImage[] sprite_antivirus;
+	public BufferedImage[] sprite_virus;
 
 	public LinkedList<Minion> m_minions;
 	public LinkedList<Obstacle> m_obstacles;
@@ -68,7 +70,7 @@ public class Model extends GameModel {
 		// FIN DE L'AUTOMATE
 
 		// ONFAIT LE JOUEUR
-		virus = new Player(1, 1, null, aut, Orientation.RIGHT, 1, map, this, 3, 0, TypeKey.NONE);
+		virus = new Player(1, 1, sprite_virus, aut, Orientation.RIGHT, 1, map, this, 3, 0, TypeKey.NONE);
 		map.setEntity(virus);
 		// ajout d'un obstacle
 		Obstacle obs = new Obstacle(0, 0, false, true, false, false, null, map, this);
@@ -88,7 +90,7 @@ public class Model extends GameModel {
 		}
 		// antivirus
 		aut = Transversal.antivirusAutomaton();
-		antivirus = new Player(8, 1, null, aut, Orientation.LEFT, 2, map, this, 3, 0, TypeKey.NONE);
+		antivirus = new Player(8, 1, sprite_antivirus, aut, Orientation.LEFT, 2, map, this, 3, 0, TypeKey.NONE);
 		map.setEntity(antivirus);
 
 		PowerUp PU = new PowerUp(4, 3, this);
@@ -185,7 +187,7 @@ public class Model extends GameModel {
 			for (int j = 0; j < 2; j++) {
 				int x = j * m_w;
 				int y = i * m_h;
-				kamikaze_droite[5+(i * 2) + j] = sprite.getSubimage(x, y, m_w, m_h);
+				kamikaze_droite[5 + (i * 2) + j] = sprite.getSubimage(x, y, m_w, m_h);
 			}
 		}
 		/////////////////////////////////////////////////////////////////
@@ -243,9 +245,156 @@ public class Model extends GameModel {
 			for (int j = 0; j < 2; j++) {
 				int x = j * m_w;
 				int y = i * m_h;
-				kamikaze_derriere[4+(i * 2) + j] = sprite.getSubimage(x, y, m_w, m_h);
+				kamikaze_derriere[4 + (i * 2) + j] = sprite.getSubimage(x, y, m_w, m_h);
 			}
 		}
 		/////////////////////////////////////////////////////////////////
+		sprite_antivirus = new BufferedImage[13];
+		imageFile = new File("src/ricm3/sprites/antivirus droite.png");
+		try {
+			sprite = ImageIO.read(imageFile);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
+		width = sprite.getWidth(null);
+		height = sprite.getHeight(null);
+		m_w = width / 2;
+		m_h = height / 2;
+		for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < 2; j++) {
+				int x = j * m_w;
+				int y = i * m_h;
+				sprite_antivirus[(i * 2) + j] = sprite.getSubimage(x, y, m_w, m_h);
+			}
+		}
+		imageFile = new File("src/ricm3/sprites/antivirus devant.png");
+		try {
+			sprite = ImageIO.read(imageFile);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
+		width = sprite.getWidth(null);
+		height = sprite.getHeight(null);
+		m_w = width / 2;
+		m_h = height / 2;
+		for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < 2; j++) {
+				int x = j * m_w;
+				int y = i * m_h;
+				sprite_antivirus[3 + (i * 2) + j] = sprite.getSubimage(x, y, m_w, m_h);
+			}
+		}
+		imageFile = new File("src/ricm3/sprites/antivirus gauche.png");
+		try {
+			sprite = ImageIO.read(imageFile);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
+		width = sprite.getWidth(null);
+		height = sprite.getHeight(null);
+		m_w = width / 2;
+		m_h = height / 2;
+		for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < 2; j++) {
+				int x = j * m_w;
+				int y = i * m_h;
+				sprite_antivirus[6 + (i * 2) + j] = sprite.getSubimage(x, y, m_w, m_h);
+			}
+		}
+		imageFile = new File("src/ricm3/sprites/antivirus derriere.png");
+		try {
+			sprite = ImageIO.read(imageFile);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
+		width = sprite.getWidth(null);
+		height = sprite.getHeight(null);
+		m_w = width / 2;
+		m_h = height / 2;
+		for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < 2; j++) {
+				int x = j * m_w;
+				int y = i * m_h;
+				sprite_antivirus[9 + (i * 2) + j] = sprite.getSubimage(x, y, m_w, m_h);
+			}
+		}
+		///////////////////////////////////////////////////////////////////////////
+		sprite_virus = new BufferedImage[13];
+		imageFile = new File("src/ricm3/sprites/virus droite.png");
+		try {
+			sprite = ImageIO.read(imageFile);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
+		width = sprite.getWidth(null);
+		height = sprite.getHeight(null);
+		m_w = width / 2;
+		m_h = height / 2;
+		for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < 2; j++) {
+				int x = j * m_w;
+				int y = i * m_h;
+				sprite_virus[(i * 2) + j] = sprite.getSubimage(x, y, m_w, m_h);
+			}
+		}
+		imageFile = new File("src/ricm3/sprites/virus devant.png");
+		try {
+			sprite = ImageIO.read(imageFile);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
+		width = sprite.getWidth(null);
+		height = sprite.getHeight(null);
+		m_w = width / 2;
+		m_h = height / 2;
+		for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < 2; j++) {
+				int x = j * m_w;
+				int y = i * m_h;
+				sprite_virus[3 + (i * 2) + j] = sprite.getSubimage(x, y, m_w, m_h);
+			}
+		}
+		imageFile = new File("src/ricm3/sprites/virus gauche.png");
+		try {
+			sprite = ImageIO.read(imageFile);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
+		width = sprite.getWidth(null);
+		height = sprite.getHeight(null);
+		m_w = width / 2;
+		m_h = height / 2;
+		for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < 2; j++) {
+				int x = j * m_w;
+				int y = i * m_h;
+				sprite_virus[6 + (i * 2) + j] = sprite.getSubimage(x, y, m_w, m_h);
+			}
+		}
+		imageFile = new File("src/ricm3/sprites/virus derriere.png");
+		try {
+			sprite = ImageIO.read(imageFile);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
+		width = sprite.getWidth(null);
+		height = sprite.getHeight(null);
+		m_w = width / 2;
+		m_h = height / 2;
+		for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < 2; j++) {
+				int x = j * m_w;
+				int y = i * m_h;
+				sprite_virus[9 + (i * 2) + j] = sprite.getSubimage(x, y, m_w, m_h);
+			}
+		}
 	}
 }
