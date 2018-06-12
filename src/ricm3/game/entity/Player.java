@@ -102,6 +102,10 @@ public class Player extends Character {
 	public void setKey(TypeKey key) {
 		m_key = key;
 	}
+	
+	public int getEnergie() {
+		return m_energie;
+	}
 
 	@Override
 	public void power(long now) {

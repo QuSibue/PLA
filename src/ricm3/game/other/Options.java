@@ -34,5 +34,5 @@ public abstract class Options {
 	public static final long powerCD = 300L;
 	
 	public static final String pathPlayer = "examples/test";
-	public static final int initialEnergie = 3;
+	public static final int initialEnergie = 10;
 }

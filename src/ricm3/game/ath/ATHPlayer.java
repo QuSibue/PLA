@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -17,6 +19,8 @@ import javax.swing.border.BevelBorder;
 import org.w3c.dom.ranges.RangeException;
 
 import ricm3.game.entity.Player;
+import ricm3.game.mvc.ImageBase;
+import ricm3.game.other.Options;
 
 /**
  * Classe qui construit l'ATH d'un player (virus ou antivirus).
@@ -30,17 +34,27 @@ public class ATHPlayer {
 	JLabel m_labelx;
 	JLabel m_labelz;
 	JLabel m_labelw; // il peut avoir jusqu'a 3 choses dans son sac
+	
+	JProgressBar energie;
+	
+	ImageBase m_ib;
 
-	public ATHPlayer(Player player) {
+	public ATHPlayer(Player player, ImageBase ib) {
 		m_player = player;
+		m_ib = ib;
 
-		ImageIcon heartIcon = new ImageIcon("src/ricm3/sprites/heart.png");
+		ImageIcon heartIcon = new ImageIcon("images/heart.png");
 		m_heart = new JLabel();
 		m_heart.setIcon(heartIcon);
 		m_heart1 = new JLabel();
 		m_heart1.setIcon(heartIcon);
 		m_heart2 = new JLabel();
 		m_heart2.setIcon(heartIcon);
+		
+		energie = new JProgressBar(0, Options.initialEnergie);
+		energie.setString(Integer.toString(Options.initialEnergie));
+		energie.setStringPainted(true);
+		energie.setValue(Options.initialEnergie);
 	}
 
 	public Container init() {
@@ -51,8 +65,10 @@ public class ATHPlayer {
 		vie.add(m_heart1);
 		vie.add(m_heart2);
 
-		JProgressBar energie = new JProgressBar(0, 10);
-		energie.setValue(8);
+//		JProgressBar energie = new JProgressBar(0, Options.initialEnergie);
+//		energie.setString(Integer.toString(Options.initialEnergie));
+//		energie.setStringPainted(true);
+//		energie.setValue(Options.initialEnergie);
 
 		Container VieEnergie = new Container();
 		VieEnergie.setLayout(new BoxLayout(VieEnergie, BoxLayout.Y_AXIS));
@@ -61,7 +77,15 @@ public class ATHPlayer {
 		VieEnergie.add(energie);
 
 		JLabel sbire = new JLabel();
-		sbire.setIcon(new ImageIcon("src/ricm3/sprites/sbire.png"));
+		BufferedImage[] iconSbireTab = m_ib.getKamikaze();
+		BufferedImage iconSbire = null;
+		try {
+			iconSbire = m_ib.resize(iconSbireTab[1], 80, 80);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		sbire.setIcon(new ImageIcon(iconSbire));
 
 		Container cont = new Container();
 		cont.setLayout(new FlowLayout());
@@ -138,5 +162,8 @@ public class ATHPlayer {
 			m_labelw.setVisible(false);
 		else
 			m_labelw.setVisible(true);
+		
+		energie.setValue(m_player.getEnergie());
+		energie.setString(Integer.toString(m_player.getEnergie()));
 	}
 }

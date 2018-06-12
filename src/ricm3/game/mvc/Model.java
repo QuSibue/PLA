@@ -31,8 +31,10 @@ public class Model extends GameModel {
 	public ArrayList<Automaton>m_automates;
 	public Map map;
 	public ATH m_ath;
+	public ImageBase m_ib;
 
 	public Model() {
+		m_ib = new ImageBase();
 		m_minions = new LinkedList<Minion>();
 		m_obstacles = new LinkedList<Obstacle>();
 		m_laser = new LinkedList<Laser>();
