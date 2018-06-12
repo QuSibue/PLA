@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 public class ImageBase {
 	BufferedImage[] m_virus;
@@ -21,6 +22,7 @@ public class ImageBase {
 	// BufferedImage[] m_laser;
 	// BufferedImage[] m_explosion;
 	// BufferedImage[] m_portail;
+	ImageIcon[] m_iconSbires;
 
 	public ImageBase() {
 		File imageFile = new File("images/Kamikaze idle.png");
@@ -43,32 +45,28 @@ public class ImageBase {
 				m_kamikaze[(i * 2) + j] = sprite.getSubimage(x, y, m_w, m_h);
 			}
 		}
+		
+		
+		m_iconSbires = new ImageIcon[2];
+		imageFile = new File("images/sbire.png");
+		try {
+			m_iconSbires[0] = new ImageIcon(ImageIO.read(imageFile));
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+		imageFile = new File("images/evil_minion.png");
+		try {
+			m_iconSbires[1] = new ImageIcon(ImageIO.read(imageFile));
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
 	}
 
 	public BufferedImage[] getKamikaze() {
 		return m_kamikaze;
 	}
-
-	public BufferedImage resize(BufferedImage inputImage, int scaledWidth, int scaledHeight)
-			throws IOException {
-		// reads input image
-//		File inputFile = new File(inputImagePath);
-//		BufferedImage inputImage = ImageIO.read(inputFile);
-
-		// creates output image
-		BufferedImage outputImage = new BufferedImage(scaledWidth, scaledHeight, inputImage.getType());
-
-		// scales the input image to the output image
-		Graphics2D g2d = outputImage.createGraphics();
-		g2d.drawImage(inputImage, 0, 0, scaledWidth, scaledHeight, null);
-		g2d.dispose();
-		
-		return outputImage;
-
-		// extracts extension of output file
-//		String formatName = outputImagePath.substring(outputImagePath.lastIndexOf(".") + 1);
-
-		// writes to output file
-//		ImageIO.write(outputImage, formatName, new File(outputImagePath));
+	
+	public ImageIcon[] getIconSbires() {
+		return m_iconSbires;
 	}
 }

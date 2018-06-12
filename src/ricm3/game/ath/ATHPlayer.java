@@ -35,8 +35,10 @@ public class ATHPlayer {
 	JLabel m_labelz;
 	JLabel m_labelw; // il peut avoir jusqu'a 3 choses dans son sac
 	
-	JProgressBar energie;
+	JLabel m_sbire;
 	
+	JProgressBar energie;
+	ImageIcon[] m_iconSbire;
 	ImageBase m_ib;
 
 	public ATHPlayer(Player player, ImageBase ib) {
@@ -55,6 +57,10 @@ public class ATHPlayer {
 		energie.setString(Integer.toString(Options.initialEnergie));
 		energie.setStringPainted(true);
 		energie.setValue(Options.initialEnergie);
+		
+		m_iconSbire = m_ib.getIconSbires();
+		m_sbire = new JLabel();
+		m_sbire.setIcon(m_iconSbire[0]);
 	}
 
 	public Container init() {
@@ -76,23 +82,12 @@ public class ATHPlayer {
 		VieEnergie.add(Box.createRigidArea(new Dimension(1, 10)));
 		VieEnergie.add(energie);
 
-		JLabel sbire = new JLabel();
-		BufferedImage[] iconSbireTab = m_ib.getKamikaze();
-		BufferedImage iconSbire = null;
-		try {
-			iconSbire = m_ib.resize(iconSbireTab[1], 80, 80);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		sbire.setIcon(new ImageIcon(iconSbire));
-
 		Container cont = new Container();
 		cont.setLayout(new FlowLayout());
 
 		JPanel panelDuSbire = new JPanel();
 		panelDuSbire.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.BLACK, Color.BLACK));
-		panelDuSbire.add(sbire);
+		panelDuSbire.add(m_sbire);
 
 		Container sacCont = new Container();
 		sacCont.setLayout(new FlowLayout());
@@ -165,5 +160,7 @@ public class ATHPlayer {
 		
 		energie.setValue(m_player.getEnergie());
 		energie.setString(Integer.toString(m_player.getEnergie()));
+		
+		m_sbire.setIcon(m_iconSbire[m_player.getIndiceMinion()]);
 	}
 }

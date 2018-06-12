@@ -106,6 +106,10 @@ public class Player extends Character {
 	public int getEnergie() {
 		return m_energie;
 	}
+	
+	public int getIndiceMinion() {
+		return m_indiceAutoMinions;
+	}
 
 	@Override
 	public void power(long now) {
