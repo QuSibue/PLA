@@ -20,15 +20,17 @@ public class Minion extends Character {
 	public int xOrigin;
 	public int yOrigin;
 
-	public Minion(BufferedImage[] sprites, int x, int y, boolean moveable, boolean pickable, boolean killable,
+	public Minion(BufferedImage[] spriteidle,BufferedImage[] spritedroite, int x, int y, boolean moveable, boolean pickable, boolean killable,
 			boolean lethal, int moveSpeed, Automaton automate, Orientation orientation, int equipe, Map map,
 			Model model, int life, long lastMove) {
-		super(sprites, x, y, moveable, pickable, killable, lethal, moveSpeed, automate, orientation, equipe, map, model,
+		super(null, x, y, moveable, pickable, killable, lethal, moveSpeed, automate, orientation, equipe, map, model,
 				life, lastMove);
 		xOrigin = this.getX();
 		yOrigin = this.getY();
-		mv_droite = sprites;
+		mv_droite = spritedroite;
 		m_droite = 8;
+		idle = spriteidle;
+		m_idle = 6;
 	}
 
 	public void pop(long now) {
@@ -110,12 +112,15 @@ public class Minion extends Character {
 
 		switch (mouvement) {
 		case 0:
-			/*
-			 * int m_x = this.getX() * Options.TAILLE_CASE; int m_y = this.getY() *
-			 * Options.TAILLE_CASE; g.setColor(Color.RED); g.fillRect(m_x, m_y,
-			 * Options.TAILLE_CASE, Options.TAILLE_CASE);
-			 */
-			g.drawImage(mv_droite[0], this.getX() * Options.TAILLE_CASE, this.getY() * Options.TAILLE_CASE,
+			m_nbsteps++;
+			if (m_nbsteps % 10 == 0) {
+				m_index++;
+			}
+			if (m_nbsteps == m_idle * 10) {
+				m_index = 0;
+				m_nbsteps = 0;
+			}
+			g.drawImage(idle[m_index], this.getX() * Options.TAILLE_CASE, this.getY() * Options.TAILLE_CASE,
 					Options.TAILLE_CASE, Options.TAILLE_CASE, null);
 			break;
 		case 1:

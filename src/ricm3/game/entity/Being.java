@@ -141,6 +141,7 @@ public abstract class Being extends Entity {
 		if (e == null || e instanceof Laser || e instanceof PowerUp) {
 			mouvement = 1;
 			m_index = 0;
+			m_nbsteps = 0;
 			if (e != null) {
 				if (e.getLethal()) {
 					this.getDamage();
