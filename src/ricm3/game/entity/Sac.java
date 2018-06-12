@@ -31,20 +31,8 @@ public class Sac {
 		if (m_index >= m_max) {
 			return false;
 		} else {
-			while (m_sac[m_index] != null && m_index >= m_max) {
-				m_index++;
-			}
-			if(m_index == m_max) {
-				m_index = 0;
-				while (m_sac[m_index] != null && m_index >= m_max) {
-					m_index++;
-				}
-				if(m_index == m_max) {
-					return false;
-				}
-			}
-			addItem(e, m_index);
-			m_index = (m_index + 1) % m_max;
+			m_sac[m_index] = e;
+			m_index = m_index + 1;
 			return true;
 		}
 
@@ -61,11 +49,12 @@ public class Sac {
 	}
 
 	public Entity removeItem() {
-		while (m_sac[m_index - 1] == null && m_index - 1 > 0) {
-			m_index--;
+		if (m_index == 0) {
+			return null;
+		} else {
+			m_index = m_index - 1;
+			return m_sac[m_index];
 		}
-		m_index = (m_index - 1) % m_max;
-		return removeItem(m_index);
 
 	}
 
