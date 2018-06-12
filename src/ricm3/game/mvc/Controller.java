@@ -30,7 +30,7 @@ public class Controller extends GameController {
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -114,7 +114,8 @@ public class Controller extends GameController {
 		// TODO Auto-generated method stub
 		int Code = e.getKeyCode();
 		if (Code == KeyEvent.VK_UP || Code == KeyEvent.VK_DOWN || Code == KeyEvent.VK_LEFT || Code == KeyEvent.VK_RIGHT
-				|| Code == KeyEvent.VK_H || Code == KeyEvent.VK_P || Code == KeyEvent.VK_W) {
+				|| Code == KeyEvent.VK_H || Code == KeyEvent.VK_P || Code == KeyEvent.VK_W || Code == KeyEvent.VK_I
+				|| Code == KeyEvent.VK_O) {
 			m_model.virus.setKey(TypeKey.NONE);
 		}
 		if (Code == KeyEvent.VK_Z || Code == KeyEvent.VK_Q || Code == KeyEvent.VK_S || Code == KeyEvent.VK_D

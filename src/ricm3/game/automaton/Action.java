@@ -60,6 +60,7 @@ public class Action {
 			b.store();
 			break;
 		case GET:
+			//System.out.println("hey");
 			b.get();
 			break;
 		case POWER:
@@ -67,6 +68,7 @@ public class Action {
 			break;
 		case KAMIKAZE:
 			b.kamikaze();
+			break;
 		default:
 			throw new RuntimeException("Action NYI");
 		}
