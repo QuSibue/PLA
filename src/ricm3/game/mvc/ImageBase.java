@@ -29,7 +29,7 @@ public class ImageBase {
 		int nb_lines = 2;
 
 		m_virus = new BufferedImage[nb_cols * nb_lines * 4];
-		lecture_fichier(nb_cols, nb_lines, "virus/virus droite.png", m_virus, 0);
+		lecture_fichier(nb_cols, nb_lines, "images/virus/virus droite.png", m_virus, 0);
 		lecture_fichier(nb_cols, nb_lines, "images/virus/virus devant.png", m_virus, 2);
 		lecture_fichier(nb_cols, nb_lines, "images/virus/virus gauche.png", m_virus, 5);
 		lecture_fichier(nb_cols, nb_lines, "images/virus/virus derriere.png", m_virus, 8);
