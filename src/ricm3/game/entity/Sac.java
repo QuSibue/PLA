@@ -49,6 +49,13 @@ public class Sac {
 		}
 
 	}
+	
+	public Entity getItem(int i) {
+		if (i >= 0 && i < m_max)
+			return m_sac[i];
+		else 
+			return null;
+	}
 
 	public Entity removeItem(int i) {
 		if (i >= 0 && i < m_max) {

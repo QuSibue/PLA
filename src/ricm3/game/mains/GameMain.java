@@ -353,8 +353,11 @@ public class GameMain {
 		Controller controller = new Controller(model);
 
 		Dimension d = new Dimension(1024, 768);
-		new GameUI(model, view, d, controller);
+		new GameUI(model, view, d, controller, model.m_ath);
 		window1.dispose();
 
+
+		
+		return;
 	}
 }
