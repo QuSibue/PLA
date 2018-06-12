@@ -56,7 +56,6 @@ public class Minion extends Character {
 		m_model.m_minions.remove(this);
 	}
 
-
 	public void hit(long now) {
 		Iterator<Minion> iterM = m_model.m_minions.iterator();
 		Entity closest = null;
@@ -103,8 +102,7 @@ public class Minion extends Character {
 	public void _throw() {
 		return;
 	}
-	
-	
+
 	@Override
 	public void paint(Graphics g) {
 		// affiche un carré bleu pour le joueur
@@ -115,12 +113,9 @@ public class Minion extends Character {
 
 	}
 
-
 	@Override
 	public void kamikaze() {
-		
+
 	}
-
-
 
 }
