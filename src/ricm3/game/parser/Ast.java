@@ -44,6 +44,18 @@ public class Ast {
 		return "undefined: tree_edges";
 	}
 
+	public ArrayList<String> getNames(){
+		ArrayList<String> names = new ArrayList<String>();
+		AI_Definitions tree = (AI_Definitions)this;
+		Iterator<Automaton> iter = tree.automata.iterator();
+		
+		while(iter.hasNext()) {
+			Automaton a = iter.next();
+			names.add(a.name.value);
+		}
+		
+		return names;
+	}
 	// AST as automata in .dot format
 
 	public String as_dot_automata() {
@@ -153,9 +165,9 @@ public class Ast {
 		public String tree_edges() {
 			return value.as_tree_son_of(this);
 		}
-	
+
 		public Object make() {
-			switch(((Constant)value).value.value) {
+			switch (((Constant) value).value.value) {
 			case "F":
 				return ricm3.game.automaton.Direction.FRONT;
 			case "B":
@@ -252,8 +264,8 @@ public class Ast {
 
 		public Object makeBis(char c) {
 			// ONvient d'une condtion
-			if(c=='c') {
-				switch(name.value) {
+			if (c == 'c') {
+				switch (name.value) {
 				case "True":
 					return new ricm3.game.automaton.Condition(TypeCondition.TRUE, null, null, ' ', null);
 				default:
@@ -261,25 +273,25 @@ public class Ast {
 				}
 			}
 			// On vient d'une action
-			else if(c == 'a') {
-				switch(name.value) {
+			else if (c == 'a') {
+				switch (name.value) {
 				case "Move":
 					Iterator<Parameter> iter = parameters.iterator();
-					if(iter.hasNext()) {
+					if (iter.hasNext()) {
 						Parameter p = iter.next();
-						if(p instanceof Direction) {
-							return new ricm3.game.automaton.Action(TypeAction.MOVE, (ricm3.game.automaton.Direction)p.make());
-						}
-						else {
-							return new ricm3.game.automaton.Action(TypeAction.MOVE, ricm3.game.automaton.Direction.FRONT);
+						if (p instanceof Direction) {
+							return new ricm3.game.automaton.Action(TypeAction.MOVE,
+									(ricm3.game.automaton.Direction) p.make());
+						} else {
+							return new ricm3.game.automaton.Action(TypeAction.MOVE,
+									ricm3.game.automaton.Direction.FRONT);
 						}
 					}
 					return new ricm3.game.automaton.Action(TypeAction.MOVE, ricm3.game.automaton.Direction.FRONT);
 				default:
 					throw new RuntimeException("Action inconnue");
 				}
-			}
-			else 
+			} else
 				throw new RuntimeException("Come from something else than action or condition");
 		}
 	}
@@ -330,7 +342,7 @@ public class Ast {
 			} else if (expression instanceof UnaryOp) {
 				throw new RuntimeException("UnaryOp not allowed on action");
 			} else {
-				return (((FunCall)expression).makeBis('a'));
+				return (((FunCall) expression).makeBis('a'));
 			}
 		}
 	}
