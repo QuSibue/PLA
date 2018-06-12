@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import ricm3.game.ath.ATH;
 import ricm3.game.automaton.Automaton;
 import ricm3.game.automaton.Orientation;
+import ricm3.game.entity.ImageDataBase;
 import ricm3.game.entity.Laser;
 import ricm3.game.entity.Minion;
 import ricm3.game.entity.Obstacle;
@@ -60,6 +61,8 @@ public class Model extends GameModel {
 		m_powerup = new LinkedList<PowerUp>();
 		m_automates = new ArrayList<Automaton>();
 		loadAutomaton();
+		
+		ImageDataBase idb = new ImageDataBase();
 
 		// sprites vont etres donné a l'instantiation normalement, a voir
 		// ON FAIT LA MAP
@@ -73,30 +76,30 @@ public class Model extends GameModel {
 		// FIN DE L'AUTOMATE
 
 		// ONFAIT LE JOUEUR
-		virus = new Player(1, 1, null, aut, Orientation.RIGHT, 1, map, this, 3, 0, TypeKey.NONE);
+		virus = new Player(1, 1, null, aut, Orientation.RIGHT, 1, map, this, 3, 0, TypeKey.NONE, idb);
 		map.setEntity(virus);
 		// ajout d'un obstacle
-		Obstacle obs = new Obstacle(0, 0, false, true, false, false, null, map, this);
+		Obstacle obs = new Obstacle(0, 0, false, true, false, false, null, map, this, idb);
 		m_obstacles.add(obs);
 		map.setEntity(obs);
 
-		obs = new Obstacle(1, 0, false, true, false, false, null, map, this);
+		obs = new Obstacle(1, 0, false, true, false, false, null, map, this, idb);
 		m_obstacles.add(obs);
 		map.setEntity(obs);
 		for (int i = 1; i <14 ; i++) {
-			obs = new Obstacle(0, i, false, true, false, false, null, map, this);
+			obs = new Obstacle(0, i, false, true, false, false, null, map, this, idb);
 			m_obstacles.add(obs);
 			map.setEntity(obs);
-			obs = new Obstacle(i, 0, false, true, false, false, null, map, this);
+			obs = new Obstacle(i, 0, false, true, false, false, null, map, this, idb);
 			m_obstacles.add(obs);
 			map.setEntity(obs);
 		}
 		// antivirus
 		aut = Transversal.antivirusAutomaton();
-		antivirus = new Player(8, 1, null, aut, Orientation.LEFT, 2, map, this, 3, 0, TypeKey.NONE);
+		antivirus = new Player(8, 1, null, aut, Orientation.LEFT, 2, map, this, 3, 0, TypeKey.NONE, idb);
 		map.setEntity(antivirus);
 
-		PowerUp PU = new PowerUp(4, 3, this);
+		PowerUp PU = new PowerUp(4, 3, this, idb);
 		m_powerup.add(PU);
 		map.setEntity(PU);
 

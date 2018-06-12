@@ -17,9 +17,10 @@ public abstract class Entity {
 	private BufferedImage[] m_sprites;
 	public Map global_map;
 	public Model m_model;
+	public ImageDataBase m_idb;
 
 	public Entity(int x, int y, boolean move, boolean pick, boolean kill, boolean leth, BufferedImage[] sprites,
-			Map map, Model model) {
+			Map map, Model model, ImageDataBase idb) {
 		this.m_coordinateX = x;
 		this.m_coordinateY = y;
 		this.m_moveable = move;
@@ -29,6 +30,7 @@ public abstract class Entity {
 		this.m_sprites = sprites;
 		this.global_map = map;
 		this.m_model = model;
+		this.m_idb = idb;
 
 	}
 

@@ -20,8 +20,8 @@ public class Laser extends Being {
 	private int lifespan;
 
 	public Laser(int x, int y, BufferedImage[] sprites, Automaton aut, Orientation orientation, Map map, Model model,
-			int life, long lastMove) {
-		super(x, y, true, true, true, true, Options.LASER_MS, sprites, aut, orientation, map, model, life, lastMove);
+			int life, long lastMove, ImageDataBase idb) {
+		super(x, y, true, true, true, true, Options.LASER_MS, sprites, aut, orientation, map, model, life, lastMove, idb);
 		erased_powerup = null;
 	}
 
@@ -106,9 +106,9 @@ public class Laser extends Being {
 			Transversal.evalPosition(p.x, p.y, p2, Direction.LEFT, this.getOrientation());
 
 			laser1 = new Laser(p1.x, p1.y, this.getSprites(), this.getAutomaton(), this.getOrientation(), global_map,
-					m_model, this.getLife(), this.getLastMove());
+					m_model, this.getLife(), this.getLastMove(),this.m_idb);
 			laser2 = new Laser(p2.x, p2.y, this.getSprites(), this.getAutomaton(), this.getOrientation(), global_map,
-					m_model, this.getLife(), this.getLastMove());
+					m_model, this.getLife(), this.getLastMove(),this.m_idb);
 
 		}
 
@@ -119,9 +119,9 @@ public class Laser extends Being {
 			Transversal.evalPosition(this.getX(), this.getY(), p2, Direction.LEFT, this.getOrientation());
 
 			laser1 = new Laser(p1.x, p1.y, this.getSprites(), this.getAutomaton(), this.getOrientation(), global_map,
-					m_model, this.getLife(), this.getLastMove());
+					m_model, this.getLife(), this.getLastMove(),this.m_idb);
 			laser2 = new Laser(p2.x, p2.y, this.getSprites(), this.getAutomaton(), this.getOrientation(), global_map,
-					m_model, this.getLife(), this.getLastMove());
+					m_model, this.getLife(), this.getLastMove(),this.m_idb);
 
 		}
 

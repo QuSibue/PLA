@@ -1,6 +1,5 @@
 package ricm3.game.entity;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
@@ -23,11 +22,12 @@ public class Player extends Character {
 	private long m_lastPower = -Options.powerCD;
 	private ArrayList<Automaton> m_autoMinions;
 	private int m_indiceAutoMinions;
+	
 
 	public Player(int x, int y, BufferedImage[] sprites, Automaton aut, Orientation orientation, int equipe, Map map,
-			Model model, int life, long lastMove, TypeKey key) {
+			Model model, int life, long lastMove, TypeKey key, ImageDataBase idb) {
 		super(sprites, x, y, true, false, true, false, Options.PLAYER_MS, aut, orientation, equipe, map, model, life,
-				lastMove);
+				lastMove, idb);
 		m_key = key;
 		m_energie = Options.initialEnergie;
 		m_autoMinions = new ArrayList<Automaton>();
@@ -42,7 +42,7 @@ public class Player extends Character {
 			Point p = new Point();
 			if (global_map.caseLibre(this.getX(), this.getY(), p)) {
 				Minion minion = new Minion(null, p.x, p.y,true,true,true,false, Options.LASER_MS, this.m_model.m_automates.get(m_indiceAutoMinions), Orientation.RIGHT, 1,
-						global_map, this.m_model, 1, 0);
+						global_map, this.m_model, 1, 0,this.m_idb);
 				m_model.m_minions.add(minion);
 				global_map.setEntity(minion);
 				m_energie -= 3;
@@ -79,12 +79,12 @@ public class Player extends Character {
 			Entity e = global_map.getEntity(p.x, p.y);
 			if (e == null) {
 				Laser laser = new Laser(p.x, p.y, null, Transversal.straightAutomaton(), this.getOrientation(),
-						global_map, m_model, 1, 0);
+						global_map, m_model, 1, 0,this.m_idb);
 				this.m_model.m_laser.add(laser);
 				global_map.setEntity(laser);
 			} else if (e instanceof PowerUp) {
 				Laser laser = new Laser(p.x, p.y, null, Transversal.straightAutomaton(), this.getOrientation(),
-						global_map, m_model, 1, 0);
+						global_map, m_model, 1, 0,this.m_idb);
 				laser.erased_powerup = (PowerUp) e;
 				this.m_model.m_laser.add(laser);
 				global_map.setEntity(laser);
@@ -139,22 +139,10 @@ public class Player extends Character {
 
 	public void paint(Graphics g) {
 
-		switch (this.getOrientation()) {
-		case UP:
-			this.setIndexBuffer(9);
-			break;
-		case DOWN:
-			this.setIndexBuffer(3);
-			break;
-		case RIGHT:
-			this.setIndexBuffer(0);
-			break;
-		case LEFT:
-			this.setIndexBuffer(6);
-			break;
-		}
-
-		g.drawImage(this.getSprites()[this.getIndexBuffer()], this.getX() * Options.TAILLE_CASE, this.getY() * Options.TAILLE_CASE,
+		BufferedImage[] animation = m_idb.getAntivirusIdle(getOrientation());
+		// cet indice va devoir bouger pour animer l'entité
+		int IndexFrame = 0;
+		g.drawImage(animation[IndexFrame], this.getX() * Options.TAILLE_CASE, this.getY() * Options.TAILLE_CASE,
 				Options.TAILLE_CASE, Options.TAILLE_CASE, null);
 
 	}

@@ -27,10 +27,10 @@ public abstract class Being extends Entity {
 	// Constructor
 	public Being(int x, int y, boolean moveable, boolean pickable, boolean killable, boolean lethal, int ms,
 			BufferedImage[] sprites, Automaton aut, Orientation orientation, Map map, Model model, int life,
-			long lastMove) {
+			long lastMove, ImageDataBase idb) {
 
 		// appel au constructeur de entity
-		super(x, y, moveable, pickable, killable, lethal, sprites, map, model);
+		super(x, y, moveable, pickable, killable, lethal, sprites, map, model, idb);
 
 		m_moveSpeed = ms;
 		m_automaton = aut; // alias
