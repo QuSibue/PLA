@@ -2,3 +2,7 @@ SimpleMove(Init){
   * (Init): True ? Move(F) :(Init)
 }
 
+SimpleHit(Init){
+  * (Init): True ? Move(F) :(Init)
+}
+

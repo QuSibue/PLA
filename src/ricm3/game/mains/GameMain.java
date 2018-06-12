@@ -10,10 +10,12 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -26,7 +28,9 @@ import ricm3.game.menu.Menu;
 import ricm3.game.mvc.Controller;
 import ricm3.game.mvc.Model;
 import ricm3.game.mvc.View;
-import ricm3.game.other.Options;;
+import ricm3.game.other.Options;
+import ricm3.game.parser.Ast;
+import ricm3.game.parser.AutomataParser;;
 
 public class GameMain {
 
@@ -34,13 +38,24 @@ public class GameMain {
 	public static Menu m_menu;
 	public static JFrame window1, window2, window3, window4, window5;
 	public static String pathPlayer, pathMinions, pathLaser;
+	public static Ast m_tree = null;
 
 	public static void main(String[] args) throws IOException {
 
 		pathPlayer = Options.pathPlayer;
 		// construct the game elements: model, controller, and view.
 		// TODO définir les path par défaut
-		m_menu = new Menu();
+		if(!Options.NEW_GAME) {
+			try {
+				m_tree = AutomataParser.parserAutomates(GameMain.pathPlayer);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		
+		ArrayList<String> names = m_tree.getNames();
+		m_menu = new Menu(names);
 		afficherMenu();
 
 		return;
@@ -65,285 +80,57 @@ public class GameMain {
 		if (window3 != null) {
 			window3.setVisible(false);
 		}
+		
+		if (window4 != null) {
+			window4.dispose();
+		}
 
 	}
 
 	public static void afficherRegles() throws IOException {
 
-		window3 = new JFrame("Short Circuit");
-		window3.setLayout(new BorderLayout());
-
-		// Indique de sortir du programme lorsque la fenêtre est fermée par
-		// l'utilisateur
-		window3.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
-
-		// Définit la taille de la fenêtre en pixels
-		window3.setSize(450, 250);
-
-		window3.setResizable(false);
-		window3.setLocationRelativeTo(null);
-		window3.setVisible(true);
-
-		// Composant de la frame
-
-		JPanel panelNorth = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		window3.add(panelNorth, BorderLayout.NORTH);
-
-		JPanel panelCenter = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		window3.add(panelCenter, BorderLayout.CENTER);
 		
-		JPanel panelCenterLeft = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		panelCenter.add(panelCenterLeft, BorderLayout.CENTER);
-
-		JLabel message = new JLabel("<html>Virus:<br/>-Mouvements: flèches<br/>-Hit:H<br/>-Pop:P / Wizz : W<br/>-Pick : O / Get : B<br/><br/>Antivirus:<br/>-Mouvements:ZQSD<br/>-Hit:F<br/>-Pop:F / Wizz:T<br/>-Pick : O / Get : B<br/></html>");
-		panelCenter.add(message);
-
-		JPanel panelSouth = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		window3.add(panelSouth, BorderLayout.SOUTH);
-
-		BufferedImage title = ImageIO.read(new File("images/regles.png"));
-		JLabel picLabel = new JLabel(new ImageIcon(title));
-		panelNorth.add(picLabel);
-
-		JButton retour = new JButton("Retour");
-		retour.setFocusPainted(false);
-		panelSouth.add(retour);
-		window1.dispose();
-		
-		retour.addMouseListener(new MouseListener() {
-			
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				// TODO Auto-generated method stub
-					afficherMenu();
-				
-			}
-		});
-
-	}
-
-	public static void afficherOptions() throws IOException {
-
-		if (window3 != null) {
-			window3.setVisible(true);
-
-		} else {
-
-			window3 = new JFrame("Short Circuit");
-			window3.setLayout(new BorderLayout());
+		if(window4 == null) {
+			window4 = new JFrame("Short Circuit");
+			window4.setLayout(new BorderLayout());
 
 			// Indique de sortir du programme lorsque la fenêtre est fermée par
 			// l'utilisateur
-			window3.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
+			window4.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
 
 			// Définit la taille de la fenêtre en pixels
-			window3.setSize(450, 250);
+			window4.setSize(450, 250);
 
-			window3.setResizable(false);
-			window3.setLocationRelativeTo(null);
-			window3.setVisible(true);
+			window4.setResizable(false);
+			window4.setLocationRelativeTo(null);
+			window4.setVisible(true);
 
 			// Composant de la frame
 
 			JPanel panelNorth = new JPanel(new FlowLayout(FlowLayout.CENTER));
-			window3.add(panelNorth, BorderLayout.NORTH);
+			window4.add(panelNorth, BorderLayout.NORTH);
 
 			JPanel panelCenter = new JPanel(new FlowLayout(FlowLayout.CENTER));
-			window3.add(panelCenter, BorderLayout.CENTER);
+			window4.add(panelCenter, BorderLayout.CENTER);
 
-			JPanel boutonsCentre = new JPanel(new GridLayout(3, 2));
-			panelCenter.add(boutonsCentre);
+			JPanel panelCenterLeft = new JPanel(new FlowLayout(FlowLayout.LEFT));
+			panelCenter.add(panelCenterLeft, BorderLayout.CENTER);
+
+			JLabel message = new JLabel(
+					"<html>Virus:<br/>-Mouvements: flèches<br/>-Hit:H<br/>-Pop:P / Wizz : W<br/>-Pick : O / Get : B<br/><br/>Antivirus:<br/>-Mouvements:ZQSD<br/>-Hit:F<br/>-Pop:F / Wizz:T<br/>-Pick : O / Get : B<br/></html>");
+			panelCenter.add(message);
 
 			JPanel panelSouth = new JPanel(new FlowLayout(FlowLayout.CENTER));
-			window3.add(panelSouth, BorderLayout.SOUTH);
+			window4.add(panelSouth, BorderLayout.SOUTH);
 
-			BufferedImage title = ImageIO.read(new File("images/options.png"));
+			BufferedImage title = ImageIO.read(new File("images/regles.png"));
 			JLabel picLabel = new JLabel(new ImageIcon(title));
 			panelNorth.add(picLabel);
-
-			JButton autoPlayer = new JButton("Automates Joueurs");
-			autoPlayer.setFocusPainted(false);
-			boutonsCentre.add(autoPlayer);
-
-			JLabel autoPlayerText = new JLabel("Aucun fichier choisi");
-			boutonsCentre.add(autoPlayerText);
-
-			JButton autoMinions = new JButton("Automates Sbires");
-			autoMinions.setFocusPainted(false);
-			boutonsCentre.add(autoMinions);
-
-			JLabel autoMinionsText = new JLabel("Aucun fichier choisi");
-			boutonsCentre.add(autoMinionsText);
-
-			JButton autoLaser = new JButton("Automates Lasers");
-			autoLaser.setFocusPainted(false);
-			boutonsCentre.add(autoLaser);
-
-			JLabel autoLasersText = new JLabel("Aucun fichier choisi");
-			boutonsCentre.add(autoLasersText);
 
 			JButton retour = new JButton("Retour");
 			retour.setFocusPainted(false);
 			panelSouth.add(retour);
-
-			autoPlayer.addMouseListener(new MouseListener() {
-
-				@Override
-				public void mouseReleased(MouseEvent e) {
-					// TODO Auto-generated method stub
-
-				}
-
-				@Override
-				public void mousePressed(MouseEvent e) {
-					// TODO Auto-generated method stub
-					UIManager.put("FileChooser.readOnly", Boolean.TRUE);
-
-					JFileChooser choix = new JFileChooser(System.getProperty("user.dir"));
-					choix.setAcceptAllFileFilterUsed(false);
-					FileNameExtensionFilter filter = new FileNameExtensionFilter("Fichiers txt", "txt");
-					choix.setFileFilter(filter);
-					choix.addChoosableFileFilter(filter);
-
-					int returnVal = choix.showOpenDialog(window3);
-					if (choix.getSelectedFile() != null) {
-						pathPlayer = choix.getSelectedFile().getPath();
-						autoPlayerText.setText(choix.getSelectedFile().getName());
-					}
-				}
-
-				@Override
-				public void mouseExited(MouseEvent e) {
-					// TODO Auto-generated method stub
-
-				}
-
-				@Override
-				public void mouseEntered(MouseEvent e) {
-					// TODO Auto-generated method stub
-
-				}
-
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					// TODO Auto-generated method stub
-
-				}
-			});
-
-			autoMinions.addMouseListener(new MouseListener() {
-
-				@Override
-				public void mouseReleased(MouseEvent e) {
-					// TODO Auto-generated method stub
-
-				}
-
-				@Override
-				public void mousePressed(MouseEvent e) {
-					// TODO Auto-generated method stub
-
-				}
-
-				@Override
-				public void mouseExited(MouseEvent e) {
-					// TODO Auto-generated method stub
-
-				}
-
-				@Override
-				public void mouseEntered(MouseEvent e) {
-					// TODO Auto-generated method stub
-
-				}
-
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					// TODO Auto-generated method stub
-					UIManager.put("FileChooser.readOnly", Boolean.TRUE);
-
-					JFileChooser choix = new JFileChooser(System.getProperty("user.dir"));
-					choix.setAcceptAllFileFilterUsed(false);
-					FileNameExtensionFilter filter = new FileNameExtensionFilter("Fichiers txt", "txt");
-					choix.setFileFilter(filter);
-					choix.addChoosableFileFilter(filter);
-
-					int returnVal = choix.showOpenDialog(window3);
-					if (choix.getSelectedFile() != null) {
-						pathMinions = choix.getSelectedFile().getPath();
-						autoMinionsText.setText(choix.getSelectedFile().getName());
-					}
-				}
-			});
-			autoLaser.addMouseListener(new MouseListener() {
-
-				@Override
-				public void mouseReleased(MouseEvent e) {
-					// TODO Auto-generated method stub
-
-				}
-
-				@Override
-				public void mousePressed(MouseEvent e) {
-					// TODO Auto-generated method stub
-
-				}
-
-				@Override
-				public void mouseExited(MouseEvent e) {
-					// TODO Auto-generated method stub
-
-				}
-
-				@Override
-				public void mouseEntered(MouseEvent e) {
-					// TODO Auto-generated method stub
-
-				}
-
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					// TODO Auto-generated method stub
-					UIManager.put("FileChooser.readOnly", Boolean.TRUE);
-
-					JFileChooser choix = new JFileChooser(System.getProperty("user.dir"));
-					choix.setAcceptAllFileFilterUsed(false);
-					FileNameExtensionFilter filter = new FileNameExtensionFilter("Fichiers txt", "txt");
-					choix.setFileFilter(filter);
-					choix.addChoosableFileFilter(filter);
-
-					int returnVal = choix.showOpenDialog(window3);
-					if (choix.getSelectedFile() != null) {
-						pathLaser = choix.getSelectedFile().getPath();
-						autoLasersText.setText(choix.getSelectedFile().getName());
-					}
-				}
-			});
-
+		
 			retour.addMouseListener(new MouseListener() {
 
 				@Override
@@ -361,18 +148,176 @@ public class GameMain {
 				@Override
 				public void mouseExited(MouseEvent e) {
 					// TODO Auto-generated method stub
-					((JButton) e.getSource()).setForeground(Color.BLACK);
+
 				}
 
 				@Override
 				public void mouseEntered(MouseEvent e) {
 					// TODO Auto-generated method stub
-					((JButton) e.getSource()).setForeground(Color.BLUE);
+
 				}
 
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					// TODO Auto-generated method stub
+					afficherMenu();
+
+				}
+			});
+		}
+		else {
+			window4.setVisible(true);
+		}
+		
+		window1.dispose();
+		
+
+	}
+
+	public static void afficherOptions(ArrayList<String> names) throws IOException {
+
+		if (window3 != null) {
+			window3.setVisible(true);
+
+		} else {
+
+			window3 = new JFrame("Short Circuit");
+			window3.setLayout(new BorderLayout());
+
+			// Indique de sortir du programme lorsque la fenêtre est fermée par
+			// l'utilisateur
+			window3.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
+
+			// Définit la taille de la fenêtre en pixels
+			window3.setSize(650, 400);
+
+			window3.setResizable(false);
+			window3.setLocationRelativeTo(null);
+			window3.setVisible(true);
+
+			// Composant de la frame
+			String[] automaton = new String[names.size()];
+			for(int i=0;i<names.size();i++) {
+				automaton[i] = names.get(i);
+			}
+			
+			ArrayList<JComboBox>components = new ArrayList<JComboBox>();
+
+			JPanel panelNorth = new JPanel(new FlowLayout(FlowLayout.CENTER));
+			window3.add(panelNorth, BorderLayout.NORTH);
+
+			JPanel panelCenter = new JPanel(new FlowLayout(FlowLayout.CENTER));
+			window3.add(panelCenter, BorderLayout.CENTER);
+
+			JPanel boutonsCentre = new JPanel(new GridLayout(9, 2));
+			panelCenter.add(boutonsCentre);
+
+			JPanel panelSouth = new JPanel(new FlowLayout(FlowLayout.CENTER));
+			window3.add(panelSouth, BorderLayout.SOUTH);
+
+			BufferedImage title = ImageIO.read(new File("images/options.png"));
+			JLabel picLabel = new JLabel(new ImageIcon(title));
+			panelNorth.add(picLabel);
+
+			JLabel autoPlayerText = new JLabel("Virus");
+			boutonsCentre.add(autoPlayerText);
+
+			JComboBox virus = new JComboBox(automaton);
+			boutonsCentre.add(virus);
+			components.add(virus);
+
+			JLabel autoAntiText = new JLabel("Antivirus");
+			boutonsCentre.add(autoAntiText);
+
+			JComboBox antivirus = new JComboBox(automaton);
+			boutonsCentre.add(antivirus);
+			components.add(antivirus);
+
+			JLabel autoLasersText = new JLabel("Lasers");
+			boutonsCentre.add(autoLasersText);
+
+			JComboBox laser = new JComboBox(automaton);
+			boutonsCentre.add(laser);
+			components.add(laser);
+
+			JLabel autoTankText = new JLabel("Tank");
+			boutonsCentre.add(autoTankText);
+
+			JComboBox tank = new JComboBox(automaton);
+			boutonsCentre.add(tank);
+			components.add(tank);
+
+			JLabel autoRecolteurText = new JLabel("Récolteur");
+			boutonsCentre.add(autoRecolteurText);
+
+			JComboBox recolteur = new JComboBox(automaton);
+			boutonsCentre.add(recolteur);
+			components.add(recolteur);
+
+			JLabel autoBloqueurText = new JLabel("Bloqueur");
+			boutonsCentre.add(autoBloqueurText);
+
+			JComboBox bloqueur = new JComboBox(automaton);
+			boutonsCentre.add(bloqueur);
+			components.add(bloqueur);
+
+			JLabel autoKamikazeText = new JLabel("Kamikaze");
+			boutonsCentre.add(autoKamikazeText);
+
+			JComboBox kamikaze = new JComboBox(automaton);
+			boutonsCentre.add(kamikaze);
+			components.add(kamikaze);
+
+			JLabel autoTourelleText = new JLabel("Tourelle");
+			boutonsCentre.add(autoTourelleText);
+
+			JComboBox tourelle = new JComboBox(automaton);
+			boutonsCentre.add(tourelle);
+			components.add(tourelle);
+
+			JLabel autoTeleporteurText = new JLabel("Téléporteur");
+			boutonsCentre.add(autoTeleporteurText);
+
+			JComboBox teleporteur = new JComboBox(automaton);
+			boutonsCentre.add(teleporteur);
+			components.add(teleporteur);
+
+			JButton retour = new JButton("Retour");
+			retour.setFocusPainted(false);
+			panelSouth.add(retour);
+			
+			retour.addMouseListener(new MouseListener() {
+				
+				@Override
+				public void mouseReleased(MouseEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void mousePressed(MouseEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void mouseExited(MouseEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void mouseEntered(MouseEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					// TODO Auto-generated method stub
+					for(int i=0;i<Options.NB_ENTITY;i++) {
+						m_menu.getIndices().add(components.get(i).getSelectedIndex());
+					}
 					afficherMenu();
 				}
 			});
@@ -382,9 +327,9 @@ public class GameMain {
 
 	}
 
-	public static void afficherPartie() {
+	public static void afficherPartie(ArrayList<Integer> indices) {
 
-		Model model = new Model();
+		Model model = new Model(indices);
 		View view = new View(model);
 		Controller controller = new Controller(model);
 
@@ -490,7 +435,7 @@ public class GameMain {
 				// TODO Auto-generated method stub
 				Options.NEW_GAME = true;
 				model.getGameUI().getFrame().dispose();
-				afficherPartie();
+				afficherPartie(m_menu.getIndices());
 				window5.dispose();
 			}
 		});

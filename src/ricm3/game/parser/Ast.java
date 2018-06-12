@@ -55,6 +55,19 @@ public class Ast {
 	public Object make() {
 		throw new RuntimeException("NYI");
 	}
+	
+	public ArrayList<String> getNames(){
+		ArrayList<String> names = new ArrayList<String>();
+		AI_Definitions tree = (AI_Definitions)this;
+		Iterator<Automaton> iter = tree.automata.iterator();
+		
+		while(iter.hasNext()) {
+			Automaton a = iter.next();
+			names.add(a.name.value);
+		}
+		
+		return names;
+}
 
 	public static class Terminal extends Ast {
 		String value;

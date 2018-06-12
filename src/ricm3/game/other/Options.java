@@ -19,6 +19,7 @@ public abstract class Options {
 	public static int NB_TILE_WIDTH_MAP = 100; // Largeur de la MAP
 	public static int NB_TILE_HEIGHT_MAP = 100;// Longueur de la MAP
 	public static int NB_MINIONS_TYPE = 6;
+	public static int NB_ENTITY = 9;
 	
 	
 	// Aide debug

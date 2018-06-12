@@ -33,10 +33,14 @@ import ricm3.game.mains.GameMain;
 public class Menu extends javax.swing.JPanel {
   
     private JButton jouer,regles,options,quitter;
+    private ArrayList<String> m_names;
+    private ArrayList<Integer> m_indices;
 
-    public Menu() throws IOException { 
+    public Menu(ArrayList<String> names) throws IOException { 
         super();
         
+        m_names = names;
+        m_indices = new ArrayList<Integer>();
         initUIComponents(); 
        
     }
@@ -96,7 +100,7 @@ public class Menu extends javax.swing.JPanel {
             
             @Override
             public void mouseClicked(MouseEvent e) {
-            	GameMain.afficherPartie();
+            	GameMain.afficherPartie(m_indices);
             }
 
             @Override
@@ -166,7 +170,7 @@ public class Menu extends javax.swing.JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 try {
-					GameMain.afficherOptions();
+					GameMain.afficherOptions(m_names);
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -222,5 +226,8 @@ public class Menu extends javax.swing.JPanel {
        
        
          
+    }
+    public ArrayList<Integer> getIndices(){
+    	return m_indices;
     }
 }

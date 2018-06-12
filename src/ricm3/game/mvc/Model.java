@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import javax.swing.JComboBox;
+
 import ricm3.game.ath.ATH;
 import ricm3.game.automaton.Automaton;
 import ricm3.game.automaton.Orientation;
@@ -35,15 +37,21 @@ public class Model extends GameModel {
 	public boolean afficherFin;
 	public Ast m_tree;
 
-	public Model() {
+	public Model(ArrayList<Integer> indices) {
 		init();
 		if(!Options.NEW_GAME) {
-			initTree();
+			//initTree();
+			m_tree = GameMain.m_tree;
+			for(int i=0;i<indices.size();i++) {
+				Automaton temp = ((ArrayList<Automaton>) m_tree.make()).get(indices.get(i));
+				m_automates.add(temp);
+			}
+			
 		}
 		
 	}
 
-	public void initTree() {
+	/*public void initTree() {
 		try {
 			m_tree = AutomataParser.parserAutomates(GameMain.pathPlayer);
 		} catch (Exception e) {
@@ -51,7 +59,7 @@ public class Model extends GameModel {
 		}
 		@SuppressWarnings("unchecked")
 		Automaton aut2 = ((ArrayList<Automaton>) m_tree.make()).get(0);
-	}
+	}*/
 
 	public void init() {
 		m_minions = new LinkedList<Minion>();
