@@ -91,10 +91,12 @@ public class GameMain {
 
 		JPanel panelCenter = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		window3.add(panelCenter, BorderLayout.CENTER);
+		
+		JPanel panelCenterLeft = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		panelCenter.add(panelCenterLeft, BorderLayout.CENTER);
 
-		BufferedImage content = ImageIO.read(new File("images/regles2.png"));
-		JLabel picLabelRegle = new JLabel(new ImageIcon(content));
-		panelCenter.add(picLabelRegle);
+		JLabel message = new JLabel("<html>Virus:<br/>-Mouvements: flèches<br/>-Hit:H<br/>-Pop:P / Wizz : W<br/>-Pick : O / Get : B<br/><br/>Antivirus:<br/>-Mouvements:ZQSD<br/>-Hit:F<br/>-Pop:F / Wizz:T<br/>-Pick : O / Get : B<br/></html>");
+		panelCenter.add(message);
 
 		JPanel panelSouth = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		window3.add(panelSouth, BorderLayout.SOUTH);
@@ -107,6 +109,40 @@ public class GameMain {
 		retour.setFocusPainted(false);
 		panelSouth.add(retour);
 		window1.dispose();
+		
+		retour.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+					afficherMenu();
+				
+			}
+		});
 
 	}
 
@@ -369,7 +405,7 @@ public class GameMain {
 			message = "Le Virus à éliminé l'Antivurus et remporte la victoire !";
 			break;
 		case 3:
-			message = "L'antivirus à défendu les droits et remporte la victoire";
+			message = "L'antivirus à défendu le système et remporte la victoire";
 		default:
 			break;
 		}
@@ -405,7 +441,7 @@ public class GameMain {
 		JPanel panelSouth = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		window5.add(panelSouth, BorderLayout.SOUTH);
 
-		/*BufferedImage title;
+		BufferedImage title;
 		try {
 			title = ImageIO.read(new File("images/gover.png"));
 			JLabel picLabel = new JLabel(new ImageIcon(title));
@@ -413,7 +449,7 @@ public class GameMain {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
+		}
 
 		JButton rejouer = new JButton("Rejouer");
 		rejouer.setFocusPainted(false);
