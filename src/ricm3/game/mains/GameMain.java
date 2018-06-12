@@ -388,7 +388,7 @@ public class GameMain {
 		View view = new View(model);
 		Controller controller = new Controller(model);
 
-		Dimension d = new Dimension(1024, 768);
+		Dimension d = new Dimension(1920, 1080);
 		Options.game = new GameUI(model, view, d, controller, model.m_ath);
 		window1.dispose();
 

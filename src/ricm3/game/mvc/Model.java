@@ -63,7 +63,7 @@ public class Model extends GameModel {
 
 		// sprites vont etres donné a l'instantiation normalement, a voir
 		// ON FAIT LA MAP
-		map = new Map(1100, 1200);
+		map = new Map(15, 29);
 		finPartie = false;
 		afficherFin = false;
 		
@@ -83,7 +83,7 @@ public class Model extends GameModel {
 		obs = new Obstacle(1, 0, false, true, false, false, null, map, this);
 		m_obstacles.add(obs);
 		map.setEntity(obs);
-		for (int i = 1; i < 100; i++) {
+		for (int i = 1; i <14 ; i++) {
 			obs = new Obstacle(0, i, false, true, false, false, null, map, this);
 			m_obstacles.add(obs);
 			map.setEntity(obs);
