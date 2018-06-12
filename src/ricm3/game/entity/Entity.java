@@ -18,7 +18,8 @@ public abstract class Entity {
 	public Map global_map;
 	public Model m_model;
 
-	public Entity(int x, int y, boolean move, boolean pick, boolean kill, boolean leth, BufferedImage[] sprites,Map map,Model model) {
+	public Entity(int x, int y, boolean move, boolean pick, boolean kill, boolean leth, BufferedImage[] sprites,
+			Map map, Model model) {
 		this.m_coordinateX = x;
 		this.m_coordinateY = y;
 		this.m_moveable = move;
@@ -28,6 +29,34 @@ public abstract class Entity {
 		this.m_sprites = sprites;
 		this.global_map = map;
 		this.m_model = model;
+
+	}
+
+	public Entity closestEntity(Entity e1, Entity e2) {
+		int be1 = 0, be2 = 0;
+		if (e1 == null) {
+			if (e2 == null) {
+				throw new RuntimeException("Les deux entités sont null");
+			}
+			return e2;
+		} else if (e2 == null) {
+			return e1;
+		}
+
+		be1 = (e1.getX() - this.getX()) * (e1.getY() - this.getY())
+				+ (e1.getY() - this.getY()) * (e1.getY() - this.getY());
+		be2 = (e2.getX() - this.getX()) * (e2.getY() - this.getY())
+				+ (e2.getY() - this.getY()) * (e2.getY() - this.getY());
+
+		if (be1 > be2) {
+			return e2;
+		} else if (be2 > be1) {
+			return e1;
+		}
+		// si elle sont egale on renvoit la première plus proche
+		else {
+			return e1;
+		}
 
 	}
 
@@ -43,12 +72,6 @@ public abstract class Entity {
 
 	public boolean getMoveable() {
 		return m_moveable;
-	}
-	
-	public abstract void paint(Graphics g);
-	
-	public void pretty_print() {
-		System.out.print("Entity");
 	}
 
 	public boolean getPickable() {
@@ -97,9 +120,15 @@ public abstract class Entity {
 		m_lethal = lethal;
 		return true;
 	}
+
 	public boolean setSprites(BufferedImage[] sprites) {
 		m_sprites = sprites;
 		return true;
 	}
-}
 
+	public abstract void paint(Graphics g);
+
+	public void pretty_print() {
+		System.out.print("Entity");
+	}
+}

@@ -30,7 +30,7 @@ public class Controller extends GameController {
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
@@ -58,13 +58,13 @@ public class Controller extends GameController {
 			m_model.virus.setKey(TypeKey.RIGHT);
 			System.out.println("RIGHT");
 			break;
-		case KeyEvent.VK_H:
-			m_model.virus.setKey(TypeKey.HIT);
-			System.out.println("Hit");
+		case KeyEvent.VK_O:
+			m_model.virus.setKey(TypeKey.PICK);
+			System.out.println("Pick");
 			break;
-		case KeyEvent.VK_P:
-			m_model.virus.setKey(TypeKey.POP);
-			System.out.println("Pop");
+		case KeyEvent.VK_I:
+			m_model.virus.setKey(TypeKey.GET);
+			System.out.println("Get");
 			break;
 		case KeyEvent.VK_Z:
 			m_model.antivirus.setKey(TypeKey.UP);
@@ -82,6 +82,14 @@ public class Controller extends GameController {
 			m_model.antivirus.setKey(TypeKey.RIGHT);
 			System.out.println("RIGHT");
 			break;
+		case KeyEvent.VK_H:
+			m_model.virus.setKey(TypeKey.HIT);
+			System.out.println("Hit");
+			break;
+		case KeyEvent.VK_P:
+			m_model.virus.setKey(TypeKey.POP);
+			System.out.println("Pop");
+			break;
 		case KeyEvent.VK_F:
 			m_model.antivirus.setKey(TypeKey.HIT);
 			System.out.println("Hit");
@@ -90,7 +98,10 @@ public class Controller extends GameController {
 			m_model.antivirus.setKey(TypeKey.POP);
 			System.out.println("Pop");
 			break;
-
+		case KeyEvent.VK_W:
+			m_model.virus.setKey(TypeKey.WIZZ);
+			System.out.println("Wizz");
+			break;
 		default:
 			m_model.antivirus.setKey(TypeKey.NONE);
 			m_model.virus.setKey(TypeKey.NONE);
@@ -103,7 +114,7 @@ public class Controller extends GameController {
 		// TODO Auto-generated method stub
 		int Code = e.getKeyCode();
 		if (Code == KeyEvent.VK_UP || Code == KeyEvent.VK_DOWN || Code == KeyEvent.VK_LEFT || Code == KeyEvent.VK_RIGHT
-				|| Code == KeyEvent.VK_H || Code == KeyEvent.VK_P) {
+				|| Code == KeyEvent.VK_H || Code == KeyEvent.VK_P || Code == KeyEvent.VK_W) {
 			m_model.virus.setKey(TypeKey.NONE);
 		}
 		if (Code == KeyEvent.VK_Z || Code == KeyEvent.VK_Q || Code == KeyEvent.VK_S || Code == KeyEvent.VK_D

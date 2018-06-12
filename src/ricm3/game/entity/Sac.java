@@ -27,7 +27,7 @@ public class Sac {
 		return false;
 	}
 
-	public boolean addIdem(Entity e) {
+	public boolean addItem(Entity e) {
 		if (m_index >= m_max) {
 			return false;
 		} else {
@@ -36,6 +36,13 @@ public class Sac {
 			return true;
 		}
 
+	}
+
+	public Entity getItem(int i) {
+		if (i >= 0 && i < m_max)
+			return m_sac[i];
+		else
+			return null;
 	}
 
 	public Entity removeItem(int i) {
@@ -53,9 +60,10 @@ public class Sac {
 			return null;
 		} else {
 			m_index = m_index - 1;
-			return m_sac[m_index];
+			Entity e = m_sac[m_index];
+			m_sac[m_index] = null;
+			return e;
 		}
-
 	}
 
 }
