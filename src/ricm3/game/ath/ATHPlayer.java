@@ -125,7 +125,7 @@ public class ATHPlayer {
 		default:
 			throw new RangeException(RangeException.BAD_BOUNDARYPOINTS_ERR, "Error vie");
 		}
-
+	
 		if (m_player.getSac().getItem(0) == null)
 			m_labelx.setVisible(false);
 		else

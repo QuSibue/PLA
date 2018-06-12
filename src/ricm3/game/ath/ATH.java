@@ -24,6 +24,7 @@ public class ATH extends GameATH {
 		m_p1 = new ATHPlayer(m_model.virus);
 		m_p2 = new ATHPlayer(m_model.antivirus);
 		m_timer = new TimerATH();
+		
 	}
 
 	public void ATHVisible() {
@@ -49,5 +50,9 @@ public class ATH extends GameATH {
 		m_p1.step(now);
 		m_p2.step(now);
 		m_timer.step(now);
+	}
+	
+	public int getTimer() {
+		return m_timer.getTime();
 	}
 }

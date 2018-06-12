@@ -5,7 +5,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 import ricm3.game.ath.ATH;
-import ricm3.game.ath.TimerATH;
 import ricm3.game.automaton.Automaton;
 import ricm3.game.automaton.Orientation;
 import ricm3.game.entity.Laser;
@@ -15,6 +14,7 @@ import ricm3.game.entity.Player;
 import ricm3.game.entity.PowerUp;
 import ricm3.game.framework.GameModel;
 import ricm3.game.mains.GameMain;
+import ricm3.game.other.Options;
 import ricm3.game.other.Transversal;
 import ricm3.game.other.TypeKey;
 import ricm3.game.parser.Ast;
@@ -28,35 +28,47 @@ public class Model extends GameModel {
 	public LinkedList<PowerUp> m_powerup;
 	public Player virus;
 	public Player antivirus;
-	public ArrayList<Automaton>m_automates;
+	public ArrayList<Automaton> m_automates;
 	public Map map;
 	public ATH m_ath;
+	public boolean finPartie;
+	public boolean afficherFin;
+	public Ast m_tree;
 
 	public Model() {
+		init();
+		if(!Options.NEW_GAME) {
+			initTree();
+		}
+		
+	}
+
+	public void initTree() {
+		try {
+			m_tree = AutomataParser.parserAutomates(GameMain.pathPlayer);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		@SuppressWarnings("unchecked")
+		Automaton aut2 = ((ArrayList<Automaton>) m_tree.make()).get(0);
+	}
+
+	public void init() {
 		m_minions = new LinkedList<Minion>();
 		m_obstacles = new LinkedList<Obstacle>();
 		m_laser = new LinkedList<Laser>();
 		m_powerup = new LinkedList<PowerUp>();
 		m_automates = new ArrayList<Automaton>();
 		loadAutomaton();
-		
+
 		// sprites vont etres donné a l'instantiation normalement, a voir
 		// ON FAIT LA MAP
 		map = new Map(1100, 1200);
+		finPartie = false;
+		afficherFin = false;
 		
-
 		// ON FAIT UN AUTOMATE
-		
-		Ast tree=null;
-		try {
-			tree = AutomataParser.parserAutomates(GameMain.pathPlayer);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		@SuppressWarnings("unchecked")
-		Automaton aut2 = ((ArrayList<Automaton>)tree.make()).get(0);
-		
-		
+
 		Automaton aut = Transversal.virusAutomaton();
 		// FIN DE L'AUTOMATE
 
@@ -87,64 +99,84 @@ public class Model extends GameModel {
 		PowerUp PU = new PowerUp(4, 3, this);
 		m_powerup.add(PU);
 		map.setEntity(PU);
-		
-		
 
 		m_ath = new ATH(this);
+		
 	}
 
 	@Override
 	public void step(long now) {
-		
-		LinkedList<Minion>minionsClone = (LinkedList<Minion>) m_minions.clone();
-		Iterator<Minion> iterM = minionsClone.iterator();
-		
-		LinkedList<Obstacle>obstaclesClone = (LinkedList<Obstacle>) m_obstacles.clone();
-		Iterator<Obstacle> iterO = obstaclesClone.iterator();
-		
-		LinkedList<Laser>laserClone = (LinkedList<Laser>) m_laser.clone();
-		Iterator<Laser> iterL = laserClone.iterator();
 
-		// map.printMap();
-		Minion m;
-		while (iterM.hasNext()) {
-			m = iterM.next();
-			m.step(now);
+		if (!finPartie) {
+
+			LinkedList<Minion> minionsClone = (LinkedList<Minion>) m_minions.clone();
+			Iterator<Minion> iterM = minionsClone.iterator();
+
+			LinkedList<Obstacle> obstaclesClone = (LinkedList<Obstacle>) m_obstacles.clone();
+			Iterator<Obstacle> iterO = obstaclesClone.iterator();
+
+			LinkedList<Laser> laserClone = (LinkedList<Laser>) m_laser.clone();
+			Iterator<Laser> iterL = laserClone.iterator();
+
+			// map.printMap();
+			Minion m;
+			while (iterM.hasNext()) {
+				m = iterM.next();
+				m.step(now);
+			}
+
+			Obstacle o;
+			while (iterO.hasNext()) {
+				o = iterO.next();
+				o.step(now);
+			}
+
+			Laser l;
+			while (iterL.hasNext()) {
+				l = iterL.next();
+				l.step(now);
+			}
+			if (virus.getLife() > 0) {
+				virus.step(now);
+			}
+			if (antivirus.getLife() > 0) {
+				antivirus.step(now);
+			}
+			m_ath.step(now);
+			// Affichage du modele
+
+			finPartie = virus.getLife() <= 0 || antivirus.getLife() <= 0 || m_ath.getTimer() <= 0;
+			afficherFin = finPartie;
+
 		}
 
-		Obstacle o;
-		while (iterO.hasNext()) {
-			o = iterO.next();
-			o.step(now);
+		else if (virus.getLife() <= 0 && afficherFin) {
+			GameMain.afficherFinPartie(1, this);
+			afficherFin = false;
+
+		} else if (antivirus.getLife() <= 0 && afficherFin) {
+			GameMain.afficherFinPartie(2, this);
+			afficherFin = false;
+		}
+		
+		else if (m_ath.getTimer() <= 0 && afficherFin) {
+			GameMain.afficherFinPartie(3, this);
+			afficherFin = false;
 		}
 
-		Laser l;
-		while (iterL.hasNext()) {
-			l = iterL.next();
-			l.step(now);
-		}
-		if (virus.getLife() > 0) {
-			virus.step(now);
-		}
-		if (antivirus.getLife() > 0) {
-			antivirus.step(now);
-		}
-		m_ath.step(now);
-		// Affichage du modele
 	}
 
 	@Override
 	public void shutdown() {
 	}
 
-	
 	public void loadAutomaton() {
-				m_automates.add(Transversal.straightAutomaton());
-				m_automates.add(Transversal.shootAutomaton());
-				m_automates.add(Transversal.idleAutomaton());
-				
+		m_automates.add(Transversal.straightAutomaton());
+		m_automates.add(Transversal.shootAutomaton());
+		m_automates.add(Transversal.idleAutomaton());
+
 	}
-	
+
 	// private void loadSprites() {
 
 	// }

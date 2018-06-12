@@ -32,7 +32,7 @@ public class GameMain {
 
 	public static boolean gameOn;
 	public static Menu m_menu;
-	public static JFrame window1, window2, window3, window4;
+	public static JFrame window1, window2, window3, window4, window5;
 	public static String pathPlayer, pathMinions, pathLaser;
 
 	public static void main(String[] args) throws IOException {
@@ -353,11 +353,143 @@ public class GameMain {
 		Controller controller = new Controller(model);
 
 		Dimension d = new Dimension(1024, 768);
-		new GameUI(model, view, d, controller, model.m_ath);
+		Options.game = new GameUI(model, view, d, controller, model.m_ath);
 		window1.dispose();
 
-
-		
 		return;
+	}
+
+	public static void afficherFinPartie(int fin, Model model) {
+		String message = "";
+		switch (fin) {
+		case 1:
+			message = "L'Antivirus à éliminé le virus et remporte la victoire !";
+			break;
+		case 2:
+			message = "Le Virus à éliminé l'Antivurus et remporte la victoire !";
+			break;
+		case 3:
+			message = "L'antivirus à défendu les droits et remporte la victoire";
+		default:
+			break;
+		}
+
+		window5 = new JFrame("Short Circuit");
+		window5.setLayout(new BorderLayout());
+
+		// Indique de sortir du programme lorsque la fenêtre est fermée par
+		// l'utilisateur
+		window5.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
+
+		// Définit la taille de la fenêtre en pixels
+		window5.setSize(450, 175);
+
+		window5.setResizable(false);
+		window5.setLocationRelativeTo(null);
+		window5.setVisible(true);
+
+		// Composant de la frame
+
+		JPanel panelNorth = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		window5.add(panelNorth, BorderLayout.NORTH);
+
+		JPanel panelCenter = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		window5.add(panelCenter, BorderLayout.CENTER);
+
+		JLabel finale = new JLabel(message);
+		panelCenter.add(finale);
+
+		JLabel question = new JLabel("Voulez-vous rejouer une partie ?");
+		panelCenter.add(question);
+
+		JPanel panelSouth = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		window5.add(panelSouth, BorderLayout.SOUTH);
+
+		/*BufferedImage title;
+		try {
+			title = ImageIO.read(new File("images/gover.png"));
+			JLabel picLabel = new JLabel(new ImageIcon(title));
+			panelNorth.add(picLabel);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+
+		JButton rejouer = new JButton("Rejouer");
+		rejouer.setFocusPainted(false);
+		panelSouth.add(rejouer);
+
+		JButton quitter = new JButton("Quitter");
+		quitter.setFocusPainted(false);
+		panelSouth.add(quitter);
+
+		rejouer.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				Options.NEW_GAME = true;
+				model.getGameUI().getFrame().dispose();
+				afficherPartie();
+				window5.dispose();
+			}
+		});
+		quitter.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				System.exit(0);
+			}
+		});
+
 	}
 }

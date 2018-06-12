@@ -100,6 +100,10 @@ public class GameUI {
     return m_controller;
   }
 
+  public JFrame getFrame() {
+	  return m_frame;
+  }
+  
   public void addNorth(Component c) {
     m_frame.add(c,BorderLayout.NORTH);
   }
