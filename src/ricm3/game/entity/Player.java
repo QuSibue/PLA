@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import ricm3.game.automaton.Automaton;
 import ricm3.game.automaton.Direction;
@@ -20,39 +21,18 @@ public class Player extends Character {
 	private long m_lastShot = -Options.laserCD;
 	private int m_energie;
 	private long m_lastPower = -Options.powerCD;
+	private ArrayList<Automaton> m_autoMinions;
+	private int m_indiceAutoMinions;
 
 	public Player(int x, int y, BufferedImage[] sprites, Automaton aut, Orientation orientation, int equipe, Map map,
 			Model model, int life, long lastMove, TypeKey key) {
 		super(sprites, x, y, true, false, true, false, Options.PLAYER_MS, aut, orientation, equipe, map, model, life,
 				lastMove);
 		m_key = key;
-		m_energie = 10;
-
-	}
-
-	// action
-	@Override
-	public void move(Direction d) {
-		int x_res = 0, y_res = 0;
-		Point p = new Point(x_res, y_res);
-		this.turn(d);
-		Transversal.evalPosition(this.getX(), this.getY(), p, d, this.getOrientation());
-		Entity e = global_map.getEntity(p.x, p.y);
-		if (e == null || e instanceof Laser || e instanceof PowerUp) {
-			if (e != null) {
-				if (e.getLethal()) {
-					this.getDamage();
-					global_map.deleteEntity(e);
-					m_model.m_laser.remove(e);
-				} else if (e instanceof PowerUp) {
-					this.applyPowerUp((PowerUp) e);
-					;
-					global_map.deleteEntity(e);
-					m_model.m_powerup.remove(e);
-				}
-			}
-			global_map.moveEntity(this, p.x, p.y);
-		}
+		m_energie = Options.initialEnergie;
+		m_autoMinions = new ArrayList<Automaton>();
+		m_indiceAutoMinions = 0;
+		this.loadAutomaton();
 
 	}
 
@@ -61,7 +41,7 @@ public class Player extends Character {
 		if (m_energie >= 3) {
 			Point p = new Point();
 			if (global_map.caseLibre(this.getX(), this.getY(), p)) {
-				Minion minion = new Minion(null, p.x, p.y, Transversal.idleAutomaton(), Orientation.RIGHT, 1,
+				Minion minion = new Minion(null, p.x, p.y,true,true,true,false, Options.LASER_MS, Transversal.idleAutomaton(), Orientation.RIGHT, 1,
 						global_map, this.m_model, 1, 0);
 				m_model.m_minions.add(minion);
 				global_map.setEntity(minion);
@@ -70,8 +50,7 @@ public class Player extends Character {
 				System.out.print("Pas de place pour placer de nouveaux sbires");
 			}
 
-		}
-		else {
+		} else {
 			this.power(now);
 		}
 
@@ -80,6 +59,12 @@ public class Player extends Character {
 	@Override
 	public void wizz() {
 		// TODO Auto-generated method stub
+		if (m_indiceAutoMinions == Options.NB_MINIONS_TYPE - 1) {
+			m_indiceAutoMinions = 0;
+		} else {
+			m_indiceAutoMinions++;
+			System.out.println(m_indiceAutoMinions);
+		}
 
 	}
 
@@ -131,60 +116,26 @@ public class Player extends Character {
 
 	@Override
 	public void protect() {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void jump() {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void store() {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void _throw() {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void turn(Direction d) {
-		// TODO Auto-generated method stub
-		switch (d) {
-		case NORTH:
-			this.setOrientation(Orientation.UP);
-			break;
-
-		case SOUTH:
-			this.setOrientation(Orientation.DOWN);
-			break;
-
-		case EAST:
-			this.setOrientation(Orientation.RIGHT);
-			break;
-
-		case WEST:
-			this.setOrientation(Orientation.LEFT);
-			break;
-		case FRONT:
-			break;
-		case BACK:
-			break;
-		case RIGHT:
-			break;
-		case LEFT:
-			break;
-
-		default:
-			throw new RuntimeException("Direction invalid");
-		}
-	}
+	
 
 	public void paint(Graphics g) {
 		// affiche un carré bleu pour le joueur
@@ -199,6 +150,18 @@ public class Player extends Character {
 	public void kamikaze() {
 		// TODO Auto-generated method stub
 
+	}
+
+	public void loadAutomaton() {
+		m_autoMinions.add(m_model.m_automates.get(0));
+		m_autoMinions.add(m_model.m_automates.get(1));
+		m_autoMinions.add(m_model.m_automates.get(2));
+		m_autoMinions.add(m_model.m_automates.get(0));
+		m_autoMinions.add(m_model.m_automates.get(1));
+		m_autoMinions.add(m_model.m_automates.get(2));
+		m_autoMinions.add(m_model.m_automates.get(0));
+		m_autoMinions.add(m_model.m_automates.get(1));
+		m_autoMinions.add(m_model.m_automates.get(2));
 	}
 
 }

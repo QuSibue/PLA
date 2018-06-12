@@ -18,10 +18,8 @@ public abstract class Options {
 	public static int TAILLE_CASE = 100; // case de 100 pixels sur 100 pixels
 	public static int NB_TILE_WIDTH_MAP = 100; // Largeur de la MAP
 	public static int NB_TILE_HEIGHT_MAP = 100;// Longueur de la MAP
-	public static int NB_TYPE_MINION = 6; // Nombre type de sbires
-	public static int MS_MINION = 100; // l'entier n'a aucun sens
-	public static int MS_PLAYER = 200;
-
+	public static int NB_MINIONS_TYPE = 6;
+	
 	// Aide debug
 	public static final boolean ECHO_MOUSE = true;
 	public static final boolean ECHO_MOUSE_MOTION = true;
@@ -36,8 +34,5 @@ public abstract class Options {
 	public static final long powerCD = 300L;
 	
 	public static final String pathPlayer = "examples/test";
-
-	public static void evalPosition(int x, int y, int x_res, int y_res, Direction d, Orientation o) {
-		throw new RuntimeException("eval Position NYI");
-	}
+	public static final int initialEnergie = 3;
 }

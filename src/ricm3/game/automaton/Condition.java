@@ -169,6 +169,18 @@ public class Condition {
 			else
 				throw new RuntimeException("Operateur condition invalide");
 		}
+		
+		else if (m_type.equals(TypeCondition.KEYPRESSEDW)) {
+			res = ((Player) b).getKey() == TypeKey.WIZZ;
+			if (m_operator == ' ')
+				return res;
+			else if (m_operator == '&')
+				return res && m_condition.eval(b, m);
+			else if (m_operator == '|')
+				return res || m_condition.eval(b, m);
+			else
+				throw new RuntimeException("Operateur condition invalide");
+		}
 
 		else if (m_type.equals(TypeCondition.CLOSEST)) {
 

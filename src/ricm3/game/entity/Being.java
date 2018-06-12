@@ -1,5 +1,6 @@
 package ricm3.game.entity;
 
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.util.Iterator;
 
@@ -10,6 +11,7 @@ import ricm3.game.automaton.Orientation;
 import ricm3.game.automaton.Transition;
 import ricm3.game.mvc.Map;
 import ricm3.game.mvc.Model;
+import ricm3.game.other.Transversal;
 
 public abstract class Being extends Entity {
 
@@ -130,7 +132,28 @@ public abstract class Being extends Entity {
 		}
 	}
 
-	public abstract void move(Direction d);
+	public void move(Direction d) {
+		int x_res = 0, y_res = 0;
+		Point p = new Point(x_res, y_res);
+		this.turn(d);
+		Transversal.evalPosition(this.getX(), this.getY(), p, d, this.getOrientation());
+		Entity e = global_map.getEntity(p.x, p.y);
+		if (e == null || e instanceof Laser || e instanceof PowerUp) {
+			if (e != null) {
+				if (e.getLethal()) {
+					this.getDamage();
+					global_map.deleteEntity(e);
+					m_model.m_laser.remove(e);
+				} else if (e instanceof PowerUp) {
+					this.applyPowerUp((PowerUp) e);
+					;
+					global_map.deleteEntity(e);
+					m_model.m_powerup.remove(e);
+				}
+			}
+			global_map.moveEntity(this, p.x, p.y);
+		}
+	}
 
 	public abstract void pop(long now);
 
@@ -168,8 +191,37 @@ public abstract class Being extends Entity {
 
 	public abstract void _throw();
 
-	public abstract void turn(Direction d);
+	public void turn(Direction d) {
+		// TODO Auto-generated method stub
+		switch (d) {
+		case NORTH:
+			this.setOrientation(Orientation.UP);
+			break;
 
+		case SOUTH:
+			this.setOrientation(Orientation.DOWN);
+			break;
+
+		case EAST:
+			this.setOrientation(Orientation.RIGHT);
+			break;
+
+		case WEST:
+			this.setOrientation(Orientation.LEFT);
+			break;
+		case FRONT:
+			break;
+		case BACK:
+			break;
+		case RIGHT:
+			break;
+		case LEFT:
+			break;
+
+		default:
+			throw new RuntimeException("Direction invalid");
+		}
+	}
 	public abstract void kamikaze();
 
 }

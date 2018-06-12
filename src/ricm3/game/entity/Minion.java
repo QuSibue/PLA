@@ -20,13 +20,13 @@ public class Minion extends Character {
 	public int xOrigin;
 	public int yOrigin;
 
-	public Minion(BufferedImage[] sprites, int x, int y, Automaton automate, Orientation orientation, int equipe,
-			Map map, Model model, int life, long lastMove) {
-		super(sprites, x, y, true, true, true, false, Options.MINION_MS, automate, orientation, equipe, map, model,
+	public Minion(BufferedImage[] sprites, int x, int y, boolean moveable, boolean pickable, boolean killable,
+			boolean lethal, int moveSpeed, Automaton automate, Orientation orientation, int equipe, Map map,
+			Model model, int life, long lastMove) {
+		super(sprites, x, y, moveable, pickable, killable, lethal, moveSpeed, automate, orientation, equipe, map, model,
 				life, lastMove);
 		xOrigin = this.getX();
 		yOrigin = this.getY();
-
 	}
 
 	public void pop(long now) {
@@ -56,12 +56,6 @@ public class Minion extends Character {
 		m_model.m_minions.remove(this);
 	}
 
-	@Override
-	public void move(Direction d) {
-		int x_res = 0, y_res = 0;
-		Point p = new Point(x_res, y_res);
-		Transversal.evalPosition(this.getX(), this.getY(), p, d, this.getOrientation());
-	}
 
 	public void hit(long now) {
 		Iterator<Minion> iterM = m_model.m_minions.iterator();
@@ -109,40 +103,8 @@ public class Minion extends Character {
 	public void _throw() {
 		return;
 	}
-
-	@Override
-	public void step(long now) {
-
-		long elapsed = now - m_lastMove;
-		if (elapsed > 300L) {
-			m_lastMove = now;
-			Iterator<Transition> iter = this.getAutomaton().getTransitions().iterator();
-			Transition transi;
-			boolean condition = false;
-
-			// On va chercher la première transition utilisable
-			// puis on met a jour l'etat courant
-			// et on effectue l'action associée a la transition
-
-			// ce code va surement être deplacé dans being, superclass de player, minion et
-			// laser
-			while (!condition && iter.hasNext()) {
-				transi = iter.next();
-				// les etats sont par aliasing on peut donc utiliser le double égale
-				condition = this.getEtatCourant() == transi.getInitial()
-						&& transi.getCondition().eval((Being) this, global_map);
-				if (condition) {
-					this.setEtatCourant(transi.getSortie());
-					transi.getAction().executeAction(this, now);
-				}
-
-			}
-			if (!condition)
-				throw new RuntimeException("AUcune transition trouvée pour l'automate dans player");
-		}
-
-	}
-
+	
+	
 	@Override
 	public void paint(Graphics g) {
 		// affiche un carré bleu pour le joueur
@@ -153,14 +115,12 @@ public class Minion extends Character {
 
 	}
 
-	@Override
-	public void turn(Direction d) {
-	}
 
 	@Override
 	public void kamikaze() {
-		// TODO Auto-generated method stub
-
+		
 	}
+
+
 
 }

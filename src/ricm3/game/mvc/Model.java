@@ -26,6 +26,7 @@ public class Model extends GameModel {
 	public LinkedList<PowerUp> m_powerup;
 	public Player virus;
 	public Player antivirus;
+	public ArrayList<Automaton>m_automates;
 	public Map map;
 
 	public Model() {
@@ -33,6 +34,9 @@ public class Model extends GameModel {
 		m_obstacles = new LinkedList<Obstacle>();
 		m_laser = new LinkedList<Laser>();
 		m_powerup = new LinkedList<PowerUp>();
+		m_automates = new ArrayList<Automaton>();
+		loadAutomaton();
+		
 		// sprites vont etres donné a l'instantiation normalement, a voir
 		// ON FAIT LA MAP
 		map = new Map(1100, 1200);
@@ -53,7 +57,7 @@ public class Model extends GameModel {
 		// FIN DE L'AUTOMATE
 
 		// ONFAIT LE JOUEUR
-		virus = new Player(1, 1, null, aut2, Orientation.RIGHT, 1, map, this, 3, 0, TypeKey.NONE);
+		virus = new Player(1, 1, null, aut, Orientation.RIGHT, 1, map, this, 3, 0, TypeKey.NONE);
 		map.setEntity(virus);
 		// ajout d'un obstacle
 		Obstacle obs = new Obstacle(0, 0, false, true, false, false, null, map, this);
@@ -128,6 +132,14 @@ public class Model extends GameModel {
 	public void shutdown() {
 	}
 
+	
+	public void loadAutomaton() {
+				m_automates.add(Transversal.straightAutomaton());
+				m_automates.add(Transversal.shootAutomaton());
+				m_automates.add(Transversal.idleAutomaton());
+				
+	}
+	
 	// private void loadSprites() {
 
 	// }

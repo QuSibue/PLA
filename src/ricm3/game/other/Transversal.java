@@ -183,6 +183,7 @@ public class Transversal {
 		Condition condiPop = new Condition(TypeCondition.KEYPRESSEDPOP, null, null,' ', null);
 		Condition condiPick = new Condition(TypeCondition.KEYPRESSEDO,null,null,' ',null);
 		Condition condiGet = new Condition(TypeCondition.KEYPRESSEDI,null,null,' ',null);
+		Condition condiWizz = new Condition(TypeCondition.KEYPRESSEDW, null, null,' ', null);
 		
 		
 		Action up = new Action(TypeAction.MOVE, Direction.NORTH);
@@ -194,6 +195,7 @@ public class Transversal {
 		Action idle = new Action(TypeAction.IDLE, null);
 		Action pick = new Action(TypeAction.PICK,null);
 		Action get = new Action(TypeAction.GET,null);
+		Action wizz = new Action(TypeAction.WIZZ, null);
 		
 		Transition transitionUp = new Transition(etatInitialTransition, condiUp, up, etatInitialTransition);
 		Transition transitionDown = new Transition(etatInitialTransition, condiDown, down, etatInitialTransition);
@@ -204,6 +206,7 @@ public class Transversal {
 		Transition transitionIdle = new Transition(etatInitialTransition, condiIdle, idle, etatInitialTransition);
 		Transition transitionPick = new Transition(etatInitialTransition,condiPick,pick,etatInitialTransition);
 		Transition transitionGet = new Transition(etatInitialTransition,condiGet,get,etatInitialTransition);
+		Transition transitionWizz = new Transition(etatInitialTransition, condiWizz, wizz, etatInitialTransition);
 				
 		LinkedList<Transition> listTransitions = new LinkedList<Transition>();
 		listTransitions.add(transitionUp);
@@ -215,6 +218,7 @@ public class Transversal {
 		listTransitions.add(transitionPick);
 		listTransitions.add(transitionGet);
 		listTransitions.add(transitionIdle);
+		listTransitions.add(transitionWizz);
 		Automaton test =  new Automaton(etatInitialAut, listTransitions);
 		return test;
 	}
