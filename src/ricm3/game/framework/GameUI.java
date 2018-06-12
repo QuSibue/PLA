@@ -27,10 +27,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.Timer;
 
-import ricm3.game.ath.TimerATH;
 import ricm3.game.mvc.Controller;
 import ricm3.game.mvc.Model;
-import ricm3.game.framework.Options;
 
 public class GameUI {
 
