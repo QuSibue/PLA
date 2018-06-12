@@ -22,6 +22,7 @@ public abstract class Being extends Entity {
 	private Orientation m_orientation;
 	private int m_life;
 	private long m_lastMove;
+	private int m_indexBuffer=0;
 
 	// Constructor
 	public Being(int x, int y, boolean moveable, boolean pickable, boolean killable, boolean lethal, int ms,
@@ -42,6 +43,10 @@ public abstract class Being extends Entity {
 	}
 
 	// getters
+	public int getIndexBuffer() {
+		return m_indexBuffer;
+	}
+	
 	public int getLife() {
 		return m_life;
 	}
@@ -63,6 +68,11 @@ public abstract class Being extends Entity {
 	}
 
 	// setters
+	
+	public boolean setIndexBuffer(int i) {
+		m_indexBuffer = i;
+		return true;
+	}
 	public boolean setLife(int life) {
 		m_life = life;
 		return true;

@@ -138,11 +138,24 @@ public class Player extends Character {
 	
 
 	public void paint(Graphics g) {
-		// affiche un carré bleu pour le joueur
-		int m_x = this.getX() * Options.TAILLE_CASE;
-		int m_y = this.getY() * Options.TAILLE_CASE;
-		g.setColor(Color.blue);
-		g.fillRect(m_x, m_y, Options.TAILLE_CASE, Options.TAILLE_CASE);
+
+		switch (this.getOrientation()) {
+		case UP:
+			this.setIndexBuffer(9);
+			break;
+		case DOWN:
+			this.setIndexBuffer(3);
+			break;
+		case RIGHT:
+			this.setIndexBuffer(0);
+			break;
+		case LEFT:
+			this.setIndexBuffer(6);
+			break;
+		}
+
+		g.drawImage(this.getSprites()[this.getIndexBuffer()], this.getX() * Options.TAILLE_CASE, this.getY() * Options.TAILLE_CASE,
+				Options.TAILLE_CASE, Options.TAILLE_CASE, null);
 
 	}
 
