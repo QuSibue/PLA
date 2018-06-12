@@ -7,6 +7,19 @@ import ricm3.game.mvc.Map;
 import ricm3.game.mvc.Model;
 
 public abstract class Entity {
+	public BufferedImage[] mv_droite;
+	public int m_droite;
+	public BufferedImage[] mv_gauche;
+	public int m_gauche;
+	public BufferedImage[] mv_haut;
+	public int m_haut;
+	public BufferedImage[] mv_bas;
+	public int m_bas;
+	public BufferedImage[] idle;
+	public int m_idle;
+	public int m_index;
+	public int m_nbsteps;
+	public int mouvement;
 
 	private int m_coordinateX;
 	private int m_coordinateY;

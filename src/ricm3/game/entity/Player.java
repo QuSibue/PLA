@@ -41,7 +41,7 @@ public class Player extends Character {
 		if (m_energie >= 3) {
 			Point p = new Point();
 			if (global_map.caseLibre(this.getX(), this.getY(), p)) {
-				Minion minion = new Minion(null, p.x, p.y,true,true,true,false, Options.LASER_MS, this.m_model.m_automates.get(m_indiceAutoMinions), Orientation.RIGHT, 1,
+				Minion minion = new Minion(m_model.kamikaze_droite, p.x, p.y,true,true,true,false, Options.MINION_MS, this.m_model.m_automates.get(m_indiceAutoMinions), Orientation.RIGHT, 1,
 						global_map, this.m_model, 1, 0);
 				m_model.m_minions.add(minion);
 				global_map.setEntity(minion);

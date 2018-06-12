@@ -1,8 +1,14 @@
 package ricm3.game.mvc;
 
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
+
+import javax.imageio.ImageIO;
 
 import ricm3.game.ath.ATH;
 import ricm3.game.ath.TimerATH;
@@ -21,6 +27,8 @@ import ricm3.game.parser.Ast;
 import ricm3.game.parser.AutomataParser;
 
 public class Model extends GameModel {
+	public BufferedImage[] kamikaze_droite;
+	public BufferedImage[] kamikaze_idle;
 
 	public LinkedList<Minion> m_minions;
 	public LinkedList<Obstacle> m_obstacles;
@@ -28,35 +36,34 @@ public class Model extends GameModel {
 	public LinkedList<PowerUp> m_powerup;
 	public Player virus;
 	public Player antivirus;
-	public ArrayList<Automaton>m_automates;
+	public ArrayList<Automaton> m_automates;
 	public Map map;
 	public ATH m_ath;
 
 	public Model() {
+		loadSprites();
 		m_minions = new LinkedList<Minion>();
 		m_obstacles = new LinkedList<Obstacle>();
 		m_laser = new LinkedList<Laser>();
 		m_powerup = new LinkedList<PowerUp>();
 		m_automates = new ArrayList<Automaton>();
 		loadAutomaton();
-		
+
 		// sprites vont etres donné a l'instantiation normalement, a voir
 		// ON FAIT LA MAP
 		map = new Map(1100, 1200);
-		
 
 		// ON FAIT UN AUTOMATE
-		
-		Ast tree=null;
+
+		Ast tree = null;
 		try {
 			tree = AutomataParser.parserAutomates(GameMain.pathPlayer);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		@SuppressWarnings("unchecked")
-		Automaton aut2 = ((ArrayList<Automaton>)tree.make()).get(0);
-		
-		
+		Automaton aut2 = ((ArrayList<Automaton>) tree.make()).get(0);
+
 		Automaton aut = Transversal.virusAutomaton();
 		// FIN DE L'AUTOMATE
 
@@ -87,22 +94,20 @@ public class Model extends GameModel {
 		PowerUp PU = new PowerUp(4, 3, this);
 		m_powerup.add(PU);
 		map.setEntity(PU);
-		
-		
 
 		m_ath = new ATH(this);
 	}
 
 	@Override
 	public void step(long now) {
-		
-		LinkedList<Minion>minionsClone = (LinkedList<Minion>) m_minions.clone();
+
+		LinkedList<Minion> minionsClone = (LinkedList<Minion>) m_minions.clone();
 		Iterator<Minion> iterM = minionsClone.iterator();
-		
-		LinkedList<Obstacle>obstaclesClone = (LinkedList<Obstacle>) m_obstacles.clone();
+
+		LinkedList<Obstacle> obstaclesClone = (LinkedList<Obstacle>) m_obstacles.clone();
 		Iterator<Obstacle> iterO = obstaclesClone.iterator();
-		
-		LinkedList<Laser>laserClone = (LinkedList<Laser>) m_laser.clone();
+
+		LinkedList<Laser> laserClone = (LinkedList<Laser>) m_laser.clone();
 		Iterator<Laser> iterL = laserClone.iterator();
 
 		// map.printMap();
@@ -137,15 +142,70 @@ public class Model extends GameModel {
 	public void shutdown() {
 	}
 
-	
 	public void loadAutomaton() {
-				m_automates.add(Transversal.straightAutomaton());
-				m_automates.add(Transversal.shootAutomaton());
-				m_automates.add(Transversal.idleAutomaton());
-				
-	}
-	
-	// private void loadSprites() {
+		m_automates.add(Transversal.straightAutomaton());
+		m_automates.add(Transversal.shootAutomaton());
+		m_automates.add(Transversal.idleAutomaton());
 
-	// }
+	}
+
+	private void loadSprites() {
+		File imageFile = new File("src/ricm3/sprites/Kamikaze droite debut.png");
+		BufferedImage sprite = null;
+		try {
+			sprite = ImageIO.read(imageFile);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
+		int width = sprite.getWidth(null);
+		int height = sprite.getHeight(null);
+		kamikaze_droite = new BufferedImage[9];
+		int m_w = width / 2;
+		int m_h = height / 3;
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 2; j++) {
+				int x = j * m_w;
+				int y = i * m_h;
+				kamikaze_droite[(i * 2) + j] = sprite.getSubimage(x, y, m_w, m_h);
+			}
+		}
+		imageFile = new File("src/ricm3/sprites/Kamikaze droite fin.png");
+		try {
+			sprite = ImageIO.read(imageFile);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
+		width = sprite.getWidth(null);
+		height = sprite.getHeight(null);
+		m_w = width / 2;
+		m_h = height / 2;
+		for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < 2; j++) {
+				int x = j * m_w;
+				int y = i * m_h;
+				kamikaze_droite[5+(i * 2) + j] = sprite.getSubimage(x, y, m_w, m_h);
+			}
+		}
+		imageFile = new File("src/ricm3/sprites/Kamikaze idle.png");
+		try {
+			sprite = ImageIO.read(imageFile);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
+		width = sprite.getWidth(null);
+		height = sprite.getHeight(null);
+		kamikaze_idle = new BufferedImage[6];
+		m_w = width / 2;
+		m_h = height / 3;
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 2; j++) {
+				int x = j * m_w;
+				int y = i * m_h;
+				kamikaze_idle[(i * 2) + j] = sprite.getSubimage(x, y, m_w, m_h);
+			}
+		}
+	}
 }

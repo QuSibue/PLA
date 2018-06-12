@@ -27,7 +27,7 @@ public abstract class Options {
 
 	public static final int LASER_MS = 200;
 	public static final int PLAYER_MS = 100;
-	public static final int MINION_MS = 200;
+	public static final int MINION_MS = 1000;
 
 	// Cooldown
 	public static final long laserCD = 300L;

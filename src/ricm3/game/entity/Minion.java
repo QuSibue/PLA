@@ -27,6 +27,8 @@ public class Minion extends Character {
 				life, lastMove);
 		xOrigin = this.getX();
 		yOrigin = this.getY();
+		mv_droite = sprites;
+		m_droite = 8;
 	}
 
 	public void pop(long now) {
@@ -55,7 +57,6 @@ public class Minion extends Character {
 		this.global_map.deleteEntity(this);
 		m_model.m_minions.remove(this);
 	}
-
 
 	public void hit(long now) {
 		Iterator<Minion> iterM = m_model.m_minions.iterator();
@@ -103,24 +104,52 @@ public class Minion extends Character {
 	public void _throw() {
 		return;
 	}
-	
-	
+
 	@Override
 	public void paint(Graphics g) {
+
+		switch (mouvement) {
+		case 0:
+			/*
+			 * int m_x = this.getX() * Options.TAILLE_CASE; int m_y = this.getY() *
+			 * Options.TAILLE_CASE; g.setColor(Color.RED); g.fillRect(m_x, m_y,
+			 * Options.TAILLE_CASE, Options.TAILLE_CASE);
+			 */
+			g.drawImage(mv_droite[0], this.getX() * Options.TAILLE_CASE, this.getY() * Options.TAILLE_CASE,
+					Options.TAILLE_CASE, Options.TAILLE_CASE, null);
+			break;
+		case 1:
+			int x;
+			if (m_index < 5) {
+				x = (this.getX() - 1) * Options.TAILLE_CASE;
+			} else {
+				x = this.getX() * Options.TAILLE_CASE;
+			}
+			g.drawImage(mv_droite[m_index], x, this.getY() * Options.TAILLE_CASE, Options.TAILLE_CASE,
+					Options.TAILLE_CASE, null);
+			m_nbsteps++;
+			if (m_nbsteps % 3 == 0) {
+				m_index++;
+			}
+			if (m_nbsteps == m_droite * 3) {
+				mouvement = 0;
+				m_index = 0;
+				m_nbsteps = 0;
+			}
+			break;
+		}
 		// affiche un carré bleu pour le joueur
-		int m_x = this.getX() * Options.TAILLE_CASE;
-		int m_y = this.getY() * Options.TAILLE_CASE;
-		g.setColor(Color.RED);
-		g.fillRect(m_x, m_y, Options.TAILLE_CASE, Options.TAILLE_CASE);
+		/*
+		 * int m_x = this.getX() * Options.TAILLE_CASE; int m_y = this.getY() *
+		 * Options.TAILLE_CASE; g.setColor(Color.RED); g.fillRect(m_x, m_y,
+		 * Options.TAILLE_CASE, Options.TAILLE_CASE);
+		 */
 
 	}
-
 
 	@Override
 	public void kamikaze() {
-		
+
 	}
-
-
 
 }
