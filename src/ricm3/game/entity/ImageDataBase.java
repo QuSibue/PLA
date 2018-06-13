@@ -21,6 +21,8 @@ public class ImageDataBase {
 
 	public BufferedImage[][] obstacle;
 	public BufferedImage[][] powerUp;
+	
+	public BufferedImage map;
 
 	public final int nbFrameVirus = 3;
 	public final int nbFrameAntivirus = 3;
@@ -51,6 +53,7 @@ public class ImageDataBase {
 
 		obstacle = new BufferedImage[1][];
 		powerUp = new BufferedImage[1][];
+		
 
 		loadVirusSprite();
 		loadAntivirusSprite();
@@ -66,6 +69,8 @@ public class ImageDataBase {
 
 		loadObstacleSprite();
 		loadPowerUpSprite();
+		
+		loadMapSprite();
 
 	}
 
@@ -150,6 +155,16 @@ public class ImageDataBase {
 
 	public void loadPowerUpSprite() {
 		loadOneRowOfSprite(powerUp, 0, nbFramePowerUp, "images/energie/Energie.png");
+	}
+
+	public void loadMapSprite() {
+		BufferedImage[][] tmp = new BufferedImage[1][];
+		loadOneRowOfSprite(tmp, 0, 1, "images/map/1/map.png");
+		map = tmp[0][0];
+	}
+	
+	public BufferedImage getMapSprite() {
+		return map;
 	}
 	
 	public BufferedImage[][] getMinionSprites(int i){
