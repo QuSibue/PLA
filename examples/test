@@ -3,6 +3,35 @@ SimpleMove(Init){
 }
 
 SimpleHit(Init){
+  * (Init): True ? Move(L) :(Init)
+}
+
+SimplePop(Init){
+  * (Init): True ? Move(R) :(Init)
+}
+
+SimpleWizz(Init){
+  * (Init): True ? Move(B) :(Init)
+}
+
+SimpleGet(Init){
   * (Init): True ? Move(F) :(Init)
 }
+
+SimpleRight(Init){
+  * (Init): True ? Move(F) :(Init)
+}
+
+SimpleLeft(Init){
+  * (Init): True ? Move(F) :(Init)
+}
+
+SimpleUp(Init){
+  * (Init): True ? Move(F) :(Init)
+}
+
+SimpleBack(Init){
+  * (Init): True ? Move(F) :(Init)
+}
+
 

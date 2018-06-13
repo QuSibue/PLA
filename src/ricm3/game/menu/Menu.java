@@ -50,7 +50,6 @@ public class Menu extends javax.swing.JPanel {
         //Specification de la Frame en GridBagLayout
         this.setLayout(new BorderLayout());
         
-        
         //Composant de la frame    
         JPanel panelCenter = new JPanel(new FlowLayout(FlowLayout.CENTER));        
         this.add(panelCenter,BorderLayout.CENTER);

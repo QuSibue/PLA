@@ -37,23 +37,23 @@ public class GameMain {
 	public static boolean gameOn;
 	public static Menu m_menu;
 	public static JFrame window1, window2, window3, window4, window5;
-	public static String pathPlayer, pathMinions, pathLaser;
+	public static String pathPlayer;
 	public static Ast m_tree = null;
+	public static boolean autLoaded = false;
 
 	public static void main(String[] args) throws IOException {
 
 		pathPlayer = Options.pathPlayer;
 		// construct the game elements: model, controller, and view.
 		// TODO définir les path par défaut
-		if(!Options.NEW_GAME) {
+		if (!Options.NEW_GAME) {
 			try {
 				m_tree = AutomataParser.parserAutomates(GameMain.pathPlayer);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
-		
-		
+
 		ArrayList<String> names = m_tree.getNames();
 		m_menu = new Menu(names);
 		afficherMenu();
@@ -77,10 +77,17 @@ public class GameMain {
 		window1.setLayout(new BorderLayout());
 		window1.add(m_menu, BorderLayout.CENTER);
 
+		if (!autLoaded) {
+			for (int i = 0; i < Options.NB_ENTITY; i++) {
+				m_menu.getIndices().add(i);
+				// System.out.println(components.get(i).getSelectedIndex());
+			}
+		}
+
 		if (window3 != null) {
 			window3.setVisible(false);
 		}
-		
+
 		if (window4 != null) {
 			window4.dispose();
 		}
@@ -89,8 +96,7 @@ public class GameMain {
 
 	public static void afficherRegles() throws IOException {
 
-		
-		if(window4 == null) {
+		if (window4 == null) {
 			window4 = new JFrame("Short Circuit");
 			window4.setLayout(new BorderLayout());
 
@@ -130,7 +136,7 @@ public class GameMain {
 			JButton retour = new JButton("Retour");
 			retour.setFocusPainted(false);
 			panelSouth.add(retour);
-		
+
 			retour.addMouseListener(new MouseListener() {
 
 				@Override
@@ -164,13 +170,11 @@ public class GameMain {
 
 				}
 			});
-		}
-		else {
+		} else {
 			window4.setVisible(true);
 		}
-		
+
 		window1.dispose();
-		
 
 	}
 
@@ -197,11 +201,11 @@ public class GameMain {
 
 			// Composant de la frame
 			String[] automaton = new String[names.size()];
-			for(int i=0;i<names.size();i++) {
+			for (int i = 0; i < names.size(); i++) {
 				automaton[i] = names.get(i);
 			}
-			
-			ArrayList<JComboBox>components = new ArrayList<JComboBox>();
+
+			ArrayList<JComboBox> components = new ArrayList<JComboBox>();
 
 			JPanel panelNorth = new JPanel(new FlowLayout(FlowLayout.CENTER));
 			window3.add(panelNorth, BorderLayout.NORTH);
@@ -285,39 +289,43 @@ public class GameMain {
 			JButton retour = new JButton("Retour");
 			retour.setFocusPainted(false);
 			panelSouth.add(retour);
-			
+
 			retour.addMouseListener(new MouseListener() {
-				
+
 				@Override
 				public void mouseReleased(MouseEvent e) {
 					// TODO Auto-generated method stub
-					
+
 				}
-				
+
 				@Override
 				public void mousePressed(MouseEvent e) {
 					// TODO Auto-generated method stub
-					
+
 				}
-				
+
 				@Override
 				public void mouseExited(MouseEvent e) {
 					// TODO Auto-generated method stub
-					
+
 				}
-				
+
 				@Override
 				public void mouseEntered(MouseEvent e) {
 					// TODO Auto-generated method stub
-					
+
 				}
-				
+
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					// TODO Auto-generated method stub
-					for(int i=0;i<Options.NB_ENTITY;i++) {
+					m_menu.getIndices().clear();
+					for (int i = 0; i < Options.NB_ENTITY; i++) {
 						m_menu.getIndices().add(components.get(i).getSelectedIndex());
+						
+						// System.out.println(components.get(i).getSelectedIndex());
 					}
+					autLoaded = true;
 					afficherMenu();
 				}
 			});

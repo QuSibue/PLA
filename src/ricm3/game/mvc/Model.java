@@ -38,16 +38,19 @@ public class Model extends GameModel {
 	public Ast m_tree;
 
 	public Model(ArrayList<Integer> indices) {
-		init();
+		m_automates = new ArrayList<Automaton>();
 		if(!Options.NEW_GAME) {
 			//initTree();
 			m_tree = GameMain.m_tree;
+			System.out.println(indices.size());
 			for(int i=0;i<indices.size();i++) {
 				Automaton temp = ((ArrayList<Automaton>) m_tree.make()).get(indices.get(i));
 				m_automates.add(temp);
 			}
 			
 		}
+		init();
+		
 		
 	}
 
@@ -66,8 +69,8 @@ public class Model extends GameModel {
 		m_obstacles = new LinkedList<Obstacle>();
 		m_laser = new LinkedList<Laser>();
 		m_powerup = new LinkedList<PowerUp>();
-		m_automates = new ArrayList<Automaton>();
-		loadAutomaton();
+		//m_automates = new ArrayList<Automaton>();
+		//loadAutomaton();
 
 		// sprites vont etres donné a l'instantiation normalement, a voir
 		// ON FAIT LA MAP
@@ -77,11 +80,11 @@ public class Model extends GameModel {
 		
 		// ON FAIT UN AUTOMATE
 
-		Automaton aut = Transversal.virusAutomaton();
+		//Automaton aut = Transversal.virusAutomaton();
 		// FIN DE L'AUTOMATE
 
 		// ONFAIT LE JOUEUR
-		virus = new Player(1, 1, null, aut, Orientation.RIGHT, 1, map, this, 3, 0, TypeKey.NONE);
+		virus = new Player(1, 1, null, m_automates.get(0), Orientation.RIGHT, 1, map, this, 3, 0, TypeKey.NONE);
 		map.setEntity(virus);
 		// ajout d'un obstacle
 		Obstacle obs = new Obstacle(0, 0, false, true, false, false, null, map, this);
@@ -100,8 +103,8 @@ public class Model extends GameModel {
 			map.setEntity(obs);
 		}
 		// antivirus
-		aut = Transversal.antivirusAutomaton();
-		antivirus = new Player(8, 1, null, aut, Orientation.LEFT, 2, map, this, 3, 0, TypeKey.NONE);
+		//aut = Transversal.antivirusAutomaton();
+		antivirus = new Player(8, 2, null, m_automates.get(1), Orientation.LEFT, 2, map, this, 3, 0, TypeKey.NONE);
 		map.setEntity(antivirus);
 
 		PowerUp PU = new PowerUp(4, 3, this);
