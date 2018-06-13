@@ -133,6 +133,7 @@ public abstract class Being extends Entity {
 
 			// ce code va surement être deplacé dans being, superclass de player, minion et
 			// laser
+			
 			while (!condition && iter.hasNext()) {
 				transi = iter.next();
 				// les etats sont par aliasing on peut donc utiliser le double égale
