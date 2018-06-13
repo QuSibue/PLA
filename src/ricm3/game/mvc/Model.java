@@ -101,7 +101,7 @@ public class Model extends GameModel {
 		antivirus = new Player(8, 1, m_idb.antivirusIdle, aut, Orientation.LEFT, 2, map, this, 3, 0, TypeKey.NONE, m_idb);
 		map.setEntity(antivirus);
 
-		PowerUp PU = new PowerUp(4, 3, this, m_idb);
+		PowerUp PU = new PowerUp(4, 3,this, m_idb.powerUp, m_idb);
 		m_powerup.add(PU);
 		map.setEntity(PU);
 

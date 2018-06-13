@@ -34,7 +34,7 @@ public class ImageDataBase {
 	private final int nbFrameM6 = 6;
 
 	private final int nbFrameObstacle = 4;
-	private final int nbFramePowerUp = 1;
+	private final int nbFramePowerUp = 8;
 
 	public ImageDataBase() {
 		// On initialise les tableau
