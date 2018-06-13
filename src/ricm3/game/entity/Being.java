@@ -213,10 +213,6 @@ public abstract class Being extends Entity {
 			setIndexRefresh(0);
 			int j = getNumImage();
 			setNumImage(j+1);
-			
-			if(j  == getNbImage()){
-				setNumImage(0);
-			}
 		}
 
 		g.drawImage(animation[getNumImage()%getNbImage()], this.getX() * Options.TAILLE_CASE, this.getY() * Options.TAILLE_CASE,

@@ -59,12 +59,9 @@ public class Player extends Character {
 
 	@Override
 	public void wizz() {
-		if (m_indiceAutoMinions == Options.NB_MINIONS_TYPE - 1) {
-			m_indiceAutoMinions = 0;
-		} else {
 			m_indiceAutoMinions++;
+			m_indiceAutoMinions = m_indiceAutoMinions % Options.NB_MINIONS_TYPE;
 			System.out.println(m_indiceAutoMinions);
-		}
 
 	}
 
@@ -83,8 +80,8 @@ public class Player extends Character {
 				this.m_model.m_laser.add(laser);
 				global_map.setEntity(laser);
 			} else if (e instanceof PowerUp) {
-				Laser laser = new Laser(p.x, p.y, null, m_model.m_idb.nbFrameLaser, Transversal.straightAutomaton(), this.getOrientation(),
-						global_map, m_model, 1, 0, this.m_idb);
+				Laser laser = new Laser(p.x, p.y, null, m_model.m_idb.nbFrameLaser, Transversal.straightAutomaton(),
+						this.getOrientation(), global_map, m_model, 1, 0, this.m_idb);
 				laser.erased_powerup = (PowerUp) e;
 				this.m_model.m_laser.add(laser);
 				global_map.setEntity(laser);

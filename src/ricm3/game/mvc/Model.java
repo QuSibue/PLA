@@ -183,6 +183,9 @@ public class Model extends GameModel {
 		m_automates.add(Transversal.straightAutomaton());
 		m_automates.add(Transversal.shootAutomaton());
 		m_automates.add(Transversal.idleAutomaton());
+		m_automates.add(Transversal.straightAutomaton());
+		m_automates.add(Transversal.shootAutomaton());
+		m_automates.add(Transversal.idleAutomaton());
 
 	}
 
