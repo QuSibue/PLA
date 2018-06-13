@@ -196,12 +196,13 @@ public class Map {
 			while (cmp < m_height * m_length) {
 				switch ((char) buf[i]) {
 				case 'w':
-					matrice[cmp % m_height][cmp / m_height] = new Wall(cmp / m_height, cmp % m_height, this, null);
+					//TODO Quand les instances de 
+					matrice[cmp % m_height][cmp / m_height] = new Wall(cmp / m_height, cmp % m_height, this, null,null);
 					cmp++;
 					break;
 				case 'o':
 					matrice[cmp % m_height][cmp / m_height] = new Obstacle(cmp / m_height, cmp % m_height, false, true,
-							false, false, null, this, null);
+							false, false, null, this, null,null);
 					cmp++;
 					break;
 				case 'n':

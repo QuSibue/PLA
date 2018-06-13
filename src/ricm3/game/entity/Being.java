@@ -1,5 +1,6 @@
 package ricm3.game.entity;
 
+import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.util.Iterator;
@@ -11,6 +12,7 @@ import ricm3.game.automaton.Orientation;
 import ricm3.game.automaton.Transition;
 import ricm3.game.mvc.Map;
 import ricm3.game.mvc.Model;
+import ricm3.game.other.Options;
 import ricm3.game.other.Transversal;
 
 public abstract class Being extends Entity {
@@ -22,14 +24,15 @@ public abstract class Being extends Entity {
 	private Orientation m_orientation;
 	private int m_life;
 	private long m_lastMove;
+	private int m_indexBuffer = 0;
 
 	// Constructor
 	public Being(int x, int y, boolean moveable, boolean pickable, boolean killable, boolean lethal, int ms,
-			BufferedImage[] sprites, Automaton aut, Orientation orientation, Map map, Model model, int life,
-			long lastMove) {
+			BufferedImage[][] sprites, int nbImage,Automaton aut, Orientation orientation, Map map, Model model, int life,
+			long lastMove, ImageDataBase idb) {
 
 		// appel au constructeur de entity
-		super(x, y, moveable, pickable, killable, lethal, sprites, map, model);
+		super(x, y, moveable, pickable, killable, lethal, sprites,nbImage, map, model, idb);
 
 		m_moveSpeed = ms;
 		m_automaton = aut; // alias
@@ -42,6 +45,10 @@ public abstract class Being extends Entity {
 	}
 
 	// getters
+	public int getIndexBuffer() {
+		return m_indexBuffer;
+	}
+
 	public int getLife() {
 		return m_life;
 	}
@@ -63,6 +70,12 @@ public abstract class Being extends Entity {
 	}
 
 	// setters
+
+	public boolean setIndexBuffer(int i) {
+		m_indexBuffer = i;
+		return true;
+	}
+
 	public boolean setLife(int life) {
 		m_life = life;
 		return true;
@@ -196,6 +209,21 @@ public abstract class Being extends Entity {
 
 	public abstract void _throw();
 
+	public void paint(Graphics g) {
+		BufferedImage[] animation = getDirectionSprite(getOrientation());
+		// cet indice va devoir bouger pour animer l'entité
+		int i = getIndexRefresh();
+		setIndexRefresh(i+1);
+		if(i  == getNbImageRefresh()) {
+			setIndexRefresh(0);
+			int j = getNumImage();
+			setNumImage(j+1);
+		}
+
+		g.drawImage(animation[getNumImage()%getNbImage()], this.getX() * Options.TAILLE_CASE, this.getY() * Options.TAILLE_CASE,
+				Options.TAILLE_CASE, Options.TAILLE_CASE, null);
+	}
+
 	public void turn(Direction d) {
 		// TODO Auto-generated method stub
 		switch (d) {
@@ -227,6 +255,7 @@ public abstract class Being extends Entity {
 			throw new RuntimeException("Direction invalid");
 		}
 	}
+
 	public abstract void kamikaze();
 
 }

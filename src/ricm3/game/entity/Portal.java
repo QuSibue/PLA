@@ -18,8 +18,9 @@ public class Portal extends Entity {
 	private long lifespan;
 	private long m_last;
 
-	public Portal(int x_start, int y_start, int x_end, int y_end, BufferedImage[] sprites, Map map, Model model) {
-		super(x_start, y_start, false, false, false, false, sprites, map, model);
+	public Portal(int x_start, int y_start, int x_end, int y_end, BufferedImage[][] sprites,int nbImage, Map map, Model model,
+			ImageDataBase idb) {
+		super(x_start, y_start, false, false, false, false, sprites, nbImage,map, model, idb);
 		coordinateX_end = x_end;
 		coordinateY_end = y_end;
 		nb_utilisation = 3;

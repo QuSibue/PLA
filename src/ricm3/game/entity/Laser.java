@@ -19,9 +19,10 @@ public class Laser extends Being {
 	public PowerUp erased_powerup;
 	private int lifespan;
 
-	public Laser(int x, int y, BufferedImage[] sprites, Automaton aut, Orientation orientation, Map map, Model model,
-			int life, long lastMove) {
-		super(x, y, true, true, true, true, Options.LASER_MS, sprites, aut, orientation, map, model, life, lastMove);
+	public Laser(int x, int y, BufferedImage[][] sprites, int nbImage, Automaton aut, Orientation orientation, Map map,
+			Model model, int life, long lastMove, ImageDataBase idb) {
+		super(x, y, true, true, true, true, Options.LASER_MS, sprites, nbImage, aut, orientation, map, model, life,
+				lastMove, idb);
 		erased_powerup = null;
 	}
 
@@ -105,10 +106,10 @@ public class Laser extends Being {
 			Transversal.evalPosition(p.x, p.y, p1, Direction.RIGHT, this.getOrientation());
 			Transversal.evalPosition(p.x, p.y, p2, Direction.LEFT, this.getOrientation());
 
-			laser1 = new Laser(p1.x, p1.y, this.getSprites(), this.getAutomaton(), this.getOrientation(), global_map,
-					m_model, this.getLife(), this.getLastMove());
-			laser2 = new Laser(p2.x, p2.y, this.getSprites(), this.getAutomaton(), this.getOrientation(), global_map,
-					m_model, this.getLife(), this.getLastMove());
+			laser1 = new Laser(p1.x, p1.y, this.getSprites(), m_idb.nbFrameLaser,this.getAutomaton(), this.getOrientation(), global_map,
+					m_model, this.getLife(), this.getLastMove(), this.m_idb);
+			laser2 = new Laser(p2.x, p2.y, this.getSprites(), m_idb.nbFrameLaser, this.getAutomaton(), this.getOrientation(), global_map,
+					m_model, this.getLife(), this.getLastMove(), this.m_idb);
 
 		}
 
@@ -118,10 +119,10 @@ public class Laser extends Being {
 			Transversal.evalPosition(this.getX(), this.getY(), p1, Direction.RIGHT, this.getOrientation());
 			Transversal.evalPosition(this.getX(), this.getY(), p2, Direction.LEFT, this.getOrientation());
 
-			laser1 = new Laser(p1.x, p1.y, this.getSprites(), this.getAutomaton(), this.getOrientation(), global_map,
-					m_model, this.getLife(), this.getLastMove());
-			laser2 = new Laser(p2.x, p2.y, this.getSprites(), this.getAutomaton(), this.getOrientation(), global_map,
-					m_model, this.getLife(), this.getLastMove());
+			laser1 = new Laser(p1.x, p1.y, this.getSprites(), m_idb.nbFrameLaser, this.getAutomaton(), this.getOrientation(), global_map,
+					m_model, this.getLife(), this.getLastMove(), this.m_idb);
+			laser2 = new Laser(p2.x, p2.y, this.getSprites(), m_idb.nbFrameLaser, this.getAutomaton(), this.getOrientation(), global_map,
+					m_model, this.getLife(), this.getLastMove(), this.m_idb);
 
 		}
 
@@ -213,11 +214,7 @@ public class Laser extends Being {
 
 	@Override
 	public void paint(Graphics g) {
-		int m_x = this.getX() * Options.TAILLE_CASE;
-		int m_y = this.getY() * Options.TAILLE_CASE;
-		g.setColor(Color.GREEN);
-		g.fillRect(m_x, m_y, Options.TAILLE_CASE, Options.TAILLE_CASE);
-
+		super.paint(g);
 		if (m_isFirstPaint)
 			m_isFirstPaint = false;
 	}

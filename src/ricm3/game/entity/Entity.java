@@ -3,6 +3,7 @@ package ricm3.game.entity;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import ricm3.game.automaton.Orientation;
 import ricm3.game.mvc.Map;
 import ricm3.game.mvc.Model;
 
@@ -14,12 +15,17 @@ public abstract class Entity {
 	private boolean m_pickable;
 	private boolean m_killable;
 	private boolean m_lethal;
-	private BufferedImage[] m_sprites;
+	private BufferedImage[][] m_sprites;
+	private int m_nbImageRefresh;
+	private int m_indexRefresh=0;
+	private int m_numImage=0;
+	private int m_nbImage;
 	public Map global_map;
 	public Model m_model;
+	public ImageDataBase m_idb;
 
-	public Entity(int x, int y, boolean move, boolean pick, boolean kill, boolean leth, BufferedImage[] sprites,
-			Map map, Model model) {
+	public Entity(int x, int y, boolean move, boolean pick, boolean kill, boolean leth, BufferedImage[][] sprites,
+			int nbImage, Map map, Model model, ImageDataBase idb) {
 		this.m_coordinateX = x;
 		this.m_coordinateY = y;
 		this.m_moveable = move;
@@ -29,6 +35,25 @@ public abstract class Entity {
 		this.m_sprites = sprites;
 		this.global_map = map;
 		this.m_model = model;
+		this.m_idb = idb;
+		this.m_nbImage = nbImage;
+		this.m_nbImageRefresh = (int) ricm3.game.framework.Options.FPS / m_nbImage;
+
+	}
+
+	public BufferedImage[] getDirectionSprite(Orientation direction) {
+		switch (direction) {
+		case UP:
+			return m_sprites[0];
+		case RIGHT:
+			return m_sprites[1];
+		case DOWN:
+			return m_sprites[2];
+		case LEFT:
+			return m_sprites[3];
+		default:
+			throw new RuntimeException("Orientation du sprite invalide.");
+		}
 
 	}
 
@@ -86,8 +111,24 @@ public abstract class Entity {
 		return m_lethal;
 	}
 
-	public BufferedImage[] getSprites() {
+	public BufferedImage[][] getSprites() {
 		return m_sprites;
+	}
+
+	public int getNbImageRefresh() {
+		return this.m_nbImageRefresh;
+	}
+
+	public int getIndexRefresh() {
+		return this.m_indexRefresh;
+	}
+
+	public int getNumImage() {
+		return this.m_numImage;
+	}
+
+	public int getNbImage() {
+		return this.m_nbImage;
 	}
 
 	// setters
@@ -121,8 +162,28 @@ public abstract class Entity {
 		return true;
 	}
 
-	public boolean setSprites(BufferedImage[] sprites) {
+	public boolean setSprites(BufferedImage[][] sprites) {
 		m_sprites = sprites;
+		return true;
+	}
+
+	public boolean setNbImageRefresh(int a) {
+		this.m_nbImageRefresh = a;
+		return true;
+	}
+
+	public boolean setIndexRefresh(int a) {
+		this.m_indexRefresh = a;
+		return true;
+	}
+
+	public boolean setNumImage(int a) {
+		this.m_numImage= a;
+		return true;
+	}
+
+	public boolean setNbiMAGE(int a) {
+		this.m_nbImage = a;
 		return true;
 	}
 

@@ -10,6 +10,7 @@ import ricm3.game.ath.ATH;
 import ricm3.game.automaton.Automaton;
 import ricm3.game.automaton.Orientation;
 import ricm3.game.entity.Drapeau;
+import ricm3.game.entity.ImageDataBase;
 import ricm3.game.entity.Laser;
 import ricm3.game.entity.Minion;
 import ricm3.game.entity.Obstacle;
@@ -39,13 +40,14 @@ public class Model extends GameModel {
 	public Ast m_tree;
 	public Drapeau m_drapeau;
 	public boolean flagCaptured = false;
+	public ImageDataBase m_idb;
 
 	public Model(ArrayList<Integer> indices) {
 		m_automates = new ArrayList<Automaton>();
 
 		// initTree();
 		m_tree = GameMain.m_tree;
-		
+
 		for (int i = 0; i < indices.size(); i++) {
 			Automaton temp = ((ArrayList<Automaton>) m_tree.make()).get(indices.get(i));
 			m_automates.add(temp);
@@ -72,6 +74,8 @@ public class Model extends GameModel {
 		// m_automates = new ArrayList<Automaton>();
 		// loadAutomaton();
 
+		m_idb = new ImageDataBase();
+
 		// sprites vont etres donné a l'instantiation normalement, a voir
 		// ON FAIT LA MAP
 		map = new Map(15, 29);
@@ -80,37 +84,47 @@ public class Model extends GameModel {
 
 		// ON FAIT UN AUTOMATE
 
-		 Automaton aut = Transversal.virusAutomaton();
+		Automaton aut = Transversal.virusAutomaton();
 		// FIN DE L'AUTOMATE
 
 		// ONFAIT LE JOUEUR
-		virus = new Player(1, 1, null, m_automates.get(0), Orientation.RIGHT, 1, map, this, 3, 0, TypeKey.NONE);
+
+		virus = new Player(1, 1, m_idb.virusIdle, m_idb.nbFrameVirus, m_automates.get(0), Orientation.RIGHT, 1, map,
+				this, 3, 0, TypeKey.NONE, m_idb);
+
 		map.setEntity(virus);
 		// ajout d'un obstacle
-		Obstacle obs = new Obstacle(0, 0, false, true, false, false, null, map, this);
+		Obstacle obs = new Obstacle(0, 0, false, true, false, false, m_idb.obstacle, m_idb.nbFrameObstacle, map, this,
+				m_idb);
 		m_obstacles.add(obs);
 		map.setEntity(obs);
 
-		obs = new Obstacle(1, 0, false, true, false, false, null, map, this);
+		obs = new Obstacle(1, 0, false, true, false, false, m_idb.obstacle, m_idb.nbFrameObstacle, map, this, m_idb);
 		m_obstacles.add(obs);
 		map.setEntity(obs);
 		for (int i = 1; i < 14; i++) {
-			obs = new Obstacle(0, i, false, true, false, false, null, map, this);
+
+			obs = new Obstacle(0, i, false, true, false, false, m_idb.obstacle, m_idb.nbFrameObstacle, map, this,
+					m_idb);
+
 			m_obstacles.add(obs);
 			map.setEntity(obs);
-			obs = new Obstacle(i, 0, false, true, false, false, null, map, this);
+			obs = new Obstacle(i, 0, false, true, false, false, m_idb.obstacle, m_idb.nbFrameObstacle, map, this,
+					m_idb);
 			m_obstacles.add(obs);
 			map.setEntity(obs);
 		}
 		// antivirus
 		// aut = Transversal.antivirusAutomaton();
-		antivirus = new Player(8, 1, null, m_automates.get(1), Orientation.LEFT, 2, map, this, 3, 0, TypeKey.NONE);
+		antivirus = new Player(8, 1, m_idb.antivirusIdle, m_idb.nbFrameAntivirus, m_automates.get(1), Orientation.LEFT,
+				2, map, this, 3, 0, TypeKey.NONE, m_idb);
+
 		map.setEntity(antivirus);
 
-		PowerUp PU = new PowerUp(4, 3, this);
+		PowerUp PU = new PowerUp(4, 3, this, m_idb.powerUp, m_idb.nbFramePowerUp, m_idb);
 		m_powerup.add(PU);
 		map.setEntity(PU);
-		
+
 		m_drapeau = new Drapeau(4, 1, null, map, this);
 		map.setEntity(m_drapeau);
 
@@ -177,7 +191,7 @@ public class Model extends GameModel {
 			GameMain.afficherFinPartie(3, this);
 			afficherFin = false;
 		}
-		
+
 		else if (afficherFin) {
 			GameMain.afficherFinPartie(4, this);
 			afficherFin = false;
@@ -190,6 +204,9 @@ public class Model extends GameModel {
 	}
 
 	public void loadAutomaton() {
+		m_automates.add(Transversal.straightAutomaton());
+		m_automates.add(Transversal.shootAutomaton());
+		m_automates.add(Transversal.idleAutomaton());
 		m_automates.add(Transversal.straightAutomaton());
 		m_automates.add(Transversal.shootAutomaton());
 		m_automates.add(Transversal.idleAutomaton());

@@ -14,11 +14,11 @@ public abstract class Character extends Being {
 	private int m_equipe;
 	private Sac m_sac;
 
-	public Character(BufferedImage[] sprites, int x, int y, boolean moveable, boolean pickable, boolean killable,
-			boolean lethal, int moveSpeed, Automaton automate, Orientation orientation, int equipe, Map map,
-			Model model, int life, long lastMove) {
-		super(x, y, moveable, pickable, killable, lethal, moveSpeed, sprites, automate, orientation, map, model, life,
-				lastMove);
+	public Character(BufferedImage[][] sprites, int nbImage, int x, int y, boolean moveable, boolean pickable,
+			boolean killable, boolean lethal, int moveSpeed, Automaton automate, Orientation orientation, int equipe,
+			Map map, Model model, int life, long lastMove, ImageDataBase idb) {
+		super(x, y, moveable, pickable, killable, lethal, moveSpeed, sprites, nbImage,automate, orientation, map, model, life,
+				lastMove, idb);
 		m_equipe = equipe;
 		m_sac = new Sac(3);
 	}
@@ -30,7 +30,7 @@ public abstract class Character extends Being {
 	public void setEquipe(int equipe) {
 		m_equipe = equipe;
 	}
-	
+
 	public Sac getSac() {
 		return m_sac;
 	}
@@ -59,7 +59,7 @@ public abstract class Character extends Being {
 		if (global_map.getEntity(p.x, p.y) == null) {
 			Entity e = m_sac.removeItem();
 			if (e != null) {
-				global_map.setEntity(p.x,p.y,e);
+				global_map.setEntity(p.x, p.y, e);
 				if (e instanceof Laser) {
 					this.m_model.m_laser.add((Laser) e);
 				} else if (e instanceof Minion) {

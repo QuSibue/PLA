@@ -2,13 +2,15 @@ package ricm3.game.mvc;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 import java.util.Iterator;
 
 import ricm3.game.entity.Laser;
 import ricm3.game.entity.Minion;
 import ricm3.game.entity.Obstacle;
 import ricm3.game.entity.PowerUp;
-import ricm3.game.framework.GameView;;
+import ricm3.game.framework.GameView;
+import ricm3.game.other.Options;;
 
 public class View extends GameView {
 
@@ -19,11 +21,11 @@ public class View extends GameView {
 	int m_npaints;
 	int m_fps;
 	Model m_model;
-//	Controller m_ctr;
+	// Controller m_ctr;
 
 	public View(Model m) {
 		m_model = m;
-//		m_ctr = c;
+		// m_ctr = c;
 	}
 
 	private void computeFPS() {
@@ -42,8 +44,9 @@ public class View extends GameView {
 		computeFPS();
 
 		// erase background
-		g.setColor(m_background);
-		g.fillRect(0, 0, getWidth(), getHeight());
+		BufferedImage carte = m_model.m_idb.getMapSprite();
+		g.drawImage(carte, 0, 0, Options.TAILLE_CASE * 29, Options.TAILLE_CASE * 15,
+				null);
 
 		// Paint our model, grabbing the elements,
 		// in our case, the squares.
@@ -55,19 +58,18 @@ public class View extends GameView {
 		 * 
 		 * Attention Pas beaucoup de conditions ici
 		 */
-		
-		if(m_model.virus.getLife() > 0) {
+
+		if (m_model.virus.getLife() > 0) {
 			m_model.virus.paint(g);
 		}
-		if(m_model.antivirus.getLife() > 0) {
+		if (m_model.antivirus.getLife() > 0) {
 			m_model.antivirus.paint(g);
 		}
-		
+
 		if(!m_model.flagCaptured) {
 			m_model.m_drapeau.paint(g);
 		}
-		
-		
+
 		Iterator<Minion> iterM = m_model.m_minions.iterator();
 		Iterator<Obstacle> iterO = m_model.m_obstacles.iterator();
 		Iterator<Laser> iterL = m_model.m_laser.iterator();
@@ -77,7 +79,7 @@ public class View extends GameView {
 			m = iterM.next();
 			m.paint(g);
 		}
-		
+
 		Obstacle o;
 		while (iterO.hasNext()) {
 			o = iterO.next();
@@ -88,14 +90,12 @@ public class View extends GameView {
 			l = iterL.next();
 			l.paint(g);
 		}
-		
+
 		PowerUp p;
 		while (iterP.hasNext()) {
 			p = iterP.next();
 			p.paint(g);
 		}
-
-		
 
 	}
 }

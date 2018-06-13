@@ -1,23 +1,22 @@
 package ricm3.game.entity;
 
-import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+
 import ricm3.game.mvc.Model;
 import ricm3.game.other.Options;
 
 public class PowerUp extends Entity {
 
-	public PowerUp(int x, int y, Model model) {
-		super(x, y, false, true, true, false, null, model.map, model);
+	public PowerUp(int x, int y, Model model,BufferedImage[][] sprites, int nbImage, ImageDataBase idb) {
+		super(x, y, false, true, true, false, sprites, nbImage,model.map, model, idb);
 	}
 
 	@Override
 	public void paint(Graphics g) {
-		// TODO Auto-generated method stub
-		int m_x = this.getX() * Options.TAILLE_CASE;
-		int m_y = this.getY() * Options.TAILLE_CASE;
-		g.setColor(Color.PINK);
-		g.fillRect(m_x, m_y, Options.TAILLE_CASE, Options.TAILLE_CASE);
+		int IndexFrame = 0;
+		g.drawImage(this.getSprites()[0][IndexFrame], this.getX() * Options.TAILLE_CASE, this.getY() * Options.TAILLE_CASE,
+				Options.TAILLE_CASE, Options.TAILLE_CASE, null);
 
 	}
 
