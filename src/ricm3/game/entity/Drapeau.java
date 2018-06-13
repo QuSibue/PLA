@@ -15,7 +15,7 @@ public class Drapeau extends Entity {
 	
 	public Drapeau(int x, int y, BufferedImage sprite, Map map, Model model) {
 
-		super(x, y, false, false, false, false, null, 7, map, model, null);
+		super(x, y, false, false, false, false, null, 7, null, map, model);
 		
 		m_lastMove = -100L;
 

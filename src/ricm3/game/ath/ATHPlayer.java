@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -17,6 +19,8 @@ import javax.swing.border.BevelBorder;
 import org.w3c.dom.ranges.RangeException;
 
 import ricm3.game.entity.Player;
+import ricm3.game.mvc.IconDataBase;
+import ricm3.game.other.Options;
 
 /**
  * Classe qui construit l'ATH d'un player (virus ou antivirus).
@@ -27,20 +31,36 @@ public class ATHPlayer {
 	JLabel m_heart;
 	JLabel m_heart1;
 	JLabel m_heart2; // il a 3 vies
-	JLabel m_labelx;
-	JLabel m_labelz;
-	JLabel m_labelw; // il peut avoir jusqu'a 3 choses dans son sac
+	JLabel m_label1;
+	JLabel m_label2;
+	JLabel m_label3; // il peut avoir jusqu'a 3 choses dans son sac
+	
+	JLabel m_sbire;
+	
+	JProgressBar energie;
+	ImageIcon[] m_iconSbire;
+	IconDataBase m_icb;
 
-	public ATHPlayer(Player player) {
+	public ATHPlayer(Player player, IconDataBase ib) {
 		m_player = player;
+		m_icb = ib;
 
-		ImageIcon heartIcon = new ImageIcon("src/ricm3/sprites/heart.png");
+		ImageIcon heartIcon = new ImageIcon("images/heart.png");
 		m_heart = new JLabel();
 		m_heart.setIcon(heartIcon);
 		m_heart1 = new JLabel();
 		m_heart1.setIcon(heartIcon);
 		m_heart2 = new JLabel();
 		m_heart2.setIcon(heartIcon);
+		
+		energie = new JProgressBar(0, Options.initialEnergie);
+		energie.setString(Integer.toString(Options.initialEnergie));
+		energie.setStringPainted(true);
+		energie.setValue(Options.initialEnergie);
+		
+		m_iconSbire = m_icb.getIconSbiresAntivirus();
+		m_sbire = new JLabel();
+		m_sbire.setIcon(m_iconSbire[0]);
 	}
 
 	public Container init() {
@@ -51,8 +71,10 @@ public class ATHPlayer {
 		vie.add(m_heart1);
 		vie.add(m_heart2);
 
-		JProgressBar energie = new JProgressBar(0, 10);
-		energie.setValue(8);
+//		JProgressBar energie = new JProgressBar(0, Options.initialEnergie);
+//		energie.setString(Integer.toString(Options.initialEnergie));
+//		energie.setStringPainted(true);
+//		energie.setValue(Options.initialEnergie);
 
 		Container VieEnergie = new Container();
 		VieEnergie.setLayout(new BoxLayout(VieEnergie, BoxLayout.Y_AXIS));
@@ -60,45 +82,42 @@ public class ATHPlayer {
 		VieEnergie.add(Box.createRigidArea(new Dimension(1, 10)));
 		VieEnergie.add(energie);
 
-		JLabel sbire = new JLabel();
-		sbire.setIcon(new ImageIcon("src/ricm3/sprites/sbire.png"));
-
 		Container cont = new Container();
 		cont.setLayout(new FlowLayout());
 
 		JPanel panelDuSbire = new JPanel();
 		panelDuSbire.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.BLACK, Color.BLACK));
-		panelDuSbire.add(sbire);
+		panelDuSbire.add(m_sbire);
 
 		Container sacCont = new Container();
 		sacCont.setLayout(new FlowLayout());
 
-		JPanel panelx = new JPanel();
-		panelx.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.BLACK, Color.BLACK));
-		panelx.setPreferredSize(new Dimension(40, 40));
+		JPanel panel1 = new JPanel();
+		panel1.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.BLACK, Color.BLACK));
+		panel1.setPreferredSize(new Dimension(50, 50));
 
-		m_labelx = new JLabel("X");
-		panelx.add(m_labelx);
+		m_label1 = new JLabel();
+		panel1.add(m_label1);
 
-		sacCont.add(panelx);
+		sacCont.add(panel1);
 
-		JPanel panelz = new JPanel();
-		panelz.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.BLACK, Color.BLACK));
-		panelz.setPreferredSize(new Dimension(40, 40));
+		JPanel panel2 = new JPanel();
+		panel2.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.BLACK, Color.BLACK));
+		panel2.setPreferredSize(new Dimension(50, 50));
 
-		m_labelz = new JLabel("Z");
-		panelz.add(m_labelz);
+		m_label2 = new JLabel();
+		panel2.add(m_label2);
 
-		sacCont.add(panelz);
+		sacCont.add(panel2);
 
-		JPanel panelw = new JPanel();
-		panelw.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.BLACK, Color.BLACK));
-		panelw.setPreferredSize(new Dimension(40, 40));
+		JPanel panel3 = new JPanel();
+		panel3.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.BLACK, Color.BLACK));
+		panel3.setPreferredSize(new Dimension(50, 50));
 
-		m_labelw = new JLabel("W");
-		panelw.add(m_labelw);
+		m_label3 = new JLabel();
+		panel3.add(m_label3);
 
-		sacCont.add(panelw);
+		sacCont.add(panel3);
 
 		cont.add(VieEnergie);
 		cont.add(Box.createRigidArea(new Dimension(20, 1)));
@@ -125,18 +144,31 @@ public class ATHPlayer {
 		default:
 			throw new RangeException(RangeException.BAD_BOUNDARYPOINTS_ERR, "Error vie");
 		}
-	
-		if (m_player.getSac().getItem(0) == null)
-			m_labelx.setVisible(false);
+		
+		if (m_player.getSac().getItem(0) != null) {
+			m_label1.setIcon(m_player.getSac().getItem(0).getIcon());
+			m_label1.setVisible(true);
+		}
+		else 
+			m_label1.setVisible(false);
+		
+		if (m_player.getSac().getItem(1) != null){
+			m_label2.setIcon(m_player.getSac().getItem(1).getIcon());
+			m_label2.setVisible(true);
+		}
 		else
-			m_labelx.setVisible(true);
-		if (m_player.getSac().getItem(1) == null)
-			m_labelz.setVisible(false);
+			m_label2.setVisible(false);
+		if (m_player.getSac().getItem(2) != null){
+			m_label3.setIcon(m_player.getSac().getItem(2).getIcon());
+			m_label3.setVisible(true);
+		}
 		else
-			m_labelz.setVisible(true);
-		if (m_player.getSac().getItem(2) == null)
-			m_labelw.setVisible(false);
-		else
-			m_labelw.setVisible(true);
+			m_label3.setVisible(false);
+		
+		energie.setValue(m_player.getEnergie());
+		energie.setString(Integer.toString(m_player.getEnergie()));
+		
+		m_sbire.setIcon(m_iconSbire[m_player.getIndiceMinion()]);
+		
 	}
 }

@@ -5,6 +5,8 @@ import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
+
 import ricm3.game.automaton.Automaton;
 import ricm3.game.automaton.Direction;
 import ricm3.game.automaton.Orientation;
@@ -24,9 +26,9 @@ public class Player extends Character {
 	private int m_indiceAutoMinions;
 
 	public Player(int x, int y, BufferedImage[][] sprites, int nbImage, Automaton aut, Orientation orientation,
-			int equipe, Map map, Model model, int life, long lastMove, TypeKey key, ImageDataBase idb) {
-		super(sprites, nbImage, x, y, true, false, true, false, Options.PLAYER_MS, aut, orientation, equipe, map, model,
-				life, lastMove, idb);
+			int equipe, Map map, Model model, int life, long lastMove, TypeKey key) {
+		super(sprites, nbImage, null, x, y, true, false, true, false, Options.PLAYER_MS, aut, orientation, equipe, map,
+				model, life, lastMove);
 		m_key = key;
 		m_energie = Options.initialEnergie;
 		m_autoMinions = new ArrayList<Automaton>();
@@ -40,10 +42,18 @@ public class Player extends Character {
 		if (m_energie >= 3) {
 			Point p = new Point();
 			if (global_map.caseLibre(this.getX(), this.getY(), p)) {
+
 				BufferedImage[][] spriteMinion = m_model.m_idb.getMinionSprites(m_indiceAutoMinions);
-				Minion minion = new Minion(spriteMinion, m_model.m_idb.nbFrameM1, p.x, p.y, true, true, true, false,
-						Options.LASER_MS, this.m_model.m_automates.get(m_indiceAutoMinions), Orientation.RIGHT, 1,
-						global_map, this.m_model, 1, 0, this.m_idb);
+
+				ImageIcon ic = null;
+				if (getEquipe() == 1)
+					ic = m_model.m_icb.m_iconSbiresVirusSac[m_indiceAutoMinions];
+				else
+					ic = m_model.m_icb.m_iconSbiresAntivirusSac[m_indiceAutoMinions];
+
+				Minion minion = new Minion(spriteMinion, m_model.m_idb.nbFrameM1,ic, p.x, p.y, true, true, true, false, Options.LASER_MS,
+						this.m_model.m_automates.get(m_indiceAutoMinions), Orientation.RIGHT, 1, global_map,
+						this.m_model, 1, 0);
 				m_model.m_minions.add(minion);
 				global_map.setEntity(minion);
 				m_energie -= 3;
@@ -59,9 +69,9 @@ public class Player extends Character {
 
 	@Override
 	public void wizz() {
-			m_indiceAutoMinions++;
-			m_indiceAutoMinions = m_indiceAutoMinions % Options.NB_MINIONS_TYPE;
-			System.out.println(m_indiceAutoMinions);
+		m_indiceAutoMinions++;
+		m_indiceAutoMinions = m_indiceAutoMinions % Options.NB_MINIONS_TYPE;
+		System.out.println(m_indiceAutoMinions);
 
 	}
 
@@ -75,13 +85,16 @@ public class Player extends Character {
 			Transversal.evalPosition(this.getX(), this.getY(), p, Direction.FRONT, this.getOrientation());
 			Entity e = global_map.getEntity(p.x, p.y);
 			if (e == null) {
-				Laser laser = new Laser(p.x, p.y, m_model.m_idb.laserIdle, m_model.m_idb.nbFrameLaser,
-						Transversal.straightAutomaton(), this.getOrientation(), global_map, m_model, 1, 0, this.m_idb);
+
+				Laser laser = new Laser(p.x, p.y, m_model.m_idb.laserIdle, m_model.m_idb.nbFrameLaser,m_model.m_icb.m_laserSac,
+						Transversal.straightAutomaton(), this.getOrientation(), global_map, m_model, 1, 0);
 				this.m_model.m_laser.add(laser);
 				global_map.setEntity(laser);
+				
 			} else if (e instanceof PowerUp) {
-				Laser laser = new Laser(p.x, p.y, null, m_model.m_idb.nbFrameLaser, Transversal.straightAutomaton(),
-						this.getOrientation(), global_map, m_model, 1, 0, this.m_idb);
+				Laser laser = new Laser(p.x, p.y, null, m_model.m_idb.nbFrameLaser,m_model.m_icb.m_laserSac, Transversal.straightAutomaton(),
+						this.getOrientation(), global_map, m_model, 1, 0);
+
 				laser.erased_powerup = (PowerUp) e;
 				this.m_model.m_laser.add(laser);
 				global_map.setEntity(laser);
@@ -98,6 +111,14 @@ public class Player extends Character {
 
 	public void setKey(TypeKey key) {
 		m_key = key;
+	}
+
+	public int getEnergie() {
+		return m_energie;
+	}
+
+	public int getIndiceMinion() {
+		return m_indiceAutoMinions;
 	}
 
 	@Override
@@ -137,12 +158,12 @@ public class Player extends Character {
 	}
 
 	public void loadAutomaton() {
-		m_autoMinions.add(m_model.m_automates.get(0));
-		m_autoMinions.add(m_model.m_automates.get(1));
-		m_autoMinions.add(m_model.m_automates.get(2));
-		m_autoMinions.add(m_model.m_automates.get(0));
-		m_autoMinions.add(m_model.m_automates.get(1));
-		m_autoMinions.add(m_model.m_automates.get(2));
+		m_autoMinions.add(m_model.m_automates.get(3));
+		m_autoMinions.add(m_model.m_automates.get(4));
+		m_autoMinions.add(m_model.m_automates.get(5));
+		m_autoMinions.add(m_model.m_automates.get(6));
+		m_autoMinions.add(m_model.m_automates.get(7));
+		m_autoMinions.add(m_model.m_automates.get(8));
 	}
 
 }
