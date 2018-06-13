@@ -11,7 +11,7 @@ public class ImageDataBase {
 	public BufferedImage[][] virusIdle;
 	public BufferedImage[][] antivirusIdle;
 	public BufferedImage[][] laserIdle;
-	
+
 	public BufferedImage[][] m1Idle;
 	public BufferedImage[][] m2Idle;
 	public BufferedImage[][] m3Idle;
@@ -25,7 +25,7 @@ public class ImageDataBase {
 	private final int nbFrameVirus = 3;
 	private final int nbFrameAntivirus = 3;
 	private final int nbFrameLaser = 1;
-	
+
 	private final int nbFrameM1 = 6;
 	private final int nbFrameM2 = 6;
 	private final int nbFrameM3 = 6;
@@ -41,14 +41,14 @@ public class ImageDataBase {
 		virusIdle = new BufferedImage[4][];
 		antivirusIdle = new BufferedImage[4][];
 		laserIdle = new BufferedImage[4][];
-		
+
 		m1Idle = new BufferedImage[4][];
 		m2Idle = new BufferedImage[4][];
 		m3Idle = new BufferedImage[4][];
 		m4Idle = new BufferedImage[4][];
 		m5Idle = new BufferedImage[4][];
 		m6Idle = new BufferedImage[4][];
-		
+
 		obstacle = new BufferedImage[1][];
 		powerUp = new BufferedImage[1][];
 
@@ -56,8 +56,14 @@ public class ImageDataBase {
 		loadAntivirusSprite();
 		loadLaserSprite();
 		
+		loadM1Sprite();
+		loadM2Sprite();
+		loadM3Sprite();
+		loadM4Sprite();
+		loadM5Sprite();
+		loadM6Sprite();
 		
-		
+
 		loadObstacleSprite();
 		loadPowerUpSprite();
 
@@ -95,12 +101,73 @@ public class ImageDataBase {
 		loadOneRowOfSprite(laserIdle, 3, nbFrameLaser, "images/laser/Laser.png");
 	}
 
+	public void loadM1Sprite() {
+		loadOneRowOfSprite(m1Idle, 0, nbFrameM1, "images/m1/IdleUp.png");
+		loadOneRowOfSprite(m1Idle, 1, nbFrameM1, "images/m1/IdleRight.png");
+		loadOneRowOfSprite(m1Idle, 2, nbFrameM1, "images/m1/IdleDown.png");
+		loadOneRowOfSprite(m1Idle, 3, nbFrameM1, "images/m1/IdleLeft.png");
+	}
+
+	public void loadM2Sprite() {
+		loadOneRowOfSprite(m2Idle, 0, nbFrameM2, "images/m2/IdleUp.png");
+		loadOneRowOfSprite(m2Idle, 1, nbFrameM2, "images/m2/IdleRight.png");
+		loadOneRowOfSprite(m2Idle, 2, nbFrameM2, "images/m2/IdleDown.png");
+		loadOneRowOfSprite(m2Idle, 3, nbFrameM2, "images/m2/IdleLeft.png");
+	}
+
+	public void loadM3Sprite() {
+		loadOneRowOfSprite(m3Idle, 0, nbFrameM3, "images/m3/IdleUp.png");
+		loadOneRowOfSprite(m3Idle, 1, nbFrameM3, "images/m3/IdleRight.png");
+		loadOneRowOfSprite(m3Idle, 2, nbFrameM3, "images/m3/IdleDown.png");
+		loadOneRowOfSprite(m3Idle, 3, nbFrameM3, "images/m3/IdleLeft.png");
+	}
+
+	public void loadM4Sprite() {
+		loadOneRowOfSprite(m4Idle, 0, nbFrameM4, "images/m4/IdleUp.png");
+		loadOneRowOfSprite(m4Idle, 1, nbFrameM4, "images/m4/IdleRight.png");
+		loadOneRowOfSprite(m4Idle, 2, nbFrameM4, "images/m4/IdleDown.png");
+		loadOneRowOfSprite(m4Idle, 3, nbFrameM4, "images/m4/IdleLeft.png");
+	}
+
+	public void loadM5Sprite() {
+		loadOneRowOfSprite(m5Idle, 0, nbFrameM5, "images/m5/IdleUp.png");
+		loadOneRowOfSprite(m5Idle, 1, nbFrameM5, "images/m5/IdleRight.png");
+		loadOneRowOfSprite(m5Idle, 2, nbFrameM5, "images/m5/IdleDown.png");
+		loadOneRowOfSprite(m5Idle, 3, nbFrameM5, "images/m5/IdleLeft.png");
+	}
+
+	public void loadM6Sprite() {
+		loadOneRowOfSprite(m6Idle, 0, nbFrameM6, "images/m6/IdleUp.png");
+		loadOneRowOfSprite(m6Idle, 1, nbFrameM6, "images/m6/IdleRight.png");
+		loadOneRowOfSprite(m6Idle, 2, nbFrameM6, "images/m6/IdleDown.png");
+		loadOneRowOfSprite(m6Idle, 3, nbFrameM6, "images/m6/IdleLeft.png");
+	}
+
 	public void loadObstacleSprite() {
 		loadOneRowOfSprite(obstacle, 0, nbFrameObstacle, "images/obstacle/Obstacle.png");
 	}
-	
+
 	public void loadPowerUpSprite() {
 		loadOneRowOfSprite(powerUp, 0, nbFramePowerUp, "images/energie/Energie.png");
+	}
+	
+	public BufferedImage[][] getMinionSprites(int i){
+		switch(i) {
+		case 1:
+			return m1Idle;
+		case 2:
+			return m2Idle;
+		case 3:
+			return m3Idle;
+		case 4:
+			return m4Idle;
+		case 5:
+			return m5Idle;
+		case 6:
+			return m6Idle;
+		default:
+			throw new RuntimeException("Indice sprite des sbires invalide");
+		}
 	}
 
 	private void loadOneRowOfSprite(BufferedImage[][] images, int index, int nbFrame, String path) {
