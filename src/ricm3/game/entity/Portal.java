@@ -105,6 +105,7 @@ public class Portal extends Entity {
 		if (lifespan <= 0) {
 			// kaboum
 			global_map.deleteEntity(this);
+			m_model.m_portal.remove(this);
 			// enlever de la liste des trucs à step
 		}
 	}
@@ -121,11 +122,17 @@ public class Portal extends Entity {
 		 * g.fillRect(m_x, m_y, Options.TAILLE_CASE, Options.TAILLE_CASE);
 		 */
 
-		int IndexFrame = 0;
-		g.drawImage(this.getSprites()[0][IndexFrame], this.getX() * Options.TAILLE_CASE,
+		int i = getIndexRefresh();
+		setIndexRefresh(i + 1);
+		if (i == getNbImageRefresh()) {
+			setIndexRefresh(0);
+			int j = getNumImage();
+			setNumImage(j + 1);
+		}
+
+		g.drawImage(this.getSprites()[0][getNumImage() % getNbImage()], this.getX() * Options.TAILLE_CASE,
 				this.getY() * Options.TAILLE_CASE, Options.TAILLE_CASE, Options.TAILLE_CASE, null);
-		
-		g.drawImage(this.getSprites()[0][IndexFrame], this.getX_end() * Options.TAILLE_CASE,
+		g.drawImage(this.getSprites()[0][getNumImage() % getNbImage()], this.getX_end() * Options.TAILLE_CASE,
 				this.getY_end() * Options.TAILLE_CASE, Options.TAILLE_CASE, Options.TAILLE_CASE, null);
 
 		// il faudra peut être faire une animation de fin quand lifespan arrive à 0

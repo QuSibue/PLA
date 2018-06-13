@@ -39,7 +39,7 @@ public class ImageDataBase {
 
 	public final int nbFrameObstacle = 4;
 	public final int nbFramePowerUp = 8;
-	public final int nbFramePortail = 4;
+	public final int nbFramePortail = 5;
 	public final int nbFrameDrapeau = 7;
 
 	public ImageDataBase() {

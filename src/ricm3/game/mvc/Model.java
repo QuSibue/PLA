@@ -114,6 +114,10 @@ public class Model extends GameModel {
 
 		m_powerup.add(PU);
 		map.setEntity(PU);
+		
+		Portal p = new Portal(9,9,12,12,m_idb.portail,m_idb.nbFramePortail,null,map,this);
+		m_portal.add(p);
+		map.setEntity(p);
 
 		m_drapeau = new Drapeau(4, 1, m_idb.drapeau, m_idb.nbFrameDrapeau, null, map, this);
 		map.setEntity(m_drapeau);
