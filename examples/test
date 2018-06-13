@@ -28,10 +28,12 @@ Antivirus(Init){
     |Key(z) ? Move(N) :(Init)
     |Key(s)? Move(S) :(Init)
     |Key(q) ? Move(O) :(Init)
+    |Key(f) ? Move(E) :(Init)
 
-    |Key(f) ? Pick() :(Init)
+    |Key(g) ? Pick() :(Init)
     |Key(v) ? Get() :(Init)
-    |Key(a) ? Pop() :(Init)
+    |Key(r) ? Pop() :(Init)
+    |Key(a) ? Wizz() :(Init)
     |Key(c) ? Hit() :(Init)
     |True ? Jump() :(Init)
 

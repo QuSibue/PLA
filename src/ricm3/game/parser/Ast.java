@@ -161,8 +161,8 @@ public class Ast {
 			case "S":
 			case "s":
 				return ricm3.game.automaton.TypeCondition.KEYPRESSEDS;
-			case "D":
-			case "d":
+			case "F":
+			case "f":
 				return ricm3.game.automaton.TypeCondition.KEYPRESSEDD;
 			case "O":
 			case "o":
@@ -178,10 +178,10 @@ public class Ast {
 				return ricm3.game.automaton.TypeCondition.KEYPRESSEDM;
 			case "P":
 			case "p":
-				return ricm3.game.automaton.TypeCondition.KEYPRESSEDM;
+				return ricm3.game.automaton.TypeCondition.KEYPRESSEDP;
 			case "I":
 			case "i":
-				return ricm3.game.automaton.TypeCondition.KEYPRESSEDM;
+				return ricm3.game.automaton.TypeCondition.KEYPRESSEDI;
 			case "y":
 				return ricm3.game.automaton.TypeCondition.KEYPRESSEDCOMMA;
 			case "J":
@@ -193,14 +193,14 @@ public class Ast {
 			case "A":
 			case "a":
 				return ricm3.game.automaton.TypeCondition.KEYPRESSEDA;
-			case "E":
-			case "e":
+			case "R":
+			case "r":
 				return ricm3.game.automaton.TypeCondition.KEYPRESSEDE;
 			case "C":
 			case "c":
 				return ricm3.game.automaton.TypeCondition.KEYPRESSEDC;
-			case "F":
-			case "f":
+			case "G":
+			case "g":
 				return ricm3.game.automaton.TypeCondition.KEYPRESSEDF;
 			case "V":
 			case "v":
