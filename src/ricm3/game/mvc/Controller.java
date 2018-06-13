@@ -30,7 +30,7 @@ public class Controller extends GameController {
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -40,71 +40,79 @@ public class Controller extends GameController {
 		switch (Code) {
 		case KeyEvent.VK_O:
 			// handle up
-			m_model.virus.setKey(TypeKey.UP);
+			m_model.antivirus.setKey(TypeKey.UP);
 			System.out.println("UP");
 			break;
 		case KeyEvent.VK_L:
 			// handle down
-			m_model.virus.setKey(TypeKey.DOWN);
+			m_model.antivirus.setKey(TypeKey.DOWN);
 			System.out.println("DOWN");
 			break;
 		case KeyEvent.VK_K:
 			// handle left
-			m_model.virus.setKey(TypeKey.LEFT);
+			m_model.antivirus.setKey(TypeKey.LEFT);
 			System.out.println("LEFT");
 			break;
 		case KeyEvent.VK_M:
 			// handle right
-			m_model.virus.setKey(TypeKey.RIGHT);
-			System.out.println("RIGHT");
-			break;
-		case KeyEvent.VK_J:
-			m_model.virus.setKey(TypeKey.PICK);
-			System.out.println("Pick");
-			break;
-		case KeyEvent.VK_N:
-			m_model.virus.setKey(TypeKey.GET);
-			System.out.println("Get");
-			break;
-		case KeyEvent.VK_Z:
-			m_model.antivirus.setKey(TypeKey.UP);
-			System.out.println("UP");
-			break;
-		case KeyEvent.VK_Q:
-			m_model.antivirus.setKey(TypeKey.LEFT);
-			System.out.println("LEFT");
-			break;
-		case KeyEvent.VK_S:
-			m_model.antivirus.setKey(TypeKey.DOWN);
-			System.out.println("DOWN");
-			break;
-		case KeyEvent.VK_F:
 			m_model.antivirus.setKey(TypeKey.RIGHT);
 			System.out.println("RIGHT");
 			break;
+		case KeyEvent.VK_J:
+			m_model.antivirus.setKey(TypeKey.PICK);
+			System.out.println("Pick");
+			break;
+		case KeyEvent.VK_N:
+			m_model.antivirus.setKey(TypeKey.GET);
+			System.out.println("Get");
+			break;
+		case KeyEvent.VK_Z:
+			m_model.virus.setKey(TypeKey.UP);
+			System.out.println("UP");
+			break;
+		case KeyEvent.VK_Q:
+			m_model.virus.setKey(TypeKey.LEFT);
+			System.out.println("LEFT");
+			break;
+		case KeyEvent.VK_S:
+			m_model.virus.setKey(TypeKey.DOWN);
+			System.out.println("DOWN");
+			break;
+		case KeyEvent.VK_F:
+			m_model.virus.setKey(TypeKey.RIGHT);
+			System.out.println("RIGHT");
+			break;
 		case KeyEvent.VK_COMMA:
-			m_model.virus.setKey(TypeKey.HIT);
-			System.out.println("Hit");
-			break;
-		case KeyEvent.VK_P:
-			m_model.virus.setKey(TypeKey.POP);
-			System.out.println("Pop");
-			break;
-		case KeyEvent.VK_C:
 			m_model.antivirus.setKey(TypeKey.HIT);
 			System.out.println("Hit");
 			break;
-		case KeyEvent.VK_I:
-			m_model.virus.setKey(TypeKey.WIZZ);
-			System.out.println("Wizz");
-			break;
-		case KeyEvent.VK_R:
+		case KeyEvent.VK_P:
 			m_model.antivirus.setKey(TypeKey.POP);
 			System.out.println("Pop");
 			break;
-		case KeyEvent.VK_A:
+		case KeyEvent.VK_C:
+			m_model.virus.setKey(TypeKey.HIT);
+			System.out.println("Hit");
+			break;
+		case KeyEvent.VK_I:
 			m_model.antivirus.setKey(TypeKey.WIZZ);
 			System.out.println("Wizz");
+			break;
+		case KeyEvent.VK_R:
+			m_model.virus.setKey(TypeKey.POP);
+			System.out.println("Pop");
+			break;
+		case KeyEvent.VK_A:
+			m_model.virus.setKey(TypeKey.WIZZ);
+			System.out.println("Wizz");
+			break;
+		case KeyEvent.VK_X:
+			m_model.virus.setKey(TypeKey.PICK);
+			System.out.println("Pick");
+			break;
+		case KeyEvent.VK_W:
+			m_model.virus.setKey(TypeKey.GET);
+			System.out.println("Get");
 			break;
 		default:
 			m_model.antivirus.setKey(TypeKey.NONE);
@@ -118,12 +126,14 @@ public class Controller extends GameController {
 		// TODO Auto-generated method stub
 		int Code = e.getKeyCode();
 		if (Code == KeyEvent.VK_O || Code == KeyEvent.VK_K || Code == KeyEvent.VK_L || Code == KeyEvent.VK_M
-				|| Code == KeyEvent.VK_COMMA || Code == KeyEvent.VK_P || Code == KeyEvent.VK_I || Code == KeyEvent.VK_N || Code == KeyEvent.VK_J) {
-			m_model.virus.setKey(TypeKey.NONE);
+				|| Code == KeyEvent.VK_COMMA || Code == KeyEvent.VK_P || Code == KeyEvent.VK_I || Code == KeyEvent.VK_N
+				|| Code == KeyEvent.VK_J) {
+			m_model.antivirus.setKey(TypeKey.NONE);
 		}
 		if (Code == KeyEvent.VK_Z || Code == KeyEvent.VK_Q || Code == KeyEvent.VK_S || Code == KeyEvent.VK_D
-				|| Code == KeyEvent.VK_C || Code == KeyEvent.VK_A || Code == KeyEvent.VK_R || Code == KeyEvent.VK_F || Code == KeyEvent.VK_V) {
-			m_model.antivirus.setKey(TypeKey.NONE);
+				|| Code == KeyEvent.VK_C || Code == KeyEvent.VK_A || Code == KeyEvent.VK_R || Code == KeyEvent.VK_F
+				|| Code == KeyEvent.VK_V || Code == KeyEvent.VK_X || Code == KeyEvent.VK_W) {
+			m_model.virus.setKey(TypeKey.NONE);
 		}
 	}
 

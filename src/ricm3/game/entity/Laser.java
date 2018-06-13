@@ -19,23 +19,18 @@ public class Laser extends Being {
 
 	private boolean m_isFirstPaint = true;
 	public PowerUp erased_powerup;
-	private int lifespan;
+	private long lifespan;
+	private long m_last;
 
 	public Laser(int x, int y, BufferedImage[][] sprites, int nbImage, ImageIcon icon, Automaton aut,
 			Orientation orientation, Map map, Model model, int life, long lastMove) {
 		super(x, y, true, true, true, true, Options.LASER_MS, sprites, nbImage, icon, aut, orientation, map, model,
 				life, lastMove);
 		erased_powerup = null;
+		lifespan = 3000;
+		m_last = 0;
 	}
 
-	public int getLife() {
-		return lifespan;
-	}
-
-	public boolean setLife(int lifespan) {
-		this.lifespan = lifespan;
-		return true;
-	}
 
 	@Override
 	public void move(Direction d) {
@@ -72,6 +67,20 @@ public class Laser extends Being {
 	public void step(long now) {
 		if (!m_isFirstPaint) {
 			super.step(now);
+			
+		}
+		
+		long elapsed = 0;
+		if (m_last != 0) {
+			elapsed = now - m_last;
+		}		
+		m_last = now;
+		lifespan = lifespan - elapsed;
+		if (lifespan <= 0) {
+			// kaboum
+			global_map.deleteEntity(this);
+			m_model.m_laser.remove(this);
+			// enlever de la liste des trucs à step
 		}
 	}
 
