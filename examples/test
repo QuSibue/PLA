@@ -1,5 +1,5 @@
 Forward(Init){
-	*(Init): True ? Move(F) : (Init)
+	*(Init): Closest	 & True ? Move(F) : (Init)
 }
 
 Virus(Init){
