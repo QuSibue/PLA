@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Random;
 
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
@@ -46,12 +47,14 @@ public class Model extends GameModel {
 	public boolean flagCaptured = false;
 	public ImageDataBase m_idb;
 	public IconDataBase m_icb;
+	public long m_last;
 
 	public Model(ArrayList<Integer> indices) {
 		m_automates = new ArrayList<Automaton>();
 
 		// initTree();
 		m_tree = GameMain.m_tree;
+		m_last = 0;
 
 		for (int i = 0; i < indices.size(); i++) {
 			Automaton temp = ((ArrayList<Automaton>) m_tree.make()).get(indices.get(i));
@@ -175,6 +178,40 @@ public class Model extends GameModel {
 			}
 			m_ath.step(now);
 			// Affichage du modele
+			
+			long elapsed = 0;
+			if (m_last != 0) {
+				elapsed = now - m_last;
+			}
+			m_last = now;
+			Options.TIMER_POWER_UP = Options.TIMER_POWER_UP - elapsed;
+			if (Options.TIMER_POWER_UP <= 0) {
+				// kaboum
+				int xr;
+				int yr;
+				int xr2;
+				int yr2;
+				do {
+					Random rand = new Random();
+					Random rand2 = new Random();
+					
+					xr = rand.nextInt(29);
+					yr = rand.nextInt(15);
+					
+					xr2 = rand.nextInt(29);
+					yr2 = rand.nextInt(15);
+					
+				}while(map.getEntity(xr, yr)!=null || map.getEntity(xr2, yr2)!=null);
+				PowerUp p1 = new PowerUp(xr, yr, this, this.m_idb.powerUp, this.m_icb.m_energieSac, this.m_idb.nbFramePowerUp, 0);
+				PowerUp p2 = new PowerUp(xr2, yr2, this, this.m_idb.powerUp, this.m_icb.m_energieSac, this.m_idb.nbFramePowerUp, 1);
+				map.setEntity(p1);
+				map.setEntity(p2);
+				this.m_powerup.add(p1);
+				this.m_powerup.add(p2);
+				
+				Options.TIMER_POWER_UP = 10000;
+				// enlever de la liste des trucs à step
+			}
 
 			finPartie = virus.getLife() <= 0 || antivirus.getLife() <= 0 || m_ath.getTimer() <= 0 || flagCaptured;
 			afficherFin = finPartie;

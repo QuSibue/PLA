@@ -20,7 +20,7 @@ public abstract class Options {
 	public static int NB_TILE_HEIGHT_MAP = 100;// Longueur de la MAP
 	public static int NB_MINIONS_TYPE = 6; 
 	public static int NB_ENTITY = 9;
-	
+	public static long TIMER_POWER_UP = 10000;
 	
 	// Aide debug
 	public static final boolean ECHO_MOUSE = true;
@@ -32,7 +32,7 @@ public abstract class Options {
 	public static final int MINION_MS = 200;
 
 	// Cooldown
-	public static final long laserCD = 300L;
+	public static final long laserCD = 1100L;
 	public static final long powerCD = 300L;
 	
 	public static final String pathPlayer = "examples/test";

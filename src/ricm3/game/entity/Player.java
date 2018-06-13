@@ -124,9 +124,11 @@ public class Player extends Character {
 	public void power(long now) {
 		System.out.println(m_energie);
 
-		if (m_energie+5 < 10) {
+		if (m_energie+5 <= 10) {
 			m_energie+=5;
 			System.out.println(m_energie);
+		}else {
+			m_energie += 10-m_energie;
 		}
 
 	}

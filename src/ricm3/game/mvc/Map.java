@@ -216,8 +216,7 @@ public class Map {
 
 					matrice[cmp / m_length][cmp % m_length] = new Obstacle(cmp / m_length, cmp % m_length, false, true, false, false,
 							m.m_idb.obstacle, m.m_idb.nbFrameObstacle, m.m_icb.m_obstacleSac, this, m);
-					;
-
+					m.m_obstacles.add((Obstacle)matrice[cmp / m_length][cmp % m_length]);
 					cmp++;
 					break;
 				case 'N':
