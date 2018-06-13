@@ -61,6 +61,9 @@ public class Laser extends Being {
 			global_map.deleteEntity(this);
 			this.m_model.m_laser.remove(this);
 		}
+		else if (e instanceof Portal) {
+			((Portal)e).use_portal(this, p);
+		}
 	}
 
 	@Override
