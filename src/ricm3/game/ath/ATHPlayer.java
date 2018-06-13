@@ -31,9 +31,9 @@ public class ATHPlayer {
 	JLabel m_heart;
 	JLabel m_heart1;
 	JLabel m_heart2; // il a 3 vies
-	JLabel m_labelx;
-	JLabel m_labelz;
-	JLabel m_labelw; // il peut avoir jusqu'a 3 choses dans son sac
+	JLabel m_label1;
+	JLabel m_label2;
+	JLabel m_label3; // il peut avoir jusqu'a 3 choses dans son sac
 	
 	JLabel m_sbire;
 	
@@ -58,7 +58,7 @@ public class ATHPlayer {
 		energie.setStringPainted(true);
 		energie.setValue(Options.initialEnergie);
 		
-		m_iconSbire = m_ib.getIconSbires();
+		m_iconSbire = m_ib.getIconSbiresAntivirus();
 		m_sbire = new JLabel();
 		m_sbire.setIcon(m_iconSbire[0]);
 	}
@@ -92,32 +92,32 @@ public class ATHPlayer {
 		Container sacCont = new Container();
 		sacCont.setLayout(new FlowLayout());
 
-		JPanel panelx = new JPanel();
-		panelx.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.BLACK, Color.BLACK));
-		panelx.setPreferredSize(new Dimension(40, 40));
+		JPanel panel1 = new JPanel();
+		panel1.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.BLACK, Color.BLACK));
+		panel1.setPreferredSize(new Dimension(40, 40));
 
-		m_labelx = new JLabel("X");
-		panelx.add(m_labelx);
+		m_label1 = new JLabel("X");
+		panel1.add(m_label1);
 
-		sacCont.add(panelx);
+		sacCont.add(panel1);
 
-		JPanel panelz = new JPanel();
-		panelz.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.BLACK, Color.BLACK));
-		panelz.setPreferredSize(new Dimension(40, 40));
+		JPanel panel2 = new JPanel();
+		panel2.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.BLACK, Color.BLACK));
+		panel2.setPreferredSize(new Dimension(40, 40));
 
-		m_labelz = new JLabel("Z");
-		panelz.add(m_labelz);
+		m_label2 = new JLabel("Z");
+		panel2.add(m_label2);
 
-		sacCont.add(panelz);
+		sacCont.add(panel2);
 
-		JPanel panelw = new JPanel();
-		panelw.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.BLACK, Color.BLACK));
-		panelw.setPreferredSize(new Dimension(40, 40));
+		JPanel panel3 = new JPanel();
+		panel3.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.BLACK, Color.BLACK));
+		panel3.setPreferredSize(new Dimension(40, 40));
 
-		m_labelw = new JLabel("W");
-		panelw.add(m_labelw);
+		m_label3 = new JLabel("W");
+		panel3.add(m_label3);
 
-		sacCont.add(panelw);
+		sacCont.add(panel3);
 
 		cont.add(VieEnergie);
 		cont.add(Box.createRigidArea(new Dimension(20, 1)));
@@ -146,17 +146,17 @@ public class ATHPlayer {
 		}
 
 		if (m_player.getSac().getItem(0) == null)
-			m_labelx.setVisible(false);
+			m_label1.setVisible(false);
 		else
-			m_labelx.setVisible(true);
+			m_label1.setVisible(true);
 		if (m_player.getSac().getItem(1) == null)
-			m_labelz.setVisible(false);
+			m_label2.setVisible(false);
 		else
-			m_labelz.setVisible(true);
+			m_label2.setVisible(true);
 		if (m_player.getSac().getItem(2) == null)
-			m_labelw.setVisible(false);
+			m_label3.setVisible(false);
 		else
-			m_labelw.setVisible(true);
+			m_label3.setVisible(true);
 		
 		energie.setValue(m_player.getEnergie());
 		energie.setString(Integer.toString(m_player.getEnergie()));

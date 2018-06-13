@@ -3,6 +3,8 @@ package ricm3.game.entity;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import javax.swing.ImageIcon;
+
 import ricm3.game.mvc.Map;
 import ricm3.game.mvc.Model;
 
