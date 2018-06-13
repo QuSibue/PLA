@@ -1,37 +1,41 @@
-SimpleMove(Init){
-  * (Init): True ? Move(F) :(Init)
+Forward(Init){
+	*(Init): True ? Move(F) : (Init)
 }
 
-SimpleHit(Init){
-  * (Init): True ? Move(L) :(Init)
+Virus(Init){
+
+    *(Init):
+    |Key(o) ? Move(N) :(Init)
+
+    |Key(m) ? Move(E) :(Init)
+
+    |Key(l)? Move(S) :(Init)
+
+    |Key(k) ? Move(O) :(Init)
+
+    |Key(j) ? Pick() :(Init)
+    |Key(n) ? Get() :(Init)
+    |Key(p) ? Pop() :(Init)
+    |Key(i) ? Wizz() :(Init)
+    |Key(y) ? Hit() :(Init)
+    |True ? Jump() :(Init)
+    
 }
 
-SimplePop(Init){
-  * (Init): True ? Move(R) :(Init)
-}
+Antivirus(Init){
 
-SimpleWizz(Init){
-  * (Init): True ? Move(B) :(Init)
-}
+    *(Init):
+    |Key(z) ? Move(N) :(Init)
+    |Key(s)? Move(S) :(Init)
+    |Key(q) ? Move(O) :(Init)
+    |Key(f) ? Move(E) :(Init)
 
-SimpleGet(Init){
-  * (Init): True ? Move(F) :(Init)
-}
+    |Key(g) ? Pick() :(Init)
+    |Key(v) ? Get() :(Init)
+    |Key(r) ? Pop() :(Init)
+    |Key(a) ? Wizz() :(Init)
+    |Key(c) ? Hit() :(Init)
+    |True ? Jump() :(Init)
 
-SimpleRight(Init){
-  * (Init): True ? Move(F) :(Init)
 }
-
-SimpleLeft(Init){
-  * (Init): True ? Move(F) :(Init)
-}
-
-SimpleUp(Init){
-  * (Init): True ? Move(F) :(Init)
-}
-
-SimpleBack(Init){
-  * (Init): True ? Move(F) :(Init)
-}
-
 

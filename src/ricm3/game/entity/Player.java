@@ -52,7 +52,7 @@ public class Player extends Character {
 					ic = m_model.m_icb.m_iconSbiresAntivirusSac[m_indiceAutoMinions];
 
 				Minion minion = new Minion(spriteMinion, m_model.m_idb.nbFrameM1,ic, p.x, p.y, true, true, true, false, Options.LASER_MS,
-						this.m_model.m_automates.get(m_indiceAutoMinions), Orientation.RIGHT, 1, global_map,
+						this.m_autoMinions.get(m_indiceAutoMinions), Orientation.RIGHT, 1, global_map,
 						this.m_model, 1, 0);
 				m_model.m_minions.add(minion);
 				global_map.setEntity(minion);

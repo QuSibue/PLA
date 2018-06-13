@@ -170,11 +170,11 @@ public class Transversal {
 		listTransitions.add(transition);
 		Automaton test =  new Automaton(etatInitialAut, listTransitions);
 		return test;
-	}
+	}/*
 	public static Automaton virusAutomaton() {
 		Etat etatInitialAut = new Etat("0");
 		Etat etatInitialTransition = etatInitialAut;
-		Condition condiUp = new Condition(TypeCondition.KEYPRESSEDUP, null, null,' ', null);
+		Condition condiUp = new Condition(TypeCondition.KEYPRESSEDO, null, null,' ', null);
 		Condition condiDown = new Condition(TypeCondition.KEYPRESSEDDOWN, null, null,' ', null);
 		Condition condiLeft = new Condition(TypeCondition.KEYPRESSEDLEFT, null, null,' ', null);
 		Condition condiRight = new Condition(TypeCondition.KEYPRESSEDRIGHT, null, null,' ', null);
@@ -262,7 +262,7 @@ public class Transversal {
 		Automaton test =  new Automaton(etatInitialAut, listTransitions);
 		return test;
 	}
-	
+	*/
 	public static int abs(int x) {
 		if(x>=0) {
 			return x;

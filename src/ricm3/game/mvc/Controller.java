@@ -78,7 +78,7 @@ public class Controller extends GameController {
 			m_model.antivirus.setKey(TypeKey.DOWN);
 			System.out.println("DOWN");
 			break;
-		case KeyEvent.VK_D:
+		case KeyEvent.VK_F:
 			m_model.antivirus.setKey(TypeKey.RIGHT);
 			System.out.println("RIGHT");
 			break;
@@ -94,12 +94,16 @@ public class Controller extends GameController {
 			m_model.antivirus.setKey(TypeKey.HIT);
 			System.out.println("Hit");
 			break;
-		case KeyEvent.VK_E:
+		case KeyEvent.VK_I:
+			m_model.virus.setKey(TypeKey.WIZZ);
+			System.out.println("Wizz");
+			break;
+		case KeyEvent.VK_R:
 			m_model.antivirus.setKey(TypeKey.POP);
 			System.out.println("Pop");
 			break;
-		case KeyEvent.VK_I:
-			m_model.virus.setKey(TypeKey.WIZZ);
+		case KeyEvent.VK_A:
+			m_model.antivirus.setKey(TypeKey.WIZZ);
 			System.out.println("Wizz");
 			break;
 		default:
@@ -118,7 +122,7 @@ public class Controller extends GameController {
 			m_model.virus.setKey(TypeKey.NONE);
 		}
 		if (Code == KeyEvent.VK_Z || Code == KeyEvent.VK_Q || Code == KeyEvent.VK_S || Code == KeyEvent.VK_D
-				|| Code == KeyEvent.VK_C || Code == KeyEvent.VK_A || Code == KeyEvent.VK_E || Code == KeyEvent.VK_F || Code == KeyEvent.VK_V) {
+				|| Code == KeyEvent.VK_C || Code == KeyEvent.VK_A || Code == KeyEvent.VK_R || Code == KeyEvent.VK_F || Code == KeyEvent.VK_V) {
 			m_model.antivirus.setKey(TypeKey.NONE);
 		}
 	}
