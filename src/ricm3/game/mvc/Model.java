@@ -9,6 +9,7 @@ import javax.swing.JComboBox;
 import ricm3.game.ath.ATH;
 import ricm3.game.automaton.Automaton;
 import ricm3.game.automaton.Orientation;
+import ricm3.game.entity.Drapeau;
 import ricm3.game.entity.Laser;
 import ricm3.game.entity.Minion;
 import ricm3.game.entity.Obstacle;
@@ -36,6 +37,8 @@ public class Model extends GameModel {
 	public boolean finPartie;
 	public boolean afficherFin;
 	public Ast m_tree;
+	public Drapeau m_drapeau;
+	public boolean flagCaptured = false;
 
 	public Model(ArrayList<Integer> indices) {
 		m_automates = new ArrayList<Automaton>();
@@ -107,6 +110,9 @@ public class Model extends GameModel {
 		PowerUp PU = new PowerUp(4, 3, this);
 		m_powerup.add(PU);
 		map.setEntity(PU);
+		
+		m_drapeau = new Drapeau(4, 1, null, map, this);
+		map.setEntity(m_drapeau);
 
 		m_ath = new ATH(this);
 
@@ -153,7 +159,7 @@ public class Model extends GameModel {
 			m_ath.step(now);
 			// Affichage du modele
 
-			finPartie = virus.getLife() <= 0 || antivirus.getLife() <= 0 || m_ath.getTimer() <= 0;
+			finPartie = virus.getLife() <= 0 || antivirus.getLife() <= 0 || m_ath.getTimer() <= 0 || flagCaptured;
 			afficherFin = finPartie;
 
 		}
@@ -169,6 +175,11 @@ public class Model extends GameModel {
 
 		else if (m_ath.getTimer() <= 0 && afficherFin) {
 			GameMain.afficherFinPartie(3, this);
+			afficherFin = false;
+		}
+		
+		else if (afficherFin) {
+			GameMain.afficherFinPartie(4, this);
 			afficherFin = false;
 		}
 

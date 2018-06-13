@@ -63,6 +63,10 @@ public class View extends GameView {
 			m_model.antivirus.paint(g);
 		}
 		
+		if(!m_model.flagCaptured) {
+			m_model.m_drapeau.paint(g);
+		}
+		
 		
 		Iterator<Minion> iterM = m_model.m_minions.iterator();
 		Iterator<Obstacle> iterO = m_model.m_obstacles.iterator();

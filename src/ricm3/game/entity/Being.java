@@ -154,8 +154,9 @@ public abstract class Being extends Entity {
 			global_map.moveEntity(this, p.x, p.y);
 		}
 		else if (e instanceof Drapeau && this.m_model.virus.equals(this)) {
-			this.m_model.finPartie=true;
-			this.m_model.afficherFin=true;
+			global_map.deleteEntity(e);
+			global_map.moveEntity(this, p.x, p.y);
+			this.m_model.flagCaptured = true;
 		}
 	}
 
