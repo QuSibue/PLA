@@ -67,7 +67,7 @@ public class Model extends GameModel {
 
 		// sprites vont etres donné a l'instantiation normalement, a voir
 		// ON FAIT LA MAP
-		map = new Map(15, 29);
+		map = new Map("map/1/map1.map",this);
 		finPartie = false;
 		afficherFin = false;
 
@@ -81,7 +81,7 @@ public class Model extends GameModel {
 				TypeKey.NONE, m_idb);
 		map.setEntity(virus);
 		// ajout d'un obstacle
-		Obstacle obs = new Obstacle(0, 0, false, true, false, false, m_idb.obstacle, m_idb.nbFrameObstacle, map, this,
+		/*Obstacle obs = new Obstacle(0, 0, false, true, false, false, m_idb.obstacle, m_idb.nbFrameObstacle, map, this,
 				m_idb);
 		m_obstacles.add(obs);
 		map.setEntity(obs);
@@ -98,7 +98,7 @@ public class Model extends GameModel {
 					m_idb);
 			m_obstacles.add(obs);
 			map.setEntity(obs);
-		}
+		}*/
 		// antivirus
 		aut = Transversal.antivirusAutomaton();
 		antivirus = new Player(8, 1, m_idb.antivirusIdle,m_idb.nbFrameAntivirus, aut, Orientation.LEFT, 2, map, this, 3, 0, TypeKey.NONE,
