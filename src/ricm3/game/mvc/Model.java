@@ -1,9 +1,11 @@
 package ricm3.game.mvc;
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 
 import ricm3.game.ath.ATH;
@@ -43,6 +45,7 @@ public class Model extends GameModel {
 	public Drapeau m_drapeau;
 	public boolean flagCaptured = false;
 	public ImageDataBase m_idb;
+	public IconDataBase m_icb;
 
 	public Model(ArrayList<Integer> indices) {
 		m_automates = new ArrayList<Automaton>();
@@ -69,6 +72,8 @@ public class Model extends GameModel {
 	 */
 
 	public void init() {
+
+		m_icb = new IconDataBase();
 		m_minions = new LinkedList<Minion>();
 		m_obstacles = new LinkedList<Obstacle>();
 		m_laser = new LinkedList<Laser>();
@@ -81,7 +86,7 @@ public class Model extends GameModel {
 
 		// sprites vont etres donné a l'instantiation normalement, a voir
 		// ON FAIT LA MAP
-		map = new Map("map/1/map1.map",this);
+		map = new Map("map/1/map1.map", this);
 		finPartie = false;
 		afficherFin = false;
 
@@ -92,20 +97,21 @@ public class Model extends GameModel {
 
 		// ONFAIT LE JOUEUR
 
-		virus = new Player(1, 1, m_idb.virusIdle, m_idb.nbFrameVirus, aut, Orientation.RIGHT, 1, map,
+		virus = new Player(1, 1, m_idb.virusIdle, m_idb.nbFrameVirus, m_automates.get(0), Orientation.RIGHT, 1, map,
 				this, 3, 0, TypeKey.NONE);
 
 		map.setEntity(virus);
 		// ajout d'un obstacle
-
 		// antivirus
-		aut = Transversal.antivirusAutomaton();
-		antivirus = new Player(8, 1, m_idb.antivirusIdle, m_idb.nbFrameAntivirus, aut, Orientation.LEFT,
+
+		// aut = Transversal.antivirusAutomaton();
+		antivirus = new Player(8, 1, m_idb.antivirusIdle, m_idb.nbFrameAntivirus, m_automates.get(1), Orientation.LEFT,
 				2, map, this, 3, 0, TypeKey.NONE);
 
 		map.setEntity(antivirus);
 
-		PowerUp PU = new PowerUp(4, 3, this, m_idb.powerUp, m_idb.nbFramePowerUp, m_idb);
+		PowerUp PU = new PowerUp(4, 3, this, m_idb.powerUp, m_icb.m_energieSac, m_idb.nbFramePowerUp);
+
 		m_powerup.add(PU);
 		map.setEntity(PU);
 
@@ -113,10 +119,6 @@ public class Model extends GameModel {
 		map.setEntity(m_drapeau);
 
 		m_ath = new ATH(this);
-		
-		Portal p = new Portal(9,9,12,12,null,1,map,this);
-		m_portal.add(p);
-		map.setEntity(p);
 
 	}
 
@@ -133,7 +135,7 @@ public class Model extends GameModel {
 
 			LinkedList<Laser> laserClone = (LinkedList<Laser>) m_laser.clone();
 			Iterator<Laser> iterL = laserClone.iterator();
-			
+
 			LinkedList<Portal> portalClone = (LinkedList<Portal>) m_portal.clone();
 			Iterator<Portal> iterP = portalClone.iterator();
 
@@ -155,7 +157,7 @@ public class Model extends GameModel {
 				l = iterL.next();
 				l.step(now);
 			}
-			
+
 			Portal p;
 			while (iterP.hasNext()) {
 				p = iterP.next();
@@ -199,18 +201,19 @@ public class Model extends GameModel {
 	@Override
 	public void shutdown() {
 
-
 	}
 
-	/*public void loadAutomaton() {
-		m_automates.add(Transversal.straightAutomaton());
-		m_automates.add(Transversal.shootAutomaton());
-		m_automates.add(Transversal.idleAutomaton());
-		m_automates.add(Transversal.straightAutomaton());
-		m_automates.add(Transversal.shootAutomaton());
-		m_automates.add(Transversal.idleAutomaton());
-
-	}*/
+	/*
+	 * public void loadAutomaton() {
+	 * m_automates.add(Transversal.straightAutomaton());
+	 * m_automates.add(Transversal.shootAutomaton());
+	 * m_automates.add(Transversal.idleAutomaton());
+	 * m_automates.add(Transversal.straightAutomaton());
+	 * m_automates.add(Transversal.shootAutomaton());
+	 * m_automates.add(Transversal.idleAutomaton());
+	 * 
+	 * }
+	 */
 
 	// private void loadSprites() {
 

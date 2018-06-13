@@ -208,14 +208,16 @@ public class Map {
 				case 'W':
 				case 'w':
 					// TODO Quand les instances de
-					matrice[cmp / m_length][cmp % m_length] = new Wall(cmp / m_length, cmp % m_length, this, m, 1);
-
+					matrice[cmp / m_length][cmp % m_length] = new Wall(cmp / m_length, cmp % m_length, this, m, null, 1);
 					cmp++;
 					break;
 				case 'O':
 				case 'o':
-					matrice[cmp / m_length][cmp % m_length] = new Obstacle(cmp / m_length, cmp % m_length, false, true,
-							false, false, m.m_idb.obstacle, m.m_idb.nbFrameObstacle, this, m);
+
+					matrice[cmp / m_length][cmp % m_length] = new Obstacle(cmp / m_length, cmp % m_length, false, true, false, false,
+							m.m_idb.obstacle, m.m_idb.nbFrameObstacle, m.m_icb.m_obstacleSac, this, m);
+					;
+
 					cmp++;
 					break;
 				case 'N':
