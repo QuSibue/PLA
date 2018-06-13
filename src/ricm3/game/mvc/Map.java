@@ -201,7 +201,7 @@ public class Map {
 					break;
 				case 'o':
 					matrice[cmp % m_height][cmp / m_height] = new Obstacle(cmp / m_height, cmp % m_height, false, true,
-							false, false, null, this, null);
+							false, false, null, null, this, null);
 					cmp++;
 					break;
 				case 'n':

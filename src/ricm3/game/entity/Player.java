@@ -6,6 +6,8 @@ import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
+
 import ricm3.game.automaton.Automaton;
 import ricm3.game.automaton.Direction;
 import ricm3.game.automaton.Orientation;
@@ -26,7 +28,7 @@ public class Player extends Character {
 
 	public Player(int x, int y, BufferedImage[] sprites, Automaton aut, Orientation orientation, int equipe, Map map,
 			Model model, int life, long lastMove, TypeKey key) {
-		super(sprites, x, y, true, false, true, false, Options.PLAYER_MS, aut, orientation, equipe, map, model, life,
+		super(sprites, null, x, y, true, false, true, false, Options.PLAYER_MS, aut, orientation, equipe, map, model, life,
 				lastMove);
 		m_key = key;
 		m_energie = Options.initialEnergie;
@@ -41,7 +43,13 @@ public class Player extends Character {
 		if (m_energie >= 3) {
 			Point p = new Point();
 			if (global_map.caseLibre(this.getX(), this.getY(), p)) {
-				Minion minion = new Minion(null, p.x, p.y,true,true,true,false, Options.LASER_MS, this.m_model.m_automates.get(m_indiceAutoMinions), Orientation.RIGHT, 1,
+				ImageIcon ic = null;
+				if (getEquipe() == 1)
+					ic =  m_model.m_icb.m_iconSbiresVirusSac[m_indiceAutoMinions];
+				else
+					ic = m_model.m_icb.m_iconSbiresAntivirusSac[m_indiceAutoMinions];
+				
+				Minion minion = new Minion(null, ic, p.x, p.y,true,true,true,false, Options.LASER_MS, this.m_model.m_automates.get(m_indiceAutoMinions), Orientation.RIGHT, 1,
 						global_map, this.m_model, 1, 0);
 				m_model.m_minions.add(minion);
 				global_map.setEntity(minion);
@@ -78,12 +86,12 @@ public class Player extends Character {
 			Transversal.evalPosition(this.getX(), this.getY(), p, Direction.FRONT, this.getOrientation());
 			Entity e = global_map.getEntity(p.x, p.y);
 			if (e == null) {
-				Laser laser = new Laser(p.x, p.y, null, Transversal.straightAutomaton(), this.getOrientation(),
+				Laser laser = new Laser(p.x, p.y, null, this.getIcon(), Transversal.straightAutomaton(), this.getOrientation(),
 						global_map, m_model, 1, 0);
 				this.m_model.m_laser.add(laser);
 				global_map.setEntity(laser);
 			} else if (e instanceof PowerUp) {
-				Laser laser = new Laser(p.x, p.y, null, Transversal.straightAutomaton(), this.getOrientation(),
+				Laser laser = new Laser(p.x, p.y, null, this.getIcon(), Transversal.straightAutomaton(), this.getOrientation(),
 						global_map, m_model, 1, 0);
 				laser.erased_powerup = (PowerUp) e;
 				this.m_model.m_laser.add(laser);

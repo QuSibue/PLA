@@ -19,7 +19,7 @@ import javax.swing.border.BevelBorder;
 import org.w3c.dom.ranges.RangeException;
 
 import ricm3.game.entity.Player;
-import ricm3.game.mvc.ImageBase;
+import ricm3.game.mvc.IconDataBase;
 import ricm3.game.other.Options;
 
 /**
@@ -39,11 +39,11 @@ public class ATHPlayer {
 	
 	JProgressBar energie;
 	ImageIcon[] m_iconSbire;
-	ImageBase m_ib;
+	IconDataBase m_icb;
 
-	public ATHPlayer(Player player, ImageBase ib) {
+	public ATHPlayer(Player player, IconDataBase ib) {
 		m_player = player;
-		m_ib = ib;
+		m_icb = ib;
 
 		ImageIcon heartIcon = new ImageIcon("images/heart.png");
 		m_heart = new JLabel();
@@ -58,7 +58,7 @@ public class ATHPlayer {
 		energie.setStringPainted(true);
 		energie.setValue(Options.initialEnergie);
 		
-		m_iconSbire = m_ib.getIconSbiresAntivirus();
+		m_iconSbire = m_icb.getIconSbiresAntivirus();
 		m_sbire = new JLabel();
 		m_sbire.setIcon(m_iconSbire[0]);
 	}
@@ -94,27 +94,27 @@ public class ATHPlayer {
 
 		JPanel panel1 = new JPanel();
 		panel1.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.BLACK, Color.BLACK));
-		panel1.setPreferredSize(new Dimension(40, 40));
+		panel1.setPreferredSize(new Dimension(50, 50));
 
-		m_label1 = new JLabel("X");
+		m_label1 = new JLabel();
 		panel1.add(m_label1);
 
 		sacCont.add(panel1);
 
 		JPanel panel2 = new JPanel();
 		panel2.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.BLACK, Color.BLACK));
-		panel2.setPreferredSize(new Dimension(40, 40));
+		panel2.setPreferredSize(new Dimension(50, 50));
 
-		m_label2 = new JLabel("Z");
+		m_label2 = new JLabel();
 		panel2.add(m_label2);
 
 		sacCont.add(panel2);
 
 		JPanel panel3 = new JPanel();
 		panel3.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.BLACK, Color.BLACK));
-		panel3.setPreferredSize(new Dimension(40, 40));
+		panel3.setPreferredSize(new Dimension(50, 50));
 
-		m_label3 = new JLabel("W");
+		m_label3 = new JLabel();
 		panel3.add(m_label3);
 
 		sacCont.add(panel3);
@@ -145,22 +145,30 @@ public class ATHPlayer {
 			throw new RangeException(RangeException.BAD_BOUNDARYPOINTS_ERR, "Error vie");
 		}
 
-		if (m_player.getSac().getItem(0) == null)
-			m_label1.setVisible(false);
-		else
+		if (m_player.getSac().getItem(0) != null) {
+			m_label1.setIcon(m_player.getSac().getItem(0).getIcon());
 			m_label1.setVisible(true);
-		if (m_player.getSac().getItem(1) == null)
-			m_label2.setVisible(false);
-		else
+		}
+		else 
+			m_label1.setVisible(false);
+		
+		if (m_player.getSac().getItem(1) != null){
+			m_label2.setIcon(m_player.getSac().getItem(1).getIcon());
 			m_label2.setVisible(true);
-		if (m_player.getSac().getItem(2) == null)
-			m_label3.setVisible(false);
+		}
 		else
+			m_label2.setVisible(false);
+		if (m_player.getSac().getItem(2) != null){
+			m_label3.setIcon(m_player.getSac().getItem(2).getIcon());
 			m_label3.setVisible(true);
+		}
+		else
+			m_label3.setVisible(false);
 		
 		energie.setValue(m_player.getEnergie());
 		energie.setString(Integer.toString(m_player.getEnergie()));
 		
 		m_sbire.setIcon(m_iconSbire[m_player.getIndiceMinion()]);
+		
 	}
 }

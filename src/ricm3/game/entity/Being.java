@@ -4,6 +4,8 @@ import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.util.Iterator;
 
+import javax.swing.ImageIcon;
+
 import ricm3.game.automaton.Automaton;
 import ricm3.game.automaton.Direction;
 import ricm3.game.automaton.Etat;
@@ -25,11 +27,11 @@ public abstract class Being extends Entity {
 
 	// Constructor
 	public Being(int x, int y, boolean moveable, boolean pickable, boolean killable, boolean lethal, int ms,
-			BufferedImage[] sprites, Automaton aut, Orientation orientation, Map map, Model model, int life,
+			BufferedImage[] sprites, ImageIcon icon, Automaton aut, Orientation orientation, Map map, Model model, int life,
 			long lastMove) {
 
 		// appel au constructeur de entity
-		super(x, y, moveable, pickable, killable, lethal, sprites, map, model);
+		super(x, y, moveable, pickable, killable, lethal, sprites, icon, map, model);
 
 		m_moveSpeed = ms;
 		m_automaton = aut; // alias

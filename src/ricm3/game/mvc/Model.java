@@ -31,10 +31,10 @@ public class Model extends GameModel {
 	public ArrayList<Automaton>m_automates;
 	public Map map;
 	public ATH m_ath;
-	public ImageBase m_ib;
+	public IconDataBase m_icb;
 
 	public Model() {
-		m_ib = new ImageBase();
+		m_icb = new IconDataBase();
 		m_minions = new LinkedList<Minion>();
 		m_obstacles = new LinkedList<Obstacle>();
 		m_laser = new LinkedList<Laser>();
@@ -66,18 +66,18 @@ public class Model extends GameModel {
 		virus = new Player(1, 1, null, aut, Orientation.RIGHT, 1, map, this, 3, 0, TypeKey.NONE);
 		map.setEntity(virus);
 		// ajout d'un obstacle
-		Obstacle obs = new Obstacle(0, 0, false, true, false, false, null, map, this);
+		Obstacle obs = new Obstacle(0, 0, false, true, false, false, null, m_icb.m_obstacleSac, map, this);
 		m_obstacles.add(obs);
 		map.setEntity(obs);
 
-		obs = new Obstacle(1, 0, false, true, false, false, null, map, this);
+		obs = new Obstacle(1, 0, false, true, false, false, null, m_icb.m_obstacleSac,  map, this);
 		m_obstacles.add(obs);
 		map.setEntity(obs);
 		for (int i = 1; i < 100; i++) {
-			obs = new Obstacle(0, i, false, true, false, false, null, map, this);
+			obs = new Obstacle(0, i, false, true, false, false, null, m_icb.m_obstacleSac, map, this);
 			m_obstacles.add(obs);
 			map.setEntity(obs);
-			obs = new Obstacle(i, 0, false, true, false, false, null, map, this);
+			obs = new Obstacle(i, 0, false, true, false, false, null, m_icb.m_obstacleSac, map, this);
 			m_obstacles.add(obs);
 			map.setEntity(obs);
 		}
@@ -86,7 +86,7 @@ public class Model extends GameModel {
 		antivirus = new Player(8, 1, null, aut, Orientation.LEFT, 2, map, this, 3, 0, TypeKey.NONE);
 		map.setEntity(antivirus);
 
-		PowerUp PU = new PowerUp(4, 3, this);
+		PowerUp PU = new PowerUp(4, 3, this, m_icb.m_energieSac);
 		m_powerup.add(PU);
 		map.setEntity(PU);
 		

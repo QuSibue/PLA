@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import javax.swing.ImageIcon;
+
 import ricm3.game.mvc.Map;
 import ricm3.game.mvc.Model;
 import ricm3.game.other.Options;
@@ -11,8 +13,8 @@ import ricm3.game.other.Options;
 public class Obstacle extends Environment {
 
 	public Obstacle(int x, int y, boolean moveable, boolean pickable, boolean killable, boolean lethal,
-			BufferedImage[] sprites, Map map, Model modele) {
-		super(x, y, moveable, pickable, killable, lethal, sprites, map, modele);
+			BufferedImage[] sprites, ImageIcon icon, Map map, Model modele) {
+		super(x, y, moveable, pickable, killable, lethal, sprites, icon, map, modele);
 
 	}
 

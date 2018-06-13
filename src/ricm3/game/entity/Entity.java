@@ -17,11 +17,12 @@ public abstract class Entity {
 	private boolean m_killable;
 	private boolean m_lethal;
 	private BufferedImage[] m_sprites;
+	private ImageIcon m_icon;
 	public Map global_map;
 	public Model m_model;
 
 	public Entity(int x, int y, boolean move, boolean pick, boolean kill, boolean leth, BufferedImage[] sprites,
-			Map map, Model model) {
+			ImageIcon icon, Map map, Model model) {
 		this.m_coordinateX = x;
 		this.m_coordinateY = y;
 		this.m_moveable = move;
@@ -29,6 +30,7 @@ public abstract class Entity {
 		this.m_killable = kill;
 		this.m_lethal = leth;
 		this.m_sprites = sprites;
+		this.m_icon = icon;
 		this.global_map = map;
 		this.m_model = model;
 
@@ -90,6 +92,10 @@ public abstract class Entity {
 
 	public BufferedImage[] getSprites() {
 		return m_sprites;
+	}
+	
+	public ImageIcon getIcon() {
+		return m_icon;
 	}
 
 	// setters

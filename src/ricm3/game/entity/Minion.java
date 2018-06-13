@@ -6,6 +6,8 @@ import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.util.Iterator;
 
+import javax.swing.ImageIcon;
+
 import ricm3.game.automaton.Automaton;
 import ricm3.game.automaton.Direction;
 import ricm3.game.automaton.Orientation;
@@ -20,10 +22,10 @@ public class Minion extends Character {
 	public int xOrigin;
 	public int yOrigin;
 
-	public Minion(BufferedImage[] sprites, int x, int y, boolean moveable, boolean pickable, boolean killable,
+	public Minion(BufferedImage[] sprites, ImageIcon icon, int x, int y, boolean moveable, boolean pickable, boolean killable,
 			boolean lethal, int moveSpeed, Automaton automate, Orientation orientation, int equipe, Map map,
 			Model model, int life, long lastMove) {
-		super(sprites, x, y, moveable, pickable, killable, lethal, moveSpeed, automate, orientation, equipe, map, model,
+		super(sprites, icon, x, y, moveable, pickable, killable, lethal, moveSpeed, automate, orientation, equipe, map, model,
 				life, lastMove);
 		xOrigin = this.getX();
 		yOrigin = this.getY();

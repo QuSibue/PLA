@@ -2,13 +2,16 @@ package ricm3.game.entity;
 
 import java.awt.Color;
 import java.awt.Graphics;
+
+import javax.swing.ImageIcon;
+
 import ricm3.game.mvc.Model;
 import ricm3.game.other.Options;
 
 public class PowerUp extends Entity {
 
-	public PowerUp(int x, int y, Model model) {
-		super(x, y, false, true, true, false, null, model.map, model);
+	public PowerUp(int x, int y, Model model, ImageIcon icon) {
+		super(x, y, false, true, true, false, null, icon, model.map, model);
 	}
 
 	@Override

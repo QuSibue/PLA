@@ -3,6 +3,8 @@ package ricm3.game.entity;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 
+import javax.swing.ImageIcon;
+
 import ricm3.game.automaton.Automaton;
 import ricm3.game.automaton.Direction;
 import ricm3.game.automaton.Orientation;
@@ -14,10 +16,10 @@ public abstract class Character extends Being {
 	private int m_equipe;
 	private Sac m_sac;
 
-	public Character(BufferedImage[] sprites, int x, int y, boolean moveable, boolean pickable, boolean killable,
+	public Character(BufferedImage[] sprites, ImageIcon icon, int x, int y, boolean moveable, boolean pickable, boolean killable,
 			boolean lethal, int moveSpeed, Automaton automate, Orientation orientation, int equipe, Map map,
 			Model model, int life, long lastMove) {
-		super(x, y, moveable, pickable, killable, lethal, moveSpeed, sprites, automate, orientation, map, model, life,
+		super(x, y, moveable, pickable, killable, lethal, moveSpeed, sprites, icon, automate, orientation, map, model, life,
 				lastMove);
 		m_equipe = equipe;
 		m_sac = new Sac(3);

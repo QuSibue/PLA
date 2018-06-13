@@ -5,6 +5,8 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 
+import javax.swing.ImageIcon;
+
 import ricm3.game.automaton.Automaton;
 import ricm3.game.automaton.Direction;
 import ricm3.game.automaton.Orientation;
@@ -19,9 +21,9 @@ public class Laser extends Being {
 	public PowerUp erased_powerup;
 	private int lifespan;
 
-	public Laser(int x, int y, BufferedImage[] sprites, Automaton aut, Orientation orientation, Map map, Model model,
+	public Laser(int x, int y, BufferedImage[] sprites, ImageIcon icon, Automaton aut, Orientation orientation, Map map, Model model,
 			int life, long lastMove) {
-		super(x, y, true, true, true, true, Options.LASER_MS, sprites, aut, orientation, map, model, life, lastMove);
+		super(x, y, true, true, true, true, Options.LASER_MS, sprites, icon, aut, orientation, map, model, life, lastMove);
 		erased_powerup = null;
 	}
 
@@ -105,9 +107,9 @@ public class Laser extends Being {
 			Transversal.evalPosition(p.x, p.y, p1, Direction.RIGHT, this.getOrientation());
 			Transversal.evalPosition(p.x, p.y, p2, Direction.LEFT, this.getOrientation());
 
-			laser1 = new Laser(p1.x, p1.y, this.getSprites(), this.getAutomaton(), this.getOrientation(), global_map,
+			laser1 = new Laser(p1.x, p1.y, this.getSprites(), this.getIcon(), this.getAutomaton(), this.getOrientation(), global_map,
 					m_model, this.getLife(), this.getLastMove());
-			laser2 = new Laser(p2.x, p2.y, this.getSprites(), this.getAutomaton(), this.getOrientation(), global_map,
+			laser2 = new Laser(p2.x, p2.y, this.getSprites(), this.getIcon(), this.getAutomaton(), this.getOrientation(), global_map,
 					m_model, this.getLife(), this.getLastMove());
 
 		}
@@ -118,9 +120,9 @@ public class Laser extends Being {
 			Transversal.evalPosition(this.getX(), this.getY(), p1, Direction.RIGHT, this.getOrientation());
 			Transversal.evalPosition(this.getX(), this.getY(), p2, Direction.LEFT, this.getOrientation());
 
-			laser1 = new Laser(p1.x, p1.y, this.getSprites(), this.getAutomaton(), this.getOrientation(), global_map,
+			laser1 = new Laser(p1.x, p1.y, this.getSprites(), this.getIcon(), this.getAutomaton(), this.getOrientation(), global_map,
 					m_model, this.getLife(), this.getLastMove());
-			laser2 = new Laser(p2.x, p2.y, this.getSprites(), this.getAutomaton(), this.getOrientation(), global_map,
+			laser2 = new Laser(p2.x, p2.y, this.getSprites(), this.getIcon(), this.getAutomaton(), this.getOrientation(), global_map,
 					m_model, this.getLife(), this.getLastMove());
 
 		}
