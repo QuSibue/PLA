@@ -110,7 +110,7 @@ public class Model extends GameModel {
 
 		map.setEntity(antivirus);
 
-		PowerUp PU = new PowerUp(4, 3, this, m_idb.powerUp, m_icb.m_energieSac, m_idb.nbFramePowerUp);
+		PowerUp PU = new PowerUp(4, 3, this, m_idb.powerUp, m_icb.m_energieSac, m_idb.nbFramePowerUp,1);
 
 		m_powerup.add(PU);
 		map.setEntity(PU);

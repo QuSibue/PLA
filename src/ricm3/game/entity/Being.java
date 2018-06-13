@@ -79,7 +79,9 @@ public abstract class Being extends Entity {
 	}
 
 	public boolean setLife(int life) {
-		m_life = life;
+		if(life <= 3) {
+			m_life = life;
+		}
 		return true;
 	}
 
@@ -160,7 +162,7 @@ public abstract class Being extends Entity {
 					global_map.deleteEntity(e);
 					m_model.m_laser.remove(e);
 				} else if (e instanceof PowerUp) {
-					this.applyPowerUp((PowerUp) e);
+					((PowerUp)e).applyPowerUp(this);
 
 					global_map.deleteEntity(e);
 					m_model.m_powerup.remove(e);
@@ -193,10 +195,6 @@ public abstract class Being extends Entity {
 				m_model.m_laser.remove(this);
 			}
 		}
-	}
-
-	public void applyPowerUp(PowerUp p) {
-
 	}
 
 	public abstract void power(long now);

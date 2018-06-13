@@ -51,8 +51,8 @@ public class Player extends Character {
 				else
 					ic = m_model.m_icb.m_iconSbiresAntivirusSac[m_indiceAutoMinions];
 
-				Minion minion = new Minion(spriteMinion, m_model.m_idb.nbFrameM1,ic, p.x, p.y, true, true, true, false, Options.LASER_MS,
-						this.m_autoMinions.get(m_indiceAutoMinions), Orientation.RIGHT, 1, global_map,
+				Minion minion = new Minion(spriteMinion, m_model.m_idb.nbFrameM1, ic, p.x, p.y, true, true, true, false,
+						Options.LASER_MS, this.m_autoMinions.get(m_indiceAutoMinions), Orientation.RIGHT, 1, global_map,
 						this.m_model, 1, 0);
 				m_model.m_minions.add(minion);
 				global_map.setEntity(minion);
@@ -61,8 +61,6 @@ public class Player extends Character {
 				System.out.print("Pas de place pour placer de nouveaux sbires");
 			}
 
-		} else {
-			this.power(now);
 		}
 
 	}
@@ -86,14 +84,15 @@ public class Player extends Character {
 			Entity e = global_map.getEntity(p.x, p.y);
 			if (e == null) {
 
-				Laser laser = new Laser(p.x, p.y, m_model.m_idb.laserIdle, m_model.m_idb.nbFrameLaser,m_model.m_icb.m_laserSac,
-						Transversal.straightAutomaton(), this.getOrientation(), global_map, m_model, 1, 0);
+				Laser laser = new Laser(p.x, p.y, m_model.m_idb.laserIdle, m_model.m_idb.nbFrameLaser,
+						m_model.m_icb.m_laserSac, Transversal.straightAutomaton(), this.getOrientation(), global_map,
+						m_model, 1, 0);
 				this.m_model.m_laser.add(laser);
 				global_map.setEntity(laser);
-				
+
 			} else if (e instanceof PowerUp) {
-				Laser laser = new Laser(p.x, p.y, null, m_model.m_idb.nbFrameLaser,m_model.m_icb.m_laserSac, Transversal.straightAutomaton(),
-						this.getOrientation(), global_map, m_model, 1, 0);
+				Laser laser = new Laser(p.x, p.y, null, m_model.m_idb.nbFrameLaser, m_model.m_icb.m_laserSac,
+						Transversal.straightAutomaton(), this.getOrientation(), global_map, m_model, 1, 0);
 
 				laser.erased_powerup = (PowerUp) e;
 				this.m_model.m_laser.add(laser);
@@ -123,11 +122,11 @@ public class Player extends Character {
 
 	@Override
 	public void power(long now) {
-		long elapsed = now - m_lastPower;
-		if (elapsed > Options.powerCD) {
-			if (m_energie < 10) {
-				m_energie++;
-			}
+		System.out.println(m_energie);
+
+		if (m_energie+5 < 10) {
+			m_energie+=5;
+			System.out.println(m_energie);
 		}
 
 	}
