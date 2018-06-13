@@ -21,8 +21,8 @@ public class ATH extends GameATH {
 
 	public ATH(Model model) {
 		m_model = model;
-		m_p1 = new ATHPlayer(m_model.virus);
-		m_p2 = new ATHPlayer(m_model.antivirus);
+		m_p1 = new ATHPlayer(m_model.virus, m_model.m_icb);
+		m_p2 = new ATHPlayer(m_model.antivirus, m_model.m_icb);
 		m_timer = new TimerATH();
 		
 	}

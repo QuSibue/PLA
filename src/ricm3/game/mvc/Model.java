@@ -41,6 +41,7 @@ public class Model extends GameModel {
 	public Drapeau m_drapeau;
 	public boolean flagCaptured = false;
 	public ImageDataBase m_idb;
+	public IconDataBase m_icb;
 
 	public Model(ArrayList<Integer> indices) {
 		m_automates = new ArrayList<Automaton>();
@@ -67,6 +68,8 @@ public class Model extends GameModel {
 	 */
 
 	public void init() {
+
+		m_icb = new IconDataBase();
 		m_minions = new LinkedList<Minion>();
 		m_obstacles = new LinkedList<Obstacle>();
 		m_laser = new LinkedList<Laser>();
@@ -78,7 +81,7 @@ public class Model extends GameModel {
 
 		// sprites vont etres donné a l'instantiation normalement, a voir
 		// ON FAIT LA MAP
-		map = new Map("map/1/map1.map",this);
+		map = new Map("map/1/map1.map", this);
 		finPartie = false;
 		afficherFin = false;
 
@@ -94,7 +97,6 @@ public class Model extends GameModel {
 
 		map.setEntity(virus);
 		// ajout d'un obstacle
-
 		// antivirus
 		// aut = Transversal.antivirusAutomaton();
 		antivirus = new Player(8, 1, m_idb.antivirusIdle, m_idb.nbFrameAntivirus, m_automates.get(1), Orientation.LEFT,
@@ -102,7 +104,8 @@ public class Model extends GameModel {
 
 		map.setEntity(antivirus);
 
-		PowerUp PU = new PowerUp(4, 3, this, m_idb.powerUp, m_idb.nbFramePowerUp, m_idb);
+		PowerUp PU = new PowerUp(4, 3, this, m_idb.powerUp, m_icb.m_energieSac, m_idb.nbFramePowerUp);
+
 		m_powerup.add(PU);
 		map.setEntity(PU);
 
@@ -183,18 +186,19 @@ public class Model extends GameModel {
 	@Override
 	public void shutdown() {
 
-
 	}
 
-	/*public void loadAutomaton() {
-		m_automates.add(Transversal.straightAutomaton());
-		m_automates.add(Transversal.shootAutomaton());
-		m_automates.add(Transversal.idleAutomaton());
-		m_automates.add(Transversal.straightAutomaton());
-		m_automates.add(Transversal.shootAutomaton());
-		m_automates.add(Transversal.idleAutomaton());
-
-	}*/
+	/*
+	 * public void loadAutomaton() {
+	 * m_automates.add(Transversal.straightAutomaton());
+	 * m_automates.add(Transversal.shootAutomaton());
+	 * m_automates.add(Transversal.idleAutomaton());
+	 * m_automates.add(Transversal.straightAutomaton());
+	 * m_automates.add(Transversal.shootAutomaton());
+	 * m_automates.add(Transversal.idleAutomaton());
+	 * 
+	 * }
+	 */
 
 	// private void loadSprites() {
 
