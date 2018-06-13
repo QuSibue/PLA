@@ -127,7 +127,6 @@ public class Ast {
 	public static abstract class Parameter extends Ast {
 	}
 
-	// TODO dsd
 	public static class Underscore extends Parameter {
 		Underscore() {
 			this.kind = "Any";
@@ -136,9 +135,8 @@ public class Ast {
 		public String tree_edges() {
 			return "";
 		}
-	}
+	} 
 
-	// TODO dsd
 	public static class Key extends Parameter {
 
 		Constant value;
@@ -151,9 +149,70 @@ public class Ast {
 		public String tree_edges() {
 			return value.as_tree_son_of(this);
 		}
+	
+		public Object make() {
+			switch (value.value.value) {
+			case "Z":
+			case "z":
+				return ricm3.game.automaton.TypeCondition.KEYPRESSEDZ;
+			case "Q":
+			case "q":
+				return ricm3.game.automaton.TypeCondition.KEYPRESSEDQ;
+			case "S":
+			case "s":
+				return ricm3.game.automaton.TypeCondition.KEYPRESSEDS;
+			case "D":
+			case "d":
+				return ricm3.game.automaton.TypeCondition.KEYPRESSEDD;
+			case "O":
+			case "o":
+				return ricm3.game.automaton.TypeCondition.KEYPRESSEDO;
+			case "K":
+			case "k":
+				return ricm3.game.automaton.TypeCondition.KEYPRESSEDK;
+			case "L":
+			case "l":
+				return ricm3.game.automaton.TypeCondition.KEYPRESSEDL;
+			case "M":
+			case "m":
+				return ricm3.game.automaton.TypeCondition.KEYPRESSEDM;
+			case "P":
+			case "p":
+				return ricm3.game.automaton.TypeCondition.KEYPRESSEDM;
+			case "I":
+			case "i":
+				return ricm3.game.automaton.TypeCondition.KEYPRESSEDM;
+			case "y":
+				return ricm3.game.automaton.TypeCondition.KEYPRESSEDCOMMA;
+			case "J":
+			case "j":
+				return ricm3.game.automaton.TypeCondition.KEYPRESSEDJ;
+			case "N":
+			case "n":
+				return ricm3.game.automaton.TypeCondition.KEYPRESSEDN;
+			case "A":
+			case "a":
+				return ricm3.game.automaton.TypeCondition.KEYPRESSEDA;
+			case "E":
+			case "e":
+				return ricm3.game.automaton.TypeCondition.KEYPRESSEDE;
+			case "C":
+			case "c":
+				return ricm3.game.automaton.TypeCondition.KEYPRESSEDC;
+			case "F":
+			case "f":
+				return ricm3.game.automaton.TypeCondition.KEYPRESSEDF;
+			case "V":
+			case "v":
+				return ricm3.game.automaton.TypeCondition.KEYPRESSEDV;
+			default:
+				return ricm3.game.automaton.TypeCondition.KEYPRESSEDOTHER;
+			
+			
+			}
+		}
 	}
 
-	// TODO dsd
 	public static class Direction extends Parameter {
 
 		Value value;
@@ -166,9 +225,9 @@ public class Ast {
 		public String tree_edges() {
 			return value.as_tree_son_of(this);
 		}
-	
+
 		public Object make() {
-			switch(((Constant)value).value.value) {
+			switch (((Constant) value).value.value) {
 			case "F":
 				return ricm3.game.automaton.Direction.FRONT;
 			case "B":
@@ -176,14 +235,22 @@ public class Ast {
 			case "L":
 				return ricm3.game.automaton.Direction.LEFT;
 			case "R":
-				return ricm3.game.automaton.Direction.RIGHT;			
+				return ricm3.game.automaton.Direction.RIGHT;
+			case "N":
+				return ricm3.game.automaton.Direction.NORTH;
+			case "S":
+				return ricm3.game.automaton.Direction.SOUTH;
+			case "E":
+				return ricm3.game.automaton.Direction.EAST;
+			case "W":
+				return ricm3.game.automaton.Direction.WEST;
+
 			default:
-				throw new RuntimeException("Direction not yet implemented");
+				throw new RuntimeException("Not a direction.");
 			}
 		}
 	}
 
-	// TODO dsd
 	public static class Entity extends Parameter {
 
 		Value value;
@@ -195,6 +262,32 @@ public class Ast {
 
 		public String tree_edges() {
 			return value.as_tree_son_of(this);
+		}
+		
+		public Object make() {
+			switch(((Constant)value).value.value) {
+			case "d":
+			case "D":
+				return ricm3.game.automaton.TypeEntity.DANGER;
+			case "v":
+			case "V":
+				return ricm3.game.automaton.TypeEntity.VOID;
+			case "t":
+			case "T":
+				return ricm3.game.automaton.TypeEntity.TEAM;
+			case "e":
+			case "E":
+				return ricm3.game.automaton.TypeEntity.ENEMY;
+			case "p":
+			case "P":
+				return ricm3.game.automaton.TypeEntity.PICKABLE;
+			case "g":
+			case "G":
+				return ricm3.game.automaton.TypeEntity.GATE;
+			
+			default:
+				throw new RuntimeException("Type d'entité non reconnu");
+			}
 		}
 	}
 
@@ -219,6 +312,7 @@ public class Ast {
 		public String tree_edges() {
 			return operator.as_tree_son_of(this) + operand.as_tree_son_of(this);
 		}
+
 	}
 
 	// TODO dsd
@@ -229,10 +323,157 @@ public class Ast {
 		Expression right_operand;
 
 		BinaryOp(Expression l, String operator, Expression r) {
+
 			this.kind = "BinaryOp";
 			this.operator = new Terminal(operator);
 			this.left_operand = l;
 			this.right_operand = r;
+		}
+
+		public Object make() {
+
+			ricm3.game.automaton.Condition cond_left;
+			ricm3.game.automaton.Condition cond_right;
+			char op;
+
+			// deux BinOP
+			if ((left_operand instanceof BinaryOp) & (right_operand instanceof BinaryOp)) {
+
+				BinaryOp left = (BinaryOp) left_operand;
+				BinaryOp right = (BinaryOp) right_operand;
+
+				if (left.left_operand instanceof FunCall) {
+
+					cond_left = (ricm3.game.automaton.Condition) (((FunCall) left.left_operand).makeBis('c'));
+					if (left.operator.value.equals("&")) {
+						op = '&';
+					} else {
+						op = '/';
+					}
+					// la BinOp de droite devient sa partie droite, sa partie gauche reçoit la
+					// partie droite de la BinOp de gauche
+					right.right_operand = right;
+					right.left_operand = left.right_operand;
+
+					cond_right = (ricm3.game.automaton.Condition) right.make();
+
+					return new ricm3.game.automaton.Condition(cond_left.getTypeCondition(), cond_left.getDirection(),
+							null, op, cond_right);
+
+				}
+
+				// cas où la BinOp de gauche a une BinOP à gauche
+
+				if (left.left_operand instanceof BinaryOp) {
+
+					cond_left = (ricm3.game.automaton.Condition) (left).make();
+					if (left.operator.value.equals("&")) {
+						op = '&';
+					} else {
+						op = '/';
+					}
+
+					cond_right = (ricm3.game.automaton.Condition) right.make();
+
+					return new ricm3.game.automaton.Condition(cond_left.getTypeCondition(), cond_left.getDirection(),
+							null, op, cond_right);
+
+				}
+
+				if (left.left_operand instanceof UnaryOp) {
+
+					cond_left = (ricm3.game.automaton.Condition) (((UnaryOp) left.left_operand).make());
+					if (left.operator.value.equals("&")) {
+						op = '&';
+					} else {
+						op = '/';
+					}
+					// la BinOp de droite devient sa partie droite, sa partie gauche reçoit la
+					// partie droite de la BinOp de gauche
+					right.right_operand = right;
+					right.left_operand = left.right_operand;
+
+					cond_right = (ricm3.game.automaton.Condition) right.make();
+
+					return new ricm3.game.automaton.Condition(cond_left.getTypeCondition(), cond_left.getDirection(),
+							null, op, cond_right);
+
+				}
+
+			}
+
+			if (!(left_operand instanceof BinaryOp) & (right_operand instanceof BinaryOp)) {
+
+				if (left_operand instanceof FunCall) {
+
+					cond_left = (ricm3.game.automaton.Condition) (((FunCall) left_operand).makeBis('c'));
+					if (operator.value.equals("&")) {
+						op = '&';
+					} else {
+						op = '/';
+					}
+					cond_right = (ricm3.game.automaton.Condition) right_operand.make();
+
+					return new ricm3.game.automaton.Condition(cond_left.getTypeCondition(), cond_left.getDirection(),
+							null, op, cond_right);
+
+				}
+				if (left_operand instanceof UnaryOp) {
+
+					cond_left = (ricm3.game.automaton.Condition) (((UnaryOp) left_operand).make());
+					if (operator.value.equals("&")) {
+						op = '&';
+					} else {
+						op = '/';
+					}
+					cond_right = (ricm3.game.automaton.Condition) right_operand.make();
+
+					return new ricm3.game.automaton.Condition(cond_left.getTypeCondition(), cond_left.getDirection(),
+							null, op, cond_right);
+
+				}
+
+			}
+
+			if ((left_operand instanceof BinaryOp) & !(right_operand instanceof BinaryOp)) {
+
+				cond_left = (ricm3.game.automaton.Condition) left_operand.make();
+				if (operator.value.equals("&")) {
+					op = '&';
+				} else {
+					op = '/';
+				}
+
+				if (right_operand instanceof UnaryOp) {
+					cond_right = (ricm3.game.automaton.Condition) (((UnaryOp) right_operand).make());
+				} else { // right_operand instanceof FunCall 
+					cond_right = (ricm3.game.automaton.Condition) (((FunCall) right_operand).make());
+				}
+
+				return new ricm3.game.automaton.Condition(cond_left.getTypeCondition(), cond_left.getDirection(), null,
+						op, cond_right);
+			}
+
+			// pas de BinOP
+			if (left_operand instanceof FunCall) {
+				cond_left = (ricm3.game.automaton.Condition) (((FunCall) left_operand).makeBis('c'));
+			} else {
+				cond_left = (ricm3.game.automaton.Condition) left_operand.make();
+			}
+
+			if (right_operand instanceof FunCall) {
+				cond_right = (ricm3.game.automaton.Condition) (((FunCall) right_operand).makeBis('c'));
+			} else {
+				cond_right = (ricm3.game.automaton.Condition) right_operand.make();
+			}
+			if (operator.value.equals("&")) {
+				op = '&';
+			} else {
+				op = '/';
+			}
+
+			return new ricm3.game.automaton.Condition(cond_left.getTypeCondition(), cond_left.getDirection(), null, op,
+					cond_right); // typecond1 , dir, ent , op, cond2
 		}
 
 		public String tree_edges() {
@@ -265,35 +506,221 @@ public class Ast {
 
 		public Object makeBis(char c) {
 			// ONvient d'une condtion
-			if(c=='c') {
-				switch(name.value) {
+			if (c == 'c') {
+
+				Iterator<Parameter> iter = parameters.iterator();
+				ricm3.game.automaton.Direction direction = null;
+				ricm3.game.automaton.TypeEntity entity = null;
+				switch (name.value) {
 				case "True":
 					return new ricm3.game.automaton.Condition(TypeCondition.TRUE, null, null, ' ', null);
+				case "Key:":
+					if(iter.hasNext()) {
+						Parameter d = iter.next();
+						if(d instanceof Key) {
+							ricm3.game.automaton.TypeCondition type = (ricm3.game.automaton.TypeCondition)d.make();
+							return new ricm3.game.automaton.Condition(type, null, null, ' ', null);
+						}
+						else {
+							throw new RuntimeException("Key expect a specified key as argument");
+						}
+					}
+				
+				case "Cell":
+
+					if (iter.hasNext()) {
+
+						Parameter d = iter.next();
+						if (d instanceof Direction) {
+							direction = (ricm3.game.automaton.Direction) d.make();
+						} else if (d instanceof Entity) {
+							entity = (ricm3.game.automaton.TypeEntity) d.make();
+						}
+
+						if (iter.hasNext()) {
+							d = iter.next();
+
+							if (d instanceof Direction) {
+								direction = (ricm3.game.automaton.Direction) d.make();
+
+							} else if (d instanceof Entity) {
+								entity = (ricm3.game.automaton.TypeEntity) d.make();
+
+							}
+						}
+					}
+
+					if (direction == null || entity == null) {
+						return new ricm3.game.automaton.Condition(TypeCondition.CELL,
+								ricm3.game.automaton.Direction.FRONT, ricm3.game.automaton.TypeEntity.VOID, ' ', null);
+					}
+					return new ricm3.game.automaton.Condition(TypeCondition.CELL, direction, entity, ' ', null);
+
+				case "Closest":
+
+					if (iter.hasNext()) {
+
+						Parameter d = iter.next();
+						if (d instanceof Direction) {
+							direction = (ricm3.game.automaton.Direction) d.make();
+						} else if (d instanceof Entity) {
+							entity = (ricm3.game.automaton.TypeEntity) d.make();
+						}
+
+						if (iter.hasNext()) {
+							d = iter.next();
+
+							if (d instanceof Direction) {
+								direction = (ricm3.game.automaton.Direction) d.make();
+
+							} else if (d instanceof Entity) {
+								entity = (ricm3.game.automaton.TypeEntity) d.make();
+
+							}
+						}
+					}
+
+					if (direction == null || entity == null) {
+						return new ricm3.game.automaton.Condition(TypeCondition.CLOSEST,
+								ricm3.game.automaton.Direction.FRONT, ricm3.game.automaton.TypeEntity.ENEMY, ' ', null);
+					}
+					return new ricm3.game.automaton.Condition(TypeCondition.CLOSEST, direction, entity, ' ', null);
+
+				case "MyDir":
+
+					if (iter.hasNext()) {
+						Parameter d = iter.next();
+						if (d instanceof Direction) {
+							direction = (ricm3.game.automaton.Direction) d.make();
+							return new ricm3.game.automaton.Condition(TypeCondition.MYDIR, direction, null, ' ', null);
+						}
+					}
+					return new ricm3.game.automaton.Condition(TypeCondition.MYDIR, ricm3.game.automaton.Direction.FRONT,
+							null, ' ', null);
+
 				default:
-					throw new RuntimeException("Condition inconnue");
+					throw new RuntimeException("U wot m8 ?");
+
 				}
 			}
 			// On vient d'une action
-			else if(c == 'a') {
-				switch(name.value) {
+			else if (c == 'a') {
+				Iterator<Parameter> iter = parameters.iterator();
+
+				switch (name.value) {
 				case "Move":
-					Iterator<Parameter> iter = parameters.iterator();
-					if(iter.hasNext()) {
+
+					if (iter.hasNext()) {
 						Parameter p = iter.next();
-						if(p instanceof Direction) {
-							return new ricm3.game.automaton.Action(TypeAction.MOVE, (ricm3.game.automaton.Direction)p.make());
-						}
-						else {
-							return new ricm3.game.automaton.Action(TypeAction.MOVE, ricm3.game.automaton.Direction.FRONT);
+						if (p instanceof Direction) {
+							return new ricm3.game.automaton.Action(TypeAction.MOVE,
+									(ricm3.game.automaton.Direction) p.make());
+						} else {
+							return new ricm3.game.automaton.Action(TypeAction.MOVE,
+									ricm3.game.automaton.Direction.FRONT);
 						}
 					}
 					return new ricm3.game.automaton.Action(TypeAction.MOVE, ricm3.game.automaton.Direction.FRONT);
+
+				case "Turn":
+
+					if (iter.hasNext()) {
+						Parameter p = iter.next();
+						if (p instanceof Direction) {
+							return new ricm3.game.automaton.Action(TypeAction.TURN,
+									(ricm3.game.automaton.Direction) p.make());
+						} else {
+							return new ricm3.game.automaton.Action(TypeAction.TURN,
+									ricm3.game.automaton.Direction.FRONT);
+						}
+					}
+					return new ricm3.game.automaton.Action(TypeAction.TURN, ricm3.game.automaton.Direction.FRONT);
+
+				case "Hit":
+
+					return new ricm3.game.automaton.Action(TypeAction.HIT, null);
+
+				case "Pop":
+
+					return new ricm3.game.automaton.Action(TypeAction.POP, null);
+
+				case "Wizz":
+
+					return new ricm3.game.automaton.Action(TypeAction.WIZZ, null);
+
+				case "Jump":
+
+					return new ricm3.game.automaton.Action(TypeAction.JUMP, null);
+
+				case "Power":
+
+					return new ricm3.game.automaton.Action(TypeAction.POWER, null);
+
+				case "Pick":
+
+					if (iter.hasNext()) {
+						Parameter p = iter.next();
+						if (p instanceof Direction) {
+							return new ricm3.game.automaton.Action(TypeAction.PICK,
+									(ricm3.game.automaton.Direction) p.make());
+						} else {
+							return new ricm3.game.automaton.Action(TypeAction.PICK,
+									ricm3.game.automaton.Direction.FRONT);
+						}
+					}
+					return new ricm3.game.automaton.Action(TypeAction.PICK, ricm3.game.automaton.Direction.FRONT);
+
+				case "Get":
+
+					if (iter.hasNext()) {
+						Parameter p = iter.next();
+						if (p instanceof Direction) {
+							return new ricm3.game.automaton.Action(TypeAction.GET,
+									(ricm3.game.automaton.Direction) p.make());
+						} else {
+							return new ricm3.game.automaton.Action(TypeAction.GET,
+									ricm3.game.automaton.Direction.FRONT);
+						}
+					}
+					return new ricm3.game.automaton.Action(TypeAction.GET, ricm3.game.automaton.Direction.FRONT);
+
+				case "Throw":
+
+					if (iter.hasNext()) {
+						Parameter p = iter.next();
+						if (p instanceof Direction) {
+							return new ricm3.game.automaton.Action(TypeAction.GET,
+									(ricm3.game.automaton.Direction) p.make());
+						} else {
+							return new ricm3.game.automaton.Action(TypeAction.GET,
+									ricm3.game.automaton.Direction.FRONT);
+						}
+					}
+					return new ricm3.game.automaton.Action(TypeAction.GET, ricm3.game.automaton.Direction.FRONT);
+
+				case "Kamikaze":
+
+					return new ricm3.game.automaton.Action(TypeAction.KAMIKAZE, ricm3.game.automaton.Direction.FRONT);
+
+				case "Store":
+
+					if (iter.hasNext()) {
+						Parameter p = iter.next();
+						if (p instanceof Direction) {
+							return new ricm3.game.automaton.Action(TypeAction.PICK,
+									(ricm3.game.automaton.Direction) p.make());
+						} else {
+							return new ricm3.game.automaton.Action(TypeAction.PICK,
+									ricm3.game.automaton.Direction.FRONT);
+						}
+					}
+					return new ricm3.game.automaton.Action(TypeAction.PICK, ricm3.game.automaton.Direction.FRONT);
+
 				default:
 					throw new RuntimeException("Action inconnue");
 				}
-			}
-			else 
-				throw new RuntimeException("Come from something else than action or condition");
+			} else
+				throw new RuntimeException("Came from something else than action or condition");
 		}
 	}
 
@@ -343,7 +770,7 @@ public class Ast {
 			} else if (expression instanceof UnaryOp) {
 				throw new RuntimeException("UnaryOp not allowed on action");
 			} else {
-				return (((FunCall)expression).makeBis('a'));
+				return (((FunCall) expression).makeBis('a'));
 			}
 		}
 	}

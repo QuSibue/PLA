@@ -29,6 +29,11 @@ public class Automaton {
 		return true;
 	}
 	
+	public boolean setListAutomaton(LinkedList<Transition> t) {
+		m_transitions = t;
+		return true;
+	}
+	
 	//Getters
 	public Etat getEtatInitial() {
 		return m_etatInitial;
