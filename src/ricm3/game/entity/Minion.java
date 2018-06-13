@@ -45,7 +45,7 @@ public class Minion extends Character {
 	public void wizz() {
 		int xCourant = this.getX();
 		int yCourant = this.getY();
-		Portal p = new Portal(xOrigin, yOrigin, xCourant, yCourant, null, 0, m_model.m_icb.m_energieSac, global_map, m_model);
+		Portal p = new Portal(xOrigin, yOrigin, xCourant, yCourant, m_model.m_idb.portail, m_model.m_idb.nbFramePortail, m_model.m_icb.m_energieSac, global_map, m_model);
 		global_map.setEntity(p); // enlever les commentaires quand la liste de portail sera dans model
 		// m_model.m_portail.add(p);
 		this.global_map.deleteEntity(this);

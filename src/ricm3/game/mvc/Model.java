@@ -97,7 +97,7 @@ public class Model extends GameModel {
 
 		// ONFAIT LE JOUEUR
 
-		virus = new Player(1, 1, m_idb.virusIdle, m_idb.nbFrameVirus, m_automates.get(0), Orientation.RIGHT, 1, map,
+		virus = new Player(1, 1, m_idb.virusIdle, m_idb.nbFrameVirus, aut, Orientation.RIGHT, 1, map,
 				this, 3, 0, TypeKey.NONE);
 
 		map.setEntity(virus);
@@ -105,7 +105,7 @@ public class Model extends GameModel {
 		// antivirus
 
 		// aut = Transversal.antivirusAutomaton();
-		antivirus = new Player(8, 1, m_idb.antivirusIdle, m_idb.nbFrameAntivirus, m_automates.get(1), Orientation.LEFT,
+		antivirus = new Player(8, 1, m_idb.antivirusIdle, m_idb.nbFrameAntivirus, aut, Orientation.LEFT,
 				2, map, this, 3, 0, TypeKey.NONE);
 
 		map.setEntity(antivirus);
@@ -115,7 +115,7 @@ public class Model extends GameModel {
 		m_powerup.add(PU);
 		map.setEntity(PU);
 
-		m_drapeau = new Drapeau(4, 1, null, map, this);
+		m_drapeau = new Drapeau(4, 1, m_idb.drapeau, m_idb.nbFrameDrapeau, null, map, this);
 		map.setEntity(m_drapeau);
 
 		m_ath = new ATH(this);

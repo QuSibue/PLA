@@ -77,13 +77,12 @@ public class Portal extends Entity {
 	// pas arriver).
 	// on appel la fonction quand / ou ???
 	public void use_portal(Being E, Point p) {
-		
 
 		// deplacement de l'entité
 		if (p.x == getX_start() && p.y == getY_start()) {
 			global_map.moveEntity(E, getX_end(), getY_end());
 			nb_utilisation--;
-		}else if (p.x == getX_end() && p.y == getY_end()) {
+		} else if (p.x == getX_end() && p.y == getY_end()) {
 			global_map.moveEntity(E, getX_start(), getY_start());
 			nb_utilisation--;
 		}
@@ -112,16 +111,22 @@ public class Portal extends Entity {
 
 	public void paint(Graphics g) {
 		// dessin portail debut
-		int m_x = this.getX_start() * Options.TAILLE_CASE;
-		int m_y = this.getY_start() * Options.TAILLE_CASE;
-		g.setColor(Color.pink);
-		g.fillRect(m_x, m_y, Options.TAILLE_CASE, Options.TAILLE_CASE);
+		/*
+		 * int m_x = this.getX_start() * Options.TAILLE_CASE; int m_y =
+		 * this.getY_start() * Options.TAILLE_CASE; g.setColor(Color.pink);
+		 * g.fillRect(m_x, m_y, Options.TAILLE_CASE, Options.TAILLE_CASE);
+		 * 
+		 * // dessin portail fin m_x = this.getX_end() * Options.TAILLE_CASE; m_y =
+		 * this.getY_end() * Options.TAILLE_CASE; g.setColor(Color.magenta);
+		 * g.fillRect(m_x, m_y, Options.TAILLE_CASE, Options.TAILLE_CASE);
+		 */
 
-		// dessin portail fin
-		m_x = this.getX_end() * Options.TAILLE_CASE;
-		m_y = this.getY_end() * Options.TAILLE_CASE;
-		g.setColor(Color.magenta);
-		g.fillRect(m_x, m_y, Options.TAILLE_CASE, Options.TAILLE_CASE);
+		int IndexFrame = 0;
+		g.drawImage(this.getSprites()[0][IndexFrame], this.getX() * Options.TAILLE_CASE,
+				this.getY() * Options.TAILLE_CASE, Options.TAILLE_CASE, Options.TAILLE_CASE, null);
+		
+		g.drawImage(this.getSprites()[0][IndexFrame], this.getX_end() * Options.TAILLE_CASE,
+				this.getY_end() * Options.TAILLE_CASE, Options.TAILLE_CASE, Options.TAILLE_CASE, null);
 
 		// il faudra peut être faire une animation de fin quand lifespan arrive à 0
 	}
