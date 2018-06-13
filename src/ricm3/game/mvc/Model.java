@@ -39,48 +39,45 @@ public class Model extends GameModel {
 
 	public Model(ArrayList<Integer> indices) {
 		m_automates = new ArrayList<Automaton>();
-		if(!Options.NEW_GAME) {
-			//initTree();
-			m_tree = GameMain.m_tree;
-			System.out.println(indices.size());
-			for(int i=0;i<indices.size();i++) {
-				Automaton temp = ((ArrayList<Automaton>) m_tree.make()).get(indices.get(i));
-				m_automates.add(temp);
-			}
-			
+
+		// initTree();
+		m_tree = GameMain.m_tree;
+		
+		for (int i = 0; i < indices.size(); i++) {
+			Automaton temp = ((ArrayList<Automaton>) m_tree.make()).get(indices.get(i));
+			m_automates.add(temp);
+
 		}
 		init();
-		
-		
+
 	}
 
-	/*public void initTree() {
-		try {
-			m_tree = AutomataParser.parserAutomates(GameMain.pathPlayer);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		@SuppressWarnings("unchecked")
-		Automaton aut2 = ((ArrayList<Automaton>) m_tree.make()).get(0);
-	}*/
+	/*
+	 * public void initTree() { try { m_tree =
+	 * AutomataParser.parserAutomates(GameMain.pathPlayer); } catch (Exception e) {
+	 * e.printStackTrace(); }
+	 * 
+	 * @SuppressWarnings("unchecked") Automaton aut2 = ((ArrayList<Automaton>)
+	 * m_tree.make()).get(0); }
+	 */
 
 	public void init() {
 		m_minions = new LinkedList<Minion>();
 		m_obstacles = new LinkedList<Obstacle>();
 		m_laser = new LinkedList<Laser>();
 		m_powerup = new LinkedList<PowerUp>();
-		//m_automates = new ArrayList<Automaton>();
-		//loadAutomaton();
+		// m_automates = new ArrayList<Automaton>();
+		// loadAutomaton();
 
 		// sprites vont etres donné a l'instantiation normalement, a voir
 		// ON FAIT LA MAP
 		map = new Map(15, 29);
 		finPartie = false;
 		afficherFin = false;
-		
+
 		// ON FAIT UN AUTOMATE
 
-		//Automaton aut = Transversal.virusAutomaton();
+		// Automaton aut = Transversal.virusAutomaton();
 		// FIN DE L'AUTOMATE
 
 		// ONFAIT LE JOUEUR
@@ -94,7 +91,7 @@ public class Model extends GameModel {
 		obs = new Obstacle(1, 0, false, true, false, false, null, map, this);
 		m_obstacles.add(obs);
 		map.setEntity(obs);
-		for (int i = 1; i <14 ; i++) {
+		for (int i = 1; i < 14; i++) {
 			obs = new Obstacle(0, i, false, true, false, false, null, map, this);
 			m_obstacles.add(obs);
 			map.setEntity(obs);
@@ -103,8 +100,8 @@ public class Model extends GameModel {
 			map.setEntity(obs);
 		}
 		// antivirus
-		//aut = Transversal.antivirusAutomaton();
-		antivirus = new Player(8, 2, null, m_automates.get(1), Orientation.LEFT, 2, map, this, 3, 0, TypeKey.NONE);
+		// aut = Transversal.antivirusAutomaton();
+		antivirus = new Player(8, 1, null, m_automates.get(1), Orientation.LEFT, 2, map, this, 3, 0, TypeKey.NONE);
 		map.setEntity(antivirus);
 
 		PowerUp PU = new PowerUp(4, 3, this);
@@ -112,7 +109,7 @@ public class Model extends GameModel {
 		map.setEntity(PU);
 
 		m_ath = new ATH(this);
-		
+
 	}
 
 	@Override
@@ -169,7 +166,7 @@ public class Model extends GameModel {
 			GameMain.afficherFinPartie(2, this);
 			afficherFin = false;
 		}
-		
+
 		else if (m_ath.getTimer() <= 0 && afficherFin) {
 			GameMain.afficherFinPartie(3, this);
 			afficherFin = false;

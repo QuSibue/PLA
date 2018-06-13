@@ -9,7 +9,7 @@ public abstract class Options {
 	public static GameUI game; //le game ui utilise
 	public static boolean FRIENDLY_FIRE = false; // Possibilité de blesser et d'être blessé par les alliers
 	public static int MAX_SBIRES = 10; // Nombre max de minion
-	public static int TIMER = 90; // Temps de la manche en seconde
+	public static int TIMER = 5; // Temps de la manche en seconde
 	public static int CHOICE_MAP = 2;// Identifiant permettant de sélectonner la map
 	public static int LIFESPAN_FARMER = 10;// Temps de vie du farmer en seconde
 	public static int HEALTH_PROTECT = 2;// Point de vie du farmer
