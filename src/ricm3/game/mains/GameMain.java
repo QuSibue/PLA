@@ -359,8 +359,10 @@ public class GameMain {
 			break;
 		case 3:
 			message = "L'antivirus à défendu le système et remporte la victoire !";
+			break;
 		case 4:
 			message="Le virus à capturer le drapeau, il remporte la victoire !";
+			break;
 		default:
 			break;
 		}

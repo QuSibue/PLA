@@ -195,7 +195,7 @@ public class Model extends GameModel {
 			afficherFin = false;
 		}
 
-		else if (afficherFin) {
+		else if (afficherFin && flagCaptured) {
 			GameMain.afficherFinPartie(4, this);
 			afficherFin = false;
 		}
