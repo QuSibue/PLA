@@ -24,7 +24,7 @@ public class Player extends Character {
 	private int m_indiceAutoMinions;
 	
 
-	public Player(int x, int y, BufferedImage[] sprites, Automaton aut, Orientation orientation, int equipe, Map map,
+	public Player(int x, int y, BufferedImage[][] sprites, Automaton aut, Orientation orientation, int equipe, Map map,
 			Model model, int life, long lastMove, TypeKey key, ImageDataBase idb) {
 		super(sprites, x, y, true, false, true, false, Options.PLAYER_MS, aut, orientation, equipe, map, model, life,
 				lastMove, idb);
@@ -58,7 +58,6 @@ public class Player extends Character {
 
 	@Override
 	public void wizz() {
-		// TODO Auto-generated method stub
 		if (m_indiceAutoMinions == Options.NB_MINIONS_TYPE - 1) {
 			m_indiceAutoMinions = 0;
 		} else {
@@ -78,7 +77,7 @@ public class Player extends Character {
 			Transversal.evalPosition(this.getX(), this.getY(), p, Direction.FRONT, this.getOrientation());
 			Entity e = global_map.getEntity(p.x, p.y);
 			if (e == null) {
-				Laser laser = new Laser(p.x, p.y, null, Transversal.straightAutomaton(), this.getOrientation(),
+				Laser laser = new Laser(p.x, p.y, m_model.m_idb.laserIdle, Transversal.straightAutomaton(), this.getOrientation(),
 						global_map, m_model, 1, 0,this.m_idb);
 				this.m_model.m_laser.add(laser);
 				global_map.setEntity(laser);
@@ -134,22 +133,10 @@ public class Player extends Character {
 
 	}
 
-	@Override
-	
 
-	public void paint(Graphics g) {
-
-		BufferedImage[] animation = m_idb.getAntivirusIdle(getOrientation());
-		// cet indice va devoir bouger pour animer l'entité
-		int IndexFrame = 0;
-		g.drawImage(animation[IndexFrame], this.getX() * Options.TAILLE_CASE, this.getY() * Options.TAILLE_CASE,
-				Options.TAILLE_CASE, Options.TAILLE_CASE, null);
-
-	}
 
 	@Override
 	public void kamikaze() {
-		// TODO Auto-generated method stub
 
 	}
 

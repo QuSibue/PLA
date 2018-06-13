@@ -19,7 +19,7 @@ public class Laser extends Being {
 	public PowerUp erased_powerup;
 	private int lifespan;
 
-	public Laser(int x, int y, BufferedImage[] sprites, Automaton aut, Orientation orientation, Map map, Model model,
+	public Laser(int x, int y, BufferedImage[][] sprites, Automaton aut, Orientation orientation, Map map, Model model,
 			int life, long lastMove, ImageDataBase idb) {
 		super(x, y, true, true, true, true, Options.LASER_MS, sprites, aut, orientation, map, model, life, lastMove, idb);
 		erased_powerup = null;
@@ -213,11 +213,7 @@ public class Laser extends Being {
 
 	@Override
 	public void paint(Graphics g) {
-		int m_x = this.getX() * Options.TAILLE_CASE;
-		int m_y = this.getY() * Options.TAILLE_CASE;
-		g.setColor(Color.GREEN);
-		g.fillRect(m_x, m_y, Options.TAILLE_CASE, Options.TAILLE_CASE);
-
+		super.paint(g);
 		if (m_isFirstPaint)
 			m_isFirstPaint = false;
 	}

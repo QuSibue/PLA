@@ -6,40 +6,101 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import ricm3.game.automaton.Orientation;
-
 public class ImageDataBase {
 
-	BufferedImage[][] virusIdle;
-	BufferedImage[][] antivirusIdle;
-	BufferedImage[][] laserIdle;
-	BufferedImage[][] m1Idle;
-	BufferedImage[][] m2Idle;
-	BufferedImage[][] m3Idle;
-	BufferedImage[][] m4Idle;
-	BufferedImage[][] m5Idle;
-	BufferedImage[][] m6Idle;
-	final int nbFrameVirus = 3;
+	public BufferedImage[][] virusIdle;
+	public BufferedImage[][] antivirusIdle;
+	public BufferedImage[][] laserIdle;
+	
+	public BufferedImage[][] m1Idle;
+	public BufferedImage[][] m2Idle;
+	public BufferedImage[][] m3Idle;
+	public BufferedImage[][] m4Idle;
+	public BufferedImage[][] m5Idle;
+	public BufferedImage[][] m6Idle;
+
+	public BufferedImage[][] obstacle;
+	public BufferedImage[][] powerUp;
+
+	private final int nbFrameVirus = 3;
+	private final int nbFrameAntivirus = 3;
+	private final int nbFrameLaser = 1;
+	
+	private final int nbFrameM1 = 6;
+	private final int nbFrameM2 = 6;
+	private final int nbFrameM3 = 6;
+	private final int nbFrameM4 = 6;
+	private final int nbFrameM5 = 6;
+	private final int nbFrameM6 = 6;
+
+	private final int nbFrameObstacle = 4;
+	private final int nbFramePowerUp = 1;
 
 	public ImageDataBase() {
-		//On initialise Virus
+		// On initialise les tableau
+		virusIdle = new BufferedImage[4][];
 		antivirusIdle = new BufferedImage[4][];
+		laserIdle = new BufferedImage[4][];
 		
-		// On charge Virus de dos
-		// L'animation du virus est en 3 frames
-		loadOneRowOfSprite(antivirusIdle, 0, nbFrameVirus, "images/antivirus/idleUp.png");
+		m1Idle = new BufferedImage[4][];
+		m2Idle = new BufferedImage[4][];
+		m3Idle = new BufferedImage[4][];
+		m4Idle = new BufferedImage[4][];
+		m5Idle = new BufferedImage[4][];
+		m6Idle = new BufferedImage[4][];
+		
+		obstacle = new BufferedImage[1][];
+		powerUp = new BufferedImage[1][];
 
-		// On charge Virus regardant a droite
-		// L'animation du virus est en 3 frames
-		loadOneRowOfSprite(antivirusIdle, 1, 3, "images/antivirus/idleRight.png");
+		loadVirusSprite();
+		loadAntivirusSprite();
+		loadLaserSprite();
+		
+		
+		
+		loadObstacleSprite();
+		loadPowerUpSprite();
 
-		// On charge Virus de face
-		// L'animation du virus est en 3 frames
-		loadOneRowOfSprite(antivirusIdle, 2, 3, "images/antivirus/idleDown.png");
+	}
 
-		// On charge Virus regardant a gauche
-		// L'animation du virus est en 3 frames
-		loadOneRowOfSprite(antivirusIdle, 3, 3, "images/antivirus/idleLeft.png");
+	public void loadAntivirusSprite() {
+		// On charge antiVirus de dos
+		// L'animation du antivirus est en 3 frames
+		loadOneRowOfSprite(antivirusIdle, 0, nbFrameAntivirus, "images/antivirus/IdleUp.png");
+
+		// On charge antiVirus regardant a droite
+		// L'animation du antivirus est en 3 frames
+		loadOneRowOfSprite(antivirusIdle, 1, nbFrameAntivirus, "images/antivirus/IdleRight.png");
+
+		// On charge antiVirus de face
+		// L'animation du antivirus est en 3 frames
+		loadOneRowOfSprite(antivirusIdle, 2, nbFrameAntivirus, "images/antivirus/IdleDown.png");
+
+		// On charge antiVirus regardant a gauche
+		// L'animation du antivirus est en 3 frames
+		loadOneRowOfSprite(antivirusIdle, 3, nbFrameAntivirus, "images/antivirus/IdleLeft.png");
+	}
+
+	public void loadVirusSprite() {
+		loadOneRowOfSprite(virusIdle, 0, nbFrameVirus, "images/virus/IdleUp.png");
+		loadOneRowOfSprite(virusIdle, 1, nbFrameVirus, "images/virus/IdleRight.png");
+		loadOneRowOfSprite(virusIdle, 2, nbFrameVirus, "images/virus/IdleDown.png");
+		loadOneRowOfSprite(virusIdle, 3, nbFrameVirus, "images/virus/IdleLeft.png");
+	}
+
+	public void loadLaserSprite() {
+		loadOneRowOfSprite(laserIdle, 0, nbFrameLaser, "images/laser/Laser.png");
+		loadOneRowOfSprite(laserIdle, 1, nbFrameLaser, "images/laser/Laser.png");
+		loadOneRowOfSprite(laserIdle, 2, nbFrameLaser, "images/laser/Laser.png");
+		loadOneRowOfSprite(laserIdle, 3, nbFrameLaser, "images/laser/Laser.png");
+	}
+
+	public void loadObstacleSprite() {
+		loadOneRowOfSprite(obstacle, 0, nbFrameObstacle, "images/obstacle/Obstacle.png");
+	}
+	
+	public void loadPowerUpSprite() {
+		loadOneRowOfSprite(powerUp, 0, nbFramePowerUp, "images/energie/Energie.png");
 	}
 
 	private void loadOneRowOfSprite(BufferedImage[][] images, int index, int nbFrame, String path) {
@@ -68,19 +129,4 @@ public class ImageDataBase {
 		}
 	}
 
-	public BufferedImage[] getAntivirusIdle(Orientation direction) {
-		switch (direction) {
-		case UP:
-			return antivirusIdle[0];
-		case RIGHT:
-			return antivirusIdle[1];
-		case DOWN:
-			return antivirusIdle[2];
-		case LEFT:
-			return antivirusIdle[3];
-		default:
-			throw new RuntimeException("Orientation du sprite invalide.");
-		}
-
-	}
 }

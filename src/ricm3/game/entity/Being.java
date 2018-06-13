@@ -1,5 +1,6 @@
 package ricm3.game.entity;
 
+import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.util.Iterator;
@@ -11,6 +12,7 @@ import ricm3.game.automaton.Orientation;
 import ricm3.game.automaton.Transition;
 import ricm3.game.mvc.Map;
 import ricm3.game.mvc.Model;
+import ricm3.game.other.Options;
 import ricm3.game.other.Transversal;
 
 public abstract class Being extends Entity {
@@ -22,11 +24,11 @@ public abstract class Being extends Entity {
 	private Orientation m_orientation;
 	private int m_life;
 	private long m_lastMove;
-	private int m_indexBuffer=0;
+	private int m_indexBuffer = 0;
 
 	// Constructor
 	public Being(int x, int y, boolean moveable, boolean pickable, boolean killable, boolean lethal, int ms,
-			BufferedImage[] sprites, Automaton aut, Orientation orientation, Map map, Model model, int life,
+			BufferedImage[][] sprites, Automaton aut, Orientation orientation, Map map, Model model, int life,
 			long lastMove, ImageDataBase idb) {
 
 		// appel au constructeur de entity
@@ -46,7 +48,7 @@ public abstract class Being extends Entity {
 	public int getIndexBuffer() {
 		return m_indexBuffer;
 	}
-	
+
 	public int getLife() {
 		return m_life;
 	}
@@ -68,11 +70,12 @@ public abstract class Being extends Entity {
 	}
 
 	// setters
-	
+
 	public boolean setIndexBuffer(int i) {
 		m_indexBuffer = i;
 		return true;
 	}
+
 	public boolean setLife(int life) {
 		m_life = life;
 		return true;
@@ -201,6 +204,14 @@ public abstract class Being extends Entity {
 
 	public abstract void _throw();
 
+	public void paint(Graphics g) {
+		BufferedImage[] animation = getDirectionSprite(getOrientation());
+		// cet indice va devoir bouger pour animer l'entité
+		int IndexFrame = 0;
+		g.drawImage(animation[IndexFrame], this.getX() * Options.TAILLE_CASE, this.getY() * Options.TAILLE_CASE,
+				Options.TAILLE_CASE, Options.TAILLE_CASE, null);
+	}
+
 	public void turn(Direction d) {
 		// TODO Auto-generated method stub
 		switch (d) {
@@ -232,6 +243,7 @@ public abstract class Being extends Entity {
 			throw new RuntimeException("Direction invalid");
 		}
 	}
+
 	public abstract void kamikaze();
 
 }
