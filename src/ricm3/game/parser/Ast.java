@@ -163,7 +163,7 @@ public class Ast {
 			case "L":
 				return ricm3.game.automaton.Direction.LEFT;
 			case "R":
-				return ricm3.game.automaton.Direction.RIGHT;
+				return ricm3.game.automaton.Direction.RIGHT;			
 			default:
 				throw new RuntimeException("Direction not yet implemented");
 			}

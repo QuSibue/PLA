@@ -8,8 +8,8 @@ import ricm3.game.other.Options;
 
 public class PowerUp extends Entity {
 
-	public PowerUp(int x, int y, Model model,BufferedImage[][] sprites, ImageDataBase idb) {
-		super(x, y, false, true, true, false, sprites, model.map, model, idb);
+	public PowerUp(int x, int y, Model model,BufferedImage[][] sprites, int nbImage, ImageDataBase idb) {
+		super(x, y, false, true, true, false, sprites, nbImage,model.map, model, idb);
 	}
 
 	@Override

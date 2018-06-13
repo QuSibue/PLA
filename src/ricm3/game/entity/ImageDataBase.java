@@ -22,19 +22,19 @@ public class ImageDataBase {
 	public BufferedImage[][] obstacle;
 	public BufferedImage[][] powerUp;
 
-	private final int nbFrameVirus = 3;
-	private final int nbFrameAntivirus = 3;
-	private final int nbFrameLaser = 1;
+	public final int nbFrameVirus = 3;
+	public final int nbFrameAntivirus = 3;
+	public final int nbFrameLaser = 1;
 
-	private final int nbFrameM1 = 6;
-	private final int nbFrameM2 = 6;
-	private final int nbFrameM3 = 6;
-	private final int nbFrameM4 = 6;
-	private final int nbFrameM5 = 6;
-	private final int nbFrameM6 = 6;
+	public final int nbFrameM1 = 6;
+	public final int nbFrameM2 = 6;
+	public final int nbFrameM3 = 6;
+	public final int nbFrameM4 = 6;
+	public final int nbFrameM5 = 6;
+	public final int nbFrameM6 = 6;
 
-	private final int nbFrameObstacle = 4;
-	private final int nbFramePowerUp = 8;
+	public final int nbFrameObstacle = 4;
+	public final int nbFramePowerUp = 8;
 
 	public ImageDataBase() {
 		// On initialise les tableau
@@ -107,7 +107,7 @@ public class ImageDataBase {
 		loadOneRowOfSprite(m1Idle, 2, nbFrameM1, "images/m1/IdleDown.png");
 		loadOneRowOfSprite(m1Idle, 3, nbFrameM1, "images/m1/IdleLeft.png");
 	}
-
+	
 	public void loadM2Sprite() {
 		loadOneRowOfSprite(m2Idle, 0, nbFrameM2, "images/m2/IdleUp.png");
 		loadOneRowOfSprite(m2Idle, 1, nbFrameM2, "images/m2/IdleRight.png");
@@ -142,6 +142,7 @@ public class ImageDataBase {
 		loadOneRowOfSprite(m6Idle, 2, nbFrameM6, "images/m6/IdleDown.png");
 		loadOneRowOfSprite(m6Idle, 3, nbFrameM6, "images/m6/IdleLeft.png");
 	}
+	
 
 	public void loadObstacleSprite() {
 		loadOneRowOfSprite(obstacle, 0, nbFrameObstacle, "images/obstacle/Obstacle.png");
@@ -153,17 +154,17 @@ public class ImageDataBase {
 	
 	public BufferedImage[][] getMinionSprites(int i){
 		switch(i) {
-		case 1:
+		case 0:
 			return m1Idle;
-		case 2:
+		case 1:
 			return m2Idle;
-		case 3:
+		case 2:
 			return m3Idle;
-		case 4:
+		case 3:
 			return m4Idle;
-		case 5:
+		case 4:
 			return m5Idle;
-		case 6:
+		case 5:
 			return m6Idle;
 		default:
 			throw new RuntimeException("Indice sprite des sbires invalide");

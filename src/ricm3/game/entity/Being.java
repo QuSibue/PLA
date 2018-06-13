@@ -28,11 +28,11 @@ public abstract class Being extends Entity {
 
 	// Constructor
 	public Being(int x, int y, boolean moveable, boolean pickable, boolean killable, boolean lethal, int ms,
-			BufferedImage[][] sprites, Automaton aut, Orientation orientation, Map map, Model model, int life,
+			BufferedImage[][] sprites, int nbImage,Automaton aut, Orientation orientation, Map map, Model model, int life,
 			long lastMove, ImageDataBase idb) {
 
 		// appel au constructeur de entity
-		super(x, y, moveable, pickable, killable, lethal, sprites, map, model, idb);
+		super(x, y, moveable, pickable, killable, lethal, sprites,nbImage, map, model, idb);
 
 		m_moveSpeed = ms;
 		m_automaton = aut; // alias
@@ -207,8 +207,19 @@ public abstract class Being extends Entity {
 	public void paint(Graphics g) {
 		BufferedImage[] animation = getDirectionSprite(getOrientation());
 		// cet indice va devoir bouger pour animer l'entité
-		int IndexFrame = 0;
-		g.drawImage(animation[IndexFrame], this.getX() * Options.TAILLE_CASE, this.getY() * Options.TAILLE_CASE,
+		int i = getIndexRefresh();
+		setIndexRefresh(i+1);
+		if(i  == getNbImageRefresh()) {
+			setIndexRefresh(0);
+			int j = getNumImage();
+			setNumImage(j+1);
+			
+			if(j  == getNbImage()){
+				setNumImage(0);
+			}
+		}
+
+		g.drawImage(animation[getNumImage()%getNbImage()], this.getX() * Options.TAILLE_CASE, this.getY() * Options.TAILLE_CASE,
 				Options.TAILLE_CASE, Options.TAILLE_CASE, null);
 	}
 

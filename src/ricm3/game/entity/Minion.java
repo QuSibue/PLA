@@ -1,7 +1,5 @@
 package ricm3.game.entity;
 
-import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.Iterator;
 
@@ -9,18 +7,17 @@ import ricm3.game.automaton.Automaton;
 import ricm3.game.automaton.Orientation;
 import ricm3.game.mvc.Map;
 import ricm3.game.mvc.Model;
-import ricm3.game.other.Options;
 
 public class Minion extends Character {
 	public long m_lastMove;
 	public int xOrigin;
 	public int yOrigin;
 
-	public Minion(BufferedImage[][] sprites, int x, int y, boolean moveable, boolean pickable, boolean killable,
-			boolean lethal, int moveSpeed, Automaton automate, Orientation orientation, int equipe, Map map,
-			Model model, int life, long lastMove, ImageDataBase idb) {
-		super(sprites, x, y, moveable, pickable, killable, lethal, moveSpeed, automate, orientation, equipe, map, model,
-				life, lastMove, idb);
+	public Minion(BufferedImage[][] sprites, int nbImage, int x, int y, boolean moveable, boolean pickable,
+			boolean killable, boolean lethal, int moveSpeed, Automaton automate, Orientation orientation, int equipe,
+			Map map, Model model, int life, long lastMove, ImageDataBase idb) {
+		super(sprites, nbImage, x, y, moveable, pickable, killable, lethal, moveSpeed, automate, orientation, equipe,
+				map, model, life, lastMove, idb);
 		xOrigin = this.getX();
 		yOrigin = this.getY();
 	}
@@ -45,13 +42,12 @@ public class Minion extends Character {
 	public void wizz() {
 		int xCourant = this.getX();
 		int yCourant = this.getY();
-		Portal p = new Portal(xOrigin, yOrigin, xCourant, yCourant, null, global_map, m_model,this.m_idb);
+		Portal p = new Portal(xOrigin, yOrigin, xCourant, yCourant, null,0, global_map, m_model, this.m_idb);
 		global_map.setEntity(p); // enlever les commentaires quand la liste de portail sera dans model
 		// m_model.m_portail.add(p);
 		this.global_map.deleteEntity(this);
 		m_model.m_minions.remove(this);
 	}
-
 
 	public void hit(long now) {
 		Iterator<Minion> iterM = m_model.m_minions.iterator();
@@ -99,24 +95,10 @@ public class Minion extends Character {
 	public void _throw() {
 		return;
 	}
-	
-	
-	@Override
-	public void paint(Graphics g) {
-		// affiche un carré bleu pour le joueur
-		int m_x = this.getX() * Options.TAILLE_CASE;
-		int m_y = this.getY() * Options.TAILLE_CASE;
-		g.setColor(Color.RED);
-		g.fillRect(m_x, m_y, Options.TAILLE_CASE, Options.TAILLE_CASE);
-
-	}
-
 
 	@Override
 	public void kamikaze() {
-		
+
 	}
-
-
 
 }

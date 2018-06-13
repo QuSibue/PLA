@@ -16,12 +16,16 @@ public abstract class Entity {
 	private boolean m_killable;
 	private boolean m_lethal;
 	private BufferedImage[][] m_sprites;
+	private int m_nbImageRefresh;
+	private int m_indexRefresh=0;
+	private int m_numImage=0;
+	private int m_nbImage;
 	public Map global_map;
 	public Model m_model;
 	public ImageDataBase m_idb;
 
 	public Entity(int x, int y, boolean move, boolean pick, boolean kill, boolean leth, BufferedImage[][] sprites,
-			Map map, Model model, ImageDataBase idb) {
+			int nbImage, Map map, Model model, ImageDataBase idb) {
 		this.m_coordinateX = x;
 		this.m_coordinateY = y;
 		this.m_moveable = move;
@@ -32,6 +36,8 @@ public abstract class Entity {
 		this.global_map = map;
 		this.m_model = model;
 		this.m_idb = idb;
+		this.m_nbImage = nbImage;
+		this.m_nbImageRefresh = (int) ricm3.game.framework.Options.FPS / m_nbImage;
 
 	}
 
@@ -50,6 +56,7 @@ public abstract class Entity {
 		}
 
 	}
+
 	public Entity closestEntity(Entity e1, Entity e2) {
 		int be1 = 0, be2 = 0;
 		if (e1 == null) {
@@ -108,6 +115,22 @@ public abstract class Entity {
 		return m_sprites;
 	}
 
+	public int getNbImageRefresh() {
+		return this.m_nbImageRefresh;
+	}
+
+	public int getIndexRefresh() {
+		return this.m_indexRefresh;
+	}
+
+	public int getNumImage() {
+		return this.m_numImage;
+	}
+
+	public int getNbImage() {
+		return this.m_nbImage;
+	}
+
 	// setters
 	public boolean setX(int x) {
 		m_coordinateX = x;
@@ -141,6 +164,26 @@ public abstract class Entity {
 
 	public boolean setSprites(BufferedImage[][] sprites) {
 		m_sprites = sprites;
+		return true;
+	}
+
+	public boolean setNbImageRefresh(int a) {
+		this.m_nbImageRefresh = a;
+		return true;
+	}
+
+	public boolean setIndexRefresh(int a) {
+		this.m_indexRefresh = a;
+		return true;
+	}
+
+	public boolean setNumImage(int a) {
+		this.m_numImage= a;
+		return true;
+	}
+
+	public boolean setNbiMAGE(int a) {
+		this.m_nbImage = a;
 		return true;
 	}
 
