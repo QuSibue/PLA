@@ -15,6 +15,7 @@ import ricm3.game.entity.Laser;
 import ricm3.game.entity.Minion;
 import ricm3.game.entity.Obstacle;
 import ricm3.game.entity.Player;
+import ricm3.game.entity.Portal;
 import ricm3.game.entity.PowerUp;
 import ricm3.game.framework.GameModel;
 import ricm3.game.mains.GameMain;
@@ -30,6 +31,7 @@ public class Model extends GameModel {
 	public LinkedList<Obstacle> m_obstacles;
 	public LinkedList<Laser> m_laser;
 	public LinkedList<PowerUp> m_powerup;
+	public LinkedList<Portal> m_portal;
 	public Player virus;
 	public Player antivirus;
 	public ArrayList<Automaton> m_automates;
@@ -71,6 +73,7 @@ public class Model extends GameModel {
 		m_obstacles = new LinkedList<Obstacle>();
 		m_laser = new LinkedList<Laser>();
 		m_powerup = new LinkedList<PowerUp>();
+		m_portal = new LinkedList<Portal>();
 		// m_automates = new ArrayList<Automaton>();
 		// loadAutomaton();
 
@@ -96,7 +99,7 @@ public class Model extends GameModel {
 		// ajout d'un obstacle
 
 		// antivirus
-		// aut = Transversal.antivirusAutomaton();
+		aut = Transversal.antivirusAutomaton();
 		antivirus = new Player(8, 1, m_idb.antivirusIdle, m_idb.nbFrameAntivirus, aut, Orientation.LEFT,
 				2, map, this, 3, 0, TypeKey.NONE);
 
@@ -110,6 +113,10 @@ public class Model extends GameModel {
 		map.setEntity(m_drapeau);
 
 		m_ath = new ATH(this);
+		
+		Portal p = new Portal(9,9,12,12,null,1,map,this);
+		m_portal.add(p);
+		map.setEntity(p);
 
 	}
 
@@ -126,6 +133,9 @@ public class Model extends GameModel {
 
 			LinkedList<Laser> laserClone = (LinkedList<Laser>) m_laser.clone();
 			Iterator<Laser> iterL = laserClone.iterator();
+			
+			LinkedList<Portal> portalClone = (LinkedList<Portal>) m_portal.clone();
+			Iterator<Portal> iterP = portalClone.iterator();
 
 			// map.printMap();
 			Minion m;
@@ -144,6 +154,12 @@ public class Model extends GameModel {
 			while (iterL.hasNext()) {
 				l = iterL.next();
 				l.step(now);
+			}
+			
+			Portal p;
+			while (iterP.hasNext()) {
+				p = iterP.next();
+				p.step(now);
 			}
 			if (virus.getLife() > 0) {
 				virus.step(now);

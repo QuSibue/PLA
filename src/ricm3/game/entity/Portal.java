@@ -2,6 +2,7 @@ package ricm3.game.entity;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 
 import ricm3.game.mvc.Map;
@@ -18,11 +19,12 @@ public class Portal extends Entity {
 	private long lifespan;
 	private long m_last;
 
-	public Portal(int x_start, int y_start, int x_end, int y_end, BufferedImage[][] sprites,int nbImage, Map map, Model model) {
-		super(x_start, y_start, false, false, false, false, sprites, nbImage,map, model);
+	public Portal(int x_start, int y_start, int x_end, int y_end, BufferedImage[][] sprites, int nbImage, Map map,
+			Model model) {
+		super(x_start, y_start, false, false, false, false, sprites, nbImage, map, model);
 		coordinateX_end = x_end;
 		coordinateY_end = y_end;
-		nb_utilisation = 3;
+		nb_utilisation = 1;
 		lifespan = 15000; // aucune idée de la valeur ideal
 		m_last = 0;
 	}
@@ -71,19 +73,22 @@ public class Portal extends Entity {
 	// devrait
 	// pas arriver).
 	// on appel la fonction quand / ou ???
-	public void use_portal(Being E) {
-		nb_utilisation--;
+	public void use_portal(Being E, Point p) {
+		
 
 		// deplacement de l'entité
-		if (E.getX() == getX_start() && E.getY() == getY_start()) {
+		if (p.x == getX_start() && p.y == getY_start()) {
 			global_map.moveEntity(E, getX_end(), getY_end());
-		} else if (E.getX() == getX_end() && E.getY() == getY_end()) {
+			nb_utilisation--;
+		}else if (p.x == getX_end() && p.y == getY_end()) {
 			global_map.moveEntity(E, getX_start(), getY_start());
+			nb_utilisation--;
 		}
 
 		// il faut peut etre mettre ça dans step ???
 		if (nb_utilisation == 0) {
 			global_map.deleteEntity(this);
+			m_model.m_portal.remove(this);
 			// enlever de la liste des trucs à step
 		}
 	}

@@ -171,6 +171,9 @@ public abstract class Being extends Entity {
 			global_map.moveEntity(this, p.x, p.y);
 			this.m_model.flagCaptured = true;
 		}
+		else if(e instanceof Portal) {
+			((Portal) e).use_portal(this,p);
+		}
 	}
 
 	public abstract void pop(long now);

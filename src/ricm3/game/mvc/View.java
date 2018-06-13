@@ -8,6 +8,7 @@ import java.util.Iterator;
 import ricm3.game.entity.Laser;
 import ricm3.game.entity.Minion;
 import ricm3.game.entity.Obstacle;
+import ricm3.game.entity.Portal;
 import ricm3.game.entity.PowerUp;
 import ricm3.game.framework.GameView;
 import ricm3.game.other.Options;;
@@ -45,8 +46,7 @@ public class View extends GameView {
 
 		// erase background
 		BufferedImage carte = m_model.m_idb.getMapSprite();
-		g.drawImage(carte, 0, 0, Options.TAILLE_CASE * 29, Options.TAILLE_CASE * 15,
-				null);
+		g.drawImage(carte, 0, 0, Options.TAILLE_CASE * 29, Options.TAILLE_CASE * 15, null);
 
 		// Paint our model, grabbing the elements,
 		// in our case, the squares.
@@ -66,7 +66,7 @@ public class View extends GameView {
 			m_model.antivirus.paint(g);
 		}
 
-		if(!m_model.flagCaptured) {
+		if (!m_model.flagCaptured) {
 			m_model.m_drapeau.paint(g);
 		}
 
@@ -74,6 +74,7 @@ public class View extends GameView {
 		Iterator<Obstacle> iterO = m_model.m_obstacles.iterator();
 		Iterator<Laser> iterL = m_model.m_laser.iterator();
 		Iterator<PowerUp> iterP = m_model.m_powerup.iterator();
+		Iterator<Portal> iterP2 = m_model.m_portal.iterator();
 		Minion m;
 		while (iterM.hasNext()) {
 			m = iterM.next();
@@ -97,5 +98,10 @@ public class View extends GameView {
 			p.paint(g);
 		}
 
+		Portal p2;
+		while (iterP2.hasNext()) {
+			p2 = iterP2.next();
+			p2.paint(g);
+		}
 	}
 }

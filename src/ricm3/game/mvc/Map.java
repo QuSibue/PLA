@@ -10,6 +10,7 @@ import ricm3.game.entity.Laser;
 import ricm3.game.entity.Obstacle;
 import ricm3.game.entity.Wall;
 import ricm3.game.entity.Player;
+import ricm3.game.entity.Portal;
 
 //import java.io.File;
 //import java.io.FileInputStream;
@@ -34,7 +35,13 @@ public class Map {
 	}
 
 	public boolean setEntity(Entity E) {
-		matrice[E.getY()][E.getX()] = E;
+		if (E instanceof Portal) {
+			matrice[((Portal) E).getY_start()][((Portal) E).getX_start()] = E;
+			matrice[((Portal) E).getY_end()][((Portal) E).getX_end()] = E;
+		} else {
+			matrice[E.getY()][E.getX()] = E;
+		}
+
 		return true;
 	}
 
@@ -50,6 +57,9 @@ public class Map {
 	}
 
 	public void deleteEntity(Entity E) {
+		if (E instanceof Portal) {
+			matrice[((Portal) E).getY_end()][((Portal) E).getX_end()] = null;
+		}
 		matrice[E.getY()][E.getX()] = null;
 	}
 
