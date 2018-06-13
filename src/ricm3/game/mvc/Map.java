@@ -144,7 +144,7 @@ public class Map {
 
 	}
 
-	public Map(String s) {
+	public Map(String s, Model m) {
 		int cmp = 0;
 		m_height = 0;
 		m_length = 0;
@@ -195,21 +195,25 @@ public class Map {
 
 			while (cmp < m_height * m_length) {
 				switch ((char) buf[i]) {
+				case 'W':
 				case 'w':
-					//TODO Quand les instances de 
-					matrice[cmp % m_height][cmp / m_height] = new Wall(cmp / m_height, cmp % m_height, this, null,null);
+					// TODO Quand les instances de
+					matrice[cmp / m_length][cmp % m_length] = new Wall(cmp / m_length, cmp % m_length, this, m, 1);
+
 					cmp++;
 					break;
+				case 'O':
 				case 'o':
-					matrice[cmp % m_height][cmp / m_height] = new Obstacle(cmp / m_height, cmp % m_height, false, true,
-							false, false, null, this, null,null);
+					matrice[cmp / m_length][cmp % m_length] = new Obstacle(cmp / m_length, cmp % m_length, false, true,
+							false, false, m.m_idb.obstacle, m.m_idb.nbFrameObstacle, this, m);
 					cmp++;
 					break;
+				case 'N':
 				case 'n':
-					matrice[cmp % m_height][cmp / m_height] = null;
+					matrice[cmp / m_length][cmp % m_length] = null;
 					cmp++;
 				default:
-					matrice[cmp % m_height][cmp / m_height] = null;
+					matrice[cmp / m_length][cmp % m_length] = null;
 					break;
 				}
 
