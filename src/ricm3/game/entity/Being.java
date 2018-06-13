@@ -146,12 +146,16 @@ public abstract class Being extends Entity {
 					m_model.m_laser.remove(e);
 				} else if (e instanceof PowerUp) {
 					this.applyPowerUp((PowerUp) e);
-					;
+					
 					global_map.deleteEntity(e);
 					m_model.m_powerup.remove(e);
 				}
 			}
 			global_map.moveEntity(this, p.x, p.y);
+		}
+		else if (e instanceof Drapeau && this.m_model.virus.equals(this)) {
+			this.m_model.finPartie=true;
+			this.m_model.afficherFin=true;
 		}
 	}
 
