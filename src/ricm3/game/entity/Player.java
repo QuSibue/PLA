@@ -86,12 +86,12 @@ public class Player extends Character {
 			Transversal.evalPosition(this.getX(), this.getY(), p, Direction.FRONT, this.getOrientation());
 			Entity e = global_map.getEntity(p.x, p.y);
 			if (e == null) {
-				Laser laser = new Laser(p.x, p.y, null, this.getIcon(), Transversal.straightAutomaton(), this.getOrientation(),
+				Laser laser = new Laser(p.x, p.y, null, m_model.m_icb.m_laserSac, Transversal.straightAutomaton(), this.getOrientation(),
 						global_map, m_model, 1, 0);
 				this.m_model.m_laser.add(laser);
 				global_map.setEntity(laser);
 			} else if (e instanceof PowerUp) {
-				Laser laser = new Laser(p.x, p.y, null, this.getIcon(), Transversal.straightAutomaton(), this.getOrientation(),
+				Laser laser = new Laser(p.x, p.y, null, m_model.m_icb.m_laserSac, Transversal.straightAutomaton(), this.getOrientation(),
 						global_map, m_model, 1, 0);
 				laser.erased_powerup = (PowerUp) e;
 				this.m_model.m_laser.add(laser);
