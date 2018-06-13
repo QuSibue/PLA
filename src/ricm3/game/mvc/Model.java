@@ -90,34 +90,31 @@ public class Model extends GameModel {
 		// ONFAIT LE JOUEUR
 
 		virus = new Player(1, 1, m_idb.virusIdle, m_idb.nbFrameVirus, m_automates.get(0), Orientation.RIGHT, 1, map,
-				this, 3, 0, TypeKey.NONE, m_idb);
+				this, 3, 0, TypeKey.NONE);
 
 		map.setEntity(virus);
 		// ajout d'un obstacle
-		Obstacle obs = new Obstacle(0, 0, false, true, false, false, m_idb.obstacle, m_idb.nbFrameObstacle, map, this,
-				m_idb);
+		Obstacle obs = new Obstacle(0, 0, false, true, false, false, m_idb.obstacle, m_idb.nbFrameObstacle, map, this);
 		m_obstacles.add(obs);
 		map.setEntity(obs);
 
-		obs = new Obstacle(1, 0, false, true, false, false, m_idb.obstacle, m_idb.nbFrameObstacle, map, this, m_idb);
+		obs = new Obstacle(1, 0, false, true, false, false, m_idb.obstacle, m_idb.nbFrameObstacle, map, this);
 		m_obstacles.add(obs);
 		map.setEntity(obs);
 		for (int i = 1; i < 14; i++) {
 
-			obs = new Obstacle(0, i, false, true, false, false, m_idb.obstacle, m_idb.nbFrameObstacle, map, this,
-					m_idb);
+			obs = new Obstacle(0, i, false, true, false, false, m_idb.obstacle, m_idb.nbFrameObstacle, map, this);
 
 			m_obstacles.add(obs);
 			map.setEntity(obs);
-			obs = new Obstacle(i, 0, false, true, false, false, m_idb.obstacle, m_idb.nbFrameObstacle, map, this,
-					m_idb);
+			obs = new Obstacle(i, 0, false, true, false, false, m_idb.obstacle, m_idb.nbFrameObstacle, map, this);
 			m_obstacles.add(obs);
 			map.setEntity(obs);
 		}
 		// antivirus
 		// aut = Transversal.antivirusAutomaton();
 		antivirus = new Player(8, 1, m_idb.antivirusIdle, m_idb.nbFrameAntivirus, m_automates.get(1), Orientation.LEFT,
-				2, map, this, 3, 0, TypeKey.NONE, m_idb);
+				2, map, this, 3, 0, TypeKey.NONE);
 
 		map.setEntity(antivirus);
 

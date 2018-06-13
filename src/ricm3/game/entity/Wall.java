@@ -7,8 +7,8 @@ import ricm3.game.mvc.Model;
 
 public class Wall extends Environment {
 
-	public Wall(int x, int y, Map map, Model model,int nbImage, ImageDataBase idb) {
-		super(x, y, false, false, false, false, null, nbImage, map, model,idb);
+	public Wall(int x, int y, Map map, Model model,int nbImage) {
+		super(x, y, false, false, false, false, null, nbImage, map, model);
 	}
 
 	public void pretty_print() {

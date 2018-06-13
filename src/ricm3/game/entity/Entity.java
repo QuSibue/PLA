@@ -22,10 +22,10 @@ public abstract class Entity {
 	private int m_nbImage;
 	public Map global_map;
 	public Model m_model;
-	public ImageDataBase m_idb;
+	//public ImageDataBase m_idb;
 
 	public Entity(int x, int y, boolean move, boolean pick, boolean kill, boolean leth, BufferedImage[][] sprites,
-			int nbImage, Map map, Model model, ImageDataBase idb) {
+			int nbImage, Map map, Model model) {
 		this.m_coordinateX = x;
 		this.m_coordinateY = y;
 		this.m_moveable = move;
@@ -35,7 +35,6 @@ public abstract class Entity {
 		this.m_sprites = sprites;
 		this.global_map = map;
 		this.m_model = model;
-		this.m_idb = idb;
 		this.m_nbImage = nbImage;
 		this.m_nbImageRefresh = (int) ricm3.game.framework.Options.FPS / m_nbImage;
 

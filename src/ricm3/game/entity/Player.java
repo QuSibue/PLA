@@ -24,9 +24,9 @@ public class Player extends Character {
 	private int m_indiceAutoMinions;
 
 	public Player(int x, int y, BufferedImage[][] sprites, int nbImage, Automaton aut, Orientation orientation,
-			int equipe, Map map, Model model, int life, long lastMove, TypeKey key, ImageDataBase idb) {
+			int equipe, Map map, Model model, int life, long lastMove, TypeKey key) {
 		super(sprites, nbImage, x, y, true, false, true, false, Options.PLAYER_MS, aut, orientation, equipe, map, model,
-				life, lastMove, idb);
+				life, lastMove);
 		m_key = key;
 		m_energie = Options.initialEnergie;
 		m_autoMinions = new ArrayList<Automaton>();
@@ -43,7 +43,7 @@ public class Player extends Character {
 				BufferedImage[][] spriteMinion = m_model.m_idb.getMinionSprites(m_indiceAutoMinions);
 				Minion minion = new Minion(spriteMinion, m_model.m_idb.nbFrameM1, p.x, p.y, true, true, true, false,
 						Options.LASER_MS, this.m_model.m_automates.get(m_indiceAutoMinions), Orientation.RIGHT, 1,
-						global_map, this.m_model, 1, 0, this.m_idb);
+						global_map, this.m_model, 1, 0);
 				m_model.m_minions.add(minion);
 				global_map.setEntity(minion);
 				m_energie -= 3;
@@ -76,12 +76,12 @@ public class Player extends Character {
 			Entity e = global_map.getEntity(p.x, p.y);
 			if (e == null) {
 				Laser laser = new Laser(p.x, p.y, m_model.m_idb.laserIdle, m_model.m_idb.nbFrameLaser,
-						Transversal.straightAutomaton(), this.getOrientation(), global_map, m_model, 1, 0, this.m_idb);
+						Transversal.straightAutomaton(), this.getOrientation(), global_map, m_model, 1, 0);
 				this.m_model.m_laser.add(laser);
 				global_map.setEntity(laser);
 			} else if (e instanceof PowerUp) {
 				Laser laser = new Laser(p.x, p.y, null, m_model.m_idb.nbFrameLaser, Transversal.straightAutomaton(),
-						this.getOrientation(), global_map, m_model, 1, 0, this.m_idb);
+						this.getOrientation(), global_map, m_model, 1, 0);
 				laser.erased_powerup = (PowerUp) e;
 				this.m_model.m_laser.add(laser);
 				global_map.setEntity(laser);
@@ -137,12 +137,12 @@ public class Player extends Character {
 	}
 
 	public void loadAutomaton() {
-		m_autoMinions.add(m_model.m_automates.get(0));
-		m_autoMinions.add(m_model.m_automates.get(1));
-		m_autoMinions.add(m_model.m_automates.get(2));
-		m_autoMinions.add(m_model.m_automates.get(0));
-		m_autoMinions.add(m_model.m_automates.get(1));
-		m_autoMinions.add(m_model.m_automates.get(2));
+		m_autoMinions.add(m_model.m_automates.get(3));
+		m_autoMinions.add(m_model.m_automates.get(4));
+		m_autoMinions.add(m_model.m_automates.get(5));
+		m_autoMinions.add(m_model.m_automates.get(6));
+		m_autoMinions.add(m_model.m_automates.get(7));
+		m_autoMinions.add(m_model.m_automates.get(8));
 	}
 
 }

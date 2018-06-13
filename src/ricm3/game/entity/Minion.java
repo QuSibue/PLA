@@ -15,9 +15,9 @@ public class Minion extends Character {
 
 	public Minion(BufferedImage[][] sprites, int nbImage, int x, int y, boolean moveable, boolean pickable,
 			boolean killable, boolean lethal, int moveSpeed, Automaton automate, Orientation orientation, int equipe,
-			Map map, Model model, int life, long lastMove, ImageDataBase idb) {
+			Map map, Model model, int life, long lastMove) {
 		super(sprites, nbImage, x, y, moveable, pickable, killable, lethal, moveSpeed, automate, orientation, equipe,
-				map, model, life, lastMove, idb);
+				map, model, life, lastMove);
 		xOrigin = this.getX();
 		yOrigin = this.getY();
 	}
@@ -42,7 +42,7 @@ public class Minion extends Character {
 	public void wizz() {
 		int xCourant = this.getX();
 		int yCourant = this.getY();
-		Portal p = new Portal(xOrigin, yOrigin, xCourant, yCourant, null,0, global_map, m_model, this.m_idb);
+		Portal p = new Portal(xOrigin, yOrigin, xCourant, yCourant, null,0, global_map, m_model);
 		global_map.setEntity(p); // enlever les commentaires quand la liste de portail sera dans model
 		// m_model.m_portail.add(p);
 		this.global_map.deleteEntity(this);
