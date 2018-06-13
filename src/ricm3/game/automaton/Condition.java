@@ -38,7 +38,10 @@ public class Condition {
 		 * case correspondant a la direction indiquée dans la condition, si la case est
 		 * libre.
 		 */
-		if (m_type.equals(TypeCondition.KEYPRESSEDZ) || m_type.equals(TypeCondition.KEYPRESSEDO)) {
+		if(m_type.equals(TypeCondition.TRUE)) {
+			return true;
+		}
+		else if (m_type.equals(TypeCondition.KEYPRESSEDZ) || m_type.equals(TypeCondition.KEYPRESSEDO)) {
 			res = ((Player) b).getKey() == TypeKey.UP;
 			if (m_operator == ' ')
 				return res;

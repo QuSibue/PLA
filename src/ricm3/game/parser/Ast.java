@@ -206,7 +206,7 @@ public class Ast {
 			case "v":
 				return ricm3.game.automaton.TypeCondition.KEYPRESSEDV;
 			default:
-				return ricm3.game.automaton.TypeCondition.KEYPRESSEDOTHER;
+				return ricm3.game.automaton.TypeCondition.KEYPRESSEDNONE;
 			
 			
 			}
@@ -242,7 +242,7 @@ public class Ast {
 				return ricm3.game.automaton.Direction.SOUTH;
 			case "E":
 				return ricm3.game.automaton.Direction.EAST;
-			case "W":
+			case "O":
 				return ricm3.game.automaton.Direction.WEST;
 
 			default:
@@ -514,7 +514,7 @@ public class Ast {
 				switch (name.value) {
 				case "True":
 					return new ricm3.game.automaton.Condition(TypeCondition.TRUE, null, null, ' ', null);
-				case "Key:":
+				case "Key":
 					if(iter.hasNext()) {
 						Parameter d = iter.next();
 						if(d instanceof Key) {
@@ -522,7 +522,7 @@ public class Ast {
 							return new ricm3.game.automaton.Condition(type, null, null, ' ', null);
 						}
 						else {
-							throw new RuntimeException("Key expect a specified key as argument");
+							return new ricm3.game.automaton.Condition(TypeCondition.KEYPRESSEDNONE, null, null, ' ', null);
 						}
 					}
 				
@@ -717,7 +717,7 @@ public class Ast {
 					return new ricm3.game.automaton.Action(TypeAction.PICK, ricm3.game.automaton.Direction.FRONT);
 
 				default:
-					throw new RuntimeException("Action inconnue");
+					return new ricm3.game.automaton.Action(TypeAction.IDLE, null);
 				}
 			} else
 				throw new RuntimeException("Came from something else than action or condition");

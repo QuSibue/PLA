@@ -87,7 +87,7 @@ public class Model extends GameModel {
 
 		// ON FAIT UN AUTOMATE
 
-		Automaton aut = Transversal.virusAutomaton();
+		//Automaton aut = Transversal.virusAutomaton();
 		// FIN DE L'AUTOMATE
 
 		// ONFAIT LE JOUEUR
