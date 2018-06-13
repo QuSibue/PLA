@@ -4,8 +4,6 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -15,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.border.BevelBorder;
+import javax.swing.plaf.basic.BasicProgressBarUI;
 
 import org.w3c.dom.ranges.RangeException;
 
@@ -34,9 +33,9 @@ public class ATHPlayer {
 	JLabel m_label1;
 	JLabel m_label2;
 	JLabel m_label3; // il peut avoir jusqu'a 3 choses dans son sac
-	
+
 	JLabel m_sbire;
-	
+
 	JProgressBar energie;
 	ImageIcon[] m_iconSbire;
 	IconDataBase m_icb;
@@ -52,13 +51,27 @@ public class ATHPlayer {
 		m_heart1.setIcon(heartIcon);
 		m_heart2 = new JLabel();
 		m_heart2.setIcon(heartIcon);
-		
+
 		energie = new JProgressBar(0, Options.initialEnergie);
 		energie.setString(Integer.toString(Options.initialEnergie));
 		energie.setStringPainted(true);
+		energie.setForeground(new Color(255, 200, 0));
+		energie.setUI(new BasicProgressBarUI() {
+			protected Color getSelectionBackground() {
+				return Color.black;
+			}
+
+			protected Color getSelectionForeground() {
+				return Color.black;
+			}
+		});
 		energie.setValue(Options.initialEnergie);
+
+		if (m_player.getEquipe() == 1)
+			m_iconSbire = m_icb.getIconSbiresVirus();
+		else
+			m_iconSbire = m_icb.getIconSbiresAntivirus();
 		
-		m_iconSbire = m_icb.getIconSbiresAntivirus();
 		m_sbire = new JLabel();
 		m_sbire.setIcon(m_iconSbire[0]);
 	}
@@ -71,10 +84,10 @@ public class ATHPlayer {
 		vie.add(m_heart1);
 		vie.add(m_heart2);
 
-//		JProgressBar energie = new JProgressBar(0, Options.initialEnergie);
-//		energie.setString(Integer.toString(Options.initialEnergie));
-//		energie.setStringPainted(true);
-//		energie.setValue(Options.initialEnergie);
+		// JProgressBar energie = new JProgressBar(0, Options.initialEnergie);
+		// energie.setString(Integer.toString(Options.initialEnergie));
+		// energie.setStringPainted(true);
+		// energie.setValue(Options.initialEnergie);
 
 		Container VieEnergie = new Container();
 		VieEnergie.setLayout(new BoxLayout(VieEnergie, BoxLayout.Y_AXIS));
@@ -144,31 +157,28 @@ public class ATHPlayer {
 		default:
 			throw new RangeException(RangeException.BAD_BOUNDARYPOINTS_ERR, "Error vie");
 		}
-		
+
 		if (m_player.getSac().getItem(0) != null) {
 			m_label1.setIcon(m_player.getSac().getItem(0).getIcon());
 			m_label1.setVisible(true);
-		}
-		else 
+		} else
 			m_label1.setVisible(false);
-		
-		if (m_player.getSac().getItem(1) != null){
+
+		if (m_player.getSac().getItem(1) != null) {
 			m_label2.setIcon(m_player.getSac().getItem(1).getIcon());
 			m_label2.setVisible(true);
-		}
-		else
+		} else
 			m_label2.setVisible(false);
-		if (m_player.getSac().getItem(2) != null){
+		if (m_player.getSac().getItem(2) != null) {
 			m_label3.setIcon(m_player.getSac().getItem(2).getIcon());
 			m_label3.setVisible(true);
-		}
-		else
+		} else
 			m_label3.setVisible(false);
-		
+
 		energie.setValue(m_player.getEnergie());
 		energie.setString(Integer.toString(m_player.getEnergie()));
-		
+
 		m_sbire.setIcon(m_iconSbire[m_player.getIndiceMinion()]);
-		
+
 	}
 }

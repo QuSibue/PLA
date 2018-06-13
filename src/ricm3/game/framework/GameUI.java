@@ -127,11 +127,6 @@ public class GameUI {
     m_text = new JLabel();
     m_text.setText("Starting up...");
     m_text.setVisible(Options.SHOW_TICK_FPS);
-    
-    
-    
-    
-    
     m_frame.add(m_text, BorderLayout.NORTH);
 
     m_frame.setSize(d);
