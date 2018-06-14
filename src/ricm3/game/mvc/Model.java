@@ -122,7 +122,7 @@ public class Model extends GameModel {
 		m_portal.add(p);
 		map.setEntity(p);
 
-		m_drapeau = new Drapeau(4, 1, m_idb.drapeau, m_idb.nbFrameDrapeau, null, map, this);
+		m_drapeau = new Drapeau(26, 8, m_idb.drapeau, m_idb.nbFrameDrapeau, null, map, this);
 		map.setEntity(m_drapeau);
 
 		m_ath = new ATH(this);

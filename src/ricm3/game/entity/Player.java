@@ -85,7 +85,7 @@ public class Player extends Character {
 			if (e == null) {
 
 				Laser laser = new Laser(p.x, p.y, m_model.m_idb.laserIdle, m_model.m_idb.nbFrameLaser,m_model.m_icb.m_laserSac,
-						m_model.m_automates.get(2), this.getOrientation(), global_map, m_model, 1, 0);
+						m_model.m_automates.get(2), this.getOrientation(), global_map, m_model, 1, 0,Options.TIMER_LASER);
 
 				this.m_model.m_laser.add(laser);
 				global_map.setEntity(laser);
@@ -93,7 +93,7 @@ public class Player extends Character {
 			} else if (e instanceof PowerUp) {
 
 				Laser laser = new Laser(p.x, p.y, null, m_model.m_idb.nbFrameLaser,m_model.m_icb.m_laserSac, m_model.m_automates.get(2),
-						this.getOrientation(), global_map, m_model, 1, 0);
+						this.getOrientation(), global_map, m_model, 1, 0,Options.TIMER_LASER);
 
 				laser.erased_powerup = (PowerUp) e;
 				this.m_model.m_laser.add(laser);

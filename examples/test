@@ -1,6 +1,17 @@
 Forward(Init){
-	*(Init): MyDir(E) & True ? Move(F) : (Init)
-	| True ? Turn(R) : (Init)
+	*(Init): True ? Move(F) : (Init)
+}
+
+ForwardPop(Init){
+	*(Init): True ? Move(F) : (Right1)
+	*(Right1): True ? Move(F) : (Right2)
+	*(Right2): True ? Pop : (Init)
+}
+
+ForwardWizz(Init){
+	*(Init): True ? Move(F) : (Right1)
+	*(Right1): True ? Move(F) : (Right2)
+	*(Right2): True ? Wizz : (Init)
 }
 
 Virus(Init){
