@@ -1,6 +1,5 @@
 package ricm3.game.entity;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
@@ -23,7 +22,7 @@ public class Laser extends Being {
 	private long m_last;
 
 	public Laser(int x, int y, BufferedImage[][] sprites, int nbImage, ImageIcon icon, Automaton aut,
-			Orientation orientation, Map map, Model model, int life, long lastMove,long lifespan) {
+			Orientation orientation, Map map, Model model, int life, long lastMove, long lifespan) {
 		super(x, y, true, true, true, true, Options.LASER_MS, sprites, nbImage, icon, aut, orientation, map, model,
 				life, lastMove);
 		erased_powerup = null;
@@ -79,8 +78,13 @@ public class Laser extends Being {
 		m_lifespan = m_lifespan - elapsed;
 		if (m_lifespan <= 0) {
 			// kaboum
+
 			global_map.deleteEntity(this);
 			m_model.m_laser.remove(this);
+			if (erased_powerup != null) {
+				global_map.setEntity(erased_powerup);
+				erased_powerup = null;
+			}
 			// enlever de la liste des trucs à step
 		}
 	}
@@ -101,6 +105,10 @@ public class Laser extends Being {
 		hit(global_map.getEntity(cx - 1, cy + 1));
 
 		global_map.deleteEntity(this);
+		if (erased_powerup != null) {
+			global_map.setEntity(erased_powerup);
+			erased_powerup = null;
+		}
 		m_model.m_laser.remove(this);
 	}
 
@@ -125,11 +133,11 @@ public class Laser extends Being {
 			// laser's position
 
 			laser1 = new Laser(p3.x, p3.y, this.getSprites(), m_model.m_idb.nbFrameLaser, this.getIcon(),
-					this.getAutomaton(), this.getOrientation(), global_map, m_model, this.getLife(),
-					this.getLastMove(),m_lifespan/2);
+					this.getAutomaton(), this.getOrientation(), global_map, m_model, this.getLife(), this.getLastMove(),
+					m_lifespan / 2);
 			laser2 = new Laser(p2.x, p2.y, this.getSprites(), m_model.m_idb.nbFrameLaser, this.getIcon(),
-					this.getAutomaton(), this.getOrientation(), global_map, m_model, this.getLife(),
-					this.getLastMove(),m_lifespan/2);
+					this.getAutomaton(), this.getOrientation(), global_map, m_model, this.getLife(), this.getLastMove(),
+					m_lifespan / 2);
 			global_map.deleteEntity(this);
 			global_map.setEntity(laser1);
 			global_map.setEntity(laser2);
@@ -143,10 +151,10 @@ public class Laser extends Being {
 			if (global_map.getEntity(p2.x, p2.y) == null && global_map.getEntity(p3.x, p3.y) == null) {
 				laser1 = new Laser(p2.x, p2.y, this.getSprites(), m_model.m_idb.nbFrameLaser, this.getIcon(),
 						this.getAutomaton(), this.getOrientation(), global_map, m_model, this.getLife(),
-						this.getLastMove(),m_lifespan/2);
+						this.getLastMove(), m_lifespan / 2);
 				laser2 = new Laser(p3.x, p3.y, this.getSprites(), m_model.m_idb.nbFrameLaser, this.getIcon(),
 						this.getAutomaton(), this.getOrientation(), global_map, m_model, this.getLife(),
-						this.getLastMove(),m_lifespan/2);
+						this.getLastMove(), m_lifespan / 2);
 
 				global_map.deleteEntity(this);
 				global_map.setEntity(laser1);
@@ -155,20 +163,20 @@ public class Laser extends Being {
 				m_model.m_laser.add(laser2);
 				m_model.m_laser.remove(this);
 			}
-			
+
 		}
 	}
 
 	@Override
 	public void wizz() {
-		
+
 		long life = m_lifespan;
 		if (life == 1) {
 			return;
 		} else {
 			this.splitter();
 		}
-		
+
 	}
 
 	public void hit(Entity e) {
@@ -221,9 +229,9 @@ public class Laser extends Being {
 
 	@Override
 	public void paint(Graphics g) {
-	
-		g.drawImage(this.getSprites()[0][0], this.getX() * Options.TAILLE_CASE,
-				this.getY() * Options.TAILLE_CASE, Options.TAILLE_CASE, Options.TAILLE_CASE, null);
+
+		g.drawImage(this.getSprites()[0][0], this.getX() * Options.TAILLE_CASE, this.getY() * Options.TAILLE_CASE,
+				Options.TAILLE_CASE, Options.TAILLE_CASE, null);
 		if (m_isFirstPaint)
 			m_isFirstPaint = false;
 	}
