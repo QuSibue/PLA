@@ -275,8 +275,8 @@ public class Ast {
 			case "t":
 			case "T":
 				return ricm3.game.automaton.TypeEntity.TEAM;
-			case "e":
-			case "E":
+			case "a":
+			case "A":
 				return ricm3.game.automaton.TypeEntity.ENEMY;
 			case "p":
 			case "P":

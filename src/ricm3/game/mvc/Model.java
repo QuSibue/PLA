@@ -1,13 +1,9 @@
 package ricm3.game.mvc;
 
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Random;
-
-import javax.swing.ImageIcon;
-import javax.swing.JComboBox;
 
 import ricm3.game.ath.ATH;
 import ricm3.game.automaton.Automaton;
@@ -23,10 +19,8 @@ import ricm3.game.entity.PowerUp;
 import ricm3.game.framework.GameModel;
 import ricm3.game.mains.GameMain;
 import ricm3.game.other.Options;
-import ricm3.game.other.Transversal;
 import ricm3.game.other.TypeKey;
 import ricm3.game.parser.Ast;
-import ricm3.game.parser.AutomataParser;
 
 public class Model extends GameModel {
 

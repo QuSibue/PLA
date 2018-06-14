@@ -56,17 +56,15 @@ public class Minion extends Character {
 		int y = this.getY();
 		for (int i = x - 1; i <= x + 1; i++) {
 			for (int j = y - 1; j <= y + 1; j++) {
-				if (i != x && j != y) {
-					Entity e = global_map.getEntity(i, j);
-					if (e != null) {
-						if (e instanceof Being) {
-							((Being) e).getDamage();
-						}
+				Entity e = global_map.getEntity(i, j);
+				if (e != null) {
+					if (e instanceof Being) {
+						((Being) e).getDamage();
 					}
 				}
 			}
 		}
-		//m_model.m_minions.remove(this);
+		// m_model.m_minions.remove(this);
 		global_map.deleteEntity(this);
 		isexploding = true;
 		setIndexRefresh(0);
@@ -88,29 +86,23 @@ public class Minion extends Character {
 	}
 
 	public void hit(long now) {
-		
+
 		Point p = new Point();
 		Transversal.evalPosition(this.getX(), this.getY(), p, Direction.FRONT, this.getOrientation());
 		Entity e = global_map.getEntity(p.x, p.y);
-		if(e instanceof Being) {
-			((Being)e).getDamage();
+		if (e instanceof Being) {
+			((Being) e).getDamage();
 		}
 		/*
-		Iterator<Minion> iterM = m_model.m_minions.iterator();
-		Entity closest = null;
-		if (this.getEquipe() == m_model.virus.getEquipe()) {
-			closest = m_model.antivirus;<
-		} else {
-			closest = m_model.virus;
-
-		}
-		while (iterM.hasNext()) {
-			Minion m = iterM.next();
-			if (m.getEquipe() != this.getEquipe()) {
-				closest = this.closestEntity(closest, m);
-
-			}
-		}*/
+		 * Iterator<Minion> iterM = m_model.m_minions.iterator(); Entity closest = null;
+		 * if (this.getEquipe() == m_model.virus.getEquipe()) { closest =
+		 * m_model.antivirus;< } else { closest = m_model.virus;
+		 * 
+		 * } while (iterM.hasNext()) { Minion m = iterM.next(); if (m.getEquipe() !=
+		 * this.getEquipe()) { closest = this.closestEntity(closest, m);
+		 * 
+		 * } }
+		 */
 
 	}
 

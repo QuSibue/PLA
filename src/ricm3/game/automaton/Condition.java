@@ -236,8 +236,8 @@ public class Condition {
 					res = e instanceof Laser;
 					break;
 				case ENEMY:
-					res = !(b instanceof Character && e instanceof Character
-							&& ((Character) b).getEquipe() == ((Character) e).getEquipe());
+					res = b instanceof Character && e instanceof Character
+							&& ((Character) b).getEquipe() != ((Character) e).getEquipe();
 					break;
 				case GATE:
 					res = e instanceof Portal;
@@ -452,7 +452,7 @@ public class Condition {
 		else if (b.getX() > closest.getX()
 				&& Transversal.abs(b.getX() - closest.getX()) >= Transversal.abs(b.getY() - closest.getY())) {
 			// direction absolue
-			if (m_direction == Direction.SOUTH) {
+			if (m_direction == Direction.WEST) {
 				return true;
 			}
 			// direction relative

@@ -46,10 +46,10 @@ ZigAg(Init){
 }
 
 Bloqueur(Init){
-	*(Init): Closest(E,N) ? Move(N) : (Init)
-	| Closest(E,S) ? Move(S) : (Init)
-	| Closest(E,E) ? Move(E) : (Init)
-	| Closest(E,O) ? Move(O) : (Init)
+	*(Init): Closest(A,N) ? Move(N) : (Init)
+	| Closest(A,S) ? Move(S) : (Init)
+	| Closest(A,E) ? Move(E) : (Init)
+	| Closest(A,O) ? Move(O) : (Init)
 	| True ? Jump : (Init)
 }
 
@@ -87,14 +87,14 @@ Recolteur(Init){
 }
 
 KamikazAut(Init){
- 	*(Init): Cell(F,E) ? Pop : (Init)
-	| Cell(L,E) ? Pop : (Init)
-	| Cell(R,E) ? Pop : (Init)
-	| Cell(B,E) ? Pop : (Init)
- 	| Closest(E,N) ? Move(N) : (Init)
-	| Closest(E,S) ? Move(S) : (Init)
-	| Closest(E,E) ? Move(E) : (Init)
-	| Closest(E,O) ? Move(O) : (Init)
+ 	*(Init): Cell(F,A) ? Pop : (Init)
+	| Cell(L,A) ? Pop : (Init)
+	| Cell(R,A) ? Pop : (Init)
+	| Cell(B,A) ? Pop : (Init)
+ 	| Closest(A,N) ? Move(N) : (Init)
+	| Closest(A,S) ? Move(S) : (Init)
+	| Closest(A,E) ? Move(E) : (Init)
+	| Closest(A,O) ? Move(O) : (Init)
 	| True ? Jump : (Init)
 }
 
@@ -114,11 +114,10 @@ PortalMan(Init){
 }
 
 Tank(Init){
-	*(Init): Cell(F,D) ? Move(F) : (Init)
-	| Cell(F,D) ? Move(F) : (Init)
-	| Cell(L,D) ? Move(L) : (Init)
-	| Cell(R,D) ? Move(R) : (Init)
-	| Cell(B,D) ? Move(B) : (Init)
+	*(Init): Cell(N,D) ? Move(N) : (Init)
+	| Cell(E,D) ? Move(E) : (Init)
+	| Cell(O,D) ? Move(O) : (Init)
+	| Cell(S,D) ? Move(S) : (Init)
 	| Closest(D,N) ? Move(N) : (Init)
 	| Closest(D,S) ? Move(S) : (Init)
 	| Closest(D,E) ? Move(E) : (Init)

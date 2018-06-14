@@ -1,6 +1,5 @@
 package ricm3.game.entity;
 
-import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -54,7 +53,7 @@ public class Player extends Character {
 					ic = m_model.m_icb.m_iconSbiresAntivirusSac[m_indiceAutoMinions];
 				}
 				Minion minion = new Minion(spriteMinion, m_model.m_idb.nbFrameM1, ic, p.x, p.y, true, true, true, false,
-						Options.MINION_MS, this.m_autoMinions.get(m_indiceAutoMinions), this.getOrientation(), 1,
+						Options.MINION_MS, this.m_autoMinions.get(m_indiceAutoMinions), this.getOrientation(), this.getEquipe(),
 						global_map, this.m_model, 1, 0);
 				m_model.m_minions.add(minion);
 				global_map.setEntity(minion);

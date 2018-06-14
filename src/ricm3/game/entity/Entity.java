@@ -7,6 +7,7 @@ import ricm3.game.automaton.Orientation;
 import javax.swing.ImageIcon;
 import ricm3.game.mvc.Map;
 import ricm3.game.mvc.Model;
+import ricm3.game.other.Transversal;
 
 public abstract class Entity {
 
@@ -72,20 +73,32 @@ public abstract class Entity {
 		} else if (e2 == null) {
 			return e1;
 		}
-
+		if(e1 == this) {
+			if(e2 == this) {
+				return null;
+			}
+			else {
+				return e2;
+			}
+		}
+		else if ( e2 == this) {
+			return e1;
+		}
+		
+		/*
 		be1 = (e1.getX() - this.getX()) * (e1.getY() - this.getY())
 				+ (e1.getY() - this.getY()) * (e1.getY() - this.getY());
 		be2 = (e2.getX() - this.getX()) * (e2.getY() - this.getY())
 				+ (e2.getY() - this.getY()) * (e2.getY() - this.getY());
-
-		if (be1 > be2) {
+		*/
+		be1 = Transversal.abs(e1.getX()- this.getX()) + Transversal.abs(e1.getY() - this.getY());
+		be2 = Transversal.abs(e2.getX()- this.getX()) + Transversal.abs(e2.getY() - this.getY());
+		
+		
+		if (be1 <= be2) {
+			return e1;
+		} else{
 			return e2;
-		} else if (be2 > be1) {
-			return e1;
-		}
-		// si elle sont egale on renvoit la première plus proche
-		else {
-			return e1;
 		}
 
 	}
