@@ -51,9 +51,11 @@ Forward(Init){
 }
 
 ForwardPop(Init){
-	*(Init): True ? Pop() : (Right1)
+	*(Init): True ? Move(F) : (Right1)
 	*(Right1): True ? Move(F) : (Right2)
-	*(Right2): True ? Pop() : (Init)
+	*(Right2): True ? Move(F) : (Right3)
+	*(Right3): True ? Move(F) : (Right4)
+	*(Right4): True ? Pop() : (Init)
 }
 
 ForwardWizz(Init){
