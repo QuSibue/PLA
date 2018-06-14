@@ -18,6 +18,7 @@ import ricm3.game.other.Options;
 import ricm3.game.other.Transversal;
 
 public abstract class Being extends Entity {
+	public boolean isexploding;
 
 	// attributs
 	private int m_moveSpeed;
@@ -44,6 +45,7 @@ public abstract class Being extends Entity {
 		m_etatCourant = m_automaton.getEtatInitial();
 		m_life = life;
 		m_lastMove = lastMove;
+		isexploding = false;
 	}
 
 	// getters
@@ -79,7 +81,7 @@ public abstract class Being extends Entity {
 	}
 
 	public boolean setLife(int life) {
-		if(life <= 3) {
+		if (life <= 3) {
 			m_life = life;
 		}
 		return true;
@@ -133,7 +135,7 @@ public abstract class Being extends Entity {
 
 			// ce code va surement être deplacé dans being, superclass de player, minion et
 			// laser
-			
+
 			while (!condition && iter.hasNext()) {
 				transi = iter.next();
 				// les etats sont par aliasing on peut donc utiliser le double égale
@@ -148,6 +150,7 @@ public abstract class Being extends Entity {
 			if (!condition)
 				throw new RuntimeException("AUcune transition trouvée pour l'automate dans player");
 		}
+
 	}
 
 	public void move(Direction d) {
@@ -163,7 +166,7 @@ public abstract class Being extends Entity {
 					global_map.deleteEntity(e);
 					m_model.m_laser.remove(e);
 				} else if (e instanceof PowerUp) {
-					((PowerUp)e).applyPowerUp(this);
+					((PowerUp) e).applyPowerUp(this);
 
 					global_map.deleteEntity(e);
 					m_model.m_powerup.remove(e);
@@ -174,9 +177,8 @@ public abstract class Being extends Entity {
 			global_map.deleteEntity(e);
 			global_map.moveEntity(this, p.x, p.y);
 			this.m_model.flagCaptured = true;
-		}
-		else if(e instanceof Portal) {
-			((Portal) e).use_portal(this,p);
+		} else if (e instanceof Portal) {
+			((Portal) e).use_portal(this, p);
 		}
 	}
 
