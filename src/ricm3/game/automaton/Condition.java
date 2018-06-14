@@ -394,7 +394,7 @@ public class Condition {
 		}
 
 		else {
-			throw new RuntimeException("Type condition invalide");
+			return true;
 		}
 		return false;
 	}

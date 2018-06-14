@@ -51,13 +51,28 @@ Forward(Init){
 }
 
 ForwardPop(Init){
-	*(Init): True ? Pop : (Right1)
+	*(Init): True ? Pop() : (Right1)
 	*(Right1): True ? Move(F) : (Right2)
-	*(Right2): True ? Pop : (Init)
+	*(Right2): True ? Pop() : (Init)
 }
 
 ForwardWizz(Init){
 	*(Init): True ? Move(F) : (Right1)
 	*(Right1): True ? Move(F) : (Right2)
-	*(Right2): True ? Wizz : (Init)
+	*(Right2): True ? Wizz() : (Init)
+}
+
+
+Wizzard(Init){
+	*(Init): True ? Wizz() : (Init)
+}
+
+
+
+Poper(Init){
+	*(Init): True ? Pop() : (Init)
+}
+
+Test(Init){
+	*(Init): True ? Pop() : (Init)
 }

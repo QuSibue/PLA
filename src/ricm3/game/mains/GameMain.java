@@ -227,6 +227,7 @@ public class GameMain {
 			boutonsCentre.add(autoPlayerText);
 
 			JComboBox virus = new JComboBox(automaton);
+			virus.setSelectedItem(automaton[0]);
 			boutonsCentre.add(virus);
 			components.add(virus);
 
@@ -234,6 +235,7 @@ public class GameMain {
 			boutonsCentre.add(autoAntiText);
 
 			JComboBox antivirus = new JComboBox(automaton);
+			antivirus.setSelectedItem(automaton[1]);
 			boutonsCentre.add(antivirus);
 			components.add(antivirus);
 
@@ -241,6 +243,7 @@ public class GameMain {
 			boutonsCentre.add(autoLasersText);
 
 			JComboBox laser = new JComboBox(automaton);
+			laser.setSelectedItem(automaton[2]);
 			boutonsCentre.add(laser);
 			components.add(laser);
 
@@ -252,6 +255,7 @@ public class GameMain {
 			boutonsCentre.add(autoBloqueurText);
 
 			JComboBox bloqueur = new JComboBox(automaton);
+			bloqueur.setSelectedItem(automaton[3]);
 			boutonsCentre.add(bloqueur);
 			components.add(bloqueur);
 			
@@ -259,6 +263,7 @@ public class GameMain {
 			boutonsCentre.add(autoRecolteurText);
 
 			JComboBox recolteur = new JComboBox(automaton);
+			recolteur.setSelectedItem(automaton[4]);
 			boutonsCentre.add(recolteur);
 			components.add(recolteur);
 
@@ -266,6 +271,7 @@ public class GameMain {
 			boutonsCentre.add(autoKamikazeText);
 
 			JComboBox kamikaze = new JComboBox(automaton);
+			recolteur.setSelectedItem(automaton[5]);
 			boutonsCentre.add(kamikaze);
 			components.add(kamikaze);
 			
@@ -273,6 +279,7 @@ public class GameMain {
 			boutonsCentre.add(autoTeleporteurText);
 
 			JComboBox teleporteur = new JComboBox(automaton);
+			teleporteur.setSelectedItem(automaton[6]);
 			boutonsCentre.add(teleporteur);
 			components.add(teleporteur);
 			
@@ -280,6 +287,7 @@ public class GameMain {
 			boutonsCentre.add(autoTankText);
 
 			JComboBox tank = new JComboBox(automaton);
+			tank.setSelectedItem(automaton[7]);
 			boutonsCentre.add(tank);
 			components.add(tank);
 
@@ -287,6 +295,7 @@ public class GameMain {
 			boutonsCentre.add(autoTourelleText);
 
 			JComboBox tourelle = new JComboBox(automaton);
+			tourelle.setSelectedItem(automaton[8]);
 			boutonsCentre.add(tourelle);
 			components.add(tourelle);
 

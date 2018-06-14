@@ -1,14 +1,16 @@
 package ricm3.game.entity;
 
+import java.awt.Point;
 import java.awt.image.BufferedImage;
-import java.util.Iterator;
 
 import javax.swing.ImageIcon;
 
 import ricm3.game.automaton.Automaton;
+import ricm3.game.automaton.Direction;
 import ricm3.game.automaton.Orientation;
 import ricm3.game.mvc.Map;
 import ricm3.game.mvc.Model;
+import ricm3.game.other.Transversal;
 
 public class Minion extends Character {
 	public long m_lastMove;
@@ -78,10 +80,18 @@ public class Minion extends Character {
 	}
 
 	public void hit(long now) {
+		
+		Point p = new Point();
+		Transversal.evalPosition(this.getX(), this.getY(), p, Direction.FRONT, this.getOrientation());
+		Entity e = global_map.getEntity(p.x, p.y);
+		if(e instanceof Being) {
+			((Being)e).getDamage();
+		}
+		/*
 		Iterator<Minion> iterM = m_model.m_minions.iterator();
 		Entity closest = null;
 		if (this.getEquipe() == m_model.virus.getEquipe()) {
-			closest = m_model.antivirus;
+			closest = m_model.antivirus;<
 		} else {
 			closest = m_model.virus;
 
@@ -92,7 +102,7 @@ public class Minion extends Character {
 				closest = this.closestEntity(closest, m);
 
 			}
-		}
+		}*/
 
 	}
 
