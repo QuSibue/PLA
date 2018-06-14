@@ -33,19 +33,22 @@ public class Minion extends Character {
 
 	@Override
 	public void step(long now) {
-		super.step(now);
-		long elapsed = 0;
-		if (m_last != 0) {
-			elapsed = now - m_last;
+		if (!isexploding) {
+			super.step(now);
+			long elapsed = 0;
+			if (m_last != 0) {
+				elapsed = now - m_last;
+			}
+			m_last = now;
+			lifespan = lifespan - elapsed;
+			if (lifespan <= 0) {
+				// kaboum
+				global_map.deleteEntity(this);
+				m_model.m_minions.remove(this);
+				// enlever de la liste des trucs à step
+			}
 		}
-		m_last = now;
-		lifespan = lifespan - elapsed;
-		if (lifespan <= 0) {
-			// kaboum
-			global_map.deleteEntity(this);
-			m_model.m_minions.remove(this);
-			// enlever de la liste des trucs à step
-		}
+
 	}
 
 	public void pop(long now) {
@@ -58,13 +61,18 @@ public class Minion extends Character {
 					if (e != null) {
 						if (e instanceof Being) {
 							((Being) e).getDamage();
-							m_model.m_minions.remove(this);
-							global_map.deleteEntity(this);
 						}
 					}
 				}
 			}
 		}
+		//m_model.m_minions.remove(this);
+		global_map.deleteEntity(this);
+		isexploding = true;
+		setIndexRefresh(0);
+		setNumImage(0);
+		setNbImageRefresh((int) ricm3.game.framework.Options.FPS / m_model.m_idb.nbFrameExplosion);
+		setNbiMAGE(m_model.m_idb.nbFrameExplosion);
 	}
 
 	public void wizz() {

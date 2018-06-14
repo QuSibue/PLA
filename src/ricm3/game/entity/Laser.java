@@ -65,28 +65,31 @@ public class Laser extends Being {
 
 	@Override
 	public void step(long now) {
-		if (!m_isFirstPaint) {
-			super.step(now);
+		if (!isexploding) {
+			if (!m_isFirstPaint) {
+				super.step(now);
 
-		}
-
-		long elapsed = 0;
-		if (m_last != 0) {
-			elapsed = now - m_last;
-		}
-		m_last = now;
-		m_lifespan = m_lifespan - elapsed;
-		if (m_lifespan <= 0) {
-			// kaboum
-
-			global_map.deleteEntity(this);
-			m_model.m_laser.remove(this);
-			if (erased_powerup != null) {
-				global_map.setEntity(erased_powerup);
-				erased_powerup = null;
 			}
-			// enlever de la liste des trucs à step
+
+			long elapsed = 0;
+			if (m_last != 0) {
+				elapsed = now - m_last;
+			}
+			m_last = now;
+			m_lifespan = m_lifespan - elapsed;
+			if (m_lifespan <= 0) {
+				// kaboum
+
+				global_map.deleteEntity(this);
+				m_model.m_laser.remove(this);
+				if (erased_powerup != null) {
+					global_map.setEntity(erased_powerup);
+					erased_powerup = null;
+				}
+			}
+
 		}
+
 	}
 
 	@Override
@@ -105,11 +108,17 @@ public class Laser extends Being {
 		hit(global_map.getEntity(cx - 1, cy + 1));
 
 		global_map.deleteEntity(this);
+
 		if (erased_powerup != null) {
 			global_map.setEntity(erased_powerup);
 			erased_powerup = null;
 		}
-		m_model.m_laser.remove(this);
+
+		isexploding = true;
+		setIndexRefresh(0);
+		setNumImage(0);
+		setNbImageRefresh((int) ricm3.game.framework.Options.FPS / m_model.m_idb.nbFrameExplosion);
+		setNbiMAGE(m_model.m_idb.nbFrameExplosion);
 	}
 
 	public void splitter() {
@@ -230,10 +239,27 @@ public class Laser extends Being {
 	@Override
 	public void paint(Graphics g) {
 
-		g.drawImage(this.getSprites()[0][0], this.getX() * Options.TAILLE_CASE, this.getY() * Options.TAILLE_CASE,
-				Options.TAILLE_CASE, Options.TAILLE_CASE, null);
-		if (m_isFirstPaint)
-			m_isFirstPaint = false;
+		if (isexploding) {
+			int i = getIndexRefresh();
+			setIndexRefresh(i + 1);
+			if (i == getNbImageRefresh()) {
+				setIndexRefresh(0);
+				int j = getNumImage();
+				setNumImage(j + 1);
+			}
+
+			g.drawImage(m_model.m_idb.explosion[0][getNumImage() % getNbImage()],
+					(this.getX() - 1) * Options.TAILLE_CASE, (this.getY() - 1) * Options.TAILLE_CASE,
+					Options.TAILLE_CASE * 3, Options.TAILLE_CASE * 3, null);
+			if ((getNumImage() % getNbImage()) == 8) {
+				m_model.m_laser.remove(this);
+			}
+		} else {
+			g.drawImage(this.getSprites()[0][0], this.getX() * Options.TAILLE_CASE, this.getY() * Options.TAILLE_CASE,
+					Options.TAILLE_CASE, Options.TAILLE_CASE, null);
+			if (m_isFirstPaint)
+				m_isFirstPaint = false;
+		}
 	}
 
 	@Override

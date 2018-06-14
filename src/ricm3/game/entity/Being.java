@@ -18,6 +18,7 @@ import ricm3.game.other.Options;
 import ricm3.game.other.Transversal;
 
 public abstract class Being extends Entity {
+	public boolean isexploding;
 
 	// attributs
 	private int m_moveSpeed;
@@ -44,6 +45,7 @@ public abstract class Being extends Entity {
 		m_etatCourant = m_automaton.getEtatInitial();
 		m_life = life;
 		m_lastMove = lastMove;
+		isexploding = false;
 	}
 
 	// getters
@@ -148,6 +150,7 @@ public abstract class Being extends Entity {
 			if (!condition)
 				throw new RuntimeException("AUcune transition trouvée pour l'automate dans player");
 		}
+
 	}
 
 	public void move(Direction d) {
@@ -216,18 +219,35 @@ public abstract class Being extends Entity {
 	public abstract void _throw();
 
 	public void paint(Graphics g) {
-		BufferedImage[] animation = getDirectionSprite(getOrientation());
-		// cet indice va devoir bouger pour animer l'entité
-		int i = getIndexRefresh();
-		setIndexRefresh(i + 1);
-		if (i == getNbImageRefresh()) {
-			setIndexRefresh(0);
-			int j = getNumImage();
-			setNumImage(j + 1);
-		}
+		if (isexploding) {
+			int i = getIndexRefresh();
+			setIndexRefresh(i + 1);
+			if (i == getNbImageRefresh()) {
+				setIndexRefresh(0);
+				int j = getNumImage();
+				setNumImage(j + 1);
+			}
 
-		g.drawImage(animation[getNumImage() % getNbImage()], this.getX() * Options.TAILLE_CASE,
-				this.getY() * Options.TAILLE_CASE, Options.TAILLE_CASE, Options.TAILLE_CASE, null);
+			g.drawImage(m_model.m_idb.explosion[0][getNumImage() % getNbImage()],
+					(this.getX() - 1) * Options.TAILLE_CASE, (this.getY() - 1) * Options.TAILLE_CASE,
+					Options.TAILLE_CASE * 3, Options.TAILLE_CASE * 3, null);
+			if ((getNumImage() % getNbImage()) == 8) {
+				m_model.m_minions.remove(this);
+			}
+		} else {
+			BufferedImage[] animation = getDirectionSprite(getOrientation());
+			// cet indice va devoir bouger pour animer l'entité
+			int i = getIndexRefresh();
+			setIndexRefresh(i + 1);
+			if (i == getNbImageRefresh()) {
+				setIndexRefresh(0);
+				int j = getNumImage();
+				setNumImage(j + 1);
+			}
+
+			g.drawImage(animation[getNumImage() % getNbImage()], this.getX() * Options.TAILLE_CASE,
+					this.getY() * Options.TAILLE_CASE, Options.TAILLE_CASE, Options.TAILLE_CASE, null);
+		}
 	}
 
 	public void turn(Direction d) {
