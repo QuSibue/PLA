@@ -31,7 +31,7 @@ public class Minion extends Character {
 
 	@Override
 	public void step(long now) {
-		if (isexploding) {
+		if (!isexploding) {
 			super.step(now);
 			long elapsed = 0;
 			if (m_last != 0) {

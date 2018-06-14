@@ -228,7 +228,7 @@ public abstract class Being extends Entity {
 					(this.getX() - 1) * Options.TAILLE_CASE, (this.getY() - 1) * Options.TAILLE_CASE,
 					Options.TAILLE_CASE * 3, Options.TAILLE_CASE * 3, null);
 			if ((getNumImage() % getNbImage()) == 8) {
-				m_model.m_laser.remove(this);
+				m_model.m_minions.remove(this);
 			}
 		} else {
 			BufferedImage[] animation = getDirectionSprite(getOrientation());
