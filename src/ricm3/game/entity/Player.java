@@ -54,7 +54,7 @@ public class Player extends Character {
 					ic = m_model.m_icb.m_iconSbiresAntivirusSac[m_indiceAutoMinions];
 				}
 				Minion minion = new Minion(spriteMinion, m_model.m_idb.nbFrameM1, ic, p.x, p.y, true, true, true, false,
-						Options.LASER_MS, this.m_autoMinions.get(m_indiceAutoMinions), this.getOrientation(), 1,
+						Options.MINION_MS, this.m_autoMinions.get(m_indiceAutoMinions), this.getOrientation(), 1,
 						global_map, this.m_model, 1, 0);
 				m_model.m_minions.add(minion);
 				global_map.setEntity(minion);
@@ -95,7 +95,7 @@ public class Player extends Character {
 
 			} else if (e instanceof PowerUp) {
 
-				Laser laser = new Laser(p.x, p.y, null, m_model.m_idb.nbFrameLaser, m_model.m_icb.m_laserSac,
+				Laser laser = new Laser(p.x, p.y, m_model.m_idb.laserIdle, m_model.m_idb.nbFrameLaser, m_model.m_icb.m_laserSac,
 						m_model.m_automates.get(2), this.getOrientation(), global_map, m_model, 1, 0,
 						Options.TIMER_LASER);
 

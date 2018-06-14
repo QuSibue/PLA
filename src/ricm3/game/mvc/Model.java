@@ -113,10 +113,6 @@ public class Model extends GameModel {
 
 		map.setEntity(antivirus);
 
-		PowerUp PU = new PowerUp(4, 3, this, m_idb.powerUpE, m_icb.m_energieSac, m_idb.nbFramePowerUp, 1);
-
-		m_powerup.add(PU);
-		map.setEntity(PU);
 
 		Portal p = new Portal(9, 9, 12, 12, m_idb.portail, m_idb.nbFramePortail, null, map, this);
 		m_portal.add(p);
