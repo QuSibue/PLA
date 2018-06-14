@@ -84,11 +84,6 @@ public class ATHPlayer {
 		vie.add(m_heart1);
 		vie.add(m_heart2);
 
-		// JProgressBar energie = new JProgressBar(0, Options.initialEnergie);
-		// energie.setString(Integer.toString(Options.initialEnergie));
-		// energie.setStringPainted(true);
-		// energie.setValue(Options.initialEnergie);
-
 		Container VieEnergie = new Container();
 		VieEnergie.setLayout(new BoxLayout(VieEnergie, BoxLayout.Y_AXIS));
 		VieEnergie.add(vie);
@@ -107,7 +102,7 @@ public class ATHPlayer {
 
 		JPanel panel1 = new JPanel();
 		panel1.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.BLACK, Color.BLACK));
-		panel1.setPreferredSize(new Dimension(50, 50));
+		panel1.setPreferredSize(new Dimension(70, 70));
 
 		m_label1 = new JLabel();
 		panel1.add(m_label1);
@@ -116,7 +111,7 @@ public class ATHPlayer {
 
 		JPanel panel2 = new JPanel();
 		panel2.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.BLACK, Color.BLACK));
-		panel2.setPreferredSize(new Dimension(50, 50));
+		panel2.setPreferredSize(new Dimension(70, 70));
 
 		m_label2 = new JLabel();
 		panel2.add(m_label2);
@@ -125,7 +120,7 @@ public class ATHPlayer {
 
 		JPanel panel3 = new JPanel();
 		panel3.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.BLACK, Color.BLACK));
-		panel3.setPreferredSize(new Dimension(50, 50));
+		panel3.setPreferredSize(new Dimension(70, 70));
 
 		m_label3 = new JLabel();
 		panel3.add(m_label3);
@@ -144,6 +139,7 @@ public class ATHPlayer {
 	public void step(long now) {
 		switch (m_player.getLife()) {
 		case 3:
+			m_heart2.setVisible(true);
 			break;
 		case 2:
 			m_heart2.setVisible(false);
