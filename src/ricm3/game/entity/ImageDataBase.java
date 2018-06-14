@@ -31,6 +31,8 @@ public class ImageDataBase {
 	public BufferedImage[][] portail;
 	public BufferedImage[][] drapeau;
 
+	public BufferedImage[][] explosion;
+
 	public BufferedImage map;
 
 	public final int nbFrameVirus = 3;
@@ -48,6 +50,8 @@ public class ImageDataBase {
 	public final int nbFramePowerUp = 8;
 	public final int nbFramePortail = 5;
 	public final int nbFrameDrapeau = 7;
+
+	public final int nbFrameExplosion = 9;
 
 	public ImageDataBase() {
 		// On initialise les tableau
@@ -73,6 +77,8 @@ public class ImageDataBase {
 		powerUpV = new BufferedImage[1][];
 		portail = new BufferedImage[1][];
 		drapeau = new BufferedImage[1][];
+		
+		explosion = new BufferedImage[1][];
 
 		loadVirusSprite();
 		loadAntivirusSprite();
@@ -89,6 +95,7 @@ public class ImageDataBase {
 		loadPowerUpSprite();
 		loadPortailSprite();
 		loadDrapeauSprite();
+		loadExplosionSprite();
 
 		loadMapSprite();
 
@@ -207,6 +214,10 @@ public class ImageDataBase {
 
 	public void loadDrapeauSprite() {
 		loadOneRowOfSprite(drapeau, 0, nbFrameDrapeau, "images/Flag/Flag.png");
+	}
+	
+	public void loadExplosionSprite() {
+		loadOneRowOfSprite(explosion, 0, nbFrameExplosion, "images/explosion/Explosion.png");
 	}
 
 	public void loadMapSprite() {
