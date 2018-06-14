@@ -57,20 +57,22 @@ public class Minion extends Character {
 		for (int i = x - 1; i <= x + 1; i++) {
 			for (int j = y - 1; j <= y + 1; j++) {
 				Entity e = global_map.getEntity(i, j);
-				if (e != null) {
+				if (e != null && e!= this) {
 					if (e instanceof Being) {
 						((Being) e).getDamage();
 					}
 				}
+				global_map.deleteEntity(this);
+				isexploding = true;
+				setIndexRefresh(0);
+				setNumImage(0);
+				setNbImageRefresh((int) ricm3.game.framework.Options.FPS / m_model.m_idb.nbFrameExplosion);
+				setNbiMAGE(m_model.m_idb.nbFrameExplosion);
+				
 			}
 		}
 		// m_model.m_minions.remove(this);
-		global_map.deleteEntity(this);
-		isexploding = true;
-		setIndexRefresh(0);
-		setNumImage(0);
-		setNbImageRefresh((int) ricm3.game.framework.Options.FPS / m_model.m_idb.nbFrameExplosion);
-		setNbiMAGE(m_model.m_idb.nbFrameExplosion);
+		
 	}
 
 	public void wizz() {

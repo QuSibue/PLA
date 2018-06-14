@@ -127,8 +127,9 @@ Tank(Init){
 
 
 Tourelle(Init){
-	*(Init): Cell(F,E) ? Hit : (Init)
-	| Cell(L,E) ? Hit : (Init)
-	| Cell(R,E) ? Hit : (Init)
-	| Cell(B,E) ? Hit : (Init)
+	*(Init): Cell(F,A) ? Hit : (Init)
+	| Cell(L,A) ? Hit : (Init)
+	| Cell(R,A) ? Hit : (Init)
+	| Cell(B,A) ? Hit : (Init)
+	| True ? Jump : (Init)
 }
