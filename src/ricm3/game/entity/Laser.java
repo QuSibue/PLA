@@ -221,7 +221,9 @@ public class Laser extends Being {
 
 	@Override
 	public void paint(Graphics g) {
-		super.paint(g);
+	
+		g.drawImage(this.getSprites()[0][0], this.getX() * Options.TAILLE_CASE,
+				this.getY() * Options.TAILLE_CASE, Options.TAILLE_CASE, Options.TAILLE_CASE, null);
 		if (m_isFirstPaint)
 			m_isFirstPaint = false;
 	}

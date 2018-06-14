@@ -56,6 +56,8 @@ public class Minion extends Character {
 					if (e != null) {
 						if (e instanceof Being) {
 							((Being) e).getDamage();
+							m_model.m_minions.remove(this);
+							global_map.deleteEntity(this);
 						}
 					}
 				}
@@ -68,6 +70,7 @@ public class Minion extends Character {
 		int yCourant = this.getY();
 		Portal p = new Portal(xOrigin, yOrigin, xCourant, yCourant, m_model.m_idb.portail, m_model.m_idb.nbFramePortail,
 				m_model.m_icb.m_energieSac, global_map, m_model);
+		m_model.m_portal.add(p);
 		global_map.setEntity(p); // enlever les commentaires quand la liste de portail sera dans model
 		// m_model.m_portail.add(p);
 		this.global_map.deleteEntity(this);

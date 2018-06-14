@@ -244,19 +244,9 @@ public class GameMain {
 			boutonsCentre.add(laser);
 			components.add(laser);
 
-			JLabel autoTankText = new JLabel("Tank");
-			boutonsCentre.add(autoTankText);
+			
 
-			JComboBox tank = new JComboBox(automaton);
-			boutonsCentre.add(tank);
-			components.add(tank);
-
-			JLabel autoRecolteurText = new JLabel("Récolteur");
-			boutonsCentre.add(autoRecolteurText);
-
-			JComboBox recolteur = new JComboBox(automaton);
-			boutonsCentre.add(recolteur);
-			components.add(recolteur);
+			
 
 			JLabel autoBloqueurText = new JLabel("Bloqueur");
 			boutonsCentre.add(autoBloqueurText);
@@ -264,6 +254,13 @@ public class GameMain {
 			JComboBox bloqueur = new JComboBox(automaton);
 			boutonsCentre.add(bloqueur);
 			components.add(bloqueur);
+			
+			JLabel autoRecolteurText = new JLabel("Récolteur");
+			boutonsCentre.add(autoRecolteurText);
+
+			JComboBox recolteur = new JComboBox(automaton);
+			boutonsCentre.add(recolteur);
+			components.add(recolteur);
 
 			JLabel autoKamikazeText = new JLabel("Kamikaze");
 			boutonsCentre.add(autoKamikazeText);
@@ -271,6 +268,20 @@ public class GameMain {
 			JComboBox kamikaze = new JComboBox(automaton);
 			boutonsCentre.add(kamikaze);
 			components.add(kamikaze);
+			
+			JLabel autoTeleporteurText = new JLabel("Téléporteur");
+			boutonsCentre.add(autoTeleporteurText);
+
+			JComboBox teleporteur = new JComboBox(automaton);
+			boutonsCentre.add(teleporteur);
+			components.add(teleporteur);
+			
+			JLabel autoTankText = new JLabel("Tank");
+			boutonsCentre.add(autoTankText);
+
+			JComboBox tank = new JComboBox(automaton);
+			boutonsCentre.add(tank);
+			components.add(tank);
 
 			JLabel autoTourelleText = new JLabel("Tourelle");
 			boutonsCentre.add(autoTourelleText);
@@ -279,12 +290,7 @@ public class GameMain {
 			boutonsCentre.add(tourelle);
 			components.add(tourelle);
 
-			JLabel autoTeleporteurText = new JLabel("Téléporteur");
-			boutonsCentre.add(autoTeleporteurText);
-
-			JComboBox teleporteur = new JComboBox(automaton);
-			boutonsCentre.add(teleporteur);
-			components.add(teleporteur);
+			
 
 			JButton retour = new JButton("Retour");
 			retour.setFocusPainted(false);
