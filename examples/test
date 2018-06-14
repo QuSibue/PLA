@@ -1,5 +1,6 @@
 Forward(Init){
-	*(Init): Closest	 & True ? Move(F) : (Init)
+	*(Init): MyDir(E) & True ? Move(F) : (Init)
+	| True ? Turn(R) : (Init)
 }
 
 Virus(Init){
@@ -39,3 +40,12 @@ Antivirus(Init){
 
 }
 
+ZigAg(Init){
+
+	*(Init): True ? Move(L) :(Left1)
+	*(Left1): True ? Move(F) :(Front1)
+	*(Front1): True ? Move(R) :(Right1)
+	*(Right1): True ? Move(R) :(Right2)
+	*(Right2): True ? Move(F) :(Front2)
+	*(Front2): True ? Move(L) :(Init)
+}

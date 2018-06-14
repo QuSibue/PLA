@@ -32,7 +32,7 @@ public abstract class Options {
 	public static final int MINION_MS = 200;
 
 	// Cooldown
-	public static final long laserCD = 300L;
+	public static final long laserCD = 1000L;
 	public static final long powerCD = 300L;
 	
 	public static final String pathPlayer = "examples/test";

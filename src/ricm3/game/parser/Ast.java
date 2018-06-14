@@ -949,7 +949,7 @@ public class Ast {
 		public ricm3.game.automaton.Transition makeBis(State entry) {
 			ricm3.game.automaton.Condition cond;
 			ricm3.game.automaton.Action act;
-			ricm3.game.automaton.Etat etatSource = new ricm3.game.automaton.Etat(target.name.value);
+			ricm3.game.automaton.Etat etatSource = new ricm3.game.automaton.Etat((ricm3.game.automaton.Etat)entry.make());
 			ricm3.game.automaton.Etat etatFinal;
 			ricm3.game.automaton.Transition transitionAutomate;
 
