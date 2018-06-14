@@ -3,7 +3,6 @@ package ricm3.game.entity;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-
 import ricm3.game.automaton.Orientation;
 import javax.swing.ImageIcon;
 import ricm3.game.mvc.Map;
@@ -20,18 +19,17 @@ public abstract class Entity {
 
 	private BufferedImage[][] m_sprites;
 	private int m_nbImageRefresh;
-	private int m_indexRefresh=0;
-	private int m_numImage=0;
+	private int m_indexRefresh = 0;
+	private int m_numImage = 0;
 	private int m_nbImage;
 	private ImageIcon m_icon;
 
 	public Map global_map;
 	public Model m_model;
-	//public ImageDataBase m_idb;
-
+	// public ImageDataBase m_idb;
 
 	public Entity(int x, int y, boolean move, boolean pick, boolean kill, boolean leth, BufferedImage[][] sprites,
-			int nbImage,ImageIcon icon, Map map, Model model) {
+			int nbImage, ImageIcon icon, Map map, Model model) {
 
 		this.m_coordinateX = x;
 		this.m_coordinateY = y;
@@ -121,7 +119,7 @@ public abstract class Entity {
 	public BufferedImage[][] getSprites() {
 		return m_sprites;
 	}
-	
+
 	public ImageIcon getIcon() {
 		return m_icon;
 	}
@@ -189,7 +187,7 @@ public abstract class Entity {
 	}
 
 	public boolean setNumImage(int a) {
-		this.m_numImage= a;
+		this.m_numImage = a;
 		return true;
 	}
 
