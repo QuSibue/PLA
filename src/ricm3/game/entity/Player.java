@@ -43,17 +43,19 @@ public class Player extends Character {
 			Point p = new Point();
 			if (global_map.caseLibre(this.getX(), this.getY(), p)) {
 
-				BufferedImage[][] spriteMinion = m_model.m_idb.getMinionSprites(m_indiceAutoMinions);
+				BufferedImage[][] spriteMinion;
 
 				ImageIcon ic = null;
-				if (getEquipe() == 1)
+				if (getEquipe() == 1) {
+					spriteMinion = m_model.m_idb.getMinionSpritesV(m_indiceAutoMinions);
 					ic = m_model.m_icb.m_iconSbiresVirusSac[m_indiceAutoMinions];
-				else
+				} else {
+					spriteMinion = m_model.m_idb.getMinionSpritesA(m_indiceAutoMinions);
 					ic = m_model.m_icb.m_iconSbiresAntivirusSac[m_indiceAutoMinions];
-
+				}
 				Minion minion = new Minion(spriteMinion, m_model.m_idb.nbFrameM1, ic, p.x, p.y, true, true, true, false,
-						Options.LASER_MS, this.m_autoMinions.get(m_indiceAutoMinions), this.getOrientation(), 1, global_map,
-						this.m_model, 1, 0);
+						Options.LASER_MS, this.m_autoMinions.get(m_indiceAutoMinions), this.getOrientation(), 1,
+						global_map, this.m_model, 1, 0);
 				m_model.m_minions.add(minion);
 				global_map.setEntity(minion);
 				m_energie -= 3;
@@ -84,16 +86,17 @@ public class Player extends Character {
 			Entity e = global_map.getEntity(p.x, p.y);
 			if (e == null) {
 
-				Laser laser = new Laser(p.x, p.y, m_model.m_idb.laserIdle, m_model.m_idb.nbFrameLaser,m_model.m_icb.m_laserSac,
-						m_model.m_automates.get(2), this.getOrientation(), global_map, m_model, 1, 0);
+				Laser laser = new Laser(p.x, p.y, m_model.m_idb.laserIdle, m_model.m_idb.nbFrameLaser,
+						m_model.m_icb.m_laserSac, m_model.m_automates.get(2), this.getOrientation(), global_map,
+						m_model, 1, 0);
 
 				this.m_model.m_laser.add(laser);
 				global_map.setEntity(laser);
 
 			} else if (e instanceof PowerUp) {
 
-				Laser laser = new Laser(p.x, p.y, null, m_model.m_idb.nbFrameLaser,m_model.m_icb.m_laserSac, m_model.m_automates.get(2),
-						this.getOrientation(), global_map, m_model, 1, 0);
+				Laser laser = new Laser(p.x, p.y, null, m_model.m_idb.nbFrameLaser, m_model.m_icb.m_laserSac,
+						m_model.m_automates.get(2), this.getOrientation(), global_map, m_model, 1, 0);
 
 				laser.erased_powerup = (PowerUp) e;
 				this.m_model.m_laser.add(laser);
@@ -125,11 +128,11 @@ public class Player extends Character {
 	public void power(long now) {
 		System.out.println(m_energie);
 
-		if (m_energie+5 <= 10) {
-			m_energie+=5;
+		if (m_energie + 5 <= 10) {
+			m_energie += 5;
 			System.out.println(m_energie);
-		}else {
-			m_energie += 10-m_energie;
+		} else {
+			m_energie += 10 - m_energie;
 		}
 
 	}
