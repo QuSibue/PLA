@@ -95,7 +95,7 @@ public class Model extends GameModel {
 
 		// ON FAIT UN AUTOMATE
 
-		//Automaton aut = Transversal.virusAutomaton();
+		// Automaton aut = Transversal.virusAutomaton();
 		// FIN DE L'AUTOMATE
 
 		// ONFAIT LE JOUEUR
@@ -113,12 +113,12 @@ public class Model extends GameModel {
 
 		map.setEntity(antivirus);
 
-		PowerUp PU = new PowerUp(4, 3, this, m_idb.powerUp, m_icb.m_energieSac, m_idb.nbFramePowerUp,1);
+		PowerUp PU = new PowerUp(4, 3, this, m_idb.powerUpE, m_icb.m_energieSac, m_idb.nbFramePowerUp, 1);
 
 		m_powerup.add(PU);
 		map.setEntity(PU);
-		
-		Portal p = new Portal(9,9,12,12,m_idb.portail,m_idb.nbFramePortail,null,map,this);
+
+		Portal p = new Portal(9, 9, 12, 12, m_idb.portail, m_idb.nbFramePortail, null, map, this);
 		m_portal.add(p);
 		map.setEntity(p);
 
@@ -178,7 +178,7 @@ public class Model extends GameModel {
 			}
 			m_ath.step(now);
 			// Affichage du modele
-			
+
 			long elapsed = 0;
 			if (m_last != 0) {
 				elapsed = now - m_last;
@@ -194,21 +194,23 @@ public class Model extends GameModel {
 				do {
 					Random rand = new Random();
 					Random rand2 = new Random();
-					
+
 					xr = rand.nextInt(29);
 					yr = rand.nextInt(15);
-					
+
 					xr2 = rand.nextInt(29);
 					yr2 = rand.nextInt(15);
-					
-				}while(map.getEntity(xr, yr)!=null || map.getEntity(xr2, yr2)!=null);
-				PowerUp p1 = new PowerUp(xr, yr, this, this.m_idb.powerUp, this.m_icb.m_energieSac, this.m_idb.nbFramePowerUp, 0);
-				PowerUp p2 = new PowerUp(xr2, yr2, this, this.m_idb.powerUp, this.m_icb.m_energieSac, this.m_idb.nbFramePowerUp, 1);
+
+				} while (map.getEntity(xr, yr) != null || map.getEntity(xr2, yr2) != null);
+				PowerUp p1 = new PowerUp(xr, yr, this, this.m_idb.powerUpV, this.m_icb.m_energieSac,
+						this.m_idb.nbFramePowerUp, 0);
+				PowerUp p2 = new PowerUp(xr2, yr2, this, this.m_idb.powerUpE, this.m_icb.m_energieSac,
+						this.m_idb.nbFramePowerUp, 1);
 				map.setEntity(p1);
 				map.setEntity(p2);
 				this.m_powerup.add(p1);
 				this.m_powerup.add(p2);
-				
+
 				Options.TIMER_POWER_UP = 10000;
 				// enlever de la liste des trucs à step
 			}

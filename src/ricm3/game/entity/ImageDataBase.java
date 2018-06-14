@@ -26,7 +26,8 @@ public class ImageDataBase {
 	public BufferedImage[][] m6IdleV;
 
 	public BufferedImage[][] obstacle;
-	public BufferedImage[][] powerUp;
+	public BufferedImage[][] powerUpE;
+	public BufferedImage[][] powerUpV;
 	public BufferedImage[][] portail;
 	public BufferedImage[][] drapeau;
 
@@ -68,7 +69,8 @@ public class ImageDataBase {
 		m6IdleV = new BufferedImage[4][];
 
 		obstacle = new BufferedImage[1][];
-		powerUp = new BufferedImage[1][];
+		powerUpE = new BufferedImage[1][];
+		powerUpV = new BufferedImage[1][];
 		portail = new BufferedImage[1][];
 		drapeau = new BufferedImage[1][];
 
@@ -195,7 +197,8 @@ public class ImageDataBase {
 	}
 
 	public void loadPowerUpSprite() {
-		loadOneRowOfSprite(powerUp, 0, nbFramePowerUp, "images/energie/Energie.png");
+		loadOneRowOfSprite(powerUpE, 0, nbFramePowerUp, "images/energie/Energie.png");
+		loadOneRowOfSprite(powerUpV, 0, nbFramePowerUp, "images/Vie/Vie.png");
 	}
 
 	public void loadPortailSprite() {
@@ -234,7 +237,7 @@ public class ImageDataBase {
 			throw new RuntimeException("Indice sprite des sbires invalide");
 		}
 	}
-	
+
 	public BufferedImage[][] getMinionSpritesV(int i) {
 		switch (i) {
 		case 0:
