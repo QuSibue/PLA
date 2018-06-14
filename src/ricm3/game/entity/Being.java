@@ -79,7 +79,7 @@ public abstract class Being extends Entity {
 	}
 
 	public boolean setLife(int life) {
-		if(life <= 3) {
+		if (life <= 3) {
 			m_life = life;
 		}
 		return true;
@@ -133,7 +133,7 @@ public abstract class Being extends Entity {
 
 			// ce code va surement être deplacé dans being, superclass de player, minion et
 			// laser
-			
+
 			while (!condition && iter.hasNext()) {
 				transi = iter.next();
 				// les etats sont par aliasing on peut donc utiliser le double égale
@@ -162,8 +162,12 @@ public abstract class Being extends Entity {
 					this.getDamage();
 					global_map.deleteEntity(e);
 					m_model.m_laser.remove(e);
+					if (((Laser) e).erased_powerup != null) {
+						global_map.setEntity(((Laser) e).erased_powerup);
+						((Laser) e).erased_powerup = null;
+					}
 				} else if (e instanceof PowerUp) {
-					((PowerUp)e).applyPowerUp(this);
+					((PowerUp) e).applyPowerUp(this);
 
 					global_map.deleteEntity(e);
 					m_model.m_powerup.remove(e);
@@ -174,9 +178,8 @@ public abstract class Being extends Entity {
 			global_map.deleteEntity(e);
 			global_map.moveEntity(this, p.x, p.y);
 			this.m_model.flagCaptured = true;
-		}
-		else if(e instanceof Portal) {
-			((Portal) e).use_portal(this,p);
+		} else if (e instanceof Portal) {
+			((Portal) e).use_portal(this, p);
 		}
 	}
 
