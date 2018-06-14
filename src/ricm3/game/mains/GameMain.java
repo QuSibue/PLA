@@ -271,7 +271,7 @@ public class GameMain {
 			boutonsCentre.add(autoKamikazeText);
 
 			JComboBox kamikaze = new JComboBox(automaton);
-			recolteur.setSelectedItem(automaton[5]);
+			kamikaze.setSelectedItem(automaton[5]);
 			boutonsCentre.add(kamikaze);
 			components.add(kamikaze);
 			

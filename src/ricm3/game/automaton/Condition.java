@@ -400,7 +400,10 @@ public class Condition {
 	}
 
 	public boolean isClosest(Being b, Entity closest) {
-		if (b.getY() > closest.getY()
+		if( closest == null) {
+			return false;
+		}
+		else if (b.getY() > closest.getY()
 				&& Transversal.abs(b.getY() - closest.getY()) >= Transversal.abs(b.getX() - closest.getX())) {
 			// direction absolue
 			if (m_direction == Direction.NORTH) {

@@ -45,34 +45,91 @@ ZigAg(Init){
 	*(Front2): True ? Move(L) :(Init)
 }
 
-
-Forward(Init){
-	*(Init): True ? Move(F) : (Init)
+Bloqueur(Init){
+	*(Init): Closest(E,N) ? Move(N) : (Init)
+	| Closest(E,S) ? Move(S) : (Init)
+	| Closest(E,E) ? Move(E) : (Init)
+	| Closest(E,O) ? Move(O) : (Init)
+	| True ? Jump : (Init)
 }
 
-ForwardPop(Init){
-	*(Init): True ? Pop() : (Right1)
-	*(Right1): True ? Move(F) : (Right2)
-	*(Right2): True ? Pop() : (Init)
+Recolteur(Init){
+	*(Init): Cell(F,P) ? Move(F) : (Init)
+	| Cell(L,D) ? Move(L) : (Init)
+	| Cell(R,D) ? Move(R) : (Init)
+	| Cell(B,D) ? Move(B) : (Init)
+	| True ? Move(L) :(Left1)
+	*(Left1): Cell(F,P) ? Move(F) : (Init)
+	| Cell(L,D) ? Move(L) : (Init)
+	| Cell(R,D) ? Move(R) : (Init)
+	| Cell(B,D) ? Move(B) : (Init)
+	| True ? Move(F) :(Front1)
+	*(Front1): Cell(F,P) ? Move(F) : (Init)
+	| Cell(L,D) ? Move(L) : (Init)
+	| Cell(R,D) ? Move(R) : (Init)
+	| Cell(B,D) ? Move(B) : (Init)
+	| True ? Move(R) :(Right1)
+	*(Right1): Cell(F,P) ? Move(F) : (Init)
+	| Cell(L,D) ? Move(L) : (Init)
+	| Cell(R,D) ? Move(R) : (Init)
+	| Cell(B,D) ? Move(B) : (Init)
+	| True ? Move(R) :(Right2)
+	*(Right2): Cell(F,P) ? Move(F) : (Init)
+	| Cell(L,D) ? Move(L) : (Init)
+	| Cell(R,D) ? Move(R) : (Init)
+	| Cell(B,D) ? Move(B) : (Init)
+	| True ? Move(F) :(Front2)
+	*(Front2): Cell(F,P) ? Move(F) : (Init)
+	| Cell(L,D) ? Move(L) : (Init)
+	| Cell(R,D) ? Move(R) : (Init)
+	| Cell(B,D) ? Move(B) : (Init)
+	| True ? Move(L) :(Init)
 }
 
-ForwardWizz(Init){
-	*(Init): True ? Move(F) : (Right1)
-	*(Right1): True ? Move(F) : (Right2)
-	*(Right2): True ? Wizz() : (Init)
+KamikazAut(Init){
+ 	*(Init): Cell(F,E) ? Pop : (Init)
+	| Cell(L,E) ? Pop : (Init)
+	| Cell(R,E) ? Pop : (Init)
+	| Cell(B,E) ? Pop : (Init)
+ 	| Closest(E,N) ? Move(N) : (Init)
+	| Closest(E,S) ? Move(S) : (Init)
+	| Closest(E,E) ? Move(E) : (Init)
+	| Closest(E,O) ? Move(O) : (Init)
+	| True ? Jump : (Init)
+}
+
+PortalMan(Init){
+	*(Init): True ? Move(L) :(Left1)
+	*(Left1): True ? Move(F) :(Front1)
+	*(Front1): True ? Move(R) :(Right1)
+	*(Right1): True ? Move(R) :(Right2)
+	*(Right2): True ? Move(F) :(Front2)
+	*(Front2): True ? Move(L) :(Init2)
+	*(Init2): True ? Move(L) :(Left12)
+	*(Left12): True ? Move(F) :(Front12)
+	*(Front12): True ? Move(R) :(Right12)
+	*(Right12): True ? Move(R) :(Right22)
+	*(Right22): True ? Move(F) :(Front22)
+	*(Front22): True ? Wizz() :(Init2)
+}
+
+Tank(Init){
+	*(Init): Cell(F,D) ? Move(F) : (Init)
+	| Cell(F,D) ? Move(F) : (Init)
+	| Cell(L,D) ? Move(L) : (Init)
+	| Cell(R,D) ? Move(R) : (Init)
+	| Cell(B,D) ? Move(B) : (Init)
+	| Closest(D,N) ? Move(N) : (Init)
+	| Closest(D,S) ? Move(S) : (Init)
+	| Closest(D,E) ? Move(E) : (Init)
+	| Closest(D,O) ? Move(O) : (Init)
+	| True ? Jump : (Init)
 }
 
 
-Wizzard(Init){
-	*(Init): True ? Wizz() : (Init)
-}
-
-
-
-Poper(Init){
-	*(Init): True ? Pop() : (Init)
-}
-
-Test(Init){
-	*(Init): True ? Pop() : (Init)
+Tourelle(Init){
+	*(Init): Cell(F,E) ? Hit : (Init)
+	| Cell(L,E) ? Hit : (Init)
+	| Cell(R,E) ? Hit : (Init)
+	| Cell(B,E) ? Hit : (Init)
 }
