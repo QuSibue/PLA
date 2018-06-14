@@ -11,17 +11,6 @@ public class IconDataBase {
 	public ImageIcon[] m_iconSbiresVirus;
 	public ImageIcon[] m_iconSbiresAntivirusSac;
 	public ImageIcon[] m_iconSbiresVirusSac;
-//	public ImageIcon m_ABloqueurSac;
-//	public ImageIcon m_AFarmerSac;
-//	public ImageIcon m_AKamikazeSac;
-//	public ImageIcon m_APortailSac;
-//	public ImageIcon m_ATankSac;
-//	public ImageIcon m_VBloqueurSac;
-//	public ImageIcon m_VFarmerSac;
-//	public ImageIcon m_VKamikazeSac;
-//	public ImageIcon m_VPortailSac;
-//	public ImageIcon m_VTankSac;
-//	public ImageIcon m_tourelleSac;
 	public ImageIcon m_energieSac;
 	public ImageIcon m_laserSac;
 	public ImageIcon m_obstacleSac;
@@ -205,6 +194,6 @@ public class IconDataBase {
 	}
 
 	public ImageIcon[] getIconSbiresVirus() {
-		return m_iconSbiresAntivirus;
+		return m_iconSbiresVirus;
 	}
 }
