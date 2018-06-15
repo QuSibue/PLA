@@ -37,7 +37,7 @@ public class ImageDataBase {
 
 	public final int nbFrameVirus = 3;
 	public final int nbFrameAntivirus = 3;
-	public final int nbFrameLaser = 1;
+	public final int nbFrameLaser = 6;
 
 	public final int nbFrameM1 = 6;
 	public final int nbFrameM2 = 6;

@@ -255,7 +255,14 @@ public class Laser extends Being {
 				m_model.m_laser.remove(this);
 			}
 		} else {
-			g.drawImage(this.getSprites()[0][0], this.getX() * Options.TAILLE_CASE, this.getY() * Options.TAILLE_CASE,
+			int i = getIndexRefresh();
+			setIndexRefresh(i + 1);
+			if (i == getNbImageRefresh()) {
+				setIndexRefresh(0);
+				int j = getNumImage();
+				setNumImage(j + 1);
+			}
+			g.drawImage(this.getSprites()[0][getNumImage() % getNbImage()], this.getX() * Options.TAILLE_CASE, this.getY() * Options.TAILLE_CASE,
 					Options.TAILLE_CASE, Options.TAILLE_CASE, null);
 			if (m_isFirstPaint)
 				m_isFirstPaint = false;
