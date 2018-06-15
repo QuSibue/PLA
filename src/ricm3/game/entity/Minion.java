@@ -10,6 +10,7 @@ import ricm3.game.automaton.Direction;
 import ricm3.game.automaton.Orientation;
 import ricm3.game.mvc.Map;
 import ricm3.game.mvc.Model;
+import ricm3.game.other.Options;
 import ricm3.game.other.Transversal;
 
 public class Minion extends Character {
@@ -18,6 +19,7 @@ public class Minion extends Character {
 	public int yOrigin;
 	public long lifespan;
 	public long m_last;
+	private long m_lastShot = -Options.laserCD;
 
 	public Minion(BufferedImage[][] sprites, int nbImage, ImageIcon icon, int x, int y, boolean moveable,
 			boolean pickable, boolean killable, boolean lethal, int moveSpeed, Automaton automate,
@@ -51,6 +53,41 @@ public class Minion extends Character {
 
 	}
 
+	@Override
+	public void hit(long now) {
+		long elapsed = now - m_lastShot;
+		if (elapsed > Options.laserCD) {
+			m_lastShot = now;
+			this.setLastMove(now);
+			Point p = new Point();
+			Transversal.evalPosition(this.getX(), this.getY(), p, Direction.FRONT, this.getOrientation());
+			Entity e = global_map.getEntity(p.x, p.y);
+			if (e == null) {
+
+				Laser laser = new Laser(p.x, p.y, m_model.m_idb.laserIdle, m_model.m_idb.nbFrameLaser,
+						m_model.m_icb.m_laserSac, m_model.m_automates.get(2), this.getOrientation(), global_map,
+						m_model, 1, 0, Options.TIMER_LASER);
+
+				this.m_model.m_laser.add(laser);
+				global_map.setEntity(laser);
+
+			} else if (e instanceof PowerUp) {
+
+				Laser laser = new Laser(p.x, p.y, m_model.m_idb.laserIdle, m_model.m_idb.nbFrameLaser, m_model.m_icb.m_laserSac,
+						m_model.m_automates.get(2), this.getOrientation(), global_map, m_model, 1, 0,
+						Options.TIMER_LASER);
+
+				laser.erased_powerup = (PowerUp) e;
+				this.m_model.m_laser.add(laser);
+				global_map.setEntity(laser);
+			} else if (e.getKillable()) {
+				((Being) e).getDamage();
+			}
+		}
+
+	}
+	
+	
 	public void pop(long now) {
 		int x = this.getX();
 		int y = this.getY();
@@ -78,16 +115,17 @@ public class Minion extends Character {
 	public void wizz() {
 		int xCourant = this.getX();
 		int yCourant = this.getY();
+		this.global_map.deleteEntity(this);
+		m_model.m_minions.remove(this);
 		Portal p = new Portal(xOrigin, yOrigin, xCourant, yCourant, m_model.m_idb.portail, m_model.m_idb.nbFramePortail,
 				m_model.m_icb.m_energieSac, global_map, m_model);
 		m_model.m_portal.add(p);
 		global_map.setEntity(p); // enlever les commentaires quand la liste de portail sera dans model
 		// m_model.m_portail.add(p);
-		this.global_map.deleteEntity(this);
-		m_model.m_minions.remove(this);
+		
 	}
 
-	public void hit(long now) {
+	/*public void hit(long now) {
 
 		Point p = new Point();
 		Transversal.evalPosition(this.getX(), this.getY(), p, Direction.FRONT, this.getOrientation());
@@ -104,9 +142,9 @@ public class Minion extends Character {
 		 * this.getEquipe()) { closest = this.closestEntity(closest, m);
 		 * 
 		 * } }
-		 */
+		 
 
-	}
+	}*/
 
 	public void power(long now) {
 		return;

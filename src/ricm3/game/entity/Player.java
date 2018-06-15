@@ -23,6 +23,7 @@ public class Player extends Character {
 	private long m_lastPower = -Options.powerCD;
 	private ArrayList<Automaton> m_autoMinions;
 	private int m_indiceAutoMinions;
+	private long m_lastShot = -Options.laserCD;
 
 	public Player(int x, int y, BufferedImage[][] sprites, int nbImage, Automaton aut, Orientation orientation,
 			int equipe, Map map, Model model, int life, long lastMove, TypeKey key) {
@@ -36,6 +37,43 @@ public class Player extends Character {
 
 	}
 
+	
+	@Override
+	public void hit(long now) {
+		long elapsed = now - m_lastShot;
+		if (elapsed > Options.laserCD) {
+			m_lastShot = now;
+			this.setLastMove(now);
+			Point p = new Point();
+			Transversal.evalPosition(this.getX(), this.getY(), p, Direction.FRONT, this.getOrientation());
+			Entity e = global_map.getEntity(p.x, p.y);
+			if (e == null) {
+
+				Laser laser = new Laser(p.x, p.y, m_model.m_idb.laserIdle, m_model.m_idb.nbFrameLaser,
+						m_model.m_icb.m_laserSac, m_model.m_automates.get(2), this.getOrientation(), global_map,
+						m_model, 1, 0, Options.TIMER_LASER);
+
+				this.m_model.m_laser.add(laser);
+				global_map.setEntity(laser);
+
+			} else if (e instanceof PowerUp) {
+
+				Laser laser = new Laser(p.x, p.y, m_model.m_idb.laserIdle, m_model.m_idb.nbFrameLaser, m_model.m_icb.m_laserSac,
+						m_model.m_automates.get(2), this.getOrientation(), global_map, m_model, 1, 0,
+						Options.TIMER_LASER);
+
+				laser.erased_powerup = (PowerUp) e;
+				this.m_model.m_laser.add(laser);
+				global_map.setEntity(laser);
+			} else if (e.getKillable()) {
+				((Being) e).getDamage();
+			}
+		}
+
+	}
+	
+	
+	
 	@Override
 	public void pop(long now) {
 		if (m_energie >= 3) {
