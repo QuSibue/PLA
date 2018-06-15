@@ -28,7 +28,7 @@ public class Portal extends Entity {
 		coordinateX_end = x_end;
 		coordinateY_end = y_end;
 		nb_utilisation = 1;
-		lifespan = 15000; // aucune idée de la valeur ideal
+		lifespan = 45000; // aucune idée de la valeur ideal
 		m_last = 0;
 	}
 
