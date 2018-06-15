@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.Iterator;
+import java.util.LinkedList;
 
 import ricm3.game.entity.Laser;
 import ricm3.game.entity.Minion;
@@ -70,11 +71,22 @@ public class View extends GameView {
 			m_model.m_drapeau.paint(g);
 		}
 
-		Iterator<Minion> iterM = m_model.m_minions.iterator();
-		Iterator<Obstacle> iterO = m_model.m_obstacles.iterator();
-		Iterator<Laser> iterL = m_model.m_laser.iterator();
-		Iterator<PowerUp> iterP = m_model.m_powerup.iterator();
-		Iterator<Portal> iterP2 = m_model.m_portal.iterator();
+		LinkedList<Minion> minionsClone = (LinkedList<Minion>) m_model.m_minions.clone();
+		Iterator<Minion> iterM = minionsClone.iterator();
+
+		LinkedList<Obstacle> obstaclesClone = (LinkedList<Obstacle>) m_model.m_obstacles.clone();
+		Iterator<Obstacle> iterO = obstaclesClone.iterator();
+
+		LinkedList<Laser> laserClone = (LinkedList<Laser>) m_model.m_laser.clone();
+		Iterator<Laser> iterL = laserClone.iterator();
+
+		LinkedList<Portal> portalClone = (LinkedList<Portal>) m_model.m_portal.clone();
+		Iterator<Portal> iterP2 = portalClone.iterator();
+		
+		LinkedList<PowerUp> powerClone = (LinkedList<PowerUp>) m_model.m_powerup.clone();
+		Iterator<PowerUp> iterP = powerClone.iterator();
+		
+		
 		Minion m;
 		while (iterM.hasNext()) {
 			m = iterM.next();
