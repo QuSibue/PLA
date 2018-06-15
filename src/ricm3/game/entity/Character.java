@@ -50,9 +50,11 @@ public abstract class Character extends Being {
 		if (e != null && e.getPickable()) {
 			if (m_sac.addItem(e)) {
 				global_map.deleteEntity(e);
+				this.m_model.m_obstacles.remove(e);
 				this.m_model.m_powerup.remove(e);
 				this.m_model.m_laser.remove(e);
 				this.m_model.m_minions.remove(e);
+			
 			}
 		}
 	}

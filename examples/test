@@ -35,15 +35,22 @@ Antivirus(Init){
 
 }
 
-ZigAg(Init){
+LaserPop(Init){
 
 	*(Init): True ? Move(L) :(Left1)
 	*(Left1): True ? Move(F) :(Front1)
 	*(Front1): True ? Move(R) :(Right1)
 	*(Right1): True ? Move(R) :(Right2)
 	*(Right2): True ? Move(F) :(Front2)
-	*(Front2): True ? Move(L) :(Init)
+	*(Front2): True ? Move(L) :(Init2)
+	*(Init2): True ? Move(L) :(Left12)
+	*(Left12): True ? Move(F) :(Front12)
+	*(Front12): True ? Move(R) :(Right12)
+	*(Right12): True ? Move(R) :(Right22)
+	*(Right22): True ? Move(F) :(Front22)
+	*(Front22): True ? Pop() :(Init2)
 }
+
 
 Bloqueur(Init){
 	*(Init): Closest(A,N) ? Move(N) : (Init)
@@ -132,4 +139,32 @@ Tourelle(Init){
 	| Cell(R,A) ? Hit : (Init)
 	| Cell(B,A) ? Hit : (Init)
 	| True ? Jump : (Init)
+}
+
+
+LaserWizz(Init){
+
+	*(Init): True ? Move(L) :(Left1)
+	*(Left1): True ? Move(F) :(Front1)
+	*(Front1): True ? Move(R) :(Right1)
+	*(Right1): True ? Move(R) :(Right2)
+	*(Right2): True ? Move(F) :(Front2)
+	*(Front2): True ? Move(L) :(Init2)
+	*(Init2): True ? Move(L) :(Left12)
+	*(Left12): True ? Move(F) :(Front12)
+	*(Front12): True ? Move(R) :(Right12)
+	*(Right12): True ? Move(R) :(Right22)
+	*(Right22): True ? Move(F) :(Front22)
+	*(Front22): True ? Wizz() :(Init2)
+}
+
+
+Laser(Init){
+
+	*(Init): True ? Move(L) :(Left1)
+	*(Left1): True ? Move(F) :(Front1)
+	*(Front1): True ? Move(R) :(Right1)
+	*(Right1): True ? Move(R) :(Right2)
+	*(Right2): True ? Move(F) :(Front2)
+	*(Front2): True ? Move(L) :(Init)
 }

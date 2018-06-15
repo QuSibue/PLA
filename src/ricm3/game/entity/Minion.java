@@ -66,16 +66,16 @@ public class Minion extends Character {
 
 				Laser laser = new Laser(p.x, p.y, m_model.m_idb.laserIdle, m_model.m_idb.nbFrameLaser,
 						m_model.m_icb.m_laserSac, m_model.m_automates.get(2), this.getOrientation(), global_map,
-						m_model, 1, 0, Options.TIMER_LASER);
+						m_model, 1, 0, 1000);
 
 				this.m_model.m_laser.add(laser);
 				global_map.setEntity(laser);
 
 			} else if (e instanceof PowerUp) {
 
-				Laser laser = new Laser(p.x, p.y, m_model.m_idb.laserIdle, m_model.m_idb.nbFrameLaser, m_model.m_icb.m_laserSac,
-						m_model.m_automates.get(2), this.getOrientation(), global_map, m_model, 1, 0,
-						Options.TIMER_LASER);
+				Laser laser = new Laser(p.x, p.y, m_model.m_idb.laserIdle, m_model.m_idb.nbFrameLaser,
+						m_model.m_icb.m_laserSac, m_model.m_automates.get(2), this.getOrientation(), global_map,
+						m_model, 1, 0, 1000);
 
 				laser.erased_powerup = (PowerUp) e;
 				this.m_model.m_laser.add(laser);
@@ -84,17 +84,93 @@ public class Minion extends Character {
 				((Being) e).getDamage();
 			}
 		}
+		m_lastShot = now;
+		this.setLastMove(now);
+		Point p = new Point();
+		Transversal.evalPosition(this.getX(), this.getY(), p, Direction.LEFT, this.getOrientation());
+		Entity e = global_map.getEntity(p.x, p.y);
+		if (e == null) {
 
+			Laser laser = new Laser(p.x, p.y, m_model.m_idb.laserIdle, m_model.m_idb.nbFrameLaser,
+					m_model.m_icb.m_laserSac, m_model.m_automates.get(2), this.getOrientation(), global_map, m_model, 1,
+					0, 1000);
+
+			this.m_model.m_laser.add(laser);
+			global_map.setEntity(laser);
+
+		} else if (e instanceof PowerUp) {
+
+			Laser laser = new Laser(p.x, p.y, m_model.m_idb.laserIdle, m_model.m_idb.nbFrameLaser,
+					m_model.m_icb.m_laserSac, m_model.m_automates.get(2), this.getOrientation(), global_map, m_model, 1,
+					0, 1000);
+
+			laser.erased_powerup = (PowerUp) e;
+			this.m_model.m_laser.add(laser);
+			global_map.setEntity(laser);
+		} else if (e.getKillable()) {
+			((Being) e).getDamage();
+		}
+		m_lastShot = now;
+		this.setLastMove(now);
+		p = new Point();
+		Transversal.evalPosition(this.getX(), this.getY(), p, Direction.RIGHT, this.getOrientation());
+		e = global_map.getEntity(p.x, p.y);
+		if (e == null) {
+
+			Laser laser = new Laser(p.x, p.y, m_model.m_idb.laserIdle, m_model.m_idb.nbFrameLaser,
+					m_model.m_icb.m_laserSac, m_model.m_automates.get(2), this.getOrientation(), global_map, m_model, 1,
+					0, 1000);
+
+			this.m_model.m_laser.add(laser);
+			global_map.setEntity(laser);
+
+		} else if (e instanceof PowerUp) {
+
+			Laser laser = new Laser(p.x, p.y, m_model.m_idb.laserIdle, m_model.m_idb.nbFrameLaser,
+					m_model.m_icb.m_laserSac, m_model.m_automates.get(2), this.getOrientation(), global_map, m_model, 1,
+					0, 1000);
+
+			laser.erased_powerup = (PowerUp) e;
+			this.m_model.m_laser.add(laser);
+			global_map.setEntity(laser);
+		} else if (e.getKillable()) {
+			((Being) e).getDamage();
+		}
+		m_lastShot = now;
+		this.setLastMove(now);
+		p = new Point();
+		Transversal.evalPosition(this.getX(), this.getY(), p, Direction.BACK, this.getOrientation());
+		e = global_map.getEntity(p.x, p.y);
+		if (e == null) {
+
+			Laser laser = new Laser(p.x, p.y, m_model.m_idb.laserIdle, m_model.m_idb.nbFrameLaser,
+					m_model.m_icb.m_laserSac, m_model.m_automates.get(2), this.getOrientation(), global_map, m_model, 1,
+					0, 1000);
+
+			this.m_model.m_laser.add(laser);
+			global_map.setEntity(laser);
+
+		} else if (e instanceof PowerUp) {
+
+			Laser laser = new Laser(p.x, p.y, m_model.m_idb.laserIdle, m_model.m_idb.nbFrameLaser,
+					m_model.m_icb.m_laserSac, m_model.m_automates.get(2), this.getOrientation(), global_map, m_model, 1,
+					0, 1000);
+
+			laser.erased_powerup = (PowerUp) e;
+			this.m_model.m_laser.add(laser);
+			global_map.setEntity(laser);
+		} else if (e.getKillable()) {
+			((Being) e).getDamage();
+		}
 	}
-	
-	
+
 	public void pop(long now) {
 		int x = this.getX();
 		int y = this.getY();
 		for (int i = x - 1; i <= x + 1; i++) {
 			for (int j = y - 1; j <= y + 1; j++) {
 				Entity e = global_map.getEntity(i, j);
-				if (e != null && e!= this) {
+				if (e != null && e != this) {
 					if (e instanceof Being) {
 						((Being) e).getDamage();
 					}
@@ -105,11 +181,11 @@ public class Minion extends Character {
 				setNumImage(0);
 				setNbImageRefresh((int) ricm3.game.framework.Options.FPS / m_model.m_idb.nbFrameExplosion);
 				setNbiMAGE(m_model.m_idb.nbFrameExplosion);
-				
+
 			}
 		}
 		// m_model.m_minions.remove(this);
-		
+
 	}
 
 	public void wizz() {
@@ -122,29 +198,27 @@ public class Minion extends Character {
 		m_model.m_portal.add(p);
 		global_map.setEntity(p); // enlever les commentaires quand la liste de portail sera dans model
 		// m_model.m_portail.add(p);
-		
+
 	}
 
-	/*public void hit(long now) {
-
-		Point p = new Point();
-		Transversal.evalPosition(this.getX(), this.getY(), p, Direction.FRONT, this.getOrientation());
-		Entity e = global_map.getEntity(p.x, p.y);
-		if (e instanceof Being) {
-			((Being) e).getDamage();
-		}
-		/*
-		 * Iterator<Minion> iterM = m_model.m_minions.iterator(); Entity closest = null;
-		 * if (this.getEquipe() == m_model.virus.getEquipe()) { closest =
-		 * m_model.antivirus;< } else { closest = m_model.virus;
-		 * 
-		 * } while (iterM.hasNext()) { Minion m = iterM.next(); if (m.getEquipe() !=
-		 * this.getEquipe()) { closest = this.closestEntity(closest, m);
-		 * 
-		 * } }
-		 
-
-	}*/
+	/*
+	 * public void hit(long now) {
+	 * 
+	 * Point p = new Point(); Transversal.evalPosition(this.getX(), this.getY(), p,
+	 * Direction.FRONT, this.getOrientation()); Entity e = global_map.getEntity(p.x,
+	 * p.y); if (e instanceof Being) { ((Being) e).getDamage(); } /*
+	 * Iterator<Minion> iterM = m_model.m_minions.iterator(); Entity closest = null;
+	 * if (this.getEquipe() == m_model.virus.getEquipe()) { closest =
+	 * m_model.antivirus;< } else { closest = m_model.virus;
+	 * 
+	 * } while (iterM.hasNext()) { Minion m = iterM.next(); if (m.getEquipe() !=
+	 * this.getEquipe()) { closest = this.closestEntity(closest, m);
+	 * 
+	 * } }
+	 * 
+	 * 
+	 * }
+	 */
 
 	public void power(long now) {
 		return;
