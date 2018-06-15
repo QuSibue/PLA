@@ -166,8 +166,8 @@ public abstract class Being extends Entity {
 					global_map.deleteEntity(e);
 					m_model.m_laser.remove(e);
 					if (((Laser) e).erased_powerup != null) {
-						global_map.setEntity(((Laser) e).erased_powerup);
-						((Laser) e).erased_powerup = null;
+						((Laser) e).erased_powerup.applyPowerUp(this);
+						m_model.m_powerup.remove(((Laser) e).erased_powerup);
 					}
 				} else if (e instanceof PowerUp) {
 					((PowerUp) e).applyPowerUp(this);
